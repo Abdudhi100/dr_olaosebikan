@@ -1,13 +1,183 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-    <title>{% block title %}Doctor Profile{% endblock %}</title>
-    {% load static %}
-    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>
+    {% block title %}
+      {{ meta.title|default:clinic.clinic_name|default:"Resilience Clinic" }}
+    {% endblock %}
+  </title>
+
+  <!-- ================= CORE SEO ================= -->
+  <meta name="description" content="{{ meta.description|default:'Compassionate, evidence-based care. Book appointments online and access trusted health resources.' }}">
+  <meta name="keywords" content="{{ meta.keywords|default:'clinic, healthcare, appointment, doctor, medical services, patient portal' }}">
+  <meta name="author" content="{{ meta.author|default:clinic.clinic_name|default:'Resilience Clinic' }}">
+  <meta name="robots" content="{{ meta.robots|default:'index, follow' }}">
+  <meta name="googlebot" content="{{ meta.robots|default:'index, follow' }}">
+  <link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+  <!-- ================= OPEN GRAPH ================= -->
+  <meta property="og:title" content="{{ meta.title|default:clinic.clinic_name|default:'Resilience Clinic' }}">
+  <meta property="og:description" content="{{ meta.description|default:'Book appointments, explore services, and access trusted health resources.' }}">
+  <meta property="og:type" content="{{ meta.type|default:'website' }}">
+  <meta property="og:url" content="{{ request.build_absolute_uri }}">
+  <meta property="og:site_name" content="{{ clinic.clinic_name|default:'Resilience Clinic' }}">
+  <meta property="og:locale" content="en_US">
+
+  {% if meta.image %}
+    {% if meta.image.url %}
+      <meta property="og:image" content="{{ meta.image.url }}">
+    {% else %}
+      <meta property="og:image" content="{{ meta.image }}">
+    {% endif %}
+  {% else %}
+    <meta property="og:image" content="{% static 'images/og-default.jpg' %}">
+  {% endif %}
+
+  <!-- ================= TWITTER ================= -->
+  <meta name="twitter:card" content="{{ meta.twitter_card|default:'summary_large_image' }}">
+  <meta name="twitter:title" content="{{ meta.title|default:clinic.clinic_name|default:'Resilience Clinic' }}">
+  <meta name="twitter:description" content="{{ meta.description|default:'Book appointments and access trusted healthcare information.' }}">
+  {% if meta.image %}
+    {% if meta.image.url %}
+      <meta name="twitter:image" content="{{ meta.image.url }}">
+    {% else %}
+      <meta name="twitter:image" content="{{ meta.image }}">
+    {% endif %}
+  {% else %}
+    <meta name="twitter:image" content="{% static 'images/twitter-card.jpg' %}">
+  {% endif %}
+
+  <!-- ================= STRUCTURED DATA ================= -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "{{ meta.schema_type|default:'MedicalClinic' }}",
+    "name": "{{ clinic.clinic_name|default:'Resilience Clinic' }}",
+    "url": "{{ request.scheme }}://{{ request.get_host }}",
+    "description": "{{ meta.description|default:'A specialist clinic offering compassionate, evidence-based care.' }}",
+    "telephone": "{{ clinic.contact_phone|default:'' }}",
+    "email": "{{ clinic.contact_email|default:'' }}",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "{{ clinic.clinic_address|default:'' }}",
+      "addressCountry": "NG"
+    }
+  }
+  </script>
+
+  {% if schema %}
+    <script type="application/ld+json">{{ schema|safe }}</script>
+  {% endif %}
+
+  <!-- ================= THEME / FAVICONS ================= -->
+  <meta name="theme-color" content="#0f172a">
+
+  <link rel="icon" href="{% static 'favicon/favicon.ico' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+  <link rel="apple-touch-icon" href="{% static 'favicon/apple-touch-icon.png' %}">
+  <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+
+  <!-- ================= CSS ================= -->
+  <link rel="preload" href="{% static 'css/output.css' %}" as="style">
+  <link href="{% static 'css/output.css' %}" rel="stylesheet">
+
+  <!-- ================= PERF ================= -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- ================= ACCESSIBILITY ================= -->
+  <style>
+    .skip-link{
+      position:absolute;top:-40px;left:0;
+      background:#2563eb;color:#fff;
+      padding:.6rem 1rem;z-index:1000;
+      border-radius:.75rem;text-decoration:none;
+      box-shadow:0 10px 20px rgba(2,6,23,.15);
+    }
+    .skip-link:focus{top:.85rem;left:.85rem;}
+    [x-cloak]{display:none !important;}
+  </style>
+
+  <!-- HTMX (defer so it doesn't block rendering) -->
+  <script defer src="https://unpkg.com/htmx.org@1.9.12"></script>
+
+  {% block extra_head %}{% endblock %}
 </head>
-<body>
-    {% include 'partials/navbar.html' %}
+
+<body class="min-h-screen bg-slate-50 text-slate-800 antialiased">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Top progress -->
+  <div class="fixed inset-x-0 top-0 z-[60] h-0.5 bg-transparent">
+    <div id="scrollbar" class="h-0.5 w-0 bg-blue-600"></div>
+  </div>
+
+  {% include "partials/navbar.html" %}
+
+  <!-- Toast messages (NO Alpine needed here; safer) -->
+  {% if messages %}
+    <div class="fixed top-20 right-4 z-[70] space-y-3" aria-live="polite">
+      {% for message in messages %}
+        <div class="flex items-start gap-3 max-w-sm rounded-2xl bg-white border border-slate-200 px-4 py-3 shadow-lg">
+          <span class="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-xl bg-blue-50 ring-1 ring-blue-100 text-blue-700">
+            ✓
+          </span>
+          <div class="min-w-0">
+            <p class="text-sm font-semibold text-slate-900">Notice</p>
+            <p class="text-sm text-slate-700 break-words">{{ message }}</p>
+          </div>
+          <button type="button"
+                  onclick="this.closest('div').remove()"
+                  class="ml-auto rounded-xl p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/40"
+                  aria-label="Dismiss notification">
+            ✕
+          </button>
+        </div>
+      {% endfor %}
+    </div>
+
+    <script>
+      // auto-dismiss after 4.5s (no Alpine)
+      setTimeout(() => {
+        document.querySelectorAll('[aria-live="polite"] > div').forEach(el => el.remove());
+      }, 4500);
+    </script>
+  {% endif %}
+
+  <main id="main-content" role="main" class="min-h-[60vh]">
     {% block content %}{% endblock %}
-    {% include 'partials/footer.html' %}
+  </main>
+
+  {% include "partials/footer.html" %}
+
+  <!-- Alpine (defer) -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <script>
+    (function () {
+      const bar = document.getElementById("scrollbar");
+      if (!bar) return;
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function onScroll() {
+        const h = document.documentElement;
+        const max = h.scrollHeight - h.clientHeight;
+        const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+        if (!prefersReduced) bar.style.transition = "width 120ms linear";
+        bar.style.width = pct + "%";
+      }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+    })();
+  </script>
+
+  {% block extra_scripts %}{% endblock %}
 </body>
 </html>

@@ -1,0 +1,12 @@
+New appointment booking
+
+Patient: {{ a.patient_name }}
+Email: {{ a.patient_email }}
+Phone: {{ a.patient_phone }}
+
+Service: {{ a.service.name }}
+Date: {{ a.availability.date }}
+Time: {{ a.availability.start_time }} - {{ a.availability.end_time }}
+
+Notes:
+{{ a.notes }}

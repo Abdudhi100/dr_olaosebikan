@@ -1,0 +1,278 @@
+<!-- templates/accounts/dashboards/doctor_dashboard.html -->
+{% extends "accounts/dashboards/base_dashboard.html" %}
+
+{% block page_title %}Doctor Dashboard{% endblock %}
+{% block page_subtitle %}Manage your medical practice efficiently{% endblock %}
+
+{% block sidebar %}
+    <li>
+        <a href="{% url 'accounts:doctor-dashboard' %}" class="sidebar-link active">
+            <i class="fas fa-tachometer-alt mr-3"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'appointments:doctor' %}" class="sidebar-link">
+            <i class="fas fa-calendar-check mr-3"></i>
+            <span>Appointments</span>
+            <span class="ml-auto badge badge-info">{{ pending_appointments.count }}</span>
+        </a>
+    </li>
+    <li>
+        <a href="#" class="sidebar-link">
+            <i class="fas fa-users mr-3"></i>
+            <span>Patients</span>
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'publications' %}" class="sidebar-link">
+            <i class="fas fa-file-alt mr-3"></i>
+            <span>Publications</span>
+            <span class="ml-auto badge badge-info">{{ publications_count }}</span>
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'publications:achievements' %}" class="sidebar-link">
+            <i class="fas fa-trophy mr-3"></i>
+            <span>Achievements</span>
+            <span class="ml-auto badge badge-info">{{ achievements_count }}</span>
+        </a>
+    </li>
+    <li>
+        <a href="#" class="sidebar-link">
+            <i class="fas fa-chart-line mr-3"></i>
+            <span>Analytics</span>
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'admin:index' %}" class="sidebar-link">
+            <i class="fas fa-cog mr-3"></i>
+            <span>Settings</span>
+        </a>
+    </li>
+{% endblock %}
+
+{% block mobile_sidebar %}
+    {% block sidebar %}{% endblock %}
+{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="stat-card">
+            <div class="flex items-center">
+                <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mr-4">
+                    <i class="fas fa-calendar-day text-white text-xl"></i>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">Today's Appointments</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ today_appointments.count }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="flex items-center">
+                <div class="w-12 h-12 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-lg flex items-center justify-center mr-4">
+                    <i class="fas fa-clock text-white text-xl"></i>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">Pending Requests</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ pending_appointments.count }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="flex items-center">
+                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center mr-4">
+                    <i class="fas fa-briefcase-medical text-white text-xl"></i>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">Services</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ services_count }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="flex items-center">
+                <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mr-4">
+                    <i class="fas fa-chart-bar text-white text-xl"></i>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">Monthly Revenue</p>
+                    <p class="text-2xl font-bold text-gray-900">$12,450</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Two Column Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Today's Appointments -->
+        <div class="dashboard-card">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-900">Today's Schedule</h3>
+                <a href="{% url 'appointments:doctor' %}" class="text-sm text-blue-600 hover:text-blue-800 font-medium">
+                    View All <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            
+            {% if today_appointments %}
+                <div class="space-y-4">
+                    {% for appt in today_appointments %}
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-gradient-to-r from-blue-100 to-blue-200 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user-md text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900">
+                                        {{ appt.patient.get_full_name|default:appt.patient.username }}
+                                    </p>
+                                    <p class="text-sm text-gray-500">
+                                        {{ appt.service.name }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-medium text-gray-900">{{ appt.availability.start_time|time:"g:i A" }}</p>
+                                <span class="badge badge-success">Confirmed</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="text-center py-8">
+                    <i class="fas fa-calendar-times text-4xl text-gray-300 mb-4"></i>
+                    <p class="text-gray-500">No appointments scheduled for today</p>
+                    <a href="{% url 'appointments:manage' %}" class="inline-block mt-4 text-blue-600 hover:text-blue-800 font-medium">
+                        Schedule Appointment
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Pending Appointments -->
+        <div class="dashboard-card">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-900">Pending Requests</h3>
+                <span class="badge badge-warning">{{ pending_appointments.count }} pending</span>
+            </div>
+            
+            {% if pending_appointments %}
+                <div class="space-y-4">
+                    {% for appt in pending_appointments|slice:":5" %}
+                        <div class="flex items-center justify-between p-4 bg-yellow-50 rounded-lg border border-yellow-100">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-gradient-to-r from-yellow-100 to-yellow-200 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-clock text-yellow-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900">
+                                        {{ appt.patient.get_full_name|default:appt.patient.username }}
+                                    </p>
+                                    <p class="text-sm text-gray-500">
+                                        {{ appt.availability.date }} at {{ appt.availability.start_time|time:"g:i A" }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="px-3 py-1 bg-green-100 text-green-700 rounded-lg text-sm font-medium hover:bg-green-200 transition-colors mr-2">
+                                    Accept
+                                </button>
+                                <button class="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-medium hover:bg-red-200 transition-colors">
+                                    Decline
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    
+                    {% if pending_appointments.count > 5 %}
+                        <div class="text-center pt-4 border-t">
+                            <a href="{% url 'appointments:doctor' %}" class="text-blue-600 hover:text-blue-800 font-medium">
+                                View all {{ pending_appointments.count }} pending requests
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% else %}
+                <div class="text-center py-8">
+                    <i class="fas fa-check-circle text-4xl text-green-300 mb-4"></i>
+                    <p class="text-gray-500">No pending appointments</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Additional Sections -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Quick Actions -->
+        <div class="dashboard-card lg:col-span-2">
+            <h3 class="text-lg font-semibold text-gray-900 mb-6">Quick Actions</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <a href="{% url 'appointments:manage' %}" class="flex flex-col items-center justify-center p-4 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors">
+                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mb-3">
+                        <i class="fas fa-plus text-white text-xl"></i>
+                    </div>
+                    <span class="font-medium text-gray-900 text-center">New Appointment</span>
+                </a>
+                <a href="#" class="flex flex-col items-center justify-center p-4 bg-green-50 rounded-xl hover:bg-green-100 transition-colors">
+                    <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center mb-3">
+                        <i class="fas fa-file-medical text-white text-xl"></i>
+                    </div>
+                    <span class="font-medium text-gray-900 text-center">Write Prescription</span>
+                </a>
+                <a href="{% url 'publications' %}" class="flex flex-col items-center justify-center p-4 bg-purple-50 rounded-xl hover:bg-purple-100 transition-colors">
+                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mb-3">
+                        <i class="fas fa-edit text-white text-xl"></i>
+                    </div>
+                    <span class="font-medium text-gray-900 text-center">Add Publication</span>
+                </a>
+                <a href="#" class="flex flex-col items-center justify-center p-4 bg-orange-50 rounded-xl hover:bg-orange-100 transition-colors">
+                    <div class="w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg flex items-center justify-center mb-3">
+                        <i class="fas fa-chart-line text-white text-xl"></i>
+                    </div>
+                    <span class="font-medium text-gray-900 text-center">View Reports</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="dashboard-card">
+            <h3 class="text-lg font-semibold text-gray-900 mb-6">Recent Activity</h3>
+            <div class="space-y-4">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-calendar-check text-blue-600 text-sm"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-900">Appointment confirmed</p>
+                        <p class="text-xs text-gray-500">10 minutes ago</p>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-user-plus text-green-600 text-sm"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-900">New patient registered</p>
+                        <p class="text-xs text-gray-500">1 hour ago</p>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-file-upload text-purple-600 text-sm"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-900">Report uploaded</p>
+                        <p class="text-xs text-gray-500">2 hours ago</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

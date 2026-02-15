@@ -1,0 +1,144 @@
+{# templates/messaging/contact_whatsapp.html #}
+{% extends "base.html" %}
+
+{% block title %}WhatsApp Contact | Dr Olaosebikan{% endblock %}
+
+{% block content %}
+<section class="relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-white">
+  <div class="pointer-events-none absolute inset-0">
+    <div class="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-emerald-200/30 blur-3xl"></div>
+    <div class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-slate-200/40 blur-3xl"></div>
+  </div>
+
+  <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+
+    <div class="mb-6 flex items-center justify-between gap-3">
+      <a href="{% url 'core_app:contact' %}"
+         class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-900">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M12.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 1.414L8.414 10l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+        </svg>
+        Back to Contact
+      </a>
+
+      {# Fallback link: still lets user open WhatsApp even if form button is affected #}
+      {% if DOCTOR_WHATSAPP_NUMBER %}
+        <a href="https://wa.me/{{ DOCTOR_WHATSAPP_NUMBER }}"
+           target="_blank" rel="noopener noreferrer"
+           class="hidden sm:inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50">
+          Open WhatsApp
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+      <div class="p-6 sm:p-8 space-y-6">
+
+        <header>
+          <p class="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1 text-sm font-semibold text-emerald-700 ring-1 ring-emerald-100">
+            WhatsApp Contact
+          </p>
+          <h1 class="mt-4 text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+            Start a WhatsApp chat
+          </h1>
+          <p class="mt-2 text-slate-600 leading-relaxed">
+            Fill the form and we’ll open WhatsApp with a pre-filled message to Dr Olaosebikan.
+          </p>
+        </header>
+
+        <form method="post" class="space-y-6">
+          {% csrf_token %}
+
+          {% if form.non_field_errors %}
+            <div class="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">
+              {{ form.non_field_errors }}
+            </div>
+          {% endif %}
+
+          <!-- Patient Name -->
+          <div>
+            <label for="{{ form.patient_name.id_for_label }}" class="block text-sm font-semibold text-slate-800">
+              Full Name <span class="text-rose-600">*</span>
+            </label>
+
+            <div class="mt-2">
+              {{ form.patient_name }}
+            </div>
+
+            {% if form.patient_name.errors %}
+              <p class="mt-2 text-sm text-rose-600">{{ form.patient_name.errors|striptags }}</p>
+            {% else %}
+              <p class="mt-2 text-xs text-slate-500">Use your full name so we can address you correctly.</p>
+            {% endif %}
+          </div>
+
+          <!-- Phone -->
+          <div>
+            <label for="{{ form.phone.id_for_label }}" class="block text-sm font-semibold text-slate-800">
+              Phone Number <span class="text-rose-600">*</span>
+            </label>
+
+            <div class="mt-2 flex rounded-xl border border-slate-200 bg-white shadow-sm focus-within:ring-2 focus-within:ring-emerald-600/30 focus-within:border-emerald-600">
+              <span class="inline-flex items-center px-4 text-sm font-semibold text-slate-600 border-r border-slate-200">
+                +234
+              </span>
+              {{ form.phone }}
+            </div>
+
+            {% if form.phone.errors %}
+              <p class="mt-2 text-sm text-rose-600">{{ form.phone.errors|striptags }}</p>
+            {% else %}
+              <p class="mt-2 text-xs text-slate-500">Enter your number without the country code if you’re in Nigeria.</p>
+            {% endif %}
+          </div>
+
+          <!-- Message -->
+          <div>
+            <label for="{{ form.message.id_for_label }}" class="block text-sm font-semibold text-slate-800">
+              Message <span class="text-slate-400 font-medium">(optional)</span>
+            </label>
+
+            <div class="mt-2">
+              {{ form.message }}
+            </div>
+
+            {% if form.message.errors %}
+              <p class="mt-2 text-sm text-rose-600">{{ form.message.errors|striptags }}</p>
+            {% else %}
+              <p class="mt-2 text-xs text-slate-500">
+                Avoid sharing highly sensitive details. We’ll guide you in WhatsApp if more info is needed.
+              </p>
+            {% endif %}
+          </div>
+
+          <!-- Actions: forced visible -->
+          <div class="pt-2 border-t border-slate-200">
+            <div class="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+              <p class="text-xs text-slate-500">
+                By continuing, you agree to be contacted via WhatsApp regarding your inquiry.
+              </p>
+
+              <button
+                type="submit"
+                style="display: inline-flex !important; visibility: visible !important; opacity: 1 !important;"
+                class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white
+                       shadow-sm hover:bg-emerald-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600/40 focus-visible:ring-offset-2"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.04 2C6.58 2 2.14 6.43 2.14 11.9c0 1.93.55 3.82 1.6 5.46L2 22l4.8-1.7a9.78 9.78 0 005.24 1.52h.01c5.46 0 9.9-4.43 9.9-9.9C21.95 6.43 17.5 2 12.04 2zm5.77 14.3c-.24.68-1.18 1.26-1.92 1.41-.5.1-1.15.18-3.75-.86-3.32-1.33-5.47-4.6-5.64-4.82-.17-.22-1.35-1.8-1.35-3.43 0-1.63.85-2.43 1.15-2.76.3-.33.66-.41.88-.41h.64c.2 0 .47-.07.74.56.27.63.92 2.18 1 2.34.08.16.13.35.02.57-.1.22-.15.35-.3.54-.15.19-.32.42-.46.56-.15.15-.3.31-.13.6.17.29.77 1.27 1.65 2.05 1.13 1 2.08 1.31 2.39 1.46.31.15.49.12.67-.07.18-.19.77-.9.98-1.21.21-.31.41-.26.69-.16.28.1 1.8.85 2.11 1.01.31.16.52.24.6.37.08.13.08.75-.16 1.43z"/>
+                </svg>
+                Continue to WhatsApp
+              </button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <p class="mt-6 text-center text-xs text-slate-500">
+      Tip: For appointments, you can also use the booking page (no login required).
+    </p>
+  </div>
+</section>
+{% endblock %}

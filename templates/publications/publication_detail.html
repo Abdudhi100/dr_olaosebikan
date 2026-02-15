@@ -1,0 +1,106 @@
+{# templates/publications/publication_detail.html #}
+{% extends "base.html" %}
+
+{% block title %}{{ publication.title }} | Publication{% endblock %}
+
+{% block content %}
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+  <!-- Back / breadcrumb -->
+  <div class="mb-6">
+    <a href="{% url 'publications:publication_list' %}"
+       class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-900">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M12.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 1.414L8.414 10l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+      </svg>
+      Back to Publications
+    </a>
+  </div>
+
+  <article class="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+    <div class="p-6 sm:p-8">
+      <!-- Title -->
+      <header class="space-y-3">
+        {% if publication.is_featured %}
+          <span class="inline-flex items-center rounded-full bg-amber-50 text-amber-700 ring-1 ring-amber-100 px-3 py-1 text-xs font-semibold">
+            Featured Publication
+          </span>
+        {% endif %}
+
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+          {{ publication.title }}
+        </h1>
+
+        <div class="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-slate-600">
+          <span class="inline-flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V7.414A2 2 0 0015.414 6L13 3.586A2 2 0 0011.586 3H4z" />
+            </svg>
+            <span class="font-semibold text-slate-800">{{ publication.journal }}</span>
+          </span>
+          <span class="text-slate-300">•</span>
+          <span class="font-medium text-slate-700">{{ publication.year }}</span>
+        </div>
+
+        {% if publication.authors %}
+          <p class="text-sm text-slate-700">
+            <span class="font-semibold">Authors:</span> {{ publication.authors }}
+          </p>
+        {% endif %}
+      </header>
+
+      <!-- Meta -->
+      <div class="mt-7 grid gap-4">
+        {% if publication.doi_link %}
+          <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+            <p class="text-sm font-semibold text-slate-900">DOI / External Link</p>
+            <a href="{{ publication.doi_link }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="elselect-all mt-1 block break-words text-sm text-blue-700 hover:underline">
+              {{ publication.doi_link }}
+            </a>
+          </div>
+        {% endif %}
+
+        {% if publication.abstract %}
+          <section class="rounded-xl border border-slate-200 p-5">
+            <h2 class="text-lg font-bold text-slate-900">Abstract</h2>
+            <p class="mt-3 text-slate-700 leading-relaxed whitespace-pre-line">
+              {{ publication.abstract }}
+            </p>
+          </section>
+        {% endif %}
+
+        <!-- Actions -->
+        <div class="flex flex-col sm:flex-row gap-3">
+          {% if publication.pdf %}
+            <a href="{{ publication.pdf.url }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 text-white px-5 py-3 text-sm font-semibold shadow-sm hover:bg-slate-800 transition focus-visible:ring-2 focus-visible:ring-blue-600/40 focus-visible:ring-offset-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M3 3a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2V3z" />
+                <path d="M7 13a2 2 0 012-2h6a2 2 0 012 2v4a2 2 0 01-2 2H9a2 2 0 01-2-2v-4z" />
+              </svg>
+              Download PDF
+            </a>
+          {% endif %}
+
+          {% if publication.doi_link %}
+            <a href="{{ publication.doi_link }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50 transition focus-visible:ring-2 focus-visible:ring-blue-600/40 focus-visible:ring-offset-2">
+              Visit DOI Link
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M11 3a1 1 0 000 2h2.586L7.293 11.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V3h-6z" />
+                <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 100-2H5z" />
+              </svg>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+{% endblock %}

@@ -1,0 +1,8 @@
+<option value="">Select a time</option>
+{% for a in slots %}
+  <option value="{{ a.start_time|time:'H:i' }}">
+    {{ a.start_time|time:"H:i" }} - {{ a.end_time|time:"H:i" }}
+  </option>
+{% empty %}
+  <option value="">No slots available</option>
+{% endfor %}

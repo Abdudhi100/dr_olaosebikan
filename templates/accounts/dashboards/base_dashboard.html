@@ -1,0 +1,63 @@
+<!-- templates/accounts/dashboards/base_dashboard.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100 flex">
+
+  <!-- Sidebar -->
+  <aside class="hidden md:flex md:w-64 flex-col bg-white border-r shadow-sm">
+
+    <!-- Brand / User Info -->
+    <div class="px-6 py-5 border-b">
+      <h2 class="text-xl font-bold text-gray-800">
+        Dashboard
+      </h2>
+      <p class="text-sm text-gray-500 mt-1 truncate">
+        {{ request.user.get_full_name|default:request.user.username }}
+      </p>
+      <span class="inline-block mt-1 text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">
+        {{ request.user.role|title }}
+      </span>
+    </div>
+
+    
+    
+    <!-- Sidebar Footer (SECURE LOGOUT) -->
+    <div class="px-6 py-4 border-t">
+      <form method="post" action="{% url 'accounts:logout' %}">
+        {% csrf_token %}
+        <button
+          type="submit"
+          class="w-full flex items-center gap-2 text-left text-red-600
+                 hover:text-red-700 text-sm font-medium">
+          Logout
+        </button>
+      </form>
+    </div>
+
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col">
+
+    <!-- Top Bar -->
+    <header class="bg-white border-b shadow-sm px-6 py-4 flex items-center justify-between">
+      <h1 class="text-lg font-semibold text-gray-800">
+        {% block page_title %}Overview{% endblock %}
+      </h1>
+
+      <!-- Optional future actions (notifications, profile menu) -->
+      <div class="flex items-center gap-4">
+        {% block header_actions %}{% endblock %}
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <section class="flex-1 p-6">
+      {% block dashboard_content %}{% endblock %}
+    </section>
+
+  </main>
+
+</div>
+{% endblock %}

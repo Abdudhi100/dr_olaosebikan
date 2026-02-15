@@ -1,0 +1,32 @@
+<!-- templates/appointments/success.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<section class="max-w-xl mx-auto py-16 px-6">
+
+  <div class="text-center bg-white shadow-lg border border-gray-100 p-10 rounded-xl">
+    <div class="mx-auto mb-4 flex items-center justify-center">
+      <div class="bg-green-100 text-green-600 p-4 rounded-full">
+        <!-- Check icon -->
+        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5 13l4 4L19 7" />
+        </svg> -->
+      </div>
+    </div>
+
+    <h1 class="text-3xl font-semibold text-gray-800 mb-3">Appointment Request Submitted</h1>
+    <p class="text-gray-500 mb-6">
+      Thank you! Your appointment request has been received.
+      A confirmation email will be sent once approved.
+    </p>
+
+    <a href="/"
+       class="inline-block mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg shadow transition">
+       Return to Home
+    </a>
+  </div>
+
+</section>
+{% endblock %}

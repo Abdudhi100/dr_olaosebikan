@@ -1,0 +1,99 @@
+{# templates/profiles/doctor_profile.html #}
+{% extends "base.html" %}
+
+{% block title %}Dr {{ doctor.full_name }} | Profile{% endblock %}
+
+{% block content %}
+<section class="relative bg-gradient-to-b from-slate-50 via-white to-white">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+
+    <!-- Header Card -->
+    <div class="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+      <div class="p-6 sm:p-8 lg:p-10">
+        <div class="flex flex-col lg:flex-row lg:items-start gap-8">
+
+          <!-- Photo -->
+          <div class="shrink-0">
+            {% if doctor.profile_photo %}
+              <img
+                src="{{ doctor.profile_photo.url }}"
+                alt="Photo of Dr {{ doctor.full_name }}"
+                class="h-40 w-40 rounded-2xl object-cover ring-1 ring-slate-200 shadow-sm"
+                loading="lazy"
+              />
+            {% else %}
+              <div class="h-40 w-40 rounded-2xl bg-slate-100 ring-1 ring-slate-200 flex items-center justify-center text-slate-400">
+                <span class="text-sm font-semibold">No Photo</span>
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- Identity -->
+          <div class="min-w-0">
+            <p class="inline-flex items-center rounded-full bg-blue-50 text-blue-700 ring-1 ring-blue-100 px-3 py-1 text-xs font-semibold">
+              {{ doctor.title }}
+            </p>
+
+            <h1 class="mt-4 text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+              Dr {{ doctor.full_name }}
+            </h1>
+
+            <div class="mt-3 flex flex-wrap items-center gap-2 text-sm text-slate-600">
+              <span class="inline-flex items-center gap-2 rounded-full bg-slate-50 ring-1 ring-slate-200 px-3 py-1">
+                <span class="font-semibold text-slate-800">{{ doctor.specialization }}</span>
+              </span>
+              <span class="inline-flex items-center gap-2 rounded-full bg-slate-50 ring-1 ring-slate-200 px-3 py-1">
+                <span class="font-semibold text-slate-800">{{ doctor.years_of_experience }}</span>
+                <span>years experience</span>
+              </span>
+            </div>
+
+            <!-- CTAs (adjust URLs to your project) -->
+            <div class="mt-6 flex flex-col sm:flex-row gap-3">
+              <a href="{% url 'appointments:book' %}"
+                 class="inline-flex items-center justify-center rounded-xl bg-slate-900 text-white px-5 py-3 text-sm font-semibold shadow-sm hover:bg-slate-800 transition">
+                Book Appointment
+              </a>
+              <a href="{% url 'core_app:contact' %}"
+                 class="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50 transition">
+                Contact
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Bio -->
+        <div class="mt-10 border-t border-slate-200 pt-8">
+          <h2 class="text-xl font-bold text-slate-900">Biography</h2>
+          <div class="prose prose-slate max-w-none mt-4">
+            {{ doctor.bio|linebreaks }}
+          </div>
+        </div>
+
+        <!-- Affiliations / Memberships -->
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          {% if doctor.hospital_affiliations %}
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+              <h3 class="text-base font-bold text-slate-900">Hospital Affiliations</h3>
+              <p class="mt-3 text-sm leading-relaxed text-slate-700 whitespace-pre-line">
+                {{ doctor.hospital_affiliations }}
+              </p>
+            </div>
+          {% endif %}
+
+          {% if doctor.professional_memberships %}
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+              <h3 class="text-base font-bold text-slate-900">Professional Memberships</h3>
+              <p class="mt-3 text-sm leading-relaxed text-slate-700 whitespace-pre-line">
+                {{ doctor.professional_memberships }}
+              </p>
+            </div>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,11 @@
+Hello {{ a.patient_name }},
+
+Your appointment request has been received.
+
+Service: {{ a.service.name }}
+Date: {{ a.availability.date }}
+Time: {{ a.availability.start_time }} - {{ a.availability.end_time }}
+
+If Dr Olaosebikan needs to adjust the time, you will be contacted personally.
+
+Thank you.

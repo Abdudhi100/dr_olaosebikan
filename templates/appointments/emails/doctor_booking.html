@@ -1,0 +1,16 @@
+<h2>New appointment booking</h2>
+
+<ul>
+  <li><b>Patient:</b> {{ a.patient_name }}</li>
+  <li><b>Email:</b> {{ a.patient_email }}</li>
+  <li><b>Phone:</b> {{ a.patient_phone }}</li>
+</ul>
+
+<ul>
+  <li><b>Service:</b> {{ a.service.name }}</li>
+  <li><b>Date:</b> {{ a.availability.date }}</li>
+  <li><b>Time:</b> {{ a.availability.start_time }} - {{ a.availability.end_time }}</li>
+</ul>
+
+<p><b>Notes:</b></p>
+<p>{{ a.notes|default:"(none)" }}</p>

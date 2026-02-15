@@ -1,0 +1,197 @@
+<!-- templates/core_app/components/contact.html -->
+{% load static %}
+
+<section id="contact"
+         class="relative bg-gray-50 py-24 sm:py-28"
+         aria-labelledby="contact-heading">
+
+  <div class="absolute inset-0 -z-10 bg-gradient-to-br from-white via-blue-50 to-indigo-50"></div>
+
+  <div class="max-w-7xl mx-auto px-4 grid gap-16 lg:grid-cols-2">
+
+    <!-- ================= CONTACT INFO ================= -->
+    <div>
+      <span class="inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-1 text-sm font-medium text-blue-700">
+        Get in Touch
+      </span>
+
+      <h2 id="contact-heading"
+          class="mt-6 text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
+        We’re here to help
+      </h2>
+
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-gray-600">
+        Whether you want to book an appointment, ask a question, or request medical information, our clinic team is ready to assist you.
+      </p>
+
+      <!-- ================= CONTACT CARDS ================= -->
+      <dl class="mt-10 grid gap-6 sm:grid-cols-2">
+        <!-- Phone -->
+        <div class="rounded-2xl border bg-white p-6 shadow-sm">
+          <dt class="flex items-center gap-3 text-sm font-semibold text-gray-800">
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 text-blue-700">
+              📞
+            </span>
+            Phone
+          </dt>
+          <dd class="mt-3 text-sm text-gray-600">
+            {% if site_settings.phone %}
+              <a href="tel:{{ site_settings.phone }}"
+                 class="font-medium text-blue-600 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 rounded">
+                {{ site_settings.phone }}
+              </a>
+            {% else %}
+              +234 000 000 0000
+            {% endif %}
+          </dd>
+        </div>
+
+        <!-- Email -->
+        <div class="rounded-2xl border bg-white p-6 shadow-sm">
+          <dt class="flex items-center gap-3 text-sm font-semibold text-gray-800">
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 text-blue-700">
+              ✉️
+            </span>
+            Email
+          </dt>
+          <dd class="mt-3 text-sm text-gray-600">
+            {% if site_settings.email %}
+              <a href="mailto:{{ site_settings.email }}"
+                 class="font-medium text-blue-600 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 rounded">
+                {{ site_settings.email }}
+              </a>
+            {% else %}
+              info@clinic.com
+            {% endif %}
+          </dd>
+        </div>
+
+        <!-- Location -->
+        <div class="rounded-2xl border bg-white p-6 shadow-sm">
+          <dt class="flex items-center gap-3 text-sm font-semibold text-gray-800">
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 text-blue-700">
+              📍
+            </span>
+            Location
+          </dt>
+          <dd class="mt-3 text-sm text-gray-600">
+            {{ site_settings.address|default:"123 Medical Avenue, Lagos, Nigeria" }}
+          </dd>
+        </div>
+
+        <!-- Hours -->
+        <div class="rounded-2xl border bg-white p-6 shadow-sm">
+          <dt class="flex items-center gap-3 text-sm font-semibold text-gray-800">
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 text-blue-700">
+              ⏰
+            </span>
+            Hours
+          </dt>
+          <dd class="mt-3 text-sm text-gray-600">
+            {{ site_settings.hours|default:"Mon – Fri, 9:00 AM – 5:00 PM" }}
+          </dd>
+        </div>
+      </dl>
+
+      <!-- ================= CTA ================= -->
+      <div class="mt-10 flex flex-wrap items-center gap-4">
+        <a href="{% url 'appointments:book' %}"
+           class="inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Book Appointment
+        </a>
+
+        <a href="mailto:{{ site_settings.email|default:'info@clinic.com' }}"
+           class="inline-flex items-center justify-center rounded-xl border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-800 shadow-sm transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Send Email
+        </a>
+      </div>
+    </div>
+
+    <!-- ================= CONTACT FORM ================= -->
+    <div class="relative">
+      <div class="rounded-3xl border bg-white p-8 sm:p-10 shadow-xl">
+
+        <h3 class="text-xl font-semibold text-gray-900">
+          Send a Message
+        </h3>
+
+        <p class="mt-2 text-sm text-gray-500">
+          We typically respond within 24 hours.
+        </p>
+
+        <form method="post"
+              action="{{ contact_form_action|default:'' }}"
+              class="mt-8 grid gap-6"
+              novalidate>
+          {% csrf_token %}
+
+          <!-- Name -->
+          <div>
+            <label for="id_name" class="block text-sm font-medium text-gray-700">
+              Full name
+            </label>
+            <input type="text"
+                   name="name"
+                   id="id_name"
+                   required
+                   autocomplete="name"
+                   placeholder="Your full name"
+                   class="mt-2 w-full rounded-xl border-gray-300 px-4 py-3 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500">
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label for="id_email" class="block text-sm font-medium text-gray-700">
+              Email address
+            </label>
+            <input type="email"
+                   name="email"
+                   id="id_email"
+                   required
+                   autocomplete="email"
+                   placeholder="you@example.com"
+                   class="mt-2 w-full rounded-xl border-gray-300 px-4 py-3 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500">
+          </div>
+
+          <!-- Phone -->
+          <div>
+            <label for="id_phone" class="block text-sm font-medium text-gray-700">
+              Phone number
+            </label>
+            <input type="tel"
+                   name="phone"
+                   id="id_phone"
+                   autocomplete="tel"
+                   placeholder="+234..."
+                   class="mt-2 w-full rounded-xl border-gray-300 px-4 py-3 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500">
+          </div>
+
+          <!-- Message -->
+          <div>
+            <label for="id_message" class="block text-sm font-medium text-gray-700">
+              Message
+            </label>
+            <textarea name="message"
+                      id="id_message"
+                      rows="4"
+                      required
+                      placeholder="How can we help you?"
+                      class="mt-2 w-full rounded-xl border-gray-300 px-4 py-3 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit"
+                  class="mt-2 inline-flex w-full items-center justify-center rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Send Message
+          </button>
+
+          <!-- Trust note -->
+          <p class="text-center text-xs text-gray-400">
+            Your information is kept confidential and never shared.
+          </p>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</section>

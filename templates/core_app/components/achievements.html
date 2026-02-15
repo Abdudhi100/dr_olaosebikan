@@ -1,0 +1,69 @@
+<!-- templates/core_app/components/achievements.html -->
+<!-- ===================== ACHIEVEMENTS ===================== -->
+<section class="relative bg-slate-50 py-28 overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-br from-blue-50/40 via-transparent to-white pointer-events-none"></div>
+
+  <div class="relative max-w-7xl mx-auto px-4">
+
+    <!-- Header -->
+    <header class="max-w-3xl mx-auto text-center">
+      <span class="inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-1 text-sm font-semibold text-blue-700 ring-1 ring-blue-100">
+        Professional Excellence
+      </span>
+      <h2 class="mt-5 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900">
+        Achievements & Recognition
+      </h2>
+      <p class="mt-6 text-lg text-slate-600 leading-relaxed">
+        A career defined by clinical excellence, academic leadership, and trusted medical practice.
+      </p>
+    </header>
+
+    <!-- Achievements Grid -->
+    <div class="mt-20 grid gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {% for achievement in achievements %}
+      <article
+        class="group relative flex flex-col items-center text-center rounded-3xl bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-within:ring-2 focus-within:ring-blue-500"
+      >
+        <!-- Accent Glow -->
+        <div class="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-50/0 via-blue-50/0 to-blue-100/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+
+        <!-- Year -->
+        <div class="relative flex h-14 w-14 items-center justify-center rounded-full bg-blue-100 text-blue-700 font-extrabold text-lg shadow-inner">
+          {{ achievement.year }}
+        </div>
+
+        <!-- Divider -->
+        <div class="relative mt-6 h-px w-12 bg-gradient-to-r from-transparent via-blue-200 to-transparent"></div>
+
+        <!-- Title -->
+        <h3 class="relative mt-6 text-lg font-bold text-slate-900 leading-snug">
+          {{ achievement.title }}
+        </h3>
+
+        {% if achievement.description %}
+        <p class="relative mt-4 text-sm text-slate-600 leading-relaxed line-clamp-3">
+          {{ achievement.description }}
+        </p>
+        {% endif %}
+
+        <!-- Footer -->
+        <div class="relative mt-auto pt-6 text-sm font-semibold text-blue-700 group-hover:underline">
+          View details
+        </div>
+      </article>
+      {% empty %}
+      <div class="col-span-full text-center text-slate-500 text-sm">
+        Professional achievements will appear here soon.
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Trust Statement -->
+    <div class="mt-20 max-w-3xl mx-auto text-center">
+      <p class="text-slate-600 text-base leading-relaxed">
+        Each recognition reflects a commitment to ethical medical practice, continuous learning, and the highest standards of patient care.
+      </p>
+    </div>
+
+  </div>
+</section>

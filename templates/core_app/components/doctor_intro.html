@@ -1,0 +1,14 @@
+<!-- templates/core_app/components/doctor_intro.html -->
+<div class="max-w-4xl mx-auto text-center">
+  <h2 class="text-3xl font-semibold">
+    {{ doctor.user.get_full_name }}
+  </h2>
+  <p class="mt-4 text-gray-600">
+    {{ doctor.short_bio }}
+  </p>
+
+  <a href="{% url 'profiles:detail' doctor.slug %}"
+     class="btn-secondary mt-6 inline-block">
+     View Full Profile
+  </a>
+</div>

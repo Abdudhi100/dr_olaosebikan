@@ -1,0 +1,24 @@
+<!-- templates/pages/static_page.html -->
+{% extends "base.html" %}
+
+{% block title %}
+{{ page.title }}
+{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{{ page.meta_description }}">
+<meta name="keywords" content="{{ page.meta_keywords }}">
+{% endblock %}
+
+{% block content %}
+<section class="max-w-4xl mx-auto py-12 prose">
+
+  <h1>{{ page.title }}</h1>
+
+  <div class="mt-6">
+    {{ page.content|safe }}
+  </div>
+
+</section>
+{% endblock %}
+

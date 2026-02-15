@@ -1,0 +1,93 @@
+<!-- templates/accounts/dashboards/patient_dashboard.html -->
+{% extends "accounts/dashboards/base_dashboard.html" %}
+
+{% block page_title %}My Appointments{% endblock %}
+
+{% block sidebar %}
+<li>
+  <a href="{% url 'accounts:patient-dashboard' %}"
+     class="block px-4 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600">
+    My Appointments
+  </a>
+</li>
+
+<li>
+  <a href="{% url 'appointments:book' %}"
+     class="block px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
+    Book Appointment
+  </a>
+</li>
+
+<li>
+  <a href="{% url 'accounts:password_change' %}"
+     class="block px-4 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600">
+    Security
+  </a>
+</li>
+{% endblock %}
+
+{% block dashboard_content %}
+
+<!-- Summary -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+  <div class="bg-white rounded-xl shadow-sm p-5">
+    <p class="text-sm text-gray-500">Total Appointments</p>
+    <p class="text-2xl font-bold">{{ appointments.count }}</p>
+  </div>
+
+  <div class="bg-white rounded-xl shadow-sm p-5">
+    <p class="text-sm text-gray-500">Confirmed</p>
+    <p class="text-2xl font-bold text-green-600">
+      {{ appointments|length }}
+    </p>
+  </div>
+
+  <div class="bg-white rounded-xl shadow-sm p-5">
+    <p class="text-sm text-gray-500">Pending</p>
+    <p class="text-2xl font-bold text-yellow-600">
+      {{ appointments|length }}
+    </p>
+  </div>
+</div>
+
+<!-- Appointment List -->
+<div class="bg-white rounded-xl shadow-sm divide-y">
+  {% for appt in appointments %}
+  <div class="p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+
+    <!-- Appointment Info -->
+    <div>
+      <p class="font-semibold text-gray-800">
+        {{ appt.service.name }}
+      </p>
+      <p class="text-sm text-gray-500">
+        {{ appt.availability.date }} · {{ appt.availability.start_time }}
+      </p>
+    </div>
+
+    <!-- Status Badge -->
+    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+      {% if appt.status == 'confirmed' %}
+        bg-green-100 text-green-700
+      {% elif appt.status == 'pending' %}
+        bg-yellow-100 text-yellow-700
+      {% else %}
+        bg-red-100 text-red-700
+      {% endif %}
+    ">
+      {{ appt.status|title }}
+    </span>
+
+  </div>
+  {% empty %}
+  <div class="p-10 text-center">
+    <p class="text-gray-500 mb-4">You don’t have any appointments yet.</p>
+    <a href="{% url 'appointments:book' %}"
+       class="inline-block px-6 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
+      Book Your First Appointment
+    </a>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

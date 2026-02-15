@@ -1,0 +1,21 @@
+<!-- templates/core_app/static_page.html -->
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} | {{ clinic.clinic_name }}{% endblock %}
+
+{% block content %}
+<section class="bg-white">
+  <div class="max-w-4xl mx-auto px-4 py-20">
+    <header class="mb-10">
+      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">{{ page.title }}</h1>
+      {% if page.subtitle %}
+      <p class="mt-3 text-lg text-slate-600">{{ page.subtitle }}</p>
+      {% endif %}
+    </header>
+
+    <article class="prose prose-slate max-w-none">
+      {{ page.content|safe }}
+    </article>
+  </div>
+</section>
+{% endblock %}

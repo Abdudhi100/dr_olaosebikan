@@ -1,0 +1,101 @@
+<!-- templates/partials/footer.html -->
+<footer class="bg-slate-950 text-slate-300">
+  <div class="max-w-7xl mx-auto px-6 py-14">
+
+    <div class="grid gap-10 md:grid-cols-4 text-sm">
+
+      <!-- ================= BRAND / ABOUT ================= -->
+      <div>
+        <h3 class="text-white font-extrabold text-base mb-3">
+          {{ clinic.clinic_name|default:"Resilience Clinic" }}
+        </h3>
+        <p class="text-slate-400 leading-relaxed">
+          {{ clinic.tagline|default:"Compassionate, evidence-based care focused on your wellbeing." }}
+        </p>
+
+        <p class="mt-4 text-xs text-slate-500">
+          Trusted care • Qualified professionals • Patient-centred approach
+        </p>
+      </div>
+
+      <!-- ================= QUICK LINKS ================= -->
+      <div>
+        <h4 class="text-white font-semibold mb-3">Quick Links</h4>
+        <ul class="space-y-2">
+          <li>
+            <a href="{% url 'core_app:home' %}#services" class="hover:text-white transition">
+              Services
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'appointments:book' %}" class="hover:text-white transition">
+              Book Appointment
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'publications:publication_list' %}" class="hover:text-white transition">
+              Resources
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'core_app:contact' %}" class="hover:text-white transition">
+              Contact
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ================= CONTACT ================= -->
+      <div>
+        <h4 class="text-white font-semibold mb-3">Contact</h4>
+        <ul class="space-y-2 text-slate-400">
+          <li>📍 {{ clinic.clinic_address|default:"Clinic Address, City" }}</li>
+          <li>
+            📞 <a href="tel:+2340000000000" class="hover:text-white transition">
+              +234 000 000 0000
+            </a>
+          </li>
+          <li>
+            ✉️ <a href="mailto:info@clinic.com" class="hover:text-white transition">
+              info@clinic.com
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ================= HOURS ================= -->
+      <div>
+        <h4 class="text-white font-semibold mb-3">Opening Hours</h4>
+        <ul class="space-y-2 text-slate-400">
+          <li>Mon – Fri: 9:00 AM – 5:00 PM</li>
+          <li>Saturday: 10:00 AM – 2:00 PM</li>
+          <li>Sunday: Closed</li>
+        </ul>
+
+        <p class="mt-4 text-xs text-slate-500">
+          For emergencies, please contact local emergency services.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- ================= DIVIDER ================= -->
+    <div class="my-10 border-t border-slate-800"></div>
+
+    <!-- ================= BOTTOM BAR ================= -->
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-slate-500">
+
+      <p>
+        © {% now "Y" %} {{ clinic.clinic_name|default:"Resilience Clinic" }}. All rights reserved.
+      </p>
+
+      <p class="max-w-2xl leading-relaxed">
+        The medical information provided on this website is for general educational purposes only
+        and does not substitute professional medical advice, diagnosis, or treatment.
+        Always consult a qualified healthcare provider regarding any medical concerns.
+      </p>
+
+    </div>
+
+  </div>
+</footer>

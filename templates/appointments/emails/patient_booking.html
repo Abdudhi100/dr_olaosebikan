@@ -1,0 +1,13 @@
+<h2>Appointment request received</h2>
+<p>Hello <b>{{ a.patient_name }}</b>,</p>
+
+<p>Your appointment request has been received.</p>
+
+<ul>
+  <li><b>Service:</b> {{ a.service.name }}</li>
+  <li><b>Date:</b> {{ a.availability.date }}</li>
+  <li><b>Time:</b> {{ a.availability.start_time }} - {{ a.availability.end_time }}</li>
+</ul>
+
+<p>If Dr Olaosebikan needs to adjust the time, you will be contacted personally.</p>
+<p>Thank you.</p>

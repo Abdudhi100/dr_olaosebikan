@@ -1,0 +1,77 @@
+<!-- ===================== SERVICES ===================== -->
+<section id="services" class="relative bg-white py-28 overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-br from-blue-50/40 via-transparent to-white pointer-events-none"></div>
+
+  <div class="relative max-w-7xl mx-auto px-4">
+
+    <!-- Header -->
+    <header class="max-w-3xl mx-auto text-center">
+      <span class="inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-1 text-sm font-semibold text-blue-700 ring-1 ring-blue-100">
+        Rheumatology Clinic Services
+      </span>
+
+      <h2 class="mt-5 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900">
+        Pain, Arthritis & Autoimmune Care
+      </h2>
+
+      <p class="mt-6 text-lg text-slate-600 leading-relaxed">
+        Targeted, evidence-based care for joint pain, stiffness, inflammation, autoimmune conditions, and chronic pain — with clear plans and structured follow-up.
+      </p>
+    </header>
+
+    <!-- Services Grid -->
+    <div class="mt-20 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+      {% for service in services %}
+      <a href="{% url 'appointments:book' %}"
+         aria-label="Book an appointment for {{ service.name }}"
+         class="group block relative flex flex-col rounded-3xl bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
+
+        <!-- Top Accent -->
+        <div class="absolute inset-x-0 top-0 h-1 rounded-t-3xl bg-gradient-to-r from-blue-500 to-blue-300 opacity-0 transition group-hover:opacity-100"></div>
+
+        <!-- Glow -->
+        <div class="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-50/0 to-blue-100/40 opacity-0 transition group-hover:opacity-100"></div>
+
+        <!-- Icon -->
+        <div class="relative mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100 text-blue-700 shadow-inner ring-1 ring-blue-200">
+          {% include "components/icon.html" with name=service.icon class="h-7 w-7" %}
+        </div>
+
+
+        <!-- Content -->
+        <h3 class="relative text-xl font-bold text-slate-900 leading-snug">
+          {{ service.name }}
+        </h3>
+
+        <p class="relative mt-4 text-sm sm:text-base text-slate-600 leading-relaxed line-clamp-3">
+          {{ service.description|default:"Specialist assessment and treatment tailored to arthritis, autoimmune disease, inflammatory pain, and chronic pain — designed for long-term control and better daily function." }}
+        </p>
+
+        <!-- Footer -->
+        <div class="relative mt-auto pt-6 flex items-center justify-between">
+          <span class="text-sm font-semibold text-blue-700 group-hover:underline">
+            Book this service
+          </span>
+        </div>
+      </a>
+      {% empty %}
+      <div class="col-span-full text-center text-slate-500 text-sm">
+        Services will be published shortly.
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Global CTA -->
+    <div class="mt-20 flex flex-col items-center gap-4 text-center">
+      <a href="{% url 'appointments:book' %}"
+         class="inline-flex block items-center gap-3 rounded-full bg-blue-600 px-9 py-4 text-base font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+        Book an Appointment
+      </a>
+
+      <p class="text-sm text-slate-500">
+        Fast booking • Confidential • Specialist-led care
+      </p>
+    </div>
+
+  </div>
+</section>
