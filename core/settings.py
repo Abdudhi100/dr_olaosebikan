@@ -291,3 +291,4 @@ LOGGING = {
         "appointments": {"handlers": ["console"], "level": "INFO", "propagate": False},
     },
 }
+WHITENOISE_MANIFEST_STRICT = False
