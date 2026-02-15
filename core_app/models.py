@@ -26,7 +26,7 @@ class SiteSettings(models.Model):
         default="Expert Rheumatology Care You Can Trust",
     )
     hero_subtitle = models.TextField(
-        default="Evidence-based treatment for arthritis, autoimmune disease, chronic pain and inflammatory conditions — led by Dr Olaosebikan.",
+        default="Evidence-based treatment for arthritis, autoimmune disease, chronic pain and inflammatory conditions.",
     )
     hero_cta_text = models.CharField(max_length=100, default="Book an Appointment")
     hero_cta_link = models.CharField(max_length=200, default="/appointments/book/")
