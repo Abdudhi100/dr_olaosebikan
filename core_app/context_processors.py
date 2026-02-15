@@ -2,15 +2,29 @@
 from .models import SiteSettings
 
 DEFAULT_SITE_SETTINGS = {
-    "clinic_name": "Dr Olaosebikan Clinic",
+    # Brand
+    "clinic_name": "Pain, Arthritis, Autoimmune & Rheumatology Clinic",
+    "clinic_tagline": "Specialist care for pain, arthritis, autoimmune & rheumatic diseases.",
+
+    # Contact (model field names)
+    "contact_phone": "+234 000 000 0000",
+    "contact_email": "info@clinic.com",
+    "clinic_address": "123 Medical Avenue, Lagos, Nigeria",
+    "whatsapp_number": "2348107971507",
+
+    # SEO
+    "meta_description": (
+        "Specialist rheumatology clinic for pain, arthritis, autoimmune and rheumatic diseases. "
+        "Book an appointment with Dr Olaosebikan."
+    ),
+    "meta_keywords": "rheumatology, arthritis, autoimmune, pain clinic",
+    "og_image": None,
+
+    # Template aliases (so existing templates keep working)
     "phone": "+234 000 000 0000",
     "email": "info@clinic.com",
     "address": "123 Medical Avenue, Lagos, Nigeria",
     "hours": "Mon – Fri, 9:00 AM – 5:00 PM",
-    # optional SEO fields if templates expect them:
-    "meta_description": "Specialist clinic for pain, arthritis, autoimmune and rheumatic diseases.",
-    "meta_keywords": "rheumatology, arthritis, autoimmune, pain clinic",
-    "og_image": None,
 }
 
 DEFAULT_META = {
@@ -24,8 +38,8 @@ DEFAULT_META = {
     "image": None,
 }
 
-def _safe_attr(obj, name, default=None):
-    """Read attribute from model OR key from dict, with default."""
+def _get(obj, name, default=None):
+    """Get attribute from model or key from dict."""
     if obj is None:
         return default
     if isinstance(obj, dict):
@@ -33,36 +47,37 @@ def _safe_attr(obj, name, default=None):
     return getattr(obj, name, default)
 
 def _og_image_url(obj):
-    """Return image URL safely for model ImageField or dict."""
+    """Return og_image.url safely for model ImageField OR dict."""
     if obj is None:
         return None
     if isinstance(obj, dict):
         val = obj.get("og_image")
-        # allow either a raw url string or None
         return val if isinstance(val, str) else None
     img = getattr(obj, "og_image", None)
     return getattr(img, "url", None) if img else None
 
 def clinic_context(request):
     """
-    Global clinic branding + SEO defaults (Render-safe).
-    Exposes:
-      - site_settings: SiteSettings model OR fallback dict (never None)
+    Global clinic branding + SEO defaults.
+
+    Provides:
+      - site_settings: model instance OR fallback dict (never None)
+      - clinic: alias for backward compatibility
       - clinic_name: always a string
       - meta: always a dict
-      - clinic: alias (backward compatibility)
     """
-    obj = SiteSettings.objects.filter(is_active=True).first()
 
-    # Fallback to dict so templates never crash on missing DB row
+    obj = SiteSettings.objects.filter(is_active=True).first()
     site_settings = obj or DEFAULT_SITE_SETTINGS
 
-    clinic_name = _safe_attr(site_settings, "clinic_name", DEFAULT_SITE_SETTINGS["clinic_name"])
+    # Values based on your model fields (with safe fallbacks)
+    clinic_name = _get(site_settings, "clinic_name", DEFAULT_SITE_SETTINGS["clinic_name"])
 
+    # Build meta (always safe)
     meta = {
         "title": clinic_name,
-        "description": _safe_attr(site_settings, "meta_description", DEFAULT_META["description"]) or DEFAULT_META["description"],
-        "keywords": _safe_attr(site_settings, "meta_keywords", DEFAULT_META["keywords"]) or DEFAULT_META["keywords"],
+        "description": _get(site_settings, "meta_description", DEFAULT_META["description"]) or DEFAULT_META["description"],
+        "keywords": _get(site_settings, "meta_keywords", DEFAULT_META["keywords"]) or DEFAULT_META["keywords"],
         "schema_type": DEFAULT_META["schema_type"],
         "type": DEFAULT_META["type"],
         "robots": DEFAULT_META["robots"],
@@ -70,9 +85,25 @@ def clinic_context(request):
         "image": _og_image_url(site_settings),
     }
 
+    # 🔥 Template-friendly aliases (so templates using phone/email/address won't crash)
+    # If site_settings is a model, add these computed values separately.
+    phone = _get(site_settings, "contact_phone", DEFAULT_SITE_SETTINGS["phone"])
+    email = _get(site_settings, "contact_email", DEFAULT_SITE_SETTINGS["email"])
+    address = _get(site_settings, "clinic_address", DEFAULT_SITE_SETTINGS["address"])
+
+    # hours isn't in your model; keep a default or later add a model field.
+    hours = DEFAULT_SITE_SETTINGS["hours"]
+
     return {
+        # primary
         "site_settings": site_settings,
+        "clinic": site_settings,  # alias
         "clinic_name": clinic_name,
         "meta": meta,
-        "clinic": site_settings,  # backward compatibility if templates used {{ clinic.* }}
+
+        # aliases used in templates
+        "phone": phone,
+        "email": email,
+        "address": address,
+        "hours": hours,
     }
