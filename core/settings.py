@@ -193,12 +193,15 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# In production, STATICFILES_DIRS is usually unnecessary; it can be kept for dev.
-STATICFILES_DIRS = [BASE_DIR / "static"] if DEBUG else []
+# ✅ ALWAYS include project-level static (needed on Render)
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 STORAGES = {
-    "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"}
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    }
 }
+
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
