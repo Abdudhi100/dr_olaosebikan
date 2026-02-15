@@ -7,10 +7,10 @@ DEFAULT_SITE_SETTINGS = {
     "clinic_tagline": "Specialist care for pain, arthritis, autoimmune & rheumatic diseases.",
 
     # Contact (model field names)
-    "contact_phone": "+234 000 000 0000",
-    "contact_email": "info@clinic.com",
-    "clinic_address": "123 Medical Avenue, Lagos, Nigeria",
-    "whatsapp_number": "2348107971507",
+    "contact_phone": "+2348035751154",
+    "contact_email": "hakeemolaosebikan37@gmail.com",
+    "clinic_address": "Block 117, Alaka LSDPC, Lagos, Nigeria",
+    "whatsapp_number": "2348035751154",
 
     # SEO
     "meta_description": (
@@ -21,9 +21,9 @@ DEFAULT_SITE_SETTINGS = {
     "og_image": None,
 
     # Template aliases (so existing templates keep working)
-    "phone": "+234 000 000 0000",
-    "email": "info@clinic.com",
-    "address": "123 Medical Avenue, Lagos, Nigeria",
+    "phone": "+2348035751154",
+    "email": "hakeemolaosebikan37@gmail.com",
+    "address": "Block 117, Alaka LSDPC, Lagos, Nigeria",
     "hours": "Mon – Fri, 9:00 AM – 5:00 PM",
 }
 

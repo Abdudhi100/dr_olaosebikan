@@ -51,13 +51,13 @@
         <ul class="space-y-2 text-slate-400">
           <li>📍 {{ clinic.clinic_address|default:"Clinic Address, City" }}</li>
           <li>
-            📞 <a href="tel:+2340000000000" class="hover:text-white transition">
-              +234 000 000 0000
+            📞 <a href="tel:{{ clinic.contact_phone|default:'+2348035751154' }}" class="hover:text-white transition">
+              {{ clinic.contact_phone|default:'+2348035751154' }}
             </a>
           </li>
           <li>
-            ✉️ <a href="mailto:info@clinic.com" class="hover:text-white transition">
-              info@clinic.com
+            ✉️ <a href="mailto:{{ clinic.contact_email|default:'hakeemolaosebikan37@gmail.com' }}" class="hover:text-white transition">
+              {{ clinic.contact_email|default:'hakeemolaosebikan37@gmail.com' }}
             </a>
           </li>
         </ul>
