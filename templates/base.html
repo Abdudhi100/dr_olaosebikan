@@ -27,6 +27,7 @@
   <meta property="og:url" content="{{ request.build_absolute_uri }}">
   <meta property="og:site_name" content="{{ clinic.clinic_name|default:'Resilience Clinic' }}">
   <meta property="og:locale" content="en_US">
+  <style>[x-cloak] { display: none !important; }</style>
 
   {% if meta.image %}
     {% if meta.image.url %}
@@ -156,8 +157,11 @@
 
   {% include "partials/footer.html" %}
 
-  <!-- Alpine (defer) -->
+  <!-- Alpine Focus plugin (enables x-trap) -->
+  <script defer src="https://unpkg.com/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
+  <!-- Alpine core -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
 
   <script>
     (function () {

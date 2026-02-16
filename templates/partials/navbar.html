@@ -1,62 +1,89 @@
-<!-- templates/partials/navbar.html -->
+{# templates/partials/navbar.html #}
 <nav
-  x-data="{ open: false }"
-  x-init="$watch('open', v => document.body.classList.toggle('overflow-hidden', v))"
-  @keydown.escape.window="open = false"
-  role="navigation"
-  aria-label="Primary"
+  x-data="navBar()"
+  @keydown.escape.window="closeAll()"
   class="sticky top-0 z-50 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 ring-1 ring-slate-200/70"
+  aria-label="Primary"
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6">
-    <div class="flex h-16 items-center justify-between">
+    <div class="flex h-16 items-center justify-between gap-3">
 
-      <!-- ================= BRAND ================= -->
-      <div class="flex items-center gap-3">
-        <a href="{% url 'core_app:home' %}"
-           class="group inline-flex items-center gap-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600">
-
-          <!-- Logo mark -->
-          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-white font-extrabold tracking-tight shadow-sm shadow-blue-600/20">
-            <span class="text-sm">
-              {{ clinic.logo_text|default:"PA" }}
-            </span>
+      <!-- BRAND -->
+      <a href="{% url 'core_app:home' %}"
+         class="group inline-flex items-center gap-3 min-w-0 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600">
+        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white font-extrabold tracking-tight shadow-sm shadow-blue-600/20">
+          <span class="text-sm">
+            {{ clinic.clinic_name|default:"Clinic"|slice:":2"|upper }}
+          </span>
+        </div>
+        <div class="min-w-0 leading-tight">
+          <div class="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-blue-700 transition truncate">
+            {{ clinic.clinic_name|default:"Pain, Arthritis, Autoimmune & Rheumatology Clinic" }}
           </div>
-
-          <!-- Name + tagline -->
-          <div class="leading-tight">
-            <div class="text-base font-extrabold text-slate-900 group-hover:text-blue-700 transition">
-              {{ clinic.clinic_name|default:"Resilience Clinic" }}
-            </div>
-            <div class="hidden sm:block text-xs text-slate-500">
-              {{ clinic.clinic_tagline|default:"Care you can trust • Fast appointments" }}
-            </div>
+          <div class="hidden sm:block text-xs text-slate-500 truncate">
+            {{ clinic.clinic_tagline|default:"Specialist care for pain, arthritis, autoimmune & rheumatic diseases." }}
           </div>
-        </a>
-      </div>
+        </div>
+      </a>
 
-      <!-- ================= DESKTOP NAV ================= -->
+      <!-- DESKTOP NAV -->
       <div class="hidden md:flex items-center gap-8">
+
         <a href="{% url 'core_app:home' %}#services"
            class="text-sm font-semibold text-slate-700 hover:text-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-600 rounded">
           Services
         </a>
 
-        <a href="{% url 'publications:publication_list' %}"
-           class="text-sm font-semibold text-slate-700 hover:text-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-600 rounded">
-          Resources
-        </a>
+        <!-- RESOURCES DROPDOWN (desktop) -->
+        <div class="relative"
+             @click.outside="desktopResourcesOpen=false">
+          <button
+            type="button"
+            @click="desktopResourcesOpen = !desktopResourcesOpen"
+            class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-600 rounded"
+            :aria-expanded="desktopResourcesOpen.toString()"
+            aria-haspopup="true"
+          >
+            Resources
+            <svg class="h-4 w-4 transition" :class="desktopResourcesOpen ? 'rotate-180' : ''"
+                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.24 4.24a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.08z" clip-rule="evenodd" />
+            </svg>
+          </button>
+
+          <div
+            x-cloak
+            x-show="desktopResourcesOpen"
+            x-transition.origin.top.duration.200ms
+            class="absolute left-0 mt-3 w-64 rounded-2xl border border-slate-200 bg-white shadow-xl overflow-hidden"
+            role="menu"
+          >
+            <a href="{% url 'publications:publication_list' %}"
+               class="block px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50"
+               role="menuitem">
+              Publications
+              <div class="text-xs font-normal text-slate-500">Download research & papers</div>
+            </a>
+            <a href="{% url 'publications:achievements' %}"
+               class="block px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50 border-t border-slate-100"
+               role="menuitem">
+              Achievements
+              <div class="text-xs font-normal text-slate-500">Awards, fellowships & recognitions</div>
+            </a>
+          </div>
+        </div>
 
         <a href="{% url 'core_app:contact' %}"
            class="text-sm font-semibold text-slate-700 hover:text-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-600 rounded">
           Contact
         </a>
 
-        <!-- ================= AUTH ACTIONS ================= -->
+        <!-- AUTH -->
         <div class="flex items-center gap-2 pl-4 border-l border-slate-200">
           {% if request.user.is_authenticated %}
             <a href="{% url 'accounts:dashboard' %}"
                class="inline-flex items-center rounded-xl px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition focus:outline-none focus:ring-2 focus:ring-blue-600">
-              Patient Portal
+              Portal
             </a>
 
             <form method="post" action="{% url 'accounts:logout' %}">
@@ -71,172 +98,154 @@
                class="inline-flex items-center rounded-xl px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition focus:outline-none focus:ring-2 focus:ring-blue-600">
               Login
             </a>
-
-            <a href="{% url 'accounts:register' %}"
-               class="inline-flex items-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800 transition focus:outline-none focus:ring-4 focus:ring-slate-300">
-              Register
-            </a>
           {% endif %}
         </div>
 
-        <!-- ================= PRIMARY CTA ================= -->
+        <!-- CTA -->
         <a href="{% url 'appointments:book' %}"
            class="inline-flex items-center rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 transition focus:outline-none focus:ring-4 focus:ring-blue-300 shadow-sm shadow-blue-600/20">
           Book Appointment
         </a>
       </div>
 
-      <!-- ================= MOBILE TOGGLE ================= -->
+      <!-- MOBILE TOGGLE -->
       <button
-        @click="open = true"
+        @click="toggleMobile()"
         type="button"
-        class="md:hidden inline-flex items-center justify-center rounded-xl p-2 text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600"
+        class="md:hidden inline-flex shrink-0 items-center justify-center rounded-xl p-2 text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600"
         aria-controls="mobile-menu"
-        :aria-expanded="open.toString()"
-        aria-label="Open main menu"
+        :aria-expanded="mobileOpen.toString()"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-             viewBox="0 0 24 24" stroke-width="2"
-             stroke="currentColor" class="h-6 w-6">
+        <span class="sr-only">Open menu</span>
+        <svg x-show="!mobileOpen" xmlns="http://www.w3.org/2000/svg" fill="none"
+             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-6 w-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg x-show="mobileOpen" x-cloak xmlns="http://www.w3.org/2000/svg" fill="none"
+             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-6 w-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
 
     </div>
   </div>
 
-  <!-- ================= MOBILE OVERLAY ================= -->
+  <!-- MOBILE PANEL -->
   <div
-    x-cloak
-    x-show="open"
-    x-transition.opacity
     id="mobile-menu"
-    class="md:hidden fixed inset-0 z-[70]"
-    aria-modal="true"
-    role="dialog"
+    class="md:hidden"
+    x-cloak
+    x-show="mobileOpen"
+    x-transition.opacity.duration.150ms
   >
-    <!-- Backdrop -->
-    <div class="absolute inset-0 bg-black/40" @click="open = false" aria-hidden="true"></div>
+    <div class="border-t border-slate-200 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 space-y-2">
 
-    <!-- Slide-in Panel -->
-    <div
-      class="absolute right-0 top-0 h-full w-80 max-w-[88vw] bg-white shadow-2xl p-6 flex flex-col"
-      x-transition:enter="transition ease-out duration-200"
-      x-transition:enter-start="translate-x-full"
-      x-transition:enter-end="translate-x-0"
-      x-transition:leave="transition ease-in duration-150"
-      x-transition:leave-start="translate-x-0"
-      x-transition:leave-end="translate-x-full"
-    >
-      <!-- Header -->
-      <div class="flex items-start justify-between gap-4 mb-6">
-        <div class="min-w-0">
-          <div class="font-extrabold text-slate-900 truncate">
-            {{ clinic.clinic_name|default:"Resilience Clinic" }}
-          </div>
-          <div class="hidden sm:block text-xs text-slate-500">
-            {{ clinic.clinic_tagline|default:"Care you can trust • Fast appointments" }}
+        <!-- Mobile link buttons -->
+        <a href="{% url 'core_app:home' %}#services"
+           @click="closeAll()"
+           class="w-full flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50 active:bg-slate-100">
+          Services <span class="text-slate-400">›</span>
+        </a>
+
+        <!-- Mobile accordion: Resources -->
+        <div class="rounded-2xl border border-slate-200 overflow-hidden">
+          <button
+            type="button"
+            @click="mobileResourcesOpen = !mobileResourcesOpen"
+            class="w-full flex items-center justify-between px-4 py-3 text-sm font-extrabold text-slate-900 hover:bg-slate-50"
+            :aria-expanded="mobileResourcesOpen.toString()"
+          >
+            Resources
+            <svg class="h-4 w-4 transition" :class="mobileResourcesOpen ? 'rotate-180' : ''"
+                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.24 4.24a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.08z" clip-rule="evenodd" />
+            </svg>
+          </button>
+
+          <div x-show="mobileResourcesOpen" x-collapse>
+            <a href="{% url 'publications:publication_list' %}"
+               @click="closeAll()"
+               class="block px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50 border-t border-slate-200">
+              Publications
+            </a>
+            <a href="{% url 'publications:achievements' %}"
+               @click="closeAll()"
+               class="block px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50 border-t border-slate-200">
+              Achievements
+            </a>
           </div>
         </div>
 
-        <button
-          @click="open = false"
-          class="rounded-xl p-2 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600"
-          aria-label="Close menu"
-        >
-          ✕
-        </button>
-      </div>
-
-      <!-- Auth card -->
-      <div class="mb-6 rounded-2xl border border-slate-200 p-4">
-        {% if request.user.is_authenticated %}
-          <div class="text-sm text-slate-600">Signed in as</div>
-          <div class="font-semibold text-slate-900 truncate">{{ request.user.get_username }}</div>
-
-          <div class="mt-4 flex gap-2">
-            <a @click="open = false"
-               href="{% url 'accounts:dashboard' %}"
-               class="flex-1 inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2.5 text-white font-semibold hover:bg-slate-800 transition">
-              Patient Portal
-            </a>
-
-            <form class="flex-1" method="post" action="{% url 'accounts:logout' %}">
-              {% csrf_token %}
-              <button type="submit"
-                      class="w-full inline-flex items-center justify-center rounded-xl border border-slate-300 px-4 py-2.5 font-semibold text-slate-800 hover:bg-slate-50 transition">
-                Logout
-              </button>
-            </form>
-          </div>
-        {% else %}
-          <div class="text-sm font-semibold text-slate-900">Patient account</div>
-          <p class="mt-1 text-sm text-slate-600">Login to manage bookings and view your history.</p>
-
-          <div class="mt-4 flex gap-2">
-            <a @click="open = false"
-               href="{% url 'accounts:login' %}"
-               class="flex-1 inline-flex items-center justify-center rounded-xl border border-slate-300 px-4 py-2.5 font-semibold text-slate-800 hover:bg-slate-50 transition">
-              Login
-            </a>
-
-            <a @click="open = false"
-               href="{% url 'accounts:register' %}"
-               class="flex-1 inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2.5 text-white font-semibold hover:bg-slate-800 transition">
-              Register
-            </a>
-          </div>
-        {% endif %}
-      </div>
-
-      <!-- Links -->
-      <nav class="flex flex-col gap-1 text-sm font-semibold text-slate-800">
-        <a @click="open = false"
-           href="{% url 'core_app:home' %}#services"
-           class="rounded-xl px-3 py-2 hover:bg-slate-50">
-          Services
+        <a href="{% url 'core_app:contact' %}"
+           @click="closeAll()"
+           class="w-full flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50 active:bg-slate-100">
+          Contact <span class="text-slate-400">›</span>
         </a>
 
-        <a @click="open = false"
-           href="{% url 'publications:publication_list' %}"
-           class="rounded-xl px-3 py-2 hover:bg-slate-50">
-          Resources
-        </a>
-
-        <a @click="open = false"
-           href="{% url 'core_app:contact' %}"
-           class="rounded-xl px-3 py-2 hover:bg-slate-50">
-          Contact
-        </a>
-
-        <!-- Primary CTA -->
-        <a @click="open = false"
-           href="{% url 'appointments:book' %}"
-           class="mt-5 inline-flex items-center justify-center rounded-2xl bg-blue-600 px-4 py-3 text-white font-semibold hover:bg-blue-700 transition shadow-sm shadow-blue-600/20">
+        <!-- CTA -->
+        <a href="{% url 'appointments:book' %}"
+           @click="closeAll()"
+           class="mt-2 inline-flex w-full items-center justify-center rounded-2xl bg-blue-600 px-4 py-3 font-semibold text-white shadow-sm shadow-blue-600/20 hover:bg-blue-700 transition focus:outline-none focus:ring-4 focus:ring-blue-300">
           Book Appointment
         </a>
 
-        <!-- Secondary CTA -->
-        {% if clinic.contact_phone %}
-        <a @click="open = false"
-           href="tel:{{ clinic.contact_phone }}"
-           class="mt-2 inline-flex items-center justify-center rounded-2xl border border-slate-300 px-4 py-3 font-semibold text-slate-900 hover:bg-slate-50 transition">
-          Call the clinic
-        </a>
-        {% endif %}
+        <!-- Auth -->
+        <div class="pt-3 border-t border-slate-200">
+          {% if request.user.is_authenticated %}
+            <div class="flex items-center justify-between gap-3">
+              <a href="{% url 'accounts:dashboard' %}" @click="closeAll()"
+                 class="inline-flex flex-1 items-center justify-center rounded-2xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white hover:bg-slate-800 transition">
+                Portal
+              </a>
+              <form method="post" action="{% url 'accounts:logout' %}" class="flex-1">
+                {% csrf_token %}
+                <button type="submit"
+                        class="w-full inline-flex items-center justify-center rounded-2xl border border-slate-300 px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50 transition">
+                  Logout
+                </button>
+              </form>
+            </div>
+          {% else %}
+            <div class="grid grid-cols-2 gap-2">
+              <a href="{% url 'accounts:login' %}" @click="closeAll()"
+                 class="inline-flex items-center justify-center rounded-2xl border border-slate-300 px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50 transition">
+                Login
+              </a>
+              <a href="{% url 'accounts:register' %}" @click="closeAll()"
+                 class="inline-flex items-center justify-center rounded-2xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white hover:bg-slate-800 transition">
+                Register
+              </a>
+            </div>
+          {% endif %}
+        </div>
 
-        {% if clinic.whatsapp_number %}
-        <a @click="open = false"
-           href="https://wa.me/{{ clinic.whatsapp_number }}"
-           class="mt-2 inline-flex items-center justify-center rounded-2xl border border-slate-300 px-4 py-3 font-semibold text-slate-900 hover:bg-slate-50 transition">
-          WhatsApp
-        </a>
-        {% endif %}
-      </nav>
-
-      <div class="mt-auto pt-6 text-xs text-slate-500">
-        © {{ clinic.clinic_name|default:"Resilience Clinic" }} • Open Mon–Sat
       </div>
     </div>
   </div>
 </nav>
+
+<script>
+  function navBar() {
+    return {
+      mobileOpen: false,
+      mobileResourcesOpen: false,
+      desktopResourcesOpen: false,
+
+      toggleMobile() {
+        this.mobileOpen = !this.mobileOpen;
+        if (!this.mobileOpen) this.mobileResourcesOpen = false;
+
+        // scroll lock (mobile)
+        document.documentElement.classList.toggle('overflow-hidden', this.mobileOpen);
+      },
+
+      closeAll() {
+        this.mobileOpen = false;
+        this.mobileResourcesOpen = false;
+        this.desktopResourcesOpen = false;
+        document.documentElement.classList.remove('overflow-hidden');
+      },
+    }
+  }
+</script>
