@@ -9,7 +9,7 @@ DEFAULT_SITE_SETTINGS = {
     # Contact (model field names)
     "contact_phone": "+2348035751154",
     "contact_email": "hakeemolaosebikan37@gmail.com",
-    "clinic_address": "Block 117, Alaka LSDPC, Lagos, Nigeria",
+    "clinic_address": "Maryamville Medical Center, 144 Bode Thomas Road, Surulere, Lagos, Nigeria",
     "whatsapp_number": "2348035751154",
 
     # SEO
@@ -23,7 +23,7 @@ DEFAULT_SITE_SETTINGS = {
     # Template aliases (so existing templates keep working)
     "phone": "+2348035751154",
     "email": "hakeemolaosebikan37@gmail.com",
-    "address": "Block 117, Alaka LSDPC, Lagos, Nigeria",
+    "address": "Maryamville Medical Center, 144 Bode Thomas Road, Surulere, Lagos, Nigeria",
     "hours": "Mon – Fri, 9:00 AM – 5:00 PM",
 }
 

@@ -49,7 +49,7 @@
       <div>
         <h4 class="text-white font-semibold mb-3">Contact</h4>
         <ul class="space-y-2 text-slate-400">
-          <li>📍 {{ clinic.clinic_address|default:"Clinic Address, City" }}</li>
+          <li>📍 {{ clinic.clinic_address|default:"Maryamville Medical Center, 144 Bode Thomas Road, Surulere, Lagos, Nigeria" }}</li>
           <li>
             📞 <a href="tel:{{ clinic.contact_phone|default:'+2348035751154' }}" class="hover:text-white transition">
               {{ clinic.contact_phone|default:'+2348035751154' }}
@@ -67,9 +67,11 @@
       <div>
         <h4 class="text-white font-semibold mb-3">Opening Hours</h4>
         <ul class="space-y-2 text-slate-400">
-          <li>Mon – Fri: 9:00 AM – 5:00 PM</li>
-          <li>Saturday: 10:00 AM – 2:00 PM</li>
-          <li>Sunday: Closed</li>
+          <li class="font-semibold text-green-400 text-lg">
+          24/7 Service Available
+          </li>
+          <li>Open All Day, Every Day</li>
+          <li>Including Weekends & Public Holidays</li>
         </ul>
 
         <p class="mt-4 text-xs text-slate-500">
