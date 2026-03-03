@@ -270,9 +270,9 @@ EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", "")
 EMAIL_USE_TLS = env_bool("EMAIL_USE_TLS", True)
 DEFAULT_FROM_EMAIL = env(
     "DEFAULT_FROM_EMAIL",
-    "Dr Olaosebikan <dhikrullahabdullah92@gmail.com>",
+    "Dr Olaosebikan <hakeemolaosebikan37@gmail.com>",
 )
-DOCTOR_NOTIFICATION_EMAIL = env("DOCTOR_NOTIFICATION_EMAIL", "dhikrullahabdullah92@gmail.com")
+DOCTOR_NOTIFICATION_EMAIL = env("DOCTOR_NOTIFICATION_EMAIL", "hakeemolaosebikan37@gmail.com")
 
 # ------------------------------------------------------------
 # Booking configuration
