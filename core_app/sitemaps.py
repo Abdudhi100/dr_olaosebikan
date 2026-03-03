@@ -14,9 +14,7 @@ class StaticViewSitemap(Sitemap):
             "core_app:contact",
             "appointments:book",
             "publications:publication_list",
-            "publications:publication_detail",
             "publications:achievements",
-            "profiles:doctor-profile",
         ]
 
 
@@ -30,6 +28,9 @@ class DoctorProfileSitemap(Sitemap):
 
     def items(self):
         return DoctorProfile.objects.filter(is_active=True)
+    
+    def lastmod(self, obj):
+        return obj.updated_at
 
 
 class PublicationSitemap(Sitemap):

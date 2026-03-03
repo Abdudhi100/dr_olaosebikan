@@ -16,7 +16,7 @@ urlpatterns = [
     path("healthz/", HealthzView.as_view(), name="healthz"),
     path('admin/', admin.site.urls),
     path('accounts/', include(("accounts.urls", "accounts"), namespace="accounts")),
-    path('doctor/', include('profiles.urls')),
+    path("doctor/", include(("profiles.urls", "profiles"), namespace="profiles")),
     path('publications/', include('publications.urls')),
     path('appointments/', include('appointments.urls')),
     path('', include(('core_app.urls', 'core_app'), namespace='core_app')),

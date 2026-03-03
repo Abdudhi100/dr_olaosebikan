@@ -55,5 +55,6 @@ class DoctorProfile(models.Model):
     def __str__(self):
         return self.full_name or (self.user.get_full_name() or self.user.username)
 
+    
     def get_absolute_url(self):
         return reverse("profiles:doctor-profile", kwargs={"slug": self.slug})
