@@ -132,3 +132,10 @@ class RobotsTxtView(View):
         ]
 
         return HttpResponse("\n".join(lines), content_type="text/plain")
+
+from django.http import HttpResponse
+from django.views import View
+
+class HealthzView(View):
+    def get(self, request, *args, **kwargs):
+        return HttpResponse("ok", content_type="text/plain")
