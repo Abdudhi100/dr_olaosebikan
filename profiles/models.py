@@ -1,6 +1,7 @@
 # profiles/models.py
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 from django.utils.text import slugify
 
 User = settings.AUTH_USER_MODEL
@@ -53,3 +54,6 @@ class DoctorProfile(models.Model):
 
     def __str__(self):
         return self.full_name or (self.user.get_full_name() or self.user.username)
+
+    def get_absolute_url(self):
+        return reverse("profiles:doctor_detail", kwargs={"slug": self.slug})

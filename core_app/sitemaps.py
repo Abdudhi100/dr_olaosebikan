@@ -20,7 +20,7 @@ class DoctorProfileSitemap(Sitemap):
     changefreq = "monthly"
 
     def items(self):
-        return DoctorProfile.objects.all()
+        return DoctorProfile.objects.filter(is_active=True)
 
 
 class PublicationSitemap(Sitemap):
@@ -28,4 +28,4 @@ class PublicationSitemap(Sitemap):
     changefreq = "yearly"
 
     def items(self):
-        return Publication.objects.all()
+        return Publication.objects.filter(is_published=True)

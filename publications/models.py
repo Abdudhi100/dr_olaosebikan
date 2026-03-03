@@ -1,5 +1,6 @@
 # publications/models.py
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.text import slugify
 from django.contrib.auth import get_user_model
@@ -71,3 +72,5 @@ class Publication(models.Model):
 
     def __str__(self):
         return self.title
+    def get_absolute_url(self):
+        return reverse("publications:publication_detail", kwargs={"slug": self.slug})
