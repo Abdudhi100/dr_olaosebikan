@@ -96,7 +96,7 @@ AUTH_USER_MODEL = "accounts.User"
 ROOT_URLCONF = "core.urls"
 WSGI_APPLICATION = "core.wsgi.application"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
+SITE_ID = 1
 # ------------------------------------------------------------
 # Apps
 # ------------------------------------------------------------
@@ -107,6 +107,8 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
+    "django.contrib.sitemaps",
 ]
 
 THIRD_PARTY_APPS = [
