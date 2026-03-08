@@ -14,6 +14,7 @@ from .views import (
     RheumatoidArthritisPageView,
     RobotsTxtView,
     StaticPageDetailView,
+    GoogleVerificationFileView,
 )
 
 app_name = "core_app"
@@ -60,6 +61,11 @@ urlpatterns = [
         "contact-location/",
         ContactLocationPageView.as_view(),
         name="contact_location",
+    ),
+    path(
+        "googlef8a66bd5cc73324b.html",
+        GoogleVerificationFileView.as_view(), 
+        name="google_verification"
     ),
 
     path("contact/", ContactView.as_view(), name="contact"),

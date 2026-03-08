@@ -8,6 +8,10 @@ from core_app.models import StaticPage
 from profiles.models import DoctorProfile
 from publications.models import Achievement, Publication
 
+from django.http import FileResponse, Http404
+from django.conf import settings
+from pathlib import Path
+
 
 def get_active_doctor_profile():
     """
@@ -318,3 +322,12 @@ class RobotsTxtView(View):
 class HealthzView(View):
     def get(self, request, *args, **kwargs):
         return HttpResponse("ok", content_type="text/plain")
+    
+class GoogleVerificationFileView(View):
+    filename = "googlef8a66bd5cc73324b.html"
+
+    def get(self, request, *args, **kwargs):
+        file_path = Path(settings.BASE_DIR) / "static" / self.filename
+        if not file_path.exists():
+            raise Http404("Verification file not found.")
+        return FileResponse(open(file_path, "rb"), content_type="text/html")
