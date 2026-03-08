@@ -1,24 +1,31 @@
-<!-- templates/pages/static_page.html -->
 {% extends "base.html" %}
 
-{% block title %}
-{{ page.title }}
-{% endblock %}
-
-{% block meta %}
-<meta name="description" content="{{ page.meta_description }}">
-<meta name="keywords" content="{{ page.meta_keywords }}">
-{% endblock %}
-
 {% block content %}
-<section class="max-w-4xl mx-auto py-12 prose">
+<section class="bg-white">
+  <div class="mx-auto max-w-4xl px-6 py-14 sm:py-16">
+    <nav aria-label="Breadcrumb" class="mb-6 text-sm text-slate-600">
+      <a href="{% url 'core_app:home' %}" class="hover:text-blue-700">Home</a>
+      <span class="mx-2">/</span>
+      <span aria-current="page">{{ page.title }}</span>
+    </nav>
 
-  <h1>{{ page.title }}</h1>
+    <article class="rounded-3xl bg-white">
+      <header class="border-b border-slate-200 pb-8">
+        <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+          {{ page.title }}
+        </h1>
 
-  <div class="mt-6">
-    {{ page.content|safe }}
+        {% if page.meta_description %}
+          <p class="mt-5 max-w-3xl text-lg leading-relaxed text-slate-600">
+            {{ page.meta_description }}
+          </p>
+        {% endif %}
+      </header>
+
+      <div class="prose prose-slate mt-10 max-w-none prose-headings:font-bold prose-headings:text-slate-900 prose-p:text-slate-700 prose-li:text-slate-700 prose-a:text-blue-700 hover:prose-a:text-blue-800 prose-img:rounded-2xl prose-img:shadow-sm">
+        {{ page.content|safe }}
+      </div>
+    </article>
   </div>
-
 </section>
 {% endblock %}
-

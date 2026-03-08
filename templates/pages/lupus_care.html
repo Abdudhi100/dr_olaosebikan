@@ -2,96 +2,163 @@
 
 {% block content %}
 <section class="bg-white">
-  <div class="mx-auto max-w-5xl px-6 py-14">
+  <div class="mx-auto max-w-5xl px-6 py-14 sm:py-16">
     <nav aria-label="Breadcrumb" class="mb-6 text-sm text-slate-600">
       <a href="{% url 'core_app:home' %}" class="hover:text-blue-700">Home</a>
       <span class="mx-2">/</span>
-      <span>Lupus Care in Lagos</span>
+      <span aria-current="page">Lupus Care in Lagos</span>
     </nav>
 
-    <h1 class="text-4xl font-bold tracking-tight text-slate-900">
-      Lupus Care in Lagos
-    </h1>
+    <!-- Hero / Intro -->
+    <header class="rounded-3xl bg-gradient-to-br from-blue-50 via-white to-slate-50 p-8 ring-1 ring-slate-200 sm:p-10">
+      <span class="inline-flex items-center rounded-full bg-blue-100 px-4 py-1.5 text-sm font-semibold text-blue-700 ring-1 ring-blue-200">
+        Autoimmune & Rheumatology Care
+      </span>
 
-    <p class="mt-4 text-lg text-slate-700">
-      Lupus is a complex autoimmune condition that can affect different parts of the body.
-      Early recognition, careful diagnosis, and ongoing specialist care are important in
-      helping patients manage symptoms and monitor disease activity.
-    </p>
+      <h1 class="mt-5 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+        Lupus Care in Lagos
+      </h1>
 
-    <div class="mt-10 space-y-10">
+      <p class="mt-5 max-w-3xl text-lg leading-relaxed text-slate-700">
+        Lupus is a complex autoimmune condition that can affect different parts of the body,
+        including the joints, skin, blood, kidneys, and other organs. Early recognition,
+        careful diagnosis, and ongoing specialist care can help patients better manage symptoms,
+        monitor disease activity, and plan long-term treatment.
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="{% url 'appointments:book' %}"
+           class="inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-sm shadow-blue-600/20 transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Book Appointment
+        </a>
+
+        <a href="{% url 'core_app:faq' %}"
+           class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Read FAQ
+        </a>
+      </div>
+    </header>
+
+    <div class="mt-12 space-y-12">
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">What is lupus?</h2>
-        <p class="mt-3 text-slate-700">
-          Lupus is an autoimmune disease in which the immune system attacks the body’s
-          own tissues. It may affect the joints, skin, kidneys, blood cells, and other organs,
-          and symptoms can vary widely from person to person.
+        <p class="mt-3 leading-relaxed text-slate-700">
+          Lupus is an autoimmune disease in which the immune system mistakenly attacks the body’s
+          own tissues. Because it can affect different organs and body systems, symptoms may vary
+          widely from one person to another. Some patients experience mainly joint and skin symptoms,
+          while others may need closer monitoring for more complex disease activity.
         </p>
       </section>
 
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">Common symptoms</h2>
-        <ul class="mt-3 list-disc space-y-2 pl-6 text-slate-700">
-          <li>Joint pain or swelling</li>
-          <li>Fatigue</li>
-          <li>Skin rashes</li>
-          <li>Fever or unexplained illness</li>
-          <li>Symptoms that come and go over time</li>
-        </ul>
+        <div class="mt-5 grid gap-4 sm:grid-cols-2">
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <h3 class="font-semibold text-slate-900">Joint pain or swelling</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Lupus may cause aching, swelling, or stiffness in the joints, sometimes with flare-ups.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <h3 class="font-semibold text-slate-900">Fatigue</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Many people with lupus experience persistent tiredness that affects daily activities.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <h3 class="font-semibold text-slate-900">Skin rashes</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Rashes may occur, especially in people whose lupus affects the skin.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <h3 class="font-semibold text-slate-900">Fever or unexplained illness</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Some patients report episodes of feeling unwell, with symptoms that come and go.
+            </p>
+          </div>
+        </div>
       </section>
 
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">How diagnosis is made</h2>
-        <p class="mt-3 text-slate-700">
-          Diagnosing lupus usually involves a detailed clinical review because symptoms
-          may overlap with other conditions. Assessment may include medical history,
-          examination, and review of relevant tests where necessary.
+        <p class="mt-3 leading-relaxed text-slate-700">
+          Diagnosing lupus usually involves a detailed clinical assessment because symptoms
+          may overlap with other conditions. This may include medical history, physical examination,
+          and review of relevant tests when needed. A specialist approach is important because
+          lupus can present in different ways and may require long-term monitoring.
         </p>
       </section>
 
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">Treatment approach</h2>
-        <p class="mt-3 text-slate-700">
+        <p class="mt-3 leading-relaxed text-slate-700">
           Treatment focuses on controlling disease activity, reducing inflammation,
           protecting organ health, monitoring flare-ups, and supporting long-term wellbeing.
-          Care plans depend on the organs involved, severity, and the patient’s health needs.
+          Care plans depend on the organs involved, the severity of symptoms, and the individual
+          patient’s overall health needs.
         </p>
       </section>
 
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">When to book</h2>
-        <p class="mt-3 text-slate-700">
-          Book an appointment if you have symptoms suggestive of autoimmune disease,
-          a previous lupus diagnosis, or recurrent joint pain and systemic symptoms
-          that need specialist evaluation.
+        <p class="mt-3 leading-relaxed text-slate-700">
+          You should consider booking an appointment if you have symptoms suggestive of autoimmune disease,
+          a previous lupus diagnosis, recurrent joint pain, unexplained fatigue, skin symptoms,
+          or other ongoing concerns that need specialist evaluation and follow-up.
         </p>
       </section>
 
-      <section class="rounded-2xl bg-slate-50 p-6">
+      <!-- CTA -->
+      <section class="rounded-3xl bg-slate-50 p-8 ring-1 ring-slate-200">
         <h2 class="text-2xl font-semibold text-slate-900">Book an appointment</h2>
-        <p class="mt-3 text-slate-700">
-          If you need lupus care in Lagos, book an appointment for specialist assessment and follow-up.
+        <p class="mt-3 max-w-2xl leading-relaxed text-slate-700">
+          If you need lupus care in Lagos, book an appointment for specialist assessment,
+          diagnosis, monitoring, and long-term management planning.
         </p>
-        <a href="{% url 'appointments:book' %}"
-           class="mt-5 inline-flex rounded-xl bg-blue-600 px-5 py-3 font-medium text-white hover:bg-blue-700">
-          Book Appointment
-        </a>
+
+        <div class="mt-6 flex flex-wrap gap-4">
+          <a href="{% url 'appointments:book' %}"
+             class="inline-flex items-center rounded-xl bg-blue-600 px-5 py-3 font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Book Appointment
+          </a>
+
+          <a href="{% url 'core_app:contact_location' %}"
+             class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-5 py-3 font-medium text-slate-700 transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Contact the Clinic
+          </a>
+        </div>
       </section>
 
+      <!-- Related pages -->
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">Related pages</h2>
         <div class="mt-4 grid gap-3 sm:grid-cols-2">
-          <a href="{% url 'core_app:autoimmune_specialist' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
-            Autoimmune Disease Specialist
+          <a href="{% url 'core_app:autoimmune_specialist' %}"
+             class="rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50">
+            <span class="block font-semibold text-slate-900">Autoimmune Disease Specialist</span>
+            <span class="mt-1 block text-sm text-slate-600">Specialist evaluation for autoimmune-related symptoms and long-term care.</span>
           </a>
-          <a href="{% url 'core_app:ra_treatment' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
-            Rheumatoid Arthritis Treatment
+
+          <a href="{% url 'core_app:ra_treatment' %}"
+             class="rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50">
+            <span class="block font-semibold text-slate-900">Rheumatoid Arthritis Treatment</span>
+            <span class="mt-1 block text-sm text-slate-600">Learn about inflammatory joint disease, diagnosis, and treatment.</span>
           </a>
-          <a href="{% url 'core_app:faq' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
-            Rheumatology FAQ
+
+          <a href="{% url 'core_app:faq' %}"
+             class="rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50">
+            <span class="block font-semibold text-slate-900">Rheumatology FAQ</span>
+            <span class="mt-1 block text-sm text-slate-600">Common questions about lupus, arthritis, autoimmune care, and appointments.</span>
           </a>
-          <a href="{% url 'core_app:contact_location' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
-            Contact and Clinic Location
+
+          <a href="{% url 'core_app:contact_location' %}"
+             class="rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50">
+            <span class="block font-semibold text-slate-900">Contact and Clinic Location</span>
+            <span class="mt-1 block text-sm text-slate-600">Find clinic contact details, location information, and booking guidance.</span>
           </a>
         </div>
       </section>

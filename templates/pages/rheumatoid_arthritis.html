@@ -2,98 +2,165 @@
 
 {% block content %}
 <section class="bg-white">
-  <div class="mx-auto max-w-5xl px-6 py-14">
+  <div class="mx-auto max-w-5xl px-6 py-14 sm:py-16">
     <nav aria-label="Breadcrumb" class="mb-6 text-sm text-slate-600">
       <a href="{% url 'core_app:home' %}" class="hover:text-blue-700">Home</a>
       <span class="mx-2">/</span>
-      <span>Rheumatoid Arthritis Treatment in Lagos</span>
+      <span aria-current="page">Rheumatoid Arthritis Treatment in Lagos</span>
     </nav>
 
-    <h1 class="text-4xl font-bold tracking-tight text-slate-900">
-      Rheumatoid Arthritis Treatment in Lagos
-    </h1>
+    <!-- Hero / Intro -->
+    <header class="rounded-3xl bg-gradient-to-br from-blue-50 via-white to-slate-50 p-8 ring-1 ring-slate-200 sm:p-10">
+      <span class="inline-flex items-center rounded-full bg-blue-100 px-4 py-1.5 text-sm font-semibold text-blue-700 ring-1 ring-blue-200">
+        Specialist Rheumatology Care
+      </span>
 
-    <p class="mt-4 text-lg text-slate-700">
-      Rheumatoid arthritis is an autoimmune condition that can cause joint pain,
-      swelling, stiffness, and progressive damage if not treated early. Specialist
-      assessment can help confirm the diagnosis and guide long-term care.
-    </p>
+      <h1 class="mt-5 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+        Rheumatoid Arthritis Treatment in Lagos
+      </h1>
 
-    <div class="mt-10 space-y-10">
+      <p class="mt-5 max-w-3xl text-lg leading-relaxed text-slate-700">
+        Rheumatoid arthritis is an autoimmune condition that can cause joint pain,
+        swelling, stiffness, fatigue, and progressive joint damage if not managed early.
+        Specialist assessment can help clarify the diagnosis, guide treatment, and support
+        long-term joint health and daily function.
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="{% url 'appointments:book' %}"
+           class="inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-sm shadow-blue-600/20 transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Book Appointment
+        </a>
+
+        <a href="{% url 'core_app:faq' %}"
+           class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Read FAQ
+        </a>
+      </div>
+    </header>
+
+    <div class="mt-12 space-y-12">
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">What is rheumatoid arthritis?</h2>
-        <p class="mt-3 text-slate-700">
+        <p class="mt-3 leading-relaxed text-slate-700">
           Rheumatoid arthritis is a chronic inflammatory disease in which the immune
-          system mistakenly attacks the joints. It can affect daily function, mobility,
-          and over time may lead to joint damage if it is not properly managed.
+          system mistakenly attacks the joints. It commonly affects the hands, wrists,
+          feet, and other joints, and may interfere with movement, comfort, grip strength,
+          and daily activities. In some patients, symptoms can extend beyond the joints,
+          which is why careful specialist review is important.
         </p>
       </section>
 
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">Common symptoms</h2>
-        <ul class="mt-3 list-disc space-y-2 pl-6 text-slate-700">
-          <li>Morning stiffness that lasts a long time</li>
-          <li>Swollen, warm, or painful joints</li>
-          <li>Pain in the hands, wrists, feet, or knees</li>
-          <li>Fatigue and reduced energy</li>
-          <li>Difficulty with movement or daily tasks</li>
-        </ul>
+        <div class="mt-5 grid gap-4 sm:grid-cols-2">
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <h3 class="font-semibold text-slate-900">Morning stiffness</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Stiffness that lasts for a prolonged period after waking can be an important clue.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <h3 class="font-semibold text-slate-900">Swollen or painful joints</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Joints may feel warm, tender, swollen, or painful, especially during flare-ups.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <h3 class="font-semibold text-slate-900">Pain in multiple joints</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Symptoms often affect more than one joint and may involve the hands, wrists, feet, or knees.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <h3 class="font-semibold text-slate-900">Fatigue and reduced energy</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Some people feel unusually tired or limited in daily activity because of inflammation.
+            </p>
+          </div>
+        </div>
       </section>
 
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">How diagnosis is made</h2>
-        <p class="mt-3 text-slate-700">
-          Diagnosis depends on a detailed clinical assessment. This may include symptom
-          review, examination of the affected joints, and consideration of previous
-          investigations or additional tests where needed. Early diagnosis is important
-          because treatment can help protect joint function.
+        <p class="mt-3 leading-relaxed text-slate-700">
+          Diagnosis depends on a detailed clinical assessment. This usually includes a
+          careful review of symptoms, physical examination of the joints, and consideration
+          of prior medical history and investigations where relevant. Early diagnosis is
+          valuable because timely treatment can help reduce inflammation and protect joint function.
         </p>
       </section>
 
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">Treatment approach</h2>
-        <p class="mt-3 text-slate-700">
-          Treatment may involve patient education, medicines to control inflammation,
-          monitoring of disease activity, support for mobility and function, and long-term
-          follow-up tailored to the individual patient’s needs.
+        <p class="mt-3 leading-relaxed text-slate-700">
+          Treatment plans are tailored to the individual and may include patient education,
+          medicines to control inflammation, symptom relief, disease monitoring, and ongoing
+          follow-up. The aim is to improve comfort, reduce disease activity, preserve joint
+          function, and support quality of life over time.
         </p>
       </section>
 
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">When to book</h2>
-        <p class="mt-3 text-slate-700">
-          Book an appointment if you have persistent joint swelling, prolonged morning
-          stiffness, pain in multiple joints, or if you have already been diagnosed and
-          need specialist review or follow-up.
+        <p class="mt-3 leading-relaxed text-slate-700">
+          You should consider booking an appointment if you have persistent joint swelling,
+          prolonged morning stiffness, pain affecting multiple joints, or if you already
+          have a rheumatoid arthritis diagnosis and need specialist review, monitoring,
+          or follow-up care.
         </p>
       </section>
 
-      <section class="rounded-2xl bg-slate-50 p-6">
+      <!-- CTA -->
+      <section class="rounded-3xl bg-slate-50 p-8 ring-1 ring-slate-200">
         <h2 class="text-2xl font-semibold text-slate-900">Book an appointment</h2>
-        <p class="mt-3 text-slate-700">
+        <p class="mt-3 max-w-2xl leading-relaxed text-slate-700">
           If you need rheumatoid arthritis treatment in Lagos, book an appointment for
-          specialist evaluation and care.
+          specialist evaluation, diagnosis, and long-term care planning.
         </p>
-        <a href="{% url 'appointments:book' %}"
-           class="mt-5 inline-flex rounded-xl bg-blue-600 px-5 py-3 font-medium text-white hover:bg-blue-700">
-          Book Appointment
-        </a>
+
+        <div class="mt-6 flex flex-wrap gap-4">
+          <a href="{% url 'appointments:book' %}"
+             class="inline-flex items-center rounded-xl bg-blue-600 px-5 py-3 font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Book Appointment
+          </a>
+
+          <a href="{% url 'core_app:contact_location' %}"
+             class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-5 py-3 font-medium text-slate-700 transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Contact the Clinic
+          </a>
+        </div>
       </section>
 
+      <!-- Related pages -->
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">Related pages</h2>
         <div class="mt-4 grid gap-3 sm:grid-cols-2">
-          <a href="{% url 'core_app:joint_pain_clinic' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
-            Joint Pain and Stiffness Clinic
+          <a href="{% url 'core_app:joint_pain_clinic' %}"
+             class="rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50">
+            <span class="block font-semibold text-slate-900">Joint Pain and Stiffness Clinic</span>
+            <span class="mt-1 block text-sm text-slate-600">Assessment for persistent joint pain, swelling, and stiffness.</span>
           </a>
-          <a href="{% url 'core_app:autoimmune_specialist' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
-            Autoimmune Disease Specialist
+
+          <a href="{% url 'core_app:autoimmune_specialist' %}"
+             class="rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50">
+            <span class="block font-semibold text-slate-900">Autoimmune Disease Specialist</span>
+            <span class="mt-1 block text-sm text-slate-600">Specialist evaluation for autoimmune-related symptoms and long-term care.</span>
           </a>
-          <a href="{% url 'core_app:gout_treatment' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
-            Gout Treatment in Lagos
+
+          <a href="{% url 'core_app:gout_treatment' %}"
+             class="rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50">
+            <span class="block font-semibold text-slate-900">Gout Treatment in Lagos</span>
+            <span class="mt-1 block text-sm text-slate-600">Learn about gout flare-ups, diagnosis, and specialist support.</span>
           </a>
-          <a href="{% url 'core_app:faq' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
-            Rheumatology FAQ
+
+          <a href="{% url 'core_app:faq' %}"
+             class="rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50">
+            <span class="block font-semibold text-slate-900">Rheumatology FAQ</span>
+            <span class="mt-1 block text-sm text-slate-600">Common questions about arthritis, autoimmune conditions, and appointments.</span>
           </a>
         </div>
       </section>

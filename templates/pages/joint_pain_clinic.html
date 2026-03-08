@@ -2,94 +2,162 @@
 
 {% block content %}
 <section class="bg-white">
-  <div class="mx-auto max-w-5xl px-6 py-14">
+  <div class="mx-auto max-w-5xl px-6 py-14 sm:py-16">
     <nav aria-label="Breadcrumb" class="mb-6 text-sm text-slate-600">
       <a href="{% url 'core_app:home' %}" class="hover:text-blue-700">Home</a>
       <span class="mx-2">/</span>
-      <span>Joint Pain and Stiffness Clinic in Lagos</span>
+      <span aria-current="page">Joint Pain and Stiffness Clinic in Lagos</span>
     </nav>
 
-    <h1 class="text-4xl font-bold tracking-tight text-slate-900">
-      Joint Pain and Stiffness Clinic in Lagos
-    </h1>
+    <!-- Hero / Intro -->
+    <header class="rounded-3xl bg-gradient-to-br from-blue-50 via-white to-slate-50 p-8 ring-1 ring-slate-200 sm:p-10">
+      <span class="inline-flex items-center rounded-full bg-blue-100 px-4 py-1.5 text-sm font-semibold text-blue-700 ring-1 ring-blue-200">
+        Specialist Joint & Mobility Care
+      </span>
 
-    <p class="mt-4 text-lg text-slate-700">
-      Joint pain and stiffness can affect comfort, movement, and daily function.
-      Some causes are temporary, while others need careful diagnosis and longer-term care.
-      Specialist review helps identify the likely cause and the right next steps.
-    </p>
+      <h1 class="mt-5 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+        Joint Pain and Stiffness Clinic in Lagos
+      </h1>
 
-    <div class="mt-10 space-y-10">
+      <p class="mt-5 max-w-3xl text-lg leading-relaxed text-slate-700">
+        Joint pain and stiffness can affect comfort, mobility, work, and daily life.
+        Some causes are short-lived, while others need careful diagnosis and longer-term care.
+        Specialist review can help identify the likely cause and guide the right treatment plan.
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="{% url 'appointments:book' %}"
+           class="inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-sm shadow-blue-600/20 transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Book Appointment
+        </a>
+
+        <a href="{% url 'core_app:faq' %}"
+           class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Read FAQ
+        </a>
+      </div>
+    </header>
+
+    <div class="mt-12 space-y-12">
       <section>
-        <h2 class="text-2xl font-semibold text-slate-900">What this page covers</h2>
-        <p class="mt-3 text-slate-700">
-          This clinic page is for patients with persistent joint pain, swelling,
-          stiffness, reduced mobility, or joint symptoms that may be linked to arthritis,
-          inflammation, autoimmune disease, gout, or other musculoskeletal conditions.
+        <h2 class="text-2xl font-semibold text-slate-900">What this clinic page covers</h2>
+        <p class="mt-3 leading-relaxed text-slate-700">
+          This page is for people with persistent joint pain, swelling, stiffness,
+          reduced range of movement, or symptoms that may be linked to arthritis,
+          inflammation, gout, autoimmune disease, or other musculoskeletal conditions.
+          A focused specialist assessment can help clarify whether the problem is inflammatory,
+          mechanical, or related to a longer-term condition.
         </p>
       </section>
 
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">Common symptoms</h2>
-        <ul class="mt-3 list-disc space-y-2 pl-6 text-slate-700">
-          <li>Pain in one or more joints</li>
-          <li>Morning stiffness</li>
-          <li>Swelling, redness, or warmth</li>
-          <li>Reduced range of movement</li>
-          <li>Symptoms that affect walking, gripping, or daily tasks</li>
-        </ul>
+        <div class="mt-5 grid gap-4 sm:grid-cols-2">
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <h3 class="font-semibold text-slate-900">Pain in one or more joints</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Pain may affect a single joint or several joints, depending on the underlying cause.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <h3 class="font-semibold text-slate-900">Morning stiffness</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Stiffness after waking may suggest inflammatory or degenerative joint disease.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <h3 class="font-semibold text-slate-900">Swelling, redness, or warmth</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Some causes of joint pain lead to visible swelling or inflammation in the affected joint.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <h3 class="font-semibold text-slate-900">Reduced movement or daily function</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Symptoms may affect walking, gripping, climbing stairs, or completing normal daily tasks.
+            </p>
+          </div>
+        </div>
       </section>
 
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">How diagnosis is made</h2>
-        <p class="mt-3 text-slate-700">
-          Diagnosis begins with symptom history and physical examination. The pattern,
-          duration, distribution, and severity of symptoms often help distinguish between
-          inflammatory and non-inflammatory causes of joint pain.
+        <p class="mt-3 leading-relaxed text-slate-700">
+          Diagnosis begins with a careful review of symptoms and physical examination.
+          The pattern, duration, severity, and distribution of symptoms often help distinguish
+          between inflammatory and non-inflammatory causes of joint pain. Previous test results
+          and further investigations may also be considered where needed.
         </p>
       </section>
 
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">Treatment approach</h2>
-        <p class="mt-3 text-slate-700">
-          Treatment depends on the cause. It may include pain control, management of inflammation,
-          disease monitoring, activity guidance, and longer-term plans for chronic conditions.
+        <p class="mt-3 leading-relaxed text-slate-700">
+          Treatment depends on the cause. It may include pain relief, control of inflammation,
+          activity guidance, symptom monitoring, and longer-term care plans for chronic conditions.
+          The overall aim is to improve comfort, preserve movement, and support better daily function.
         </p>
       </section>
 
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">When to book</h2>
-        <p class="mt-3 text-slate-700">
-          Book if your joint pain has lasted beyond a short period, keeps returning,
-          is associated with swelling or stiffness, or is affecting your quality of life.
+        <p class="mt-3 leading-relaxed text-slate-700">
+          Book an appointment if your joint pain lasts beyond a short period, keeps returning,
+          is associated with swelling or stiffness, affects more than one joint, or is beginning
+          to interfere with your quality of life and daily activity.
         </p>
       </section>
 
-      <section class="rounded-2xl bg-slate-50 p-6">
+      <!-- CTA -->
+      <section class="rounded-3xl bg-slate-50 p-8 ring-1 ring-slate-200">
         <h2 class="text-2xl font-semibold text-slate-900">Book an appointment</h2>
-        <p class="mt-3 text-slate-700">
-          Book an appointment for specialist evaluation of joint pain and stiffness in Lagos.
+        <p class="mt-3 max-w-2xl leading-relaxed text-slate-700">
+          Book an appointment for specialist evaluation of joint pain and stiffness in Lagos,
+          including assessment of possible arthritis, gout, autoimmune disease, and related conditions.
         </p>
-        <a href="{% url 'appointments:book' %}"
-           class="mt-5 inline-flex rounded-xl bg-blue-600 px-5 py-3 font-medium text-white hover:bg-blue-700">
-          Book Appointment
-        </a>
+
+        <div class="mt-6 flex flex-wrap gap-4">
+          <a href="{% url 'appointments:book' %}"
+             class="inline-flex items-center rounded-xl bg-blue-600 px-5 py-3 font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Book Appointment
+          </a>
+
+          <a href="{% url 'core_app:contact_location' %}"
+             class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-5 py-3 font-medium text-slate-700 transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Contact the Clinic
+          </a>
+        </div>
       </section>
 
+      <!-- Related pages -->
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">Related pages</h2>
         <div class="mt-4 grid gap-3 sm:grid-cols-2">
-          <a href="{% url 'core_app:ra_treatment' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
-            Rheumatoid Arthritis Treatment
+          <a href="{% url 'core_app:ra_treatment' %}"
+             class="rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50">
+            <span class="block font-semibold text-slate-900">Rheumatoid Arthritis Treatment</span>
+            <span class="mt-1 block text-sm text-slate-600">Learn about inflammatory joint disease, diagnosis, and long-term treatment.</span>
           </a>
-          <a href="{% url 'core_app:gout_treatment' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
-            Gout Treatment
+
+          <a href="{% url 'core_app:gout_treatment' %}"
+             class="rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50">
+            <span class="block font-semibold text-slate-900">Gout Treatment</span>
+            <span class="mt-1 block text-sm text-slate-600">Care for flare-ups, swelling, and recurring inflammatory joint pain.</span>
           </a>
-          <a href="{% url 'core_app:lupus_care' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
-            Lupus Care
+
+          <a href="{% url 'core_app:lupus_care' %}"
+             class="rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50">
+            <span class="block font-semibold text-slate-900">Lupus Care</span>
+            <span class="mt-1 block text-sm text-slate-600">Specialist support for autoimmune disease affecting joints and other body systems.</span>
           </a>
-          <a href="{% url 'core_app:autoimmune_specialist' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
-            Autoimmune Disease Specialist
+
+          <a href="{% url 'core_app:autoimmune_specialist' %}"
+             class="rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50">
+            <span class="block font-semibold text-slate-900">Autoimmune Disease Specialist</span>
+            <span class="mt-1 block text-sm text-slate-600">Evaluation for autoimmune symptoms, inflammation, and long-term rheumatology care.</span>
           </a>
         </div>
       </section>

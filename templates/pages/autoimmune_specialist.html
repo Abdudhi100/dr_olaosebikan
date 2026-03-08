@@ -2,94 +2,164 @@
 
 {% block content %}
 <section class="bg-white">
-  <div class="mx-auto max-w-5xl px-6 py-14">
+  <div class="mx-auto max-w-5xl px-6 py-14 sm:py-16">
     <nav aria-label="Breadcrumb" class="mb-6 text-sm text-slate-600">
       <a href="{% url 'core_app:home' %}" class="hover:text-blue-700">Home</a>
       <span class="mx-2">/</span>
-      <span>Autoimmune Disease Specialist in Lagos</span>
+      <span aria-current="page">Autoimmune Disease Specialist in Lagos</span>
     </nav>
 
-    <h1 class="text-4xl font-bold tracking-tight text-slate-900">
-      Autoimmune Disease Specialist in Lagos
-    </h1>
+    <!-- Hero / Intro -->
+    <header class="rounded-3xl bg-gradient-to-br from-blue-50 via-white to-slate-50 p-8 ring-1 ring-slate-200 sm:p-10">
+      <span class="inline-flex items-center rounded-full bg-blue-100 px-4 py-1.5 text-sm font-semibold text-blue-700 ring-1 ring-blue-200">
+        Specialist Autoimmune & Rheumatology Care
+      </span>
 
-    <p class="mt-4 text-lg text-slate-700">
-      Autoimmune diseases can present in many ways, including joint pain, fatigue,
-      rashes, swelling, and symptoms affecting different parts of the body. Specialist
-      evaluation can help clarify the diagnosis and guide appropriate long-term care.
-    </p>
+      <h1 class="mt-5 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+        Autoimmune Disease Specialist in Lagos
+      </h1>
 
-    <div class="mt-10 space-y-10">
+      <p class="mt-5 max-w-3xl text-lg leading-relaxed text-slate-700">
+        Autoimmune diseases can present in many ways, including joint pain, fatigue,
+        rashes, swelling, and symptoms affecting different parts of the body. Specialist
+        evaluation can help clarify the diagnosis, identify patterns of inflammation,
+        and guide appropriate long-term care.
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="{% url 'appointments:book' %}"
+           class="inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-sm shadow-blue-600/20 transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Book Appointment
+        </a>
+
+        <a href="{% url 'core_app:faq' %}"
+           class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Read FAQ
+        </a>
+      </div>
+    </header>
+
+    <div class="mt-12 space-y-12">
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">What are autoimmune diseases?</h2>
-        <p class="mt-3 text-slate-700">
+        <p class="mt-3 leading-relaxed text-slate-700">
           Autoimmune diseases develop when the immune system mistakenly attacks the body’s
           own tissues. These conditions may affect the joints, skin, muscles, blood vessels,
-          or other organs, and they often require careful monitoring over time.
+          or internal organs, and symptoms can vary widely from one person to another.
+          Because autoimmune conditions may overlap in presentation, careful specialist
+          evaluation is often important.
         </p>
       </section>
 
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">Common symptoms</h2>
-        <ul class="mt-3 list-disc space-y-2 pl-6 text-slate-700">
-          <li>Persistent fatigue</li>
-          <li>Joint pain and swelling</li>
-          <li>Muscle aches</li>
-          <li>Unexplained rashes</li>
-          <li>Symptoms that affect more than one body system</li>
-        </ul>
+        <div class="mt-5 grid gap-4 sm:grid-cols-2">
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <h3 class="font-semibold text-slate-900">Persistent fatigue</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Ongoing tiredness or reduced energy can be part of autoimmune disease activity.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <h3 class="font-semibold text-slate-900">Joint pain and swelling</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Inflammation may affect the joints and lead to pain, swelling, and stiffness.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <h3 class="font-semibold text-slate-900">Muscle aches</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Some people experience widespread muscle discomfort or soreness alongside other symptoms.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <h3 class="font-semibold text-slate-900">Unexplained rashes or multi-system symptoms</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Autoimmune diseases may affect the skin and other body systems at the same time.
+            </p>
+          </div>
+        </div>
       </section>
 
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">How diagnosis is made</h2>
-        <p class="mt-3 text-slate-700">
-          Diagnosis often involves a combination of history, symptom pattern, physical examination,
-          and review of appropriate tests. Because autoimmune diseases can mimic other illnesses,
-          specialist assessment is valuable in narrowing the diagnosis.
+        <p class="mt-3 leading-relaxed text-slate-700">
+          Diagnosis often involves a combination of medical history, symptom pattern,
+          physical examination, and review of relevant tests. Because autoimmune diseases
+          can mimic other illnesses, specialist assessment helps narrow the diagnosis
+          and identify the most likely cause of ongoing symptoms.
         </p>
       </section>
 
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">Treatment approach</h2>
-        <p class="mt-3 text-slate-700">
-          Management focuses on controlling inflammation, reducing flares, monitoring organ involvement,
-          and improving quality of life. Treatment plans are tailored to the type of disease and the patient’s needs.
+        <p class="mt-3 leading-relaxed text-slate-700">
+          Management focuses on controlling inflammation, reducing flare-ups, monitoring
+          organ involvement where necessary, and improving quality of life. Treatment plans
+          are tailored to the type of disease, disease activity, symptom burden, and the
+          patient’s individual health needs.
         </p>
       </section>
 
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">When to book</h2>
-        <p class="mt-3 text-slate-700">
-          Book if you have symptoms suggestive of autoimmune disease, recurrent unexplained inflammation,
-          or an existing diagnosis that needs ongoing specialist review.
+        <p class="mt-3 leading-relaxed text-slate-700">
+          Book an appointment if you have symptoms suggestive of autoimmune disease,
+          recurrent unexplained inflammation, joint pain with fatigue or rash, or an
+          existing diagnosis that needs ongoing specialist review and long-term management.
         </p>
       </section>
 
-      <section class="rounded-2xl bg-slate-50 p-6">
+      <!-- CTA -->
+      <section class="rounded-3xl bg-slate-50 p-8 ring-1 ring-slate-200">
         <h2 class="text-2xl font-semibold text-slate-900">Book an appointment</h2>
-        <p class="mt-3 text-slate-700">
-          Book an appointment for specialist autoimmune disease evaluation and long-term care in Lagos.
+        <p class="mt-3 max-w-2xl leading-relaxed text-slate-700">
+          Book an appointment for specialist autoimmune disease evaluation and long-term
+          rheumatology care in Lagos.
         </p>
-        <a href="{% url 'appointments:book' %}"
-           class="mt-5 inline-flex rounded-xl bg-blue-600 px-5 py-3 font-medium text-white hover:bg-blue-700">
-          Book Appointment
-        </a>
+
+        <div class="mt-6 flex flex-wrap gap-4">
+          <a href="{% url 'appointments:book' %}"
+             class="inline-flex items-center rounded-xl bg-blue-600 px-5 py-3 font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Book Appointment
+          </a>
+
+          <a href="{% url 'core_app:contact_location' %}"
+             class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-5 py-3 font-medium text-slate-700 transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Contact the Clinic
+          </a>
+        </div>
       </section>
 
+      <!-- Related pages -->
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">Related pages</h2>
         <div class="mt-4 grid gap-3 sm:grid-cols-2">
-          <a href="{% url 'core_app:lupus_care' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
-            Lupus Care in Lagos
+          <a href="{% url 'core_app:lupus_care' %}"
+             class="rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50">
+            <span class="block font-semibold text-slate-900">Lupus Care in Lagos</span>
+            <span class="mt-1 block text-sm text-slate-600">Specialist support for lupus diagnosis, monitoring, and long-term care.</span>
           </a>
-          <a href="{% url 'core_app:ra_treatment' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
-            Rheumatoid Arthritis Treatment
+
+          <a href="{% url 'core_app:ra_treatment' %}"
+             class="rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50">
+            <span class="block font-semibold text-slate-900">Rheumatoid Arthritis Treatment</span>
+            <span class="mt-1 block text-sm text-slate-600">Learn about inflammatory joint disease, diagnosis, and ongoing treatment.</span>
           </a>
-          <a href="{% url 'core_app:about_doctor' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
-            About Dr Olaosebikan
+
+          <a href="{% url 'core_app:about_doctor' %}"
+             class="rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50">
+            <span class="block font-semibold text-slate-900">About Dr Olaosebikan</span>
+            <span class="mt-1 block text-sm text-slate-600">Learn more about the specialist behind the clinic and care approach.</span>
           </a>
-          <a href="{% url 'core_app:faq' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
-            Rheumatology FAQ
+
+          <a href="{% url 'core_app:faq' %}"
+             class="rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50">
+            <span class="block font-semibold text-slate-900">Rheumatology FAQ</span>
+            <span class="mt-1 block text-sm text-slate-600">Common questions about arthritis, autoimmune disease, and appointments.</span>
           </a>
         </div>
       </section>

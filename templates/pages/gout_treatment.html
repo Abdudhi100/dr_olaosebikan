@@ -2,96 +2,164 @@
 
 {% block content %}
 <section class="bg-white">
-  <div class="mx-auto max-w-5xl px-6 py-14">
+  <div class="mx-auto max-w-5xl px-6 py-14 sm:py-16">
     <nav aria-label="Breadcrumb" class="mb-6 text-sm text-slate-600">
       <a href="{% url 'core_app:home' %}" class="hover:text-blue-700">Home</a>
       <span class="mx-2">/</span>
-      <span>Gout Treatment in Lagos</span>
+      <span aria-current="page">Gout Treatment in Lagos</span>
     </nav>
 
-    <h1 class="text-4xl font-bold tracking-tight text-slate-900">
-      Gout Treatment in Lagos
-    </h1>
+    <!-- Hero / Intro -->
+    <header class="rounded-3xl bg-gradient-to-br from-blue-50 via-white to-slate-50 p-8 ring-1 ring-slate-200 sm:p-10">
+      <span class="inline-flex items-center rounded-full bg-blue-100 px-4 py-1.5 text-sm font-semibold text-blue-700 ring-1 ring-blue-200">
+        Arthritis & Joint Pain Care
+      </span>
 
-    <p class="mt-4 text-lg text-slate-700">
-      Gout is a painful joint condition that can cause sudden attacks of swelling,
-      redness, and severe discomfort. Specialist care can help confirm the cause,
-      relieve symptoms, and reduce future flare-ups.
-    </p>
+      <h1 class="mt-5 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+        Gout Treatment in Lagos
+      </h1>
 
-    <div class="mt-10 space-y-10">
+      <p class="mt-5 max-w-3xl text-lg leading-relaxed text-slate-700">
+        Gout is a painful form of inflammatory arthritis that can cause sudden attacks of
+        swelling, redness, heat, and severe joint discomfort. Specialist review can help
+        confirm the cause, manage flare-ups, reduce future attacks, and support longer-term
+        joint health.
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="{% url 'appointments:book' %}"
+           class="inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-sm shadow-blue-600/20 transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Book Appointment
+        </a>
+
+        <a href="{% url 'core_app:faq' %}"
+           class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Read FAQ
+        </a>
+      </div>
+    </header>
+
+    <div class="mt-12 space-y-12">
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">What is gout?</h2>
-        <p class="mt-3 text-slate-700">
-          Gout is a form of inflammatory arthritis linked to uric acid crystal
-          deposits in the joints. It often affects one joint at a time, especially
-          the big toe, but can also affect the ankles, knees, feet, wrists, and elbows.
+        <p class="mt-3 leading-relaxed text-slate-700">
+          Gout is a form of inflammatory arthritis linked to uric acid crystal deposits
+          in the joints. It often affects one joint at a time, especially the big toe,
+          but may also affect the ankles, knees, feet, wrists, elbows, or other joints.
+          Some patients experience isolated flare-ups, while others may need ongoing care
+          for recurrent disease.
         </p>
       </section>
 
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">Common symptoms</h2>
-        <ul class="mt-3 list-disc space-y-2 pl-6 text-slate-700">
-          <li>Sudden severe joint pain</li>
-          <li>Redness and swelling around the joint</li>
-          <li>Warmth and tenderness</li>
-          <li>Pain that may wake you from sleep</li>
-          <li>Repeated attacks over time</li>
-        </ul>
+        <div class="mt-5 grid gap-4 sm:grid-cols-2">
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <h3 class="font-semibold text-slate-900">Sudden severe joint pain</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Pain may begin suddenly and can be intense, especially during an acute flare.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <h3 class="font-semibold text-slate-900">Redness and swelling</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              The affected joint may become swollen, red, and visibly inflamed.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <h3 class="font-semibold text-slate-900">Warmth and tenderness</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              The joint may feel hot, tender, and painful even to light touch.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <h3 class="font-semibold text-slate-900">Repeated attacks over time</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+              Some people experience recurrent flare-ups that require long-term prevention planning.
+            </p>
+          </div>
+        </div>
       </section>
 
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">How diagnosis is made</h2>
-        <p class="mt-3 text-slate-700">
+        <p class="mt-3 leading-relaxed text-slate-700">
           Diagnosis is based on the pattern of symptoms, medical history, examination,
-          and in some cases supporting investigations. Specialist review helps separate
-          gout from other causes of joint pain and swelling.
+          and where necessary, supporting investigations. Specialist review helps separate
+          gout from other causes of joint pain, swelling, and inflammatory arthritis, so
+          treatment can be better tailored to the patient’s needs.
         </p>
       </section>
 
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">Treatment approach</h2>
-        <p class="mt-3 text-slate-700">
-          Treatment may include managing flare-ups, preventing future attacks,
-          identifying contributing factors, and long-term strategies for patients
-          who have recurrent gout or more complicated disease.
+        <p class="mt-3 leading-relaxed text-slate-700">
+          Treatment may involve relief of acute flare-ups, prevention of future attacks,
+          identification of contributing factors, and long-term strategies for patients
+          with recurrent gout or more complicated disease patterns. The goal is to reduce
+          pain, control inflammation, and help prevent repeat episodes.
         </p>
       </section>
 
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">When to book</h2>
-        <p class="mt-3 text-slate-700">
-          Book an appointment if you have sudden attacks of severe joint pain,
-          recurrent swelling, or if you have previously been told you have gout
-          and need specialist assessment or follow-up.
+        <p class="mt-3 leading-relaxed text-slate-700">
+          You should consider booking an appointment if you have sudden attacks of severe
+          joint pain, repeated swelling episodes, pain that keeps returning, or if you have
+          previously been told you have gout and need specialist review or follow-up care.
         </p>
       </section>
 
-      <section class="rounded-2xl bg-slate-50 p-6">
+      <!-- CTA -->
+      <section class="rounded-3xl bg-slate-50 p-8 ring-1 ring-slate-200">
         <h2 class="text-2xl font-semibold text-slate-900">Book an appointment</h2>
-        <p class="mt-3 text-slate-700">
-          If you need gout treatment in Lagos, book an appointment for specialist review and care.
+        <p class="mt-3 max-w-2xl leading-relaxed text-slate-700">
+          If you need gout treatment in Lagos, book an appointment for specialist review,
+          diagnosis, symptom control, and long-term care planning.
         </p>
-        <a href="{% url 'appointments:book' %}"
-           class="mt-5 inline-flex rounded-xl bg-blue-600 px-5 py-3 font-medium text-white hover:bg-blue-700">
-          Book Appointment
-        </a>
+
+        <div class="mt-6 flex flex-wrap gap-4">
+          <a href="{% url 'appointments:book' %}"
+             class="inline-flex items-center rounded-xl bg-blue-600 px-5 py-3 font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Book Appointment
+          </a>
+
+          <a href="{% url 'core_app:contact_location' %}"
+             class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-5 py-3 font-medium text-slate-700 transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Contact the Clinic
+          </a>
+        </div>
       </section>
 
+      <!-- Related pages -->
       <section>
         <h2 class="text-2xl font-semibold text-slate-900">Related pages</h2>
         <div class="mt-4 grid gap-3 sm:grid-cols-2">
-          <a href="{% url 'core_app:joint_pain_clinic' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
-            Joint Pain and Stiffness Clinic
+          <a href="{% url 'core_app:joint_pain_clinic' %}"
+             class="rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50">
+            <span class="block font-semibold text-slate-900">Joint Pain and Stiffness Clinic</span>
+            <span class="mt-1 block text-sm text-slate-600">Assessment for persistent joint pain, swelling, and stiffness.</span>
           </a>
-          <a href="{% url 'core_app:ra_treatment' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
-            Rheumatoid Arthritis Treatment
+
+          <a href="{% url 'core_app:ra_treatment' %}"
+             class="rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50">
+            <span class="block font-semibold text-slate-900">Rheumatoid Arthritis Treatment</span>
+            <span class="mt-1 block text-sm text-slate-600">Learn about inflammatory joint disease, diagnosis, and treatment.</span>
           </a>
-          <a href="{% url 'core_app:faq' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
-            Rheumatology FAQ
+
+          <a href="{% url 'core_app:faq' %}"
+             class="rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50">
+            <span class="block font-semibold text-slate-900">Rheumatology FAQ</span>
+            <span class="mt-1 block text-sm text-slate-600">Common questions about arthritis, autoimmune care, and appointments.</span>
           </a>
-          <a href="{% url 'core_app:contact_location' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
-            Contact and Clinic Location
+
+          <a href="{% url 'core_app:contact_location' %}"
+             class="rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50">
+            <span class="block font-semibold text-slate-900">Contact and Clinic Location</span>
+            <span class="mt-1 block text-sm text-slate-600">Find clinic contact details, location information, and booking guidance.</span>
           </a>
         </div>
       </section>
