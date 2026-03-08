@@ -1,6 +1,7 @@
 # core_app/models.py
 from django.db import models
 from django.utils.text import slugify
+from django.urls import reverse
 
 
 class SiteSettings(models.Model):
@@ -93,6 +94,9 @@ class StaticPage(models.Model):
     meta_keywords = models.CharField(max_length=400, blank=True)
     is_published = models.BooleanField(default=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def get_absolute_url(self):
+        return reverse("core_app:static_page", kwargs={"slug": self.slug})
 
     def save(self, *args, **kwargs):
         if not self.slug:

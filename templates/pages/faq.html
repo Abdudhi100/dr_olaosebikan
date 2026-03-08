@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="bg-white">
+  <div class="mx-auto max-w-5xl px-6 py-14">
+    <nav aria-label="Breadcrumb" class="mb-6 text-sm text-slate-600">
+      <a href="{% url 'core_app:home' %}" class="hover:text-blue-700">Home</a>
+      <span class="mx-2">/</span>
+      <span>Rheumatology FAQ</span>
+    </nav>
+
+    <h1 class="text-4xl font-bold tracking-tight text-slate-900">
+      Rheumatology FAQ
+    </h1>
+
+    <p class="mt-4 text-lg text-slate-700">
+      Here are answers to some common questions about arthritis, autoimmune disease,
+      joint pain, and booking a specialist appointment.
+    </p>
+
+    <div class="mt-10 space-y-8">
+      <section class="rounded-2xl border border-slate-200 p-6">
+        <h2 class="text-xl font-semibold text-slate-900">What does a rheumatology specialist treat?</h2>
+        <p class="mt-3 text-slate-700">
+          A rheumatology specialist assesses and manages arthritis, autoimmune disease,
+          inflammatory joint conditions, gout, lupus, and many causes of chronic joint pain and stiffness.
+        </p>
+      </section>
+
+      <section class="rounded-2xl border border-slate-200 p-6">
+        <h2 class="text-xl font-semibold text-slate-900">When should I see a doctor for joint pain?</h2>
+        <p class="mt-3 text-slate-700">
+          You should consider booking if pain persists, keeps returning, is associated with swelling,
+          morning stiffness, reduced movement, or is affecting your daily activities.
+        </p>
+      </section>
+
+      <section class="rounded-2xl border border-slate-200 p-6">
+        <h2 class="text-xl font-semibold text-slate-900">Can autoimmune diseases affect the joints?</h2>
+        <p class="mt-3 text-slate-700">
+          Yes. Many autoimmune diseases can affect the joints and may also involve other body systems.
+          This is one reason why specialist assessment can be important.
+        </p>
+      </section>
+
+      <section class="rounded-2xl border border-slate-200 p-6">
+        <h2 class="text-xl font-semibold text-slate-900">How is rheumatoid arthritis diagnosed?</h2>
+        <p class="mt-3 text-slate-700">
+          Diagnosis is based on symptoms, medical history, physical examination,
+          and where necessary, review of investigations. Early assessment is helpful because treatment can protect joint function.
+        </p>
+      </section>
+
+      <section class="rounded-2xl border border-slate-200 p-6">
+        <h2 class="text-xl font-semibold text-slate-900">Is gout treatable?</h2>
+        <p class="mt-3 text-slate-700">
+          Yes. Gout can often be managed with the right treatment approach, especially when the diagnosis is confirmed
+          and long-term risk of repeat attacks is addressed.
+        </p>
+      </section>
+
+      <section class="rounded-2xl border border-slate-200 p-6">
+        <h2 class="text-xl font-semibold text-slate-900">What should I bring to my appointment?</h2>
+        <p class="mt-3 text-slate-700">
+          Bring any previous test results, prescriptions, relevant medical history,
+          and a clear summary of your symptoms, how long they have lasted, and what seems to make them better or worse.
+        </p>
+      </section>
+
+      <section class="rounded-2xl bg-slate-50 p-6">
+        <h2 class="text-2xl font-semibold text-slate-900">Need specialist review?</h2>
+        <p class="mt-3 text-slate-700">
+          Book an appointment for assessment of arthritis, autoimmune disease, joint pain, or related symptoms.
+        </p>
+        <a href="{% url 'appointments:book' %}"
+           class="mt-5 inline-flex rounded-xl bg-blue-600 px-5 py-3 font-medium text-white hover:bg-blue-700">
+          Book Appointment
+        </a>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">Related pages</h2>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <a href="{% url 'core_app:about_doctor' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            About Dr Olaosebikan
+          </a>
+          <a href="{% url 'core_app:ra_treatment' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Rheumatoid Arthritis Treatment
+          </a>
+          <a href="{% url 'core_app:autoimmune_specialist' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Autoimmune Disease Specialist
+          </a>
+          <a href="{% url 'core_app:contact_location' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Contact and Clinic Location
+          </a>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+{% endblock %}

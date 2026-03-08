@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="bg-white">
+  <div class="mx-auto max-w-5xl px-6 py-14">
+    <nav aria-label="Breadcrumb" class="mb-6 text-sm text-slate-600">
+      <a href="{% url 'core_app:home' %}" class="hover:text-blue-700">Home</a>
+      <span class="mx-2">/</span>
+      <span>Lupus Care in Lagos</span>
+    </nav>
+
+    <h1 class="text-4xl font-bold tracking-tight text-slate-900">
+      Lupus Care in Lagos
+    </h1>
+
+    <p class="mt-4 text-lg text-slate-700">
+      Lupus is a complex autoimmune condition that can affect different parts of the body.
+      Early recognition, careful diagnosis, and ongoing specialist care are important in
+      helping patients manage symptoms and monitor disease activity.
+    </p>
+
+    <div class="mt-10 space-y-10">
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">What is lupus?</h2>
+        <p class="mt-3 text-slate-700">
+          Lupus is an autoimmune disease in which the immune system attacks the body’s
+          own tissues. It may affect the joints, skin, kidneys, blood cells, and other organs,
+          and symptoms can vary widely from person to person.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">Common symptoms</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-6 text-slate-700">
+          <li>Joint pain or swelling</li>
+          <li>Fatigue</li>
+          <li>Skin rashes</li>
+          <li>Fever or unexplained illness</li>
+          <li>Symptoms that come and go over time</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">How diagnosis is made</h2>
+        <p class="mt-3 text-slate-700">
+          Diagnosing lupus usually involves a detailed clinical review because symptoms
+          may overlap with other conditions. Assessment may include medical history,
+          examination, and review of relevant tests where necessary.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">Treatment approach</h2>
+        <p class="mt-3 text-slate-700">
+          Treatment focuses on controlling disease activity, reducing inflammation,
+          protecting organ health, monitoring flare-ups, and supporting long-term wellbeing.
+          Care plans depend on the organs involved, severity, and the patient’s health needs.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">When to book</h2>
+        <p class="mt-3 text-slate-700">
+          Book an appointment if you have symptoms suggestive of autoimmune disease,
+          a previous lupus diagnosis, or recurrent joint pain and systemic symptoms
+          that need specialist evaluation.
+        </p>
+      </section>
+
+      <section class="rounded-2xl bg-slate-50 p-6">
+        <h2 class="text-2xl font-semibold text-slate-900">Book an appointment</h2>
+        <p class="mt-3 text-slate-700">
+          If you need lupus care in Lagos, book an appointment for specialist assessment and follow-up.
+        </p>
+        <a href="{% url 'appointments:book' %}"
+           class="mt-5 inline-flex rounded-xl bg-blue-600 px-5 py-3 font-medium text-white hover:bg-blue-700">
+          Book Appointment
+        </a>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">Related pages</h2>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <a href="{% url 'core_app:autoimmune_specialist' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Autoimmune Disease Specialist
+          </a>
+          <a href="{% url 'core_app:ra_treatment' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Rheumatoid Arthritis Treatment
+          </a>
+          <a href="{% url 'core_app:faq' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Rheumatology FAQ
+          </a>
+          <a href="{% url 'core_app:contact_location' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Contact and Clinic Location
+          </a>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+{% endblock %}

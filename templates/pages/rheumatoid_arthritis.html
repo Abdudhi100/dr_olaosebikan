@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="bg-white">
+  <div class="mx-auto max-w-5xl px-6 py-14">
+    <nav aria-label="Breadcrumb" class="mb-6 text-sm text-slate-600">
+      <a href="{% url 'core_app:home' %}" class="hover:text-blue-700">Home</a>
+      <span class="mx-2">/</span>
+      <span>Rheumatoid Arthritis Treatment in Lagos</span>
+    </nav>
+
+    <h1 class="text-4xl font-bold tracking-tight text-slate-900">
+      Rheumatoid Arthritis Treatment in Lagos
+    </h1>
+
+    <p class="mt-4 text-lg text-slate-700">
+      Rheumatoid arthritis is an autoimmune condition that can cause joint pain,
+      swelling, stiffness, and progressive damage if not treated early. Specialist
+      assessment can help confirm the diagnosis and guide long-term care.
+    </p>
+
+    <div class="mt-10 space-y-10">
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">What is rheumatoid arthritis?</h2>
+        <p class="mt-3 text-slate-700">
+          Rheumatoid arthritis is a chronic inflammatory disease in which the immune
+          system mistakenly attacks the joints. It can affect daily function, mobility,
+          and over time may lead to joint damage if it is not properly managed.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">Common symptoms</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-6 text-slate-700">
+          <li>Morning stiffness that lasts a long time</li>
+          <li>Swollen, warm, or painful joints</li>
+          <li>Pain in the hands, wrists, feet, or knees</li>
+          <li>Fatigue and reduced energy</li>
+          <li>Difficulty with movement or daily tasks</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">How diagnosis is made</h2>
+        <p class="mt-3 text-slate-700">
+          Diagnosis depends on a detailed clinical assessment. This may include symptom
+          review, examination of the affected joints, and consideration of previous
+          investigations or additional tests where needed. Early diagnosis is important
+          because treatment can help protect joint function.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">Treatment approach</h2>
+        <p class="mt-3 text-slate-700">
+          Treatment may involve patient education, medicines to control inflammation,
+          monitoring of disease activity, support for mobility and function, and long-term
+          follow-up tailored to the individual patient’s needs.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">When to book</h2>
+        <p class="mt-3 text-slate-700">
+          Book an appointment if you have persistent joint swelling, prolonged morning
+          stiffness, pain in multiple joints, or if you have already been diagnosed and
+          need specialist review or follow-up.
+        </p>
+      </section>
+
+      <section class="rounded-2xl bg-slate-50 p-6">
+        <h2 class="text-2xl font-semibold text-slate-900">Book an appointment</h2>
+        <p class="mt-3 text-slate-700">
+          If you need rheumatoid arthritis treatment in Lagos, book an appointment for
+          specialist evaluation and care.
+        </p>
+        <a href="{% url 'appointments:book' %}"
+           class="mt-5 inline-flex rounded-xl bg-blue-600 px-5 py-3 font-medium text-white hover:bg-blue-700">
+          Book Appointment
+        </a>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">Related pages</h2>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <a href="{% url 'core_app:joint_pain_clinic' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Joint Pain and Stiffness Clinic
+          </a>
+          <a href="{% url 'core_app:autoimmune_specialist' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Autoimmune Disease Specialist
+          </a>
+          <a href="{% url 'core_app:gout_treatment' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Gout Treatment in Lagos
+          </a>
+          <a href="{% url 'core_app:faq' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Rheumatology FAQ
+          </a>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+{% endblock %}

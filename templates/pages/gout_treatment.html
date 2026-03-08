@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="bg-white">
+  <div class="mx-auto max-w-5xl px-6 py-14">
+    <nav aria-label="Breadcrumb" class="mb-6 text-sm text-slate-600">
+      <a href="{% url 'core_app:home' %}" class="hover:text-blue-700">Home</a>
+      <span class="mx-2">/</span>
+      <span>Gout Treatment in Lagos</span>
+    </nav>
+
+    <h1 class="text-4xl font-bold tracking-tight text-slate-900">
+      Gout Treatment in Lagos
+    </h1>
+
+    <p class="mt-4 text-lg text-slate-700">
+      Gout is a painful joint condition that can cause sudden attacks of swelling,
+      redness, and severe discomfort. Specialist care can help confirm the cause,
+      relieve symptoms, and reduce future flare-ups.
+    </p>
+
+    <div class="mt-10 space-y-10">
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">What is gout?</h2>
+        <p class="mt-3 text-slate-700">
+          Gout is a form of inflammatory arthritis linked to uric acid crystal
+          deposits in the joints. It often affects one joint at a time, especially
+          the big toe, but can also affect the ankles, knees, feet, wrists, and elbows.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">Common symptoms</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-6 text-slate-700">
+          <li>Sudden severe joint pain</li>
+          <li>Redness and swelling around the joint</li>
+          <li>Warmth and tenderness</li>
+          <li>Pain that may wake you from sleep</li>
+          <li>Repeated attacks over time</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">How diagnosis is made</h2>
+        <p class="mt-3 text-slate-700">
+          Diagnosis is based on the pattern of symptoms, medical history, examination,
+          and in some cases supporting investigations. Specialist review helps separate
+          gout from other causes of joint pain and swelling.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">Treatment approach</h2>
+        <p class="mt-3 text-slate-700">
+          Treatment may include managing flare-ups, preventing future attacks,
+          identifying contributing factors, and long-term strategies for patients
+          who have recurrent gout or more complicated disease.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">When to book</h2>
+        <p class="mt-3 text-slate-700">
+          Book an appointment if you have sudden attacks of severe joint pain,
+          recurrent swelling, or if you have previously been told you have gout
+          and need specialist assessment or follow-up.
+        </p>
+      </section>
+
+      <section class="rounded-2xl bg-slate-50 p-6">
+        <h2 class="text-2xl font-semibold text-slate-900">Book an appointment</h2>
+        <p class="mt-3 text-slate-700">
+          If you need gout treatment in Lagos, book an appointment for specialist review and care.
+        </p>
+        <a href="{% url 'appointments:book' %}"
+           class="mt-5 inline-flex rounded-xl bg-blue-600 px-5 py-3 font-medium text-white hover:bg-blue-700">
+          Book Appointment
+        </a>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">Related pages</h2>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <a href="{% url 'core_app:joint_pain_clinic' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Joint Pain and Stiffness Clinic
+          </a>
+          <a href="{% url 'core_app:ra_treatment' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Rheumatoid Arthritis Treatment
+          </a>
+          <a href="{% url 'core_app:faq' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Rheumatology FAQ
+          </a>
+          <a href="{% url 'core_app:contact_location' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Contact and Clinic Location
+          </a>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+{% endblock %}

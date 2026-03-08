@@ -5,42 +5,107 @@
   class="sticky top-0 z-50 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 ring-1 ring-slate-200/70"
   aria-label="Primary"
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
     <div class="flex h-16 items-center justify-between gap-3">
 
       <!-- BRAND -->
       <a href="{% url 'core_app:home' %}"
-         class="group inline-flex items-center gap-3 min-w-0 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600">
-        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white font-extrabold tracking-tight shadow-sm shadow-blue-600/20">
-          <span class="text-sm">
-            {{ clinic.clinic_name|default:"Clinic"|slice:":2"|upper }}
-          </span>
+         class="group inline-flex min-w-0 items-center gap-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600">
+        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-sm font-extrabold tracking-tight text-white shadow-sm shadow-blue-600/20">
+          {{ clinic.clinic_name|default:"Clinic"|slice:":2"|upper }}
         </div>
+
         <div class="min-w-0 leading-tight">
-          <div class="text-sm sm:text-base font-extrabold text-slate-900 group-hover:text-blue-700 transition truncate">
+          <div class="truncate text-sm font-extrabold text-slate-900 transition group-hover:text-blue-700 sm:text-base">
             {{ clinic.clinic_name|default:"Pain, Arthritis, Autoimmune & Rheumatology Clinic" }}
           </div>
-          <div class="hidden sm:block text-xs text-slate-500 truncate">
+          <div class="hidden truncate text-xs text-slate-500 sm:block">
             {{ clinic.clinic_tagline|default:"Specialist care for pain, arthritis, autoimmune & rheumatic diseases." }}
           </div>
         </div>
       </a>
 
       <!-- DESKTOP NAV -->
-      <div class="hidden md:flex items-center gap-8">
+      <div class="hidden items-center gap-8 md:flex">
 
         <a href="{% url 'core_app:home' %}#services"
-           class="text-sm font-semibold text-slate-700 hover:text-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-600 rounded">
+           class="rounded text-sm font-semibold text-slate-700 transition hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600">
           Services
         </a>
 
-        <!-- RESOURCES DROPDOWN (desktop) -->
-        <div class="relative"
-             @click.outside="desktopResourcesOpen=false">
+        <!-- CARE AREAS DROPDOWN -->
+        <div class="relative" @click.outside="desktopCareOpen=false">
           <button
             type="button"
-            @click="desktopResourcesOpen = !desktopResourcesOpen"
-            class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-600 rounded"
+            @click="desktopCareOpen = !desktopCareOpen; desktopResourcesOpen = false"
+            class="inline-flex items-center gap-2 rounded text-sm font-semibold text-slate-700 transition hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+            :aria-expanded="desktopCareOpen.toString()"
+            aria-haspopup="true"
+          >
+            Care Areas
+            <svg class="h-4 w-4 transition" :class="desktopCareOpen ? 'rotate-180' : ''"
+                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.24 4.24a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.08z" clip-rule="evenodd" />
+            </svg>
+          </button>
+
+          <div
+            x-cloak
+            x-show="desktopCareOpen"
+            x-transition.origin.top.duration.200ms
+            class="absolute left-0 mt-3 w-80 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl"
+            role="menu"
+          >
+            <a href="{% url 'core_app:about_doctor' %}"
+               class="block px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50"
+               role="menuitem">
+              About Dr Olaosebikan
+              <div class="text-xs font-normal text-slate-500">Meet the specialist behind the clinic</div>
+            </a>
+
+            <a href="{% url 'core_app:ra_treatment' %}"
+               class="block border-t border-slate-100 px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50"
+               role="menuitem">
+              Rheumatoid Arthritis
+              <div class="text-xs font-normal text-slate-500">Assessment and long-term care</div>
+            </a>
+
+            <a href="{% url 'core_app:gout_treatment' %}"
+               class="block border-t border-slate-100 px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50"
+               role="menuitem">
+              Gout Treatment
+              <div class="text-xs font-normal text-slate-500">Flare-up care and prevention</div>
+            </a>
+
+            <a href="{% url 'core_app:lupus_care' %}"
+               class="block border-t border-slate-100 px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50"
+               role="menuitem">
+              Lupus Care
+              <div class="text-xs font-normal text-slate-500">Autoimmune disease support and monitoring</div>
+            </a>
+
+            <a href="{% url 'core_app:joint_pain_clinic' %}"
+               class="block border-t border-slate-100 px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50"
+               role="menuitem">
+              Joint Pain & Stiffness
+              <div class="text-xs font-normal text-slate-500">Persistent pain, swelling and mobility concerns</div>
+            </a>
+
+            <a href="{% url 'core_app:autoimmune_specialist' %}"
+               class="block border-t border-slate-100 px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50"
+               role="menuitem">
+              Autoimmune Specialist
+              <div class="text-xs font-normal text-slate-500">Specialist autoimmune evaluation in Lagos</div>
+            </a>
+          </div>
+        </div>
+
+        <!-- RESOURCES DROPDOWN -->
+        <div class="relative" @click.outside="desktopResourcesOpen=false">
+          <button
+            type="button"
+            @click="desktopResourcesOpen = !desktopResourcesOpen; desktopCareOpen = false"
+            class="inline-flex items-center gap-2 rounded text-sm font-semibold text-slate-700 transition hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
             :aria-expanded="desktopResourcesOpen.toString()"
             aria-haspopup="true"
           >
@@ -55,47 +120,55 @@
             x-cloak
             x-show="desktopResourcesOpen"
             x-transition.origin.top.duration.200ms
-            class="absolute left-0 mt-3 w-64 rounded-2xl border border-slate-200 bg-white shadow-xl overflow-hidden"
+            class="absolute left-0 mt-3 w-72 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl"
             role="menu"
           >
             <a href="{% url 'publications:publication_list' %}"
                class="block px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50"
                role="menuitem">
               Publications
-              <div class="text-xs font-normal text-slate-500">Download research & papers</div>
+              <div class="text-xs font-normal text-slate-500">Research, papers and clinical insights</div>
             </a>
+
             <a href="{% url 'publications:achievements' %}"
-               class="block px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50 border-t border-slate-100"
+               class="block border-t border-slate-100 px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50"
                role="menuitem">
               Achievements
-              <div class="text-xs font-normal text-slate-500">Awards, fellowships & recognitions</div>
+              <div class="text-xs font-normal text-slate-500">Awards, recognitions and milestones</div>
+            </a>
+
+            <a href="{% url 'core_app:faq' %}"
+               class="block border-t border-slate-100 px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50"
+               role="menuitem">
+              FAQ
+              <div class="text-xs font-normal text-slate-500">Common questions about arthritis and autoimmune care</div>
             </a>
           </div>
         </div>
 
-        <a href="{% url 'core_app:contact' %}"
-           class="text-sm font-semibold text-slate-700 hover:text-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-600 rounded">
+        <a href="{% url 'core_app:contact_location' %}"
+           class="rounded text-sm font-semibold text-slate-700 transition hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600">
           Contact
         </a>
 
         <!-- AUTH -->
-        <div class="flex items-center gap-2 pl-4 border-l border-slate-200">
+        <div class="flex items-center gap-2 border-l border-slate-200 pl-4">
           {% if request.user.is_authenticated %}
             <a href="{% url 'accounts:dashboard' %}"
-               class="inline-flex items-center rounded-xl px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition focus:outline-none focus:ring-2 focus:ring-blue-600">
+               class="inline-flex items-center rounded-xl px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600">
               Portal
             </a>
 
             <form method="post" action="{% url 'accounts:logout' %}">
               {% csrf_token %}
               <button type="submit"
-                      class="inline-flex items-center rounded-xl px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition focus:outline-none focus:ring-2 focus:ring-blue-600">
+                      class="inline-flex items-center rounded-xl px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600">
                 Logout
               </button>
             </form>
           {% else %}
             <a href="{% url 'accounts:login' %}"
-               class="inline-flex items-center rounded-xl px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition focus:outline-none focus:ring-2 focus:ring-blue-600">
+               class="inline-flex items-center rounded-xl px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600">
               Login
             </a>
           {% endif %}
@@ -103,7 +176,7 @@
 
         <!-- CTA -->
         <a href="{% url 'appointments:book' %}"
-           class="inline-flex items-center rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 transition focus:outline-none focus:ring-4 focus:ring-blue-300 shadow-sm shadow-blue-600/20">
+           class="inline-flex items-center rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm shadow-blue-600/20 transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
           Book Appointment
         </a>
       </div>
@@ -112,7 +185,7 @@
       <button
         @click="toggleMobile()"
         type="button"
-        class="md:hidden inline-flex shrink-0 items-center justify-center rounded-xl p-2 text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600"
+        class="inline-flex shrink-0 items-center justify-center rounded-xl p-2 text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600 md:hidden"
         aria-controls="mobile-menu"
         :aria-expanded="mobileOpen.toString()"
       >
@@ -126,7 +199,6 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
-
     </div>
   </div>
 
@@ -139,21 +211,69 @@
     x-transition.opacity.duration.150ms
   >
     <div class="border-t border-slate-200 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 space-y-2">
+      <div class="mx-auto max-w-7xl space-y-2 px-4 py-4 sm:px-6">
 
-        <!-- Mobile link buttons -->
         <a href="{% url 'core_app:home' %}#services"
            @click="closeAll()"
-           class="w-full flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50 active:bg-slate-100">
+           class="flex w-full items-center justify-between rounded-2xl px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50 active:bg-slate-100">
           Services <span class="text-slate-400">›</span>
         </a>
 
+        <!-- Mobile accordion: Care Areas -->
+        <div class="overflow-hidden rounded-2xl border border-slate-200">
+          <button
+            type="button"
+            @click="mobileCareOpen = !mobileCareOpen"
+            class="flex w-full items-center justify-between px-4 py-3 text-sm font-extrabold text-slate-900 hover:bg-slate-50"
+            :aria-expanded="mobileCareOpen.toString()"
+          >
+            Care Areas
+            <svg class="h-4 w-4 transition" :class="mobileCareOpen ? 'rotate-180' : ''"
+                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.24 4.24a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.08z" clip-rule="evenodd" />
+            </svg>
+          </button>
+
+          <div x-show="mobileCareOpen" x-collapse>
+            <a href="{% url 'core_app:about_doctor' %}"
+               @click="closeAll()"
+               class="block border-t border-slate-200 px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50">
+              About Dr Olaosebikan
+            </a>
+            <a href="{% url 'core_app:ra_treatment' %}"
+               @click="closeAll()"
+               class="block border-t border-slate-200 px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50">
+              Rheumatoid Arthritis
+            </a>
+            <a href="{% url 'core_app:gout_treatment' %}"
+               @click="closeAll()"
+               class="block border-t border-slate-200 px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50">
+              Gout Treatment
+            </a>
+            <a href="{% url 'core_app:lupus_care' %}"
+               @click="closeAll()"
+               class="block border-t border-slate-200 px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50">
+              Lupus Care
+            </a>
+            <a href="{% url 'core_app:joint_pain_clinic' %}"
+               @click="closeAll()"
+               class="block border-t border-slate-200 px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50">
+              Joint Pain & Stiffness
+            </a>
+            <a href="{% url 'core_app:autoimmune_specialist' %}"
+               @click="closeAll()"
+               class="block border-t border-slate-200 px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50">
+              Autoimmune Specialist
+            </a>
+          </div>
+        </div>
+
         <!-- Mobile accordion: Resources -->
-        <div class="rounded-2xl border border-slate-200 overflow-hidden">
+        <div class="overflow-hidden rounded-2xl border border-slate-200">
           <button
             type="button"
             @click="mobileResourcesOpen = !mobileResourcesOpen"
-            class="w-full flex items-center justify-between px-4 py-3 text-sm font-extrabold text-slate-900 hover:bg-slate-50"
+            class="flex w-full items-center justify-between px-4 py-3 text-sm font-extrabold text-slate-900 hover:bg-slate-50"
             :aria-expanded="mobileResourcesOpen.toString()"
           >
             Resources
@@ -166,42 +286,46 @@
           <div x-show="mobileResourcesOpen" x-collapse>
             <a href="{% url 'publications:publication_list' %}"
                @click="closeAll()"
-               class="block px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50 border-t border-slate-200">
+               class="block border-t border-slate-200 px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50">
               Publications
             </a>
             <a href="{% url 'publications:achievements' %}"
                @click="closeAll()"
-               class="block px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50 border-t border-slate-200">
+               class="block border-t border-slate-200 px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50">
               Achievements
+            </a>
+            <a href="{% url 'core_app:faq' %}"
+               @click="closeAll()"
+               class="block border-t border-slate-200 px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50">
+              FAQ
             </a>
           </div>
         </div>
 
-        <a href="{% url 'core_app:contact' %}"
+        <a href="{% url 'core_app:contact_location' %}"
            @click="closeAll()"
-           class="w-full flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50 active:bg-slate-100">
+           class="flex w-full items-center justify-between rounded-2xl px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50 active:bg-slate-100">
           Contact <span class="text-slate-400">›</span>
         </a>
 
-        <!-- CTA -->
         <a href="{% url 'appointments:book' %}"
            @click="closeAll()"
-           class="mt-2 inline-flex w-full items-center justify-center rounded-2xl bg-blue-600 px-4 py-3 font-semibold text-white shadow-sm shadow-blue-600/20 hover:bg-blue-700 transition focus:outline-none focus:ring-4 focus:ring-blue-300">
+           class="mt-2 inline-flex w-full items-center justify-center rounded-2xl bg-blue-600 px-4 py-3 font-semibold text-white shadow-sm shadow-blue-600/20 transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
           Book Appointment
         </a>
 
         <!-- Auth -->
-        <div class="pt-3 border-t border-slate-200">
+        <div class="border-t border-slate-200 pt-3">
           {% if request.user.is_authenticated %}
             <div class="flex items-center justify-between gap-3">
               <a href="{% url 'accounts:dashboard' %}" @click="closeAll()"
-                 class="inline-flex flex-1 items-center justify-center rounded-2xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white hover:bg-slate-800 transition">
+                 class="inline-flex flex-1 items-center justify-center rounded-2xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800">
                 Portal
               </a>
               <form method="post" action="{% url 'accounts:logout' %}" class="flex-1">
                 {% csrf_token %}
                 <button type="submit"
-                        class="w-full inline-flex items-center justify-center rounded-2xl border border-slate-300 px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50 transition">
+                        class="inline-flex w-full items-center justify-center rounded-2xl border border-slate-300 px-4 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50">
                   Logout
                 </button>
               </form>
@@ -209,11 +333,11 @@
           {% else %}
             <div class="grid grid-cols-2 gap-2">
               <a href="{% url 'accounts:login' %}" @click="closeAll()"
-                 class="inline-flex items-center justify-center rounded-2xl border border-slate-300 px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50 transition">
+                 class="inline-flex items-center justify-center rounded-2xl border border-slate-300 px-4 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50">
                 Login
               </a>
               <a href="{% url 'accounts:register' %}" @click="closeAll()"
-                 class="inline-flex items-center justify-center rounded-2xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white hover:bg-slate-800 transition">
+                 class="inline-flex items-center justify-center rounded-2xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800">
                 Register
               </a>
             </div>
@@ -229,20 +353,25 @@
   function navBar() {
     return {
       mobileOpen: false,
+      mobileCareOpen: false,
       mobileResourcesOpen: false,
+      desktopCareOpen: false,
       desktopResourcesOpen: false,
 
       toggleMobile() {
         this.mobileOpen = !this.mobileOpen;
-        if (!this.mobileOpen) this.mobileResourcesOpen = false;
-
-        // scroll lock (mobile)
+        if (!this.mobileOpen) {
+          this.mobileCareOpen = false;
+          this.mobileResourcesOpen = false;
+        }
         document.documentElement.classList.toggle('overflow-hidden', this.mobileOpen);
       },
 
       closeAll() {
         this.mobileOpen = false;
+        this.mobileCareOpen = false;
         this.mobileResourcesOpen = false;
+        this.desktopCareOpen = false;
         this.desktopResourcesOpen = false;
         document.documentElement.classList.remove('overflow-hidden');
       },

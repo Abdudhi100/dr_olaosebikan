@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="bg-white">
+  <div class="mx-auto max-w-5xl px-6 py-14">
+    <nav aria-label="Breadcrumb" class="mb-6 text-sm text-slate-600">
+      <a href="{% url 'core_app:home' %}" class="hover:text-blue-700">Home</a>
+      <span class="mx-2">/</span>
+      <span>About Dr Olaosebikan</span>
+    </nav>
+
+    <h1 class="text-4xl font-bold tracking-tight text-slate-900">
+      About Dr Olaosebikan
+    </h1>
+
+    <p class="mt-4 text-lg text-slate-700">
+      Dr Olaosebikan provides specialist care in pain, arthritis, autoimmune and rheumatology
+      conditions in Lagos. This page gives an overview of his approach to patient care,
+      areas of interest, and when to consider booking an appointment.
+    </p>
+
+    <div class="mt-10 space-y-10">
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">Professional focus</h2>
+        <p class="mt-3 text-slate-700">
+          The clinic focuses on the assessment and management of joint pain, inflammatory
+          arthritis, autoimmune disease, musculoskeletal symptoms, and related long-term care needs.
+          The goal is to provide thoughtful, evidence-based evaluation and practical treatment plans.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">Conditions commonly seen</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-6 text-slate-700">
+          <li>Rheumatoid arthritis</li>
+          <li>Gout and crystal-related joint conditions</li>
+          <li>Lupus and other autoimmune disorders</li>
+          <li>Chronic joint pain and stiffness</li>
+          <li>Inflammatory and non-inflammatory musculoskeletal complaints</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">How diagnosis is approached</h2>
+        <p class="mt-3 text-slate-700">
+          Diagnosis begins with a careful review of symptoms, medical history, physical examination,
+          and where necessary, interpretation of previous test results or further investigations.
+          Accurate diagnosis is important because many rheumatology and autoimmune conditions can
+          present in similar ways.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">Treatment approach</h2>
+        <p class="mt-3 text-slate-700">
+          Treatment plans are guided by the nature of the condition, severity of symptoms,
+          disease activity, and the patient’s broader health needs. Care may involve education,
+          symptom control, long-term monitoring, lifestyle guidance, and medical treatment where appropriate.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">When to book</h2>
+        <p class="mt-3 text-slate-700">
+          It is worth seeking specialist review if you have persistent joint pain, recurrent swelling,
+          prolonged morning stiffness, suspected autoimmune symptoms, or an established rheumatology
+          condition that needs ongoing follow-up.
+        </p>
+      </section>
+
+      <section class="rounded-2xl bg-slate-50 p-6">
+        <h2 class="text-2xl font-semibold text-slate-900">Book an appointment</h2>
+        <p class="mt-3 text-slate-700">
+          Book an appointment for specialist evaluation, diagnosis, and long-term rheumatology care in Lagos.
+        </p>
+        <a href="{% url 'appointments:book' %}"
+           class="mt-5 inline-flex rounded-xl bg-blue-600 px-5 py-3 font-medium text-white hover:bg-blue-700">
+          Book Appointment
+        </a>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">Related pages</h2>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <a href="{% url 'core_app:ra_treatment' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Rheumatoid Arthritis Treatment in Lagos
+          </a>
+          <a href="{% url 'core_app:autoimmune_specialist' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Autoimmune Disease Specialist in Lagos
+          </a>
+          <a href="{% url 'core_app:faq' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Rheumatology FAQ
+          </a>
+          <a href="{% url 'core_app:contact_location' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Contact and Clinic Location
+          </a>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+{% endblock %}

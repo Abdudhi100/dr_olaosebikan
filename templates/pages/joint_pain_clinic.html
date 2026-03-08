@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="bg-white">
+  <div class="mx-auto max-w-5xl px-6 py-14">
+    <nav aria-label="Breadcrumb" class="mb-6 text-sm text-slate-600">
+      <a href="{% url 'core_app:home' %}" class="hover:text-blue-700">Home</a>
+      <span class="mx-2">/</span>
+      <span>Joint Pain and Stiffness Clinic in Lagos</span>
+    </nav>
+
+    <h1 class="text-4xl font-bold tracking-tight text-slate-900">
+      Joint Pain and Stiffness Clinic in Lagos
+    </h1>
+
+    <p class="mt-4 text-lg text-slate-700">
+      Joint pain and stiffness can affect comfort, movement, and daily function.
+      Some causes are temporary, while others need careful diagnosis and longer-term care.
+      Specialist review helps identify the likely cause and the right next steps.
+    </p>
+
+    <div class="mt-10 space-y-10">
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">What this page covers</h2>
+        <p class="mt-3 text-slate-700">
+          This clinic page is for patients with persistent joint pain, swelling,
+          stiffness, reduced mobility, or joint symptoms that may be linked to arthritis,
+          inflammation, autoimmune disease, gout, or other musculoskeletal conditions.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">Common symptoms</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-6 text-slate-700">
+          <li>Pain in one or more joints</li>
+          <li>Morning stiffness</li>
+          <li>Swelling, redness, or warmth</li>
+          <li>Reduced range of movement</li>
+          <li>Symptoms that affect walking, gripping, or daily tasks</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">How diagnosis is made</h2>
+        <p class="mt-3 text-slate-700">
+          Diagnosis begins with symptom history and physical examination. The pattern,
+          duration, distribution, and severity of symptoms often help distinguish between
+          inflammatory and non-inflammatory causes of joint pain.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">Treatment approach</h2>
+        <p class="mt-3 text-slate-700">
+          Treatment depends on the cause. It may include pain control, management of inflammation,
+          disease monitoring, activity guidance, and longer-term plans for chronic conditions.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">When to book</h2>
+        <p class="mt-3 text-slate-700">
+          Book if your joint pain has lasted beyond a short period, keeps returning,
+          is associated with swelling or stiffness, or is affecting your quality of life.
+        </p>
+      </section>
+
+      <section class="rounded-2xl bg-slate-50 p-6">
+        <h2 class="text-2xl font-semibold text-slate-900">Book an appointment</h2>
+        <p class="mt-3 text-slate-700">
+          Book an appointment for specialist evaluation of joint pain and stiffness in Lagos.
+        </p>
+        <a href="{% url 'appointments:book' %}"
+           class="mt-5 inline-flex rounded-xl bg-blue-600 px-5 py-3 font-medium text-white hover:bg-blue-700">
+          Book Appointment
+        </a>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold text-slate-900">Related pages</h2>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <a href="{% url 'core_app:ra_treatment' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Rheumatoid Arthritis Treatment
+          </a>
+          <a href="{% url 'core_app:gout_treatment' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Gout Treatment
+          </a>
+          <a href="{% url 'core_app:lupus_care' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Lupus Care
+          </a>
+          <a href="{% url 'core_app:autoimmune_specialist' %}" class="rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50">
+            Autoimmune Disease Specialist
+          </a>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+{% endblock %}

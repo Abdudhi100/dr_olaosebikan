@@ -3,13 +3,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.contrib.sitemaps.views import sitemap
-from core_app.sitemaps import StaticViewSitemap, DoctorProfileSitemap, PublicationSitemap
+from core_app.sitemaps import StaticViewSitemap, DoctorProfileSitemap, PublicationSitemap, StaticPageSitemap
 from core_app.views import HealthzView
 
 sitemaps = {
     "static": StaticViewSitemap,
     "profiles": DoctorProfileSitemap,
     "publications": PublicationSitemap,
+    "pages": StaticPageSitemap,
 }
 
 urlpatterns = [

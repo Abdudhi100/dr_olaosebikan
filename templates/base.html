@@ -18,16 +18,17 @@
   <meta name="author" content="{{ meta.author|default:clinic.clinic_name|default:'Resilience Clinic' }}">
   <meta name="robots" content="{{ meta.robots|default:'index, follow' }}">
   <meta name="googlebot" content="{{ meta.robots|default:'index, follow' }}">
-  <link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+  <!-- Canonical without query params -->
+  <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
 
   <!-- ================= OPEN GRAPH ================= -->
   <meta property="og:title" content="{{ meta.title|default:clinic.clinic_name|default:'Resilience Clinic' }}">
   <meta property="og:description" content="{{ meta.description|default:'Book appointments, explore services, and access trusted health resources.' }}">
   <meta property="og:type" content="{{ meta.type|default:'website' }}">
-  <meta property="og:url" content="{{ request.build_absolute_uri }}">
+  <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
   <meta property="og:site_name" content="{{ clinic.clinic_name|default:'Resilience Clinic' }}">
   <meta property="og:locale" content="en_US">
-  <style>[x-cloak] { display: none !important; }</style>
 
   {% if meta.image %}
     {% if meta.image.url %}
@@ -36,13 +37,14 @@
       <meta property="og:image" content="{{ meta.image }}">
     {% endif %}
   {% else %}
-    <meta property="og:image" content="{% static 'images/dr_hakeem.webp' %}">
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/dr_hakeem.webp' %}">
   {% endif %}
 
   <!-- ================= TWITTER ================= -->
   <meta name="twitter:card" content="{{ meta.twitter_card|default:'summary_large_image' }}">
   <meta name="twitter:title" content="{{ meta.title|default:clinic.clinic_name|default:'Resilience Clinic' }}">
   <meta name="twitter:description" content="{{ meta.description|default:'Book appointments and access trusted healthcare information.' }}">
+
   {% if meta.image %}
     {% if meta.image.url %}
       <meta name="twitter:image" content="{{ meta.image.url }}">
@@ -50,7 +52,7 @@
       <meta name="twitter:image" content="{{ meta.image }}">
     {% endif %}
   {% else %}
-    <meta name="twitter:image" content="{% static 'images/dr_hakeem.webp' %}">
+    <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/dr_hakeem.webp' %}">
   {% endif %}
 
   <!-- ================= STRUCTURED DATA ================= -->
@@ -58,14 +60,14 @@
   {
     "@context": "https://schema.org",
     "@type": "{{ meta.schema_type|default:'MedicalClinic' }}",
-    "name": "{{ clinic.clinic_name|default:'Resilience Clinic' }}",
-    "url": "{{ request.scheme }}://{{ request.get_host }}",
-    "description": "{{ meta.description|default:'A specialist clinic offering compassionate, evidence-based care.' }}",
-    "telephone": "{{ clinic.contact_phone|default:'' }}",
-    "email": "{{ clinic.contact_email|default:'' }}",
+    "name": "{{ clinic.clinic_name|default:'Resilience Clinic'|escapejs }}",
+    "url": "{{ request.scheme }}://{{ request.get_host }}{{ request.path }}",
+    "description": "{{ meta.description|default:'A specialist clinic offering compassionate, evidence-based care.'|escapejs }}",
+    "telephone": "{{ clinic.contact_phone|default:''|escapejs }}",
+    "email": "{{ clinic.contact_email|default:''|escapejs }}",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "{{ clinic.clinic_address|default:'' }}",
+      "streetAddress": "{{ clinic.clinic_address|default:''|escapejs }}",
       "addressCountry": "NG"
     }
   }
@@ -92,20 +94,25 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- ================= ACCESSIBILITY ================= -->
+  <!-- ================= ACCESSIBILITY / UTIL ================= -->
   <style>
     .skip-link{
-      position:absolute;top:-40px;left:0;
-      background:#2563eb;color:#fff;
-      padding:.6rem 1rem;z-index:1000;
-      border-radius:.75rem;text-decoration:none;
+      position:absolute;
+      top:-40px;
+      left:0;
+      background:#2563eb;
+      color:#fff;
+      padding:.6rem 1rem;
+      z-index:1000;
+      border-radius:.75rem;
+      text-decoration:none;
       box-shadow:0 10px 20px rgba(2,6,23,.15);
     }
     .skip-link:focus{top:.85rem;left:.85rem;}
     [x-cloak]{display:none !important;}
   </style>
 
-  <!-- HTMX (defer so it doesn't block rendering) -->
+  <!-- HTMX -->
   <script defer src="https://unpkg.com/htmx.org@1.9.12"></script>
 
   {% block extra_head %}{% endblock %}
@@ -121,7 +128,6 @@
 
   {% include "partials/navbar.html" %}
 
-  <!-- Toast messages (NO Alpine needed here; safer) -->
   {% if messages %}
     <div class="fixed top-20 right-4 z-[70] space-y-3" aria-live="polite">
       {% for message in messages %}
@@ -133,10 +139,11 @@
             <p class="text-sm font-semibold text-slate-900">Notice</p>
             <p class="text-sm text-slate-700 break-words">{{ message }}</p>
           </div>
-          <button type="button"
-                  onclick="this.closest('div').remove()"
-                  class="ml-auto rounded-xl p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/40"
-                  aria-label="Dismiss notification">
+          <button
+            type="button"
+            onclick="this.closest('div').remove()"
+            class="ml-auto rounded-xl p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/40"
+            aria-label="Dismiss notification">
             ✕
           </button>
         </div>
@@ -144,7 +151,6 @@
     </div>
 
     <script>
-      // auto-dismiss after 4.5s (no Alpine)
       setTimeout(() => {
         document.querySelectorAll('[aria-live="polite"] > div').forEach(el => el.remove());
       }, 4500);
@@ -157,16 +163,16 @@
 
   {% include "partials/footer.html" %}
 
-  <!-- Alpine Focus plugin (enables x-trap) -->
+  <!-- Alpine Focus plugin -->
   <script defer src="https://unpkg.com/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
   <!-- Alpine core -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
 
   <script>
     (function () {
       const bar = document.getElementById("scrollbar");
       if (!bar) return;
+
       const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       function onScroll() {
