@@ -31,6 +31,8 @@ def env_list(key: str, default=None):
         return default
     return [x.strip() for x in raw.split(",") if x.strip()]
 
+SITE_URL = os.getenv("SITE_URL", "https://www.drolaosebikan.com")
+
 # ------------------------------------------------------------
 # Security basics
 # ------------------------------------------------------------
@@ -166,6 +168,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "core_app.context_processors.clinic_context",
+                "core.context_processors.site_settings",
             ],
         },
     },
