@@ -139,6 +139,7 @@ if DEBUG:
 # ------------------------------------------------------------
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "core.middleware.CanonicalHostMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -301,3 +302,6 @@ LOGGING = {
 }
 WHITENOISE_MANIFEST_STRICT = False
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+PREPEND_WWW = True
+USE_X_FORWARDED_HOST = True
+APPEND_SLASH = True

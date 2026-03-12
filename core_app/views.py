@@ -311,13 +311,13 @@ class ContactLocationPageView(SEOMixin, TemplateView):
 class RobotsTxtView(View):
     def get(self, request, *args, **kwargs):
         lines = [
-            "User-Agent: *",
+            "User-agent: *",
+            "Allow: /",
             "Disallow: /admin/",
             "Disallow: /accounts/",
-            f"Sitemap: {request.build_absolute_uri('/sitemap.xml')}",
+            f"Sitemap: {settings.SITE_URL}/sitemap.xml",
         ]
         return HttpResponse("\n".join(lines), content_type="text/plain")
-
 
 class HealthzView(View):
     def get(self, request, *args, **kwargs):

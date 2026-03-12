@@ -216,6 +216,32 @@
   </div>
 </section>
 
+
+<section class="bg-white py-12" aria-labelledby="why-choose-heading">
+  <div class="mx-auto max-w-5xl px-4">
+    <h2 id="why-choose-heading" class="text-2xl font-bold text-slate-900">
+      Why patients visit Dr Olaosebikan
+    </h2>
+    <div class="mt-6 grid gap-6 sm:grid-cols-2">
+      <div class="rounded-2xl border border-slate-200 p-5">
+        <h3 class="font-semibold text-slate-900">Specialist evaluation</h3>
+        <p class="mt-2 text-sm text-slate-600">
+          Assessment of joint pain, swelling, stiffness, autoimmune symptoms,
+          inflammatory back pain, and suspected rheumatic disease.
+        </p>
+      </div>
+      <div class="rounded-2xl border border-slate-200 p-5">
+        <h3 class="font-semibold text-slate-900">Clear long-term care plans</h3>
+        <p class="mt-2 text-sm text-slate-600">
+          Treatment guidance, follow-up, symptom control, monitoring, and practical
+          education for chronic inflammatory conditions.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <!-- Mobile sticky CTA: appears only after scroll -->
 <div
   x-data="{ showStickyCta: false }"
@@ -357,8 +383,11 @@
       {% empty %}
       <div class="col-span-full">
         <div class="rounded-3xl bg-slate-50 p-8 text-center ring-1 ring-slate-100 sm:p-10">
-          <p class="font-semibold text-slate-700">Publications will appear here shortly.</p>
-          <p class="mt-2 text-sm text-slate-600">Check back soon for clinical insights and research updates.</p>
+          <p class="font-semibold text-slate-700">Clinical research, educational articles, and specialist insights.</p>
+          <p class="mt-2 text-sm text-slate-600">
+            Dr Olaosebikan’s publication page features research and commentary related to arthritis, 
+            autoimmune disease, rheumatology care, joint pain, and inflammatory conditions in adults.
+          </p>
         </div>
       </div>
       {% endfor %}
@@ -393,4 +422,23 @@
   </div>
 </section>
 
+{% endblock %}
+{% block extra_head %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Physician",
+  "name": "Dr Olaosebikan",
+  "url": "https://www.drolaosebikan.com/",
+  "medicalSpecialty": ["Rheumatology"],
+  "areaServed": "Lagos, Nigeria",
+  "telephone": "{{ clinic.contact_phone|default:''|escapejs }}",
+  "email": "{{ clinic.contact_email|default:''|escapejs }}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{ clinic.clinic_address|default:''|escapejs }}",
+    "addressCountry": "NG"
+  }
+}
+</script>
 {% endblock %}

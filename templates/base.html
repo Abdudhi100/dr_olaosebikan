@@ -20,7 +20,8 @@
   <meta name="googlebot" content="{{ meta.robots|default:'index, follow' }}">
 
   <!-- Canonical without query params -->
-  <link rel="canonical" href="{{ SITE_URL }}{{ request.path }}">
+  <link rel="canonical" href="{{ SITE_URL }}{{ request.path|default:'/' }}">
+  <meta property="og:url" content="{{ SITE_URL }}{{ request.path|default:'/' }}">
 
   <!-- ================= OPEN GRAPH ================= -->
   <meta property="og:title" content="{{ meta.title|default:clinic.clinic_name|default:'Resilience Clinic' }}">
