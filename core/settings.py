@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+from urllib.parse import urlparse
 
 from dotenv import load_dotenv
 import dj_database_url
@@ -59,11 +60,14 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 DATABASE_URL = env("DATABASE_URL", "").strip()
 
 if DATABASE_URL:
+    database_host = urlparse(DATABASE_URL).hostname
+    database_is_local = database_host in {"localhost", "127.0.0.1", "::1"}
+
     DATABASES = {
         "default": dj_database_url.config(
             default=DATABASE_URL,
             conn_max_age=60,
-            ssl_require=not DEBUG,  # Render Postgres should use SSL
+            ssl_require=(not DEBUG and not database_is_local),
         )
     }
 else:

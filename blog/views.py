@@ -18,7 +18,13 @@ class PostListView(SEOMixin, ListView):
 
     def get_queryset(self):
         return Post.objects.filter(is_published=True).select_related("author").only(
-            "title", "slug", "excerpt", "featured_image", "created_at", "author__full_name"
+            "title",
+            "slug",
+            "excerpt",
+            "featured_image",
+            "created_at",
+            "author__first_name",
+            "author__last_name",
         )
 
 class PostDetailView(SEOMixin, DetailView):
