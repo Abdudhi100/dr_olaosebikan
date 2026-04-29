@@ -16,15 +16,19 @@ from django.views.generic import CreateView, ListView, TemplateView
 from .forms import UserRegisterForm, StyledAuthenticationForm
 from appointments.models import Appointment, Service
 from publications.models import Publication, Achievement
+from core_app.mixins import SEOMixin
 
 User = get_user_model()
 
 
-class RegisterView(CreateView):
+class RegisterView(SEOMixin, CreateView):
     model = User
     form_class = UserRegisterForm
     template_name = "accounts/register.html"
     success_url = reverse_lazy("accounts:dashboard")
+    
+    seo_title = "Register — Dr Olaosebikan Clinic"
+    seo_description = "Create an account to manage your rheumatology and arthritis appointments."
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -32,23 +36,32 @@ class RegisterView(CreateView):
         return response
 
 
-class UserLoginView(LoginView):
+class UserLoginView(SEOMixin, LoginView):
     template_name = "accounts/login.html"
     authentication_form = StyledAuthenticationForm
     redirect_authenticated_user = True
+
+    seo_title = "Log In — Dr Olaosebikan Clinic"
+    seo_description = "Log in to your patient or doctor portal."
 
 
 class UserLogoutView(LogoutView):
     next_page = reverse_lazy("accounts:login")
 
 
-class UserPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
+class UserPasswordChangeView(SEOMixin, LoginRequiredMixin, PasswordChangeView):
     template_name = "accounts/password_change.html"
     success_url = reverse_lazy("accounts:password_change_done")
 
+    seo_title = "Change Password"
+    seo_robots = "noindex, nofollow"
 
-class UserPasswordChangeDoneView(LoginRequiredMixin, PasswordChangeDoneView):
+
+class UserPasswordChangeDoneView(SEOMixin, LoginRequiredMixin, PasswordChangeDoneView):
     template_name = "accounts/password_change_done.html"
+
+    seo_title = "Password Changed Successfully"
+    seo_robots = "noindex, nofollow"
 
 
 class DashboardRedirectView(LoginRequiredMixin, View):
@@ -58,8 +71,11 @@ class DashboardRedirectView(LoginRequiredMixin, View):
         return redirect("accounts:patient-dashboard")
 
 
-class DoctorDashboardView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+class DoctorDashboardView(SEOMixin, LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     template_name = "accounts/dashboards/doctor_dashboard.html"
+
+    seo_title = "Doctor Dashboard"
+    seo_robots = "noindex, nofollow"
 
     def test_func(self):
         return self.request.user.role == User.ROLE_DOCTOR
@@ -90,10 +106,13 @@ class DoctorDashboardView(LoginRequiredMixin, UserPassesTestMixin, TemplateView)
         return context
 
 
-class PatientDashboardView(LoginRequiredMixin, ListView):
+class PatientDashboardView(SEOMixin, LoginRequiredMixin, ListView):
     template_name = "accounts/dashboards/patient_dashboard.html"
     context_object_name = "appointments"
     paginate_by = 10
+
+    seo_title = "Patient Dashboard"
+    seo_robots = "noindex, nofollow"
 
     def get_queryset(self):
         return (

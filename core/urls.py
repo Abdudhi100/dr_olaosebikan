@@ -2,6 +2,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from core_app.sitemaps import StaticViewSitemap, DoctorProfileSitemap, PublicationSitemap, StaticPageSitemap
 from core_app.views import HealthzView
@@ -21,10 +22,11 @@ urlpatterns = [
     path('publications/', include('publications.urls')),
     path('appointments/', include('appointments.urls')),
     path('', include(('core_app.urls', 'core_app'), namespace='core_app')),
-    path('messaging/', include(('messaging.urls', 'messaging'), namespace='messaging')),
+    path('blog/', include(('blog.urls', 'blog'), namespace='blog')),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
 ]
 
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns += [path("__debug__/", include(debug_toolbar.urls))]
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

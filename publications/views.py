@@ -1,16 +1,22 @@
-# publications/views.py
-from multiprocessing import context
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView
-from .models import Achievement, Publication
-from django.views.decorators.cache import cache_page
-from django.utils.decorators import method_decorator
-from core_app.mixins import SEOMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
-class AchievementListView(ListView):
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, DetailView, ListView
+
+from core_app.mixins import SEOMixin
+
+from .forms import PublicationForm
+from .models import Achievement, Publication
+
+
+class AchievementListView(SEOMixin, ListView):
     model = Achievement
     template_name = 'publications/achievements.html'
     context_object_name = 'achievements'
+
+    seo_title = "Achievements & Awards — Dr Olaosebikan"
+    seo_description = "Explore the awards, recognition, and clinical achievements of Dr Olaosebikan."
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -24,12 +30,6 @@ class AchievementListView(ListView):
 
 
 
-# publications/views.py
-from django.views.generic import DetailView, ListView
-from core_app.mixins import SEOMixin
-from .models import Publication
-
-
 class PublicationListView(SEOMixin, ListView):
     model = Publication
     template_name = "publications/publication_list.html"
@@ -38,15 +38,6 @@ class PublicationListView(SEOMixin, ListView):
 
     seo_title = "Research & Publications — Dr Olaosebikan"
     seo_description = "Peer-reviewed publications, research papers, and medical insights by Dr Olaosebikan."
-
-    def get_queryset(self):
-        return (
-            Publication.objects.filter(is_published=True)
-            .only("title", "slug", "journal", "year", "authors", "is_featured", "created_at")
-            .order_by("-year", "-created_at")
-        )
-    
-   
 
     def get_queryset(self):
         qs = Publication.objects.filter(is_published=True).only(
@@ -63,6 +54,24 @@ class PublicationListView(SEOMixin, ListView):
             )
         return qs
 
+
+
+class PublicationCreateView(SEOMixin, LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, CreateView):
+    model = Publication
+    form_class = PublicationForm
+    template_name = "publications/publication_form.html"
+    success_url = reverse_lazy("accounts:doctor-dashboard")
+    success_message = "Publication created successfully."
+
+    seo_title = "Create Publication"
+    seo_robots = "noindex, nofollow"
+
+    def test_func(self):
+        return getattr(self.request.user, "is_doctor", False)
+
+    def form_valid(self, form):
+        form.instance.doctor = self.request.user
+        return super().form_valid(form)
 
 
 class PublicationDetailView(SEOMixin, DetailView):

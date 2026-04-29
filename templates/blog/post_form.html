@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block extra_head %}
+{{ form.media }}
+{% endblock %}
+
+{% block content %}
+<section class="bg-slate-50 py-12 sm:py-20 min-h-screen">
+    <div class="mx-auto max-w-4xl px-4">
+        <div class="bg-white rounded-3xl shadow-sm ring-1 ring-slate-100 p-8 sm:p-12">
+            <div class="mb-8 border-b border-slate-100 pb-6">
+                <h1 class="text-3xl font-bold text-slate-900">Add New Article</h1>
+                <p class="mt-2 text-sm text-slate-500">Publish a new health tip or blog post to your platform.</p>
+            </div>
+            
+            <form method="post" enctype="multipart/form-data" class="space-y-8">
+                {% csrf_token %}
+                
+                <div>
+                    <label for="{{ form.title.id_for_label }}" class="block text-sm font-semibold text-slate-900 mb-2">Article Title</label>
+                    {% render_field form.title class="block w-full rounded-xl border-slate-300 py-3 px-4 text-slate-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" placeholder="e.g. The Importance of Early Rheumatoid Arthritis Detection" %}
+                    {% if form.title.errors %}
+                        <p class="mt-2 text-sm text-red-600">{{ form.title.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <label for="{{ form.excerpt.id_for_label }}" class="block text-sm font-semibold text-slate-900 mb-2">Excerpt <span class="text-slate-400 font-normal">(Used for SEO & previews)</span></label>
+                    {% render_field form.excerpt class="block w-full rounded-xl border-slate-300 py-3 px-4 text-slate-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" rows="3" placeholder="A brief 1-2 sentence summary of the article..." %}
+                    {% if form.excerpt.errors %}
+                        <p class="mt-2 text-sm text-red-600">{{ form.excerpt.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <label for="{{ form.content.id_for_label }}" class="block text-sm font-semibold text-slate-900 mb-2">Main Content</label>
+                    <div class="prose max-w-none rounded-xl border border-slate-200 overflow-hidden">
+                        {{ form.content }}
+                    </div>
+                    {% if form.content.errors %}
+                        <p class="mt-2 text-sm text-red-600">{{ form.content.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                    <label for="{{ form.featured_image.id_for_label }}" class="block text-sm font-semibold text-slate-900 mb-2">Featured Image</label>
+                    {% render_field form.featured_image class="block w-full text-sm text-slate-600 file:mr-4 file:py-2.5 file:px-5 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer" %}
+                    {% if form.featured_image.errors %}
+                        <p class="mt-2 text-sm text-red-600">{{ form.featured_image.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="flex items-center bg-blue-50 p-4 rounded-xl border border-blue-100">
+                    {% render_field form.is_published class="h-5 w-5 rounded border-blue-300 text-blue-600 focus:ring-blue-500 cursor-pointer" %}
+                    <label for="{{ form.is_published.id_for_label }}" class="ml-3 block text-sm font-medium text-blue-900 cursor-pointer">
+                        Publish immediately
+                    </label>
+                </div>
+
+                <div class="pt-6 flex flex-col sm:flex-row justify-end gap-3 border-t border-slate-100">
+                    <a href="{% url 'blog:post_list' %}" class="inline-flex justify-center rounded-xl px-5 py-3 text-sm font-semibold text-slate-700 ring-1 ring-inset ring-slate-300 hover:bg-slate-50 transition-colors">
+                        Cancel
+                    </a>
+                    <button type="submit" class="inline-flex justify-center rounded-xl bg-blue-600 px-8 py-3 text-sm font-bold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-colors">
+                        Save Article
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

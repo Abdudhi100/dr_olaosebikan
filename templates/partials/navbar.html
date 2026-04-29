@@ -123,8 +123,15 @@
             class="absolute left-0 mt-3 w-72 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl"
             role="menu"
           >
-            <a href="{% url 'publications:publication_list' %}"
+            <a href="{% url 'blog:post_list' %}"
                class="block px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50"
+               role="menuitem">
+              Blog & Health Tips
+              <div class="text-xs font-normal text-slate-500">Expert articles and updates</div>
+            </a>
+
+            <a href="{% url 'publications:publication_list' %}"
+               class="block border-t border-slate-100 px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50"
                role="menuitem">
               Publications
               <div class="text-xs font-normal text-slate-500">Research, papers and clinical insights</div>
@@ -284,6 +291,11 @@
           </button>
 
           <div x-show="mobileResourcesOpen" x-collapse>
+            <a href="{% url 'blog:post_list' %}"
+               @click="closeAll()"
+               class="block border-t border-slate-200 px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50">
+              Blog & Health Tips
+            </a>
             <a href="{% url 'publications:publication_list' %}"
                @click="closeAll()"
                class="block border-t border-slate-200 px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50">
