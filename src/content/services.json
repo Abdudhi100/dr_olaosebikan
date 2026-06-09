@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Rheumatoid Arthritis Care",
+    "slug": "rheumatoid-arthritis-care",
+    "icon": "shield-check",
+    "description": "Assessment and long-term treatment planning for inflammatory joint disease, morning stiffness, swelling, and fatigue.",
+    "durationMinutes": 45
+  },
+  {
+    "name": "Gout Treatment",
+    "slug": "gout-treatment",
+    "icon": "activity",
+    "description": "Care for gout flare-ups, recurrent attacks, joint swelling, uric acid concerns, and prevention planning.",
+    "durationMinutes": 45
+  },
+  {
+    "name": "Lupus Care",
+    "slug": "lupus-care",
+    "icon": "heart-pulse",
+    "description": "Specialist support for lupus symptoms, monitoring, flare-ups, joint and skin concerns, and long-term management.",
+    "durationMinutes": 45
+  },
+  {
+    "name": "Joint Pain & Stiffness Clinic",
+    "slug": "joint-pain-stiffness",
+    "icon": "bone",
+    "description": "Evaluation of persistent pain, swelling, morning stiffness, reduced movement, and mobility concerns.",
+    "durationMinutes": 45
+  },
+  {
+    "name": "Autoimmune Disease Evaluation",
+    "slug": "autoimmune-disease-evaluation",
+    "icon": "stethoscope",
+    "description": "Assessment of autoimmune symptoms such as fatigue, rashes, joint pain, inflammation, and multi-system concerns.",
+    "durationMinutes": 45
+  },
+  {
+    "name": "Chronic Pain & Follow-up Review",
+    "slug": "chronic-pain-follow-up",
+    "icon": "clipboard-check",
+    "description": "Structured review for chronic pain, treatment response, symptom control, medication questions, and care plan adjustment.",
+    "durationMinutes": 45
+  }
+]

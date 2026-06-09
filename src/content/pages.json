@@ -1,0 +1,537 @@
+[
+  {
+    "slug": "about-dr-olaosebikan",
+    "path": "/about-dr-olaosebikan",
+    "eyebrow": "Specialist Rheumatology Care in Lagos",
+    "title": "About Dr Olaosebikan",
+    "description": "Dr Olaosebikan provides specialist care in pain, arthritis, autoimmune and rheumatology conditions in Lagos, with a focus on careful assessment, clear care plans, and long-term follow-up.",
+    "seoTitle": "About Dr Olaosebikan | Rheumatology Specialist in Lagos",
+    "seoDescription": "Learn about Dr Olaosebikan, a specialist in pain, arthritis, autoimmune and rheumatology care in Lagos.",
+    "keywords": [
+      "Dr Olaosebikan",
+      "rheumatologist in Lagos",
+      "arthritis specialist Lagos",
+      "autoimmune doctor Lagos",
+      "pain clinic Lagos"
+    ],
+    "schemaType": "AboutPage",
+    "sections": [
+      {
+        "heading": "Professional focus",
+        "body": [
+          "The clinic focuses on the assessment and management of joint pain, inflammatory arthritis, autoimmune disease, musculoskeletal symptoms, and related long-term care needs.",
+          "The aim is to provide thoughtful, evidence-based evaluation together with practical treatment planning and follow-up support."
+        ]
+      },
+      {
+        "heading": "Conditions commonly seen",
+        "cards": [
+          {
+            "title": "Rheumatoid arthritis",
+            "description": "Assessment and long-term treatment planning for inflammatory joint disease."
+          },
+          {
+            "title": "Gout and crystal arthritis",
+            "description": "Specialist care for flare-ups, diagnosis, and prevention of repeated attacks."
+          },
+          {
+            "title": "Lupus and autoimmune disorders",
+            "description": "Review of autoimmune symptoms, diagnosis, monitoring, and ongoing care."
+          },
+          {
+            "title": "Joint pain and stiffness",
+            "description": "Evaluation of persistent pain, swelling, stiffness, and reduced mobility."
+          }
+        ]
+      },
+      {
+        "heading": "How diagnosis is approached",
+        "body": [
+          "Diagnosis begins with a careful review of symptoms, medical history, and physical examination. When relevant, previous test results and further investigations may be considered.",
+          "Accurate diagnosis matters because many rheumatology and autoimmune conditions can present in similar ways, yet need different forms of care and follow-up."
+        ]
+      },
+      {
+        "heading": "Treatment approach",
+        "body": [
+          "Treatment plans are guided by the nature of the condition, severity of symptoms, disease activity, and the patient's broader health needs.",
+          "Care may involve patient education, symptom control, long-term monitoring, lifestyle guidance, and medical treatment where appropriate."
+        ]
+      },
+      {
+        "heading": "When to book",
+        "body": [
+          "It is worth seeking specialist review if you have persistent joint pain, recurrent swelling, prolonged morning stiffness, symptoms suggestive of autoimmune disease, or an established rheumatology condition that needs ongoing follow-up and treatment adjustment."
+        ]
+      }
+    ],
+    "ctaText": "Book an appointment for specialist evaluation, diagnosis, and long-term rheumatology care in Lagos.",
+    "related": [
+      {
+        "title": "Rheumatoid Arthritis Treatment in Lagos",
+        "href": "/rheumatoid-arthritis-treatment-lagos",
+        "description": "Learn about inflammatory arthritis, diagnosis, and long-term care."
+      },
+      {
+        "title": "Autoimmune Disease Specialist in Lagos",
+        "href": "/autoimmune-disease-specialist-lagos",
+        "description": "Specialist evaluation for autoimmune symptoms and ongoing management."
+      },
+      {
+        "title": "Rheumatology FAQ",
+        "href": "/faq",
+        "description": "Common questions about arthritis, autoimmune disease, and appointments."
+      },
+      {
+        "title": "Contact and Clinic Location",
+        "href": "/contact-location",
+        "description": "Find clinic contact details, location information, and booking guidance."
+      }
+    ]
+  },
+  {
+    "slug": "rheumatoid-arthritis-treatment-lagos",
+    "path": "/rheumatoid-arthritis-treatment-lagos",
+    "eyebrow": "Specialist Rheumatology Care",
+    "title": "Rheumatoid Arthritis Treatment in Lagos",
+    "description": "Rheumatoid arthritis is an autoimmune condition that can cause joint pain, swelling, stiffness, fatigue, and progressive joint damage if not managed early.",
+    "seoTitle": "Rheumatoid Arthritis Treatment in Lagos | Dr Olaosebikan",
+    "seoDescription": "Get expert evaluation and treatment for rheumatoid arthritis in Lagos. Learn symptoms, diagnosis, and care options with Dr Olaosebikan.",
+    "keywords": [
+      "rheumatoid arthritis treatment Lagos",
+      "arthritis specialist Lagos",
+      "rheumatology clinic Lagos",
+      "joint pain specialist Lagos"
+    ],
+    "schemaType": "MedicalWebPage",
+    "sections": [
+      {
+        "heading": "What is rheumatoid arthritis?",
+        "body": [
+          "Rheumatoid arthritis is a chronic inflammatory disease in which the immune system mistakenly attacks the joints.",
+          "It commonly affects the hands, wrists, feet, and other joints, and may interfere with movement, comfort, grip strength, and daily activities."
+        ]
+      },
+      {
+        "heading": "Common symptoms",
+        "cards": [
+          {
+            "title": "Morning stiffness",
+            "description": "Stiffness that lasts for a prolonged period after waking can be an important clue."
+          },
+          {
+            "title": "Swollen or painful joints",
+            "description": "Joints may feel warm, tender, swollen, or painful, especially during flare-ups."
+          },
+          {
+            "title": "Pain in multiple joints",
+            "description": "Symptoms often affect more than one joint and may involve the hands, wrists, feet, or knees."
+          },
+          {
+            "title": "Fatigue and reduced energy",
+            "description": "Some people feel unusually tired or limited in daily activity because of inflammation."
+          }
+        ]
+      },
+      {
+        "heading": "How diagnosis is made",
+        "body": [
+          "Diagnosis depends on a detailed clinical assessment, including symptoms, physical examination, medical history, and review of investigations where relevant.",
+          "Early diagnosis is valuable because timely treatment can help reduce inflammation and protect joint function."
+        ]
+      },
+      {
+        "heading": "Treatment approach",
+        "body": [
+          "Treatment plans are tailored to the individual and may include patient education, medicines to control inflammation, symptom relief, disease monitoring, and ongoing follow-up.",
+          "The aim is to improve comfort, reduce disease activity, preserve joint function, and support quality of life over time."
+        ]
+      },
+      {
+        "heading": "When to book",
+        "body": [
+          "Consider booking if you have persistent joint swelling, prolonged morning stiffness, pain affecting multiple joints, or an existing rheumatoid arthritis diagnosis that needs specialist review."
+        ]
+      }
+    ],
+    "ctaText": "If you need rheumatoid arthritis treatment in Lagos, book an appointment for specialist evaluation, diagnosis, and long-term care planning.",
+    "related": [
+      {
+        "title": "Joint Pain and Stiffness Clinic",
+        "href": "/joint-pain-and-stiffness-clinic-lagos",
+        "description": "Assessment for persistent joint pain, swelling, and stiffness."
+      },
+      {
+        "title": "Autoimmune Disease Specialist",
+        "href": "/autoimmune-disease-specialist-lagos",
+        "description": "Specialist evaluation for autoimmune-related symptoms and long-term care."
+      },
+      {
+        "title": "Gout Treatment in Lagos",
+        "href": "/gout-treatment-lagos",
+        "description": "Learn about gout flare-ups, diagnosis, and specialist support."
+      },
+      {
+        "title": "Rheumatology FAQ",
+        "href": "/faq",
+        "description": "Common questions about arthritis, autoimmune conditions, and appointments."
+      }
+    ]
+  },
+  {
+    "slug": "gout-treatment-lagos",
+    "path": "/gout-treatment-lagos",
+    "eyebrow": "Arthritis & Joint Pain Care",
+    "title": "Gout Treatment in Lagos",
+    "description": "Gout is a painful form of inflammatory arthritis that can cause sudden attacks of swelling, redness, heat, and severe joint discomfort.",
+    "seoTitle": "Gout Treatment in Lagos | Dr Olaosebikan",
+    "seoDescription": "Learn about gout symptoms, causes, diagnosis, and treatment in Lagos with specialist care from Dr Olaosebikan.",
+    "keywords": [
+      "gout treatment Lagos",
+      "gout doctor Lagos",
+      "rheumatologist Lagos",
+      "arthritis clinic Lagos"
+    ],
+    "schemaType": "MedicalWebPage",
+    "sections": [
+      {
+        "heading": "What is gout?",
+        "body": [
+          "Gout is a form of inflammatory arthritis linked to uric acid crystal deposits in the joints.",
+          "It often affects one joint at a time, especially the big toe, but may also affect the ankles, knees, feet, wrists, elbows, or other joints."
+        ]
+      },
+      {
+        "heading": "Common symptoms",
+        "cards": [
+          {
+            "title": "Sudden severe joint pain",
+            "description": "Pain may begin suddenly and can be intense, especially during an acute flare."
+          },
+          {
+            "title": "Redness and swelling",
+            "description": "The affected joint may become swollen, red, and visibly inflamed."
+          },
+          {
+            "title": "Warmth and tenderness",
+            "description": "The joint may feel hot, tender, and painful even to light touch."
+          },
+          {
+            "title": "Repeated attacks over time",
+            "description": "Some people experience recurrent flare-ups that require long-term prevention planning."
+          }
+        ]
+      },
+      {
+        "heading": "How diagnosis is made",
+        "body": [
+          "Diagnosis is based on the pattern of symptoms, medical history, examination, and supporting investigations where necessary.",
+          "Specialist review helps separate gout from other causes of joint pain, swelling, and inflammatory arthritis."
+        ]
+      },
+      {
+        "heading": "Treatment approach",
+        "body": [
+          "Treatment may involve relief of acute flare-ups, prevention of future attacks, identification of contributing factors, and long-term strategies for recurrent gout.",
+          "The goal is to reduce pain, control inflammation, and help prevent repeat episodes."
+        ]
+      },
+      {
+        "heading": "When to book",
+        "body": [
+          "Book an appointment if you have sudden attacks of severe joint pain, repeated swelling episodes, pain that keeps returning, or an existing gout diagnosis that needs specialist review."
+        ]
+      }
+    ],
+    "ctaText": "If you need gout treatment in Lagos, book an appointment for specialist review, diagnosis, symptom control, and long-term care planning.",
+    "related": [
+      {
+        "title": "Joint Pain and Stiffness Clinic",
+        "href": "/joint-pain-and-stiffness-clinic-lagos",
+        "description": "Assessment for persistent joint pain, swelling, and stiffness."
+      },
+      {
+        "title": "Rheumatoid Arthritis Treatment",
+        "href": "/rheumatoid-arthritis-treatment-lagos",
+        "description": "Learn about inflammatory joint disease, diagnosis, and treatment."
+      },
+      {
+        "title": "Rheumatology FAQ",
+        "href": "/faq",
+        "description": "Common questions about arthritis, autoimmune care, and appointments."
+      },
+      {
+        "title": "Contact and Clinic Location",
+        "href": "/contact-location",
+        "description": "Find clinic contact details, location information, and booking guidance."
+      }
+    ]
+  },
+  {
+    "slug": "lupus-care-lagos",
+    "path": "/lupus-care-lagos",
+    "eyebrow": "Autoimmune & Rheumatology Care",
+    "title": "Lupus Care in Lagos",
+    "description": "Lupus is a complex autoimmune condition that can affect different parts of the body, including the joints, skin, blood, kidneys, and other organs.",
+    "seoTitle": "Lupus Care in Lagos | Dr Olaosebikan",
+    "seoDescription": "Specialist lupus care in Lagos. Understand symptoms, diagnosis, monitoring, and treatment options with Dr Olaosebikan.",
+    "keywords": [
+      "lupus care Lagos",
+      "lupus specialist Lagos",
+      "autoimmune doctor Lagos",
+      "rheumatology clinic Lagos"
+    ],
+    "schemaType": "MedicalWebPage",
+    "sections": [
+      {
+        "heading": "What is lupus?",
+        "body": [
+          "Lupus is an autoimmune disease in which the immune system mistakenly attacks the body's own tissues.",
+          "Because it can affect different organs and body systems, symptoms may vary widely from one person to another."
+        ]
+      },
+      {
+        "heading": "Common symptoms",
+        "cards": [
+          {
+            "title": "Joint pain or swelling",
+            "description": "Lupus may cause aching, swelling, or stiffness in the joints, sometimes with flare-ups."
+          },
+          {
+            "title": "Fatigue",
+            "description": "Many people with lupus experience persistent tiredness that affects daily activities."
+          },
+          {
+            "title": "Skin rashes",
+            "description": "Rashes may occur, especially in people whose lupus affects the skin."
+          },
+          {
+            "title": "Fever or unexplained illness",
+            "description": "Some patients report episodes of feeling unwell, with symptoms that come and go."
+          }
+        ]
+      },
+      {
+        "heading": "How diagnosis is made",
+        "body": [
+          "Diagnosing lupus usually involves detailed clinical assessment because symptoms may overlap with other conditions.",
+          "A specialist approach is important because lupus can present in different ways and may require long-term monitoring."
+        ]
+      },
+      {
+        "heading": "Treatment approach",
+        "body": [
+          "Treatment focuses on controlling disease activity, reducing inflammation, protecting organ health, monitoring flare-ups, and supporting long-term wellbeing.",
+          "Care plans depend on the organs involved, symptom severity, and the patient's overall health needs."
+        ]
+      },
+      {
+        "heading": "When to book",
+        "body": [
+          "Book an appointment if you have symptoms suggestive of autoimmune disease, a previous lupus diagnosis, recurrent joint pain, unexplained fatigue, skin symptoms, or other concerns that need specialist follow-up."
+        ]
+      }
+    ],
+    "ctaText": "If you need lupus care in Lagos, book an appointment for specialist assessment, diagnosis, monitoring, and long-term management planning.",
+    "related": [
+      {
+        "title": "Autoimmune Disease Specialist",
+        "href": "/autoimmune-disease-specialist-lagos",
+        "description": "Specialist evaluation for autoimmune-related symptoms and long-term care."
+      },
+      {
+        "title": "Rheumatoid Arthritis Treatment",
+        "href": "/rheumatoid-arthritis-treatment-lagos",
+        "description": "Learn about inflammatory joint disease, diagnosis, and treatment."
+      },
+      {
+        "title": "Rheumatology FAQ",
+        "href": "/faq",
+        "description": "Common questions about lupus, arthritis, autoimmune care, and appointments."
+      },
+      {
+        "title": "Contact and Clinic Location",
+        "href": "/contact-location",
+        "description": "Find clinic contact details, location information, and booking guidance."
+      }
+    ]
+  },
+  {
+    "slug": "joint-pain-and-stiffness-clinic-lagos",
+    "path": "/joint-pain-and-stiffness-clinic-lagos",
+    "eyebrow": "Specialist Joint & Mobility Care",
+    "title": "Joint Pain and Stiffness Clinic in Lagos",
+    "description": "Joint pain and stiffness can affect comfort, mobility, work, and daily life. Specialist review can help identify the likely cause and guide the right treatment plan.",
+    "seoTitle": "Joint Pain and Stiffness Clinic in Lagos | Dr Olaosebikan",
+    "seoDescription": "Joint pain and stiffness assessment and treatment in Lagos. Find expert care for arthritis, inflammation, and mobility concerns.",
+    "keywords": [
+      "joint pain clinic Lagos",
+      "stiffness treatment Lagos",
+      "arthritis clinic Lagos",
+      "rheumatologist Lagos"
+    ],
+    "schemaType": "MedicalWebPage",
+    "sections": [
+      {
+        "heading": "What this clinic page covers",
+        "body": [
+          "This page is for people with persistent joint pain, swelling, stiffness, reduced range of movement, or symptoms that may be linked to arthritis, inflammation, gout, autoimmune disease, or other musculoskeletal conditions.",
+          "A focused specialist assessment can help clarify whether the problem is inflammatory, mechanical, or related to a longer-term condition."
+        ]
+      },
+      {
+        "heading": "Common symptoms",
+        "cards": [
+          {
+            "title": "Pain in one or more joints",
+            "description": "Pain may affect a single joint or several joints, depending on the underlying cause."
+          },
+          {
+            "title": "Morning stiffness",
+            "description": "Stiffness after waking may suggest inflammatory or degenerative joint disease."
+          },
+          {
+            "title": "Swelling, redness, or warmth",
+            "description": "Some causes of joint pain lead to visible swelling or inflammation in the affected joint."
+          },
+          {
+            "title": "Reduced movement or daily function",
+            "description": "Symptoms may affect walking, gripping, climbing stairs, or completing normal daily tasks."
+          }
+        ]
+      },
+      {
+        "heading": "How diagnosis is made",
+        "body": [
+          "Diagnosis begins with careful review of symptoms and physical examination.",
+          "The pattern, duration, severity, and distribution of symptoms often help distinguish between inflammatory and non-inflammatory causes of joint pain."
+        ]
+      },
+      {
+        "heading": "Treatment approach",
+        "body": [
+          "Treatment depends on the cause and may include pain relief, control of inflammation, activity guidance, symptom monitoring, and longer-term care plans for chronic conditions.",
+          "The overall aim is to improve comfort, preserve movement, and support better daily function."
+        ]
+      },
+      {
+        "heading": "When to book",
+        "body": [
+          "Book an appointment if joint pain lasts beyond a short period, keeps returning, is associated with swelling or stiffness, affects more than one joint, or interferes with quality of life."
+        ]
+      }
+    ],
+    "ctaText": "Book an appointment for specialist evaluation of joint pain and stiffness in Lagos, including assessment of possible arthritis, gout, autoimmune disease, and related conditions.",
+    "related": [
+      {
+        "title": "Rheumatoid Arthritis Treatment",
+        "href": "/rheumatoid-arthritis-treatment-lagos",
+        "description": "Learn about inflammatory joint disease, diagnosis, and long-term treatment."
+      },
+      {
+        "title": "Gout Treatment",
+        "href": "/gout-treatment-lagos",
+        "description": "Care for flare-ups, swelling, and recurring inflammatory joint pain."
+      },
+      {
+        "title": "Lupus Care",
+        "href": "/lupus-care-lagos",
+        "description": "Specialist support for autoimmune disease affecting joints and other body systems."
+      },
+      {
+        "title": "Autoimmune Disease Specialist",
+        "href": "/autoimmune-disease-specialist-lagos",
+        "description": "Evaluation for autoimmune symptoms, inflammation, and long-term rheumatology care."
+      }
+    ]
+  },
+  {
+    "slug": "autoimmune-disease-specialist-lagos",
+    "path": "/autoimmune-disease-specialist-lagos",
+    "eyebrow": "Specialist Autoimmune & Rheumatology Care",
+    "title": "Autoimmune Disease Specialist in Lagos",
+    "description": "Autoimmune diseases can present in many ways, including joint pain, fatigue, rashes, swelling, and symptoms affecting different parts of the body.",
+    "seoTitle": "Autoimmune Disease Specialist in Lagos | Dr Olaosebikan",
+    "seoDescription": "Consult an autoimmune disease specialist in Lagos for expert diagnosis, monitoring, and long-term care.",
+    "keywords": [
+      "autoimmune disease specialist Lagos",
+      "autoimmune clinic Lagos",
+      "rheumatologist Lagos",
+      "lupus specialist Lagos"
+    ],
+    "schemaType": "MedicalWebPage",
+    "sections": [
+      {
+        "heading": "What are autoimmune diseases?",
+        "body": [
+          "Autoimmune diseases develop when the immune system mistakenly attacks the body's own tissues.",
+          "These conditions may affect the joints, skin, muscles, blood vessels, or internal organs, and symptoms can vary widely from one person to another."
+        ]
+      },
+      {
+        "heading": "Common symptoms",
+        "cards": [
+          {
+            "title": "Persistent fatigue",
+            "description": "Ongoing tiredness or reduced energy can be part of autoimmune disease activity."
+          },
+          {
+            "title": "Joint pain and swelling",
+            "description": "Inflammation may affect the joints and lead to pain, swelling, and stiffness."
+          },
+          {
+            "title": "Muscle aches",
+            "description": "Some people experience widespread muscle discomfort or soreness alongside other symptoms."
+          },
+          {
+            "title": "Unexplained rashes or multi-system symptoms",
+            "description": "Autoimmune diseases may affect the skin and other body systems at the same time."
+          }
+        ]
+      },
+      {
+        "heading": "How diagnosis is made",
+        "body": [
+          "Diagnosis often involves medical history, symptom pattern, physical examination, and review of relevant tests.",
+          "Because autoimmune diseases can mimic other illnesses, specialist assessment helps narrow the diagnosis and identify the most likely cause of ongoing symptoms."
+        ]
+      },
+      {
+        "heading": "Treatment approach",
+        "body": [
+          "Management focuses on controlling inflammation, reducing flare-ups, monitoring organ involvement where necessary, and improving quality of life.",
+          "Treatment plans are tailored to the type of disease, disease activity, symptom burden, and the patient's individual health needs."
+        ]
+      },
+      {
+        "heading": "When to book",
+        "body": [
+          "Book an appointment if you have symptoms suggestive of autoimmune disease, recurrent unexplained inflammation, joint pain with fatigue or rash, or an existing diagnosis that needs ongoing specialist review."
+        ]
+      }
+    ],
+    "ctaText": "Book an appointment for specialist autoimmune disease evaluation and long-term rheumatology care in Lagos.",
+    "related": [
+      {
+        "title": "Lupus Care in Lagos",
+        "href": "/lupus-care-lagos",
+        "description": "Specialist support for lupus diagnosis, monitoring, and long-term care."
+      },
+      {
+        "title": "Rheumatoid Arthritis Treatment",
+        "href": "/rheumatoid-arthritis-treatment-lagos",
+        "description": "Learn about inflammatory joint disease, diagnosis, and ongoing treatment."
+      },
+      {
+        "title": "About Dr Olaosebikan",
+        "href": "/about-dr-olaosebikan",
+        "description": "Learn more about the specialist behind the clinic and care approach."
+      },
+      {
+        "title": "Rheumatology FAQ",
+        "href": "/faq",
+        "description": "Common questions about arthritis, autoimmune disease, and appointments."
+      }
+    ]
+  }
+]

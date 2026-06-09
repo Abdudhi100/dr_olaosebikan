@@ -1,0 +1,30 @@
+[
+  {
+    "question": "What does a rheumatology specialist treat?",
+    "answer": "A rheumatology specialist assesses and manages arthritis, autoimmune disease, inflammatory joint conditions, gout, lupus, and many causes of chronic joint pain, swelling, and stiffness."
+  },
+  {
+    "question": "When should I see a doctor for joint pain?",
+    "answer": "You should consider booking if joint pain persists, keeps returning, is associated with swelling, morning stiffness, reduced movement, or is affecting your daily activities and quality of life."
+  },
+  {
+    "question": "Can autoimmune diseases affect the joints?",
+    "answer": "Yes. Many autoimmune diseases can affect the joints and may also involve other body systems. Specialist assessment can be important when symptoms are ongoing or affect more than one part of the body."
+  },
+  {
+    "question": "How is rheumatoid arthritis diagnosed?",
+    "answer": "Diagnosis is based on symptoms, medical history, physical examination, and where necessary, review of investigations. Early assessment matters because timely treatment can help protect joint function and reduce inflammation over time."
+  },
+  {
+    "question": "Is gout treatable?",
+    "answer": "Yes. Gout can often be managed with the right treatment approach, especially when the diagnosis is confirmed and long-term risk of repeated attacks is addressed through proper follow-up and care planning."
+  },
+  {
+    "question": "What should I bring to my appointment?",
+    "answer": "Bring any previous test results, prescriptions, relevant medical history, and a clear summary of your symptoms, how long they have lasted, and what seems to make them better or worse."
+  },
+  {
+    "question": "Do I need specialist follow-up for long-term conditions?",
+    "answer": "Some rheumatology and autoimmune conditions benefit from ongoing follow-up, especially when symptoms change over time, flare-ups occur, or treatment plans need adjustment."
+  }
+]

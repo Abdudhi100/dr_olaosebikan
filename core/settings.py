@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Load .env for local dev only.
 # IMPORTANT: do NOT override real env vars on Render.
 if os.getenv("RENDER") != "true":
-    load_dotenv(BASE_DIR / ".env")
+    load_dotenv(BASE_DIR / ".env", override=True)
 
 def env(key: str, default=None):
     return os.getenv(key, default)
@@ -32,12 +32,12 @@ def env_list(key: str, default=None):
         return default
     return [x.strip() for x in raw.split(",") if x.strip()]
 
-SITE_URL = os.getenv("SITE_URL", "https://www.drolaosebikan.com")
-
 # ------------------------------------------------------------
 # Security basics
 # ------------------------------------------------------------
 DEBUG = env_bool("DEBUG", False)
+
+SITE_URL = env("SITE_URL", "http://localhost:8000" if DEBUG else "https://www.drolaosebikan.com")
 
 SECRET_KEY = env("SECRET_KEY")
 if not SECRET_KEY:
@@ -307,6 +307,6 @@ LOGGING = {
 }
 WHITENOISE_MANIFEST_STRICT = False
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-PREPEND_WWW = True
+PREPEND_WWW = not DEBUG
 USE_X_FORWARDED_HOST = True
 APPEND_SLASH = True

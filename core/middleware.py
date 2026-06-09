@@ -15,6 +15,9 @@ class CanonicalHostMiddleware:
         self.canonical = urlsplit(settings.SITE_URL)
 
     def __call__(self, request):
+        if settings.DEBUG:
+            return self.get_response(request)
+
         if request.method in ("GET", "HEAD"):
             current_scheme = "https" if request.is_secure() else "http"
             current_host = request.get_host()

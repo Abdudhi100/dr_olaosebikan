@@ -1,0 +1,20 @@
+{
+  "slug": "dr-olaosebikan",
+  "fullName": "Hakeem Olaosebikan",
+  "displayName": "Dr Hakeem Olaosebikan",
+  "title": "Consultant Physician",
+  "specialization": "Pain, Arthritis, Autoimmune & Rheumatology Care",
+  "yearsOfExperience": 10,
+  "bio": [
+    "Dr Olaosebikan provides specialist care for pain, arthritis, autoimmune and rheumatology conditions in Lagos.",
+    "His clinical focus includes joint pain, inflammatory arthritis, gout, lupus, autoimmune symptoms, musculoskeletal concerns, inflammatory back pain, and long-term follow-up for chronic rheumatic disease.",
+    "Care is built around careful clinical assessment, clear diagnosis, practical treatment planning, symptom control, patient education, and structured follow-up."
+  ],
+  "hospitalAffiliations": [
+    "Maryamville Medical Center, Surulere, Lagos"
+  ],
+  "professionalMemberships": [
+    "Rheumatology and internal medicine professional networks"
+  ],
+  "profilePhoto": "/images/dr_hakeem.webp"
+}
