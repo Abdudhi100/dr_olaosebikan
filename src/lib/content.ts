@@ -82,6 +82,14 @@ export function getPublicationBySlug(slug: string) {
   );
 }
 
+export const visiblePublications = publications.filter(
+  (publication) => publication.isPublished !== false,
+);
+
+export const visibleAchievements = achievements.filter(
+  (achievement) => achievement.isPublished !== false,
+);
+
 export const publicRoutes = [
   "/",
   ...pages.map((page) => page.path),
@@ -89,9 +97,7 @@ export const publicRoutes = [
   "/contact",
   "/contact-location",
   "/appointments/book",
-  "/publications",
-  "/publications/achievements",
-  ...publications
-    .filter((publication) => publication.isPublished !== false)
-    .map((publication) => `/publications/${publication.slug}`),
+  ...(visiblePublications.length > 0 ? ["/publications"] : []),
+  ...(visibleAchievements.length > 0 ? ["/publications/achievements"] : []),
+  ...visiblePublications.map((publication) => `/publications/${publication.slug}`),
 ];

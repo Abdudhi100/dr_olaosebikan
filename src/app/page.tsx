@@ -62,7 +62,7 @@ export default function HomePage() {
     <>
       <JsonLd data={physicianJsonLd()} />
 
-      <section className="relative min-h-[72vh] overflow-hidden bg-slate-950 text-white">
+      <section className="relative min-h-[72vh] overflow-hidden bg-slate-950 pb-10 text-white">
         <Image
           src="/images/hero/clinic-hero-1600.webp"
           alt="Clinic consultation for pain, arthritis and autoimmune care"
@@ -112,10 +112,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-white py-8" aria-label="Care highlights">
+      <section className="relative z-10 -mt-12 pb-8" aria-label="Care highlights">
         <div className="mx-auto grid max-w-7xl gap-3 px-4 sm:grid-cols-3 sm:px-6">
           {["Specialist-led care", "Evidence-based diagnosis", "Clear next steps"].map((item) => (
-            <div key={item} className="flex items-center gap-3 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 shadow-sm">
+            <div key={item} className="flex items-center gap-3 rounded-xl border border-slate-200/80 bg-white px-4 py-4 text-sm font-semibold text-slate-700 shadow-md shadow-slate-950/5">
               <CheckCircle2 className="h-5 w-5 text-blue-700" aria-hidden="true" />
               {item}
             </div>
@@ -123,15 +123,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-slate-50 py-14" aria-labelledby="doctor-heading">
+      <div className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-white">
+        <div className="pointer-events-none absolute left-1/2 top-0 h-80 w-[48rem] -translate-x-1/2 rounded-full bg-blue-100/35 blur-3xl" />
+        <div className="pointer-events-none absolute -right-24 top-[38rem] h-72 w-72 rounded-full bg-cyan-100/40 blur-3xl" />
+
+      <section className="relative py-12 sm:py-14" aria-labelledby="doctor-heading">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-slate-200">
+          <div className="relative aspect-[4/4.15] overflow-hidden rounded-2xl bg-slate-200 shadow-sm ring-1 ring-slate-200 sm:aspect-[4/3.6] lg:aspect-[4/4.25]">
             <Image
               src={doctor.profilePhoto}
               alt={`Photo of ${doctor.displayName}`}
               fill
               sizes="(max-width: 1024px) 100vw, 520px"
-              className="object-cover"
+              className="object-cover object-top"
             />
           </div>
           <div>
@@ -157,7 +161,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="services" className="bg-white py-16 sm:py-20" aria-labelledby="services-heading">
+      <section id="services" className="relative py-14 sm:py-16" aria-labelledby="services-heading">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <header className="mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center rounded-full bg-blue-50 px-4 py-1.5 text-sm font-semibold text-blue-700 ring-1 ring-blue-100">
@@ -178,13 +182,13 @@ export default function HomePage() {
                 <Link
                   key={service.slug}
                   href="/appointments/book"
-                  className="group rounded-lg border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-soft focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                  className="group flex h-full flex-col rounded-xl border border-slate-200 bg-white/95 p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                 >
                   <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-50 text-blue-700 ring-1 ring-blue-100">
                     <Icon className="h-6 w-6" aria-hidden="true" />
                   </div>
                   <h3 className="mt-5 text-xl font-bold text-slate-950">{service.name}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-600">
                     {service.description}
                   </p>
                   <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-blue-700">
@@ -198,8 +202,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-slate-50 py-16 sm:py-20" aria-labelledby="conditions-heading">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <section className="relative mx-auto my-6 max-w-7xl overflow-hidden rounded-none py-16 sm:my-10 sm:rounded-3xl sm:py-20" aria-labelledby="conditions-heading">
+        <Image
+          src="/images/sections/clinic-hero-1200.webp"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover opacity-20"
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/95 to-cyan-50/90" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
           <header className="max-w-3xl">
             <span className="inline-flex items-center rounded-full bg-blue-50 px-4 py-1.5 text-sm font-semibold text-blue-700 ring-1 ring-blue-100">
               Specialist Care Areas
@@ -213,14 +226,17 @@ export default function HomePage() {
           </header>
 
           <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {conditionLinks.map((link) => (
+            {conditionLinks.map((link, index) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="group rounded-lg border border-slate-200 bg-white p-5 shadow-sm transition hover:border-blue-200 hover:shadow-soft"
+                className="group flex min-h-32 flex-col justify-between rounded-2xl border border-white/80 bg-white/90 p-5 shadow-sm backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-white hover:shadow-md"
               >
-                <span className="flex items-center justify-between gap-4 font-bold text-slate-950">
-                  {link.title}
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-50 text-sm font-extrabold text-blue-700 ring-1 ring-blue-100">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="mt-5 flex items-center justify-between gap-4 font-bold leading-snug text-slate-950">
+                  <span>{link.title}</span>
                   <ArrowRight className="h-4 w-4 shrink-0 text-blue-700 transition group-hover:translate-x-1" aria-hidden="true" />
                 </span>
               </Link>
@@ -229,27 +245,27 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-white py-16 sm:py-20" aria-labelledby="publications-heading">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <header className="mx-auto max-w-3xl text-center">
-            <span className="inline-flex items-center rounded-full bg-amber-50 px-4 py-1.5 text-sm font-semibold text-amber-800 ring-1 ring-amber-100">
-              Research & Scholarship
-            </span>
-            <h2 id="publications-heading" className="mt-5 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
-              Publications & Rheumatology Insights
-            </h2>
-            <p className="mt-5 text-lg leading-relaxed text-slate-600">
-              Peer-reviewed research and clinical contributions supporting better outcomes in arthritis, autoimmune disease, and pain care.
-            </p>
-          </header>
+      {featuredPublications.length > 0 ? (
+        <section className="relative py-14 sm:py-16" aria-labelledby="publications-heading">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6">
+            <header className="mx-auto max-w-3xl text-center">
+              <span className="inline-flex items-center rounded-full bg-amber-50 px-4 py-1.5 text-sm font-semibold text-amber-800 ring-1 ring-amber-100">
+                Research & Scholarship
+              </span>
+              <h2 id="publications-heading" className="mt-5 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
+                Publications & Rheumatology Insights
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-slate-600">
+                Peer-reviewed research and clinical contributions supporting better outcomes in arthritis, autoimmune disease, and pain care.
+              </p>
+            </header>
 
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {featuredPublications.length > 0 ? (
-              featuredPublications.map((publication) => (
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {featuredPublications.map((publication) => (
                 <Link
                   key={publication.slug}
                   href={`/publications/${publication.slug}`}
-                  className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm transition hover:border-blue-200 hover:shadow-soft"
+                  className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-blue-200 hover:shadow-md"
                 >
                   <h3 className="text-lg font-bold leading-snug text-slate-950">
                     {publication.title}
@@ -261,32 +277,24 @@ export default function HomePage() {
                     {publication.abstract}
                   </p>
                 </Link>
-              ))
-            ) : (
-              <div className="rounded-lg border border-slate-200 bg-slate-50 p-8 text-center shadow-sm sm:col-span-2 lg:col-span-3">
-                <p className="font-semibold text-slate-700">
-                  Clinical research, educational articles, and specialist insights.
-                </p>
-                <p className="mt-2 text-sm text-slate-600">
-                  New research and publications will appear here as they are published.
-                </p>
-              </div>
-            )}
-          </div>
+              ))}
+            </div>
 
-          <div className="mt-10 text-center">
-            <Link
-              href="/publications"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-            >
-              View all publications
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
+            <div className="mt-10 text-center">
+              <Link
+                href="/publications"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              >
+                View all publications
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
+      </div>
 
-      <section className="bg-blue-600 py-16 text-white sm:py-20" aria-labelledby="final-cta-heading">
+      <section className="relative -mt-1 rounded-t-[2rem] bg-blue-600 py-16 text-white sm:py-20" aria-labelledby="final-cta-heading">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
           <h2 id="final-cta-heading" className="text-3xl font-extrabold tracking-tight sm:text-4xl">
             Move better. Hurt less. Live fully.
@@ -297,7 +305,7 @@ export default function HomePage() {
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Link
               href="/appointments/book"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-8 py-3.5 text-sm font-semibold text-blue-700 shadow-xl transition hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-8 py-3.5 text-sm font-semibold text-blue-700 shadow-sm transition hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600"
             >
               <CalendarDays className="h-5 w-5" aria-hidden="true" />
               Book an Appointment

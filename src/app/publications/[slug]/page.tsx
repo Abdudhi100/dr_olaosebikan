@@ -10,6 +10,8 @@ type PublicationDetailProps = {
   params: Promise<{ slug: string }>;
 };
 
+const EMPTY_PUBLICATION_FALLBACK_SLUG = "publication-record-unavailable";
+
 export const dynamicParams = false;
 export const dynamic = "force-static";
 
@@ -18,14 +20,28 @@ export function generateStaticParams() {
     .filter((publication) => publication.isPublished !== false)
     .map((publication) => ({ slug: publication.slug }));
 
-  return params.length > 0 ? params : [{ slug: "__placeholder" }];
+  return params.length > 0
+    ? params
+    : [{ slug: EMPTY_PUBLICATION_FALLBACK_SLUG }];
 }
 
 export async function generateMetadata({ params }: PublicationDetailProps): Promise<Metadata> {
   const { slug } = await params;
   const publication = getPublicationBySlug(slug);
 
-  if (!publication) return {};
+  if (!publication) {
+    return {
+      title: "Publication record unavailable | Dr Olaosebikan",
+      description: "Verified publication details have not been added to the static site yet.",
+      robots: {
+        index: false,
+        follow: false,
+      },
+      alternates: {
+        canonical: "/publications",
+      },
+    };
+  }
 
   return defaultMetadata({
     title: `${publication.title} | Publication`,
@@ -40,7 +56,28 @@ export default async function PublicationDetailPage({ params }: PublicationDetai
   const { slug } = await params;
   const publication = getPublicationBySlug(slug);
 
-  if (!publication) notFound();
+  if (!publication && slug !== EMPTY_PUBLICATION_FALLBACK_SLUG) notFound();
+
+  if (!publication) {
+    return (
+      <section className="bg-white">
+        <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6">
+          <p className="text-sm font-semibold uppercase text-blue-700">
+            Publications
+          </p>
+          <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-950">
+            Publication details are pending verification
+          </h1>
+          <p className="mt-4 leading-relaxed text-slate-600">
+            Verified publication records have not been added to the static site yet.
+          </p>
+          <Link href="/publications" className="mt-8 inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-700">
+            Back to Publications
+          </Link>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <>

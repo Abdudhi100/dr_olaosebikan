@@ -12,7 +12,7 @@ import {
   Stethoscope,
   X,
 } from "lucide-react";
-import { site } from "@/lib/content";
+import { achievements, publications, site } from "@/lib/content";
 
 const careLinks = [
   {
@@ -47,19 +47,34 @@ const careLinks = [
   },
 ];
 
+const hasVisiblePublications = publications.some(
+  (publication) => publication.isPublished !== false,
+);
+const hasVisibleAchievements = achievements.some(
+  (achievement) => achievement.isPublished !== false,
+);
+
 const resourceLinks = [
-  {
-    label: "Publications",
-    href: "/publications",
-    description: "Research, papers and clinical insights",
-    icon: BookOpen,
-  },
-  {
-    label: "Achievements",
-    href: "/publications/achievements",
-    description: "Awards, recognitions and milestones",
-    icon: Award,
-  },
+  ...(hasVisiblePublications
+    ? [
+        {
+          label: "Publications",
+          href: "/publications",
+          description: "Research, papers and clinical insights",
+          icon: BookOpen,
+        },
+      ]
+    : []),
+  ...(hasVisibleAchievements
+    ? [
+        {
+          label: "Achievements",
+          href: "/publications/achievements",
+          description: "Awards, recognitions and milestones",
+          icon: Award,
+        },
+      ]
+    : []),
   {
     label: "FAQ",
     href: "/faq",

@@ -72,9 +72,9 @@ export default function AchievementsPage() {
             </div>
           ) : (
             <div className="rounded-lg border border-slate-200 bg-white p-10 text-center shadow-sm">
-              <h2 className="text-lg font-bold text-slate-950">No achievements available</h2>
+              <h2 className="text-lg font-bold text-slate-950">Achievements pending verification</h2>
               <p className="mt-2 text-sm text-slate-600">
-                New achievements will appear here as they are published.
+                Verified achievements have not been added to the static site yet.
               </p>
               <Link href="/" className="mt-6 inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white hover:bg-slate-800">
                 Back to Home

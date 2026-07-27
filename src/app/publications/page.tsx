@@ -86,9 +86,9 @@ export default function PublicationsPage() {
               ))
             ) : (
               <div className="rounded-lg border border-slate-200 bg-white p-10 text-center shadow-sm">
-                <h2 className="text-lg font-bold text-slate-950">No publications available</h2>
+                <h2 className="text-lg font-bold text-slate-950">Publications pending verification</h2>
                 <p className="mt-2 text-slate-600">
-                  New research and publications will appear here as they are published.
+                  Verified publication details have not been added to the static site yet.
                 </p>
               </div>
             )}

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { CalendarDays, Mail, MapPin, Phone } from "lucide-react";
-import { site } from "@/lib/content";
+import { publications, site } from "@/lib/content";
 
 const careLinks = [
   { label: "Rheumatoid Arthritis", href: "/rheumatoid-arthritis-treatment-lagos" },
@@ -12,6 +12,9 @@ const careLinks = [
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const hasVisiblePublications = publications.some(
+    (publication) => publication.isPublished !== false,
+  );
 
   return (
     <footer className="bg-slate-950 text-slate-300">
@@ -35,7 +38,9 @@ export function Footer() {
             <ul className="space-y-2">
               <li><Link href="/#services" className="hover:text-white">Services</Link></li>
               <li><Link href="/appointments/book" className="hover:text-white">Book Appointment</Link></li>
-              <li><Link href="/publications" className="hover:text-white">Publications</Link></li>
+              {hasVisiblePublications ? (
+                <li><Link href="/publications" className="hover:text-white">Publications</Link></li>
+              ) : null}
               <li><Link href="/faq" className="hover:text-white">FAQ</Link></li>
               <li><Link href="/contact-location" className="hover:text-white">Contact & Location</Link></li>
             </ul>
