@@ -34,7 +34,7 @@ Node.js version: 20 or newer
 
 Most public content is stored in JSON:
 
-- `src/content/site.json` - clinic name, phone, email, address, WhatsApp number, SEO defaults, form action
+- `src/content/site.json` - clinic name, phone, email, address, WhatsApp number, SEO defaults, Web3Forms key placeholder
 - `src/content/doctor.json` - active doctor profile
 - `src/content/services.json` - appointment service/complaint options
 - `src/content/pages.json` - about page and care-area pages
@@ -46,17 +46,28 @@ Images and favicons live in `public/`. The Google verification file is available
 
 ## Appointment Form
 
-The appointment page is static and does not save to a database. By default, submitting the form opens a pre-filled WhatsApp message.
+The appointment page is static and does not save to a database. It submits directly from the browser to Web3Forms and keeps a WhatsApp fallback visible for patients.
 
-To use a form handler such as Formspree, Basin, Tally, or a Cloudflare Pages Function endpoint, set `appointmentFormAction` in `src/content/site.json` to the provider URL. The form uses standard `POST` fields:
+Create a free Web3Forms access key at `https://web3forms.com/`, then configure it in one of these ways:
+
+1. Recommended for Cloudflare Pages: add a build environment variable named `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`.
+2. For simple local/static setup: place the key in `src/content/site.json` as `web3FormsAccessKey`.
+
+Do not commit a real Web3Forms key. Because this is a static client-side form, the key is included in the exported site when configured. Use the Web3Forms dashboard spam controls and allowed-domain settings where available.
+
+The form posts to `https://api.web3forms.com/submit` and sends these fields:
 
 - `name`
 - `phone`
-- `email`
+- `email` (optional)
 - `preferredDate`
-- `preferredTime`
+- `preferredTime` (optional)
 - `service`
-- `message`
+- `message` (optional scheduling note only)
+- `subject` (`New Appointment Request - Dr Olaosebikan Clinic`)
+- `botcheck` honeypot spam-protection field
+
+The free-text field warns patients not to include sensitive medical information.
 
 ## WhatsApp Number
 
@@ -73,3 +84,10 @@ No legacy database export was present in the repository, so `publications.json` 
 ## Blog
 
 The old Django blog depended on database-backed posts and CKEditor content. It is not included in the static navigation. Add static MDX or JSON-backed posts later if the blog is needed.
+
+## Recovery Documentation
+
+- `docs/PROJECT_STATUS.md` - current launch status and route inventory
+- `docs/CONTENT_REQUIREMENTS.md` - verified content needed from the clinic
+- `docs/DEPLOYMENT_RUNBOOK.md` - Cloudflare Pages deployment and Render retirement steps
+- `docs/TEST_CHECKLIST.md` - manual smoke-test checklist
