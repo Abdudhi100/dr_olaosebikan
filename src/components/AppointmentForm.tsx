@@ -86,9 +86,11 @@ export function AppointmentForm() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
+    const form = event.currentTarget;
+
     if (isSubmitting) return;
 
-    const fields = fieldsFromForm(event.currentTarget);
+    const fields = fieldsFromForm(form);
     const earliestDate = minDate || todayInputValue();
 
     if (fields.preferredDate < earliestDate) {
@@ -107,7 +109,7 @@ export function AppointmentForm() {
     setStatus("idle");
     setStatusMessage("");
 
-    const data = new FormData(event.currentTarget);
+    const data = new FormData(form);
     const payload = {
       access_key: accessKey,
       name: fields.name,
@@ -137,16 +139,22 @@ export function AppointmentForm() {
       if (!response.ok || result.success !== true) {
         throw new Error(result.message || "Unable to submit appointment request.");
       }
-
-      event.currentTarget.reset();
-      setStatus("success");
-      setStatusMessage("Thank you. Your appointment request has been sent. The clinic will review it and contact you to confirm.");
     } catch {
       setStatus("error");
       setStatusMessage("Sorry, your request could not be sent right now. Please try again or use the WhatsApp option below.");
-    } finally {
       setIsSubmitting(false);
+      return;
     }
+
+    try {
+      form.reset();
+    } catch {
+      // Reset is best-effort after confirmed delivery; do not report a sent request as failed.
+    }
+
+    setStatus("success");
+    setStatusMessage("Thank you. Your appointment request has been sent. The clinic will review it and contact you to confirm.");
+    setIsSubmitting(false);
   }
 
   function handleWhatsApp(event: MouseEvent<HTMLAnchorElement>) {
