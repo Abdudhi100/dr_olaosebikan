@@ -18,6 +18,11 @@ type AppointmentFormFields = {
   message: string;
 };
 
+type Web3FormsResponse = {
+  success?: boolean;
+  message?: string;
+};
+
 function todayInputValue() {
   const today = new Date();
   today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
@@ -35,6 +40,31 @@ function fieldsFromForm(form: HTMLFormElement): AppointmentFormFields {
     service: String(data.get("service") || "").trim(),
     message: String(data.get("message") || "").trim(),
   };
+}
+
+async function parseWeb3FormsResponse(response: Response): Promise<Web3FormsResponse> {
+  const contentType = response.headers.get("content-type") || "";
+
+  if (!contentType.toLowerCase().includes("application/json")) {
+    return {};
+  }
+
+  try {
+    const body: unknown = await response.json();
+
+    if (!body || typeof body !== "object") {
+      return {};
+    }
+
+    const result = body as Record<string, unknown>;
+
+    return {
+      success: typeof result.success === "boolean" ? result.success : undefined,
+      message: typeof result.message === "string" ? result.message : undefined,
+    };
+  } catch {
+    return {};
+  }
 }
 
 export function AppointmentForm() {
@@ -77,19 +107,34 @@ export function AppointmentForm() {
     setStatus("idle");
     setStatusMessage("");
 
-    const formData = new FormData(event.currentTarget);
-    formData.set("access_key", accessKey);
-    formData.set("subject", FORM_SUBJECT);
-    formData.set("from_name", site.clinicName);
+    const data = new FormData(event.currentTarget);
+    const payload = {
+      access_key: accessKey,
+      name: fields.name,
+      phone: fields.phone,
+      email: fields.email,
+      preferredDate: fields.preferredDate,
+      preferredTime: fields.preferredTime,
+      service: fields.service,
+      message: fields.message,
+      subject: FORM_SUBJECT,
+      botcheck: String(data.get("botcheck") || ""),
+      from_name: site.clinicName,
+      clinic: site.clinicName,
+    };
 
     try {
       const response = await fetch(WEB3FORMS_ENDPOINT, {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
       });
-      const result = await response.json();
+      const result = await parseWeb3FormsResponse(response);
 
-      if (!response.ok || !result.success) {
+      if (!response.ok || result.success !== true) {
         throw new Error(result.message || "Unable to submit appointment request.");
       }
 
