@@ -3,10 +3,17 @@
 ## Cloudflare Pages Settings
 
 - Framework preset: None or Next.js static export compatible.
-- Build command: `npm run build`.
+- Environment variable: `SKIP_DEPENDENCY_INSTALL=true`.
+- Build command: `npm ci && npm run build`.
 - Output directory: `out`.
-- Node.js version: 20 or newer.
+- Node.js version: `22.16.0`.
 - Production branch: the approved recovery or release branch after review.
+
+Use the custom build command so package installation is controlled by this
+project. `npm ci` installs exactly from `package-lock.json`, and `npm run build`
+performs the static Next.js export. The `SKIP_DEPENDENCY_INSTALL` setting keeps
+Cloudflare from auto-detecting and installing obsolete Python/Django deployment
+dependencies that are retained only for historical reference.
 
 ## Environment Variables
 
@@ -14,11 +21,15 @@ Set names only. Do not place secret values in the repository.
 
 - `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`
 
+Set `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` in the appropriate Cloudflare Pages
+Preview and Production environments. Do not expose the value in documentation,
+source files, build logs, or commits.
+
 ## Preview Deployment Procedure
 
 1. Push the reviewed branch to GitHub.
 2. Let Cloudflare Pages create a preview deployment.
-3. Confirm the preview build uses Node.js 20 or newer.
+3. Confirm the preview build uses Node.js `22.16.0`.
 4. Smoke test public routes, navigation, metadata, images, and the appointment form missing-key/configured-key behavior.
 5. Confirm no Django, Render, login, register, admin, or dashboard links are exposed in public navigation.
 

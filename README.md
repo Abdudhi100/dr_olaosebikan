@@ -7,7 +7,7 @@ This repository now builds the public clinic website as a static Next.js site fo
 Install dependencies:
 
 ```bash
-npm install
+npm ci
 ```
 
 Run locally:
@@ -25,10 +25,17 @@ npm run build
 Cloudflare Pages settings:
 
 ```text
-Build command: npm run build
+Environment variable: SKIP_DEPENDENCY_INSTALL=true
+Build command: npm ci && npm run build
 Output directory: out
-Node.js version: 20 or newer
+Node.js version: 22.16.0
 ```
+
+The repository includes `.node-version` with the Node.js version previously
+proven in Cloudflare Pages. `SKIP_DEPENDENCY_INSTALL=true` prevents Cloudflare
+from trying to infer and install obsolete Python/Django dependencies from
+historical files. The custom build command runs the dependency install explicitly
+with `npm ci`, then creates the static export with `npm run build`.
 
 ## Editing Clinic Content
 
@@ -50,7 +57,7 @@ The appointment page is static and does not save to a database. It submits direc
 
 Create a free Web3Forms access key at `https://web3forms.com/`, then configure it in one of these ways:
 
-1. Recommended for Cloudflare Pages: add a build environment variable named `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`.
+1. Recommended for Cloudflare Pages: add a build environment variable named `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` in the appropriate Preview and Production environments.
 2. For simple local/static setup: place the key in `src/content/site.json` as `web3FormsAccessKey`.
 
 Do not commit a real Web3Forms key. Because this is a static client-side form, the key is included in the exported site when configured. Use the Web3Forms dashboard spam controls and allowed-domain settings where available.

@@ -37,4 +37,7 @@ The approved production target is a static Next.js export for Cloudflare Pages. 
 
 ## Legacy Code Status
 
-Django apps, templates, migrations, and Render-oriented files remain in the repository but are not part of the approved production architecture.
+Django apps, templates, and migrations remain in the repository for reference
+only and are not part of the approved production architecture. The former
+Render dependency-detection files are archived under `legacy/render/` so
+Cloudflare Pages does not treat the static site as a Python/Django application.
