@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CalendarDays, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { ArrowRight, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { JsonLd } from "@/components/JsonLd";
 import { site } from "@/lib/content";
 import { defaultMetadata } from "@/lib/seo";
-import { surfaceStyles } from "@/lib/styles";
+import { buttonStyles } from "@/lib/styles";
 import { appointmentWhatsAppUrl } from "@/lib/whatsapp";
 
 export const metadata: Metadata = defaultMetadata({
@@ -41,115 +41,109 @@ export default function ContactPage() {
         secondaryLabel="Clinic Location"
       />
 
-      <section className="bg-surface-emphasis py-12 sm:py-16">
-        <div className="mx-auto grid max-w-standard gap-6 px-4 sm:px-6 lg:grid-cols-3">
-          <div className="grid min-w-0 gap-5 sm:grid-cols-2 lg:col-span-2">
-            <ContactCard
-              href={`mailto:${site.email}`}
-              icon={<Mail className="h-5 w-5" aria-hidden="true" />}
-              label="Email"
-              title={site.email}
-              body="Best for detailed questions, referrals, and document sharing."
-              action="Send an email"
-            />
-            <ContactCard
-              href={appointmentWhatsAppUrl()}
-              external
-              icon={<MessageCircle className="h-5 w-5" aria-hidden="true" />}
-              label="WhatsApp"
-              title="Chat instantly"
-              body="Fastest for quick questions and appointment scheduling."
-              action="Open WhatsApp"
-              accent="emerald"
-            />
-            <ContactCard
-              href={`tel:${site.phoneDial}`}
-              icon={<Phone className="h-5 w-5" aria-hidden="true" />}
-              label="Phone"
-              title={site.phone}
-              body="Call for urgent concerns and scheduling."
-              action="Call now"
-            />
-            <ContactCard
-              href="/appointments/book"
-              icon={<CalendarDays className="h-5 w-5" aria-hidden="true" />}
-              label="Appointments"
-              title="Prefer to book directly?"
-              body="Use the booking page to send consultation details. No login required."
-              action="Book Appointment"
-            />
-          </div>
-
-          <aside className={`${surfaceStyles.muted} p-6`}>
-            <h2 className="text-subsection-title text-text-primary">Availability</h2>
-            <p className="mt-2 text-support text-text-tertiary">
-              Dr Olaosebikan is available on weekdays and weekends by appointment.
-            </p>
-            <dl className="mt-5 space-y-3 text-sm">
-              <div className="flex justify-between gap-4">
-                <dt className="text-text-tertiary">Mon - Fri</dt>
-                <dd className="font-semibold text-text-primary">9:00 AM - 5:00 PM</dd>
-              </div>
-              <div className="flex justify-between gap-4">
-                <dt className="text-text-tertiary">Saturday</dt>
-                <dd className="font-semibold text-text-primary">10:00 AM - 4:00 PM</dd>
-              </div>
-              <div className="flex justify-between gap-4">
-                <dt className="text-text-tertiary">Sunday</dt>
-                <dd className="font-semibold text-text-primary">By appointment</dd>
-              </div>
-            </dl>
-            <div className={`${surfaceStyles.card} mt-8 p-4`}>
-              <h3 className="text-support font-bold text-text-primary">Location</h3>
-              <p className="mt-2 flex gap-2 text-support text-text-tertiary">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-primary" aria-hidden="true" />
-                {site.address}
-              </p>
+      <section className="bg-surface-emphasis py-10 sm:py-14">
+        <div className="mx-auto max-w-wide px-4 sm:px-6">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-14">
+            <div>
+              <section className="grid gap-5 border-t border-border-subtle pt-8 lg:grid-cols-[14rem_minmax(0,1fr)]">
+                <h2 className="text-subsection-title tracking-normal text-text-primary">Direct contact</h2>
+                <div className="border-y border-border-subtle">
+                  <ContactMethod
+                    href={`tel:${site.phoneDial}`}
+                    icon={<Phone className="h-4 w-4" aria-hidden="true" />}
+                    label="Phone"
+                    value={site.phone}
+                    body="Call for urgent concerns and scheduling."
+                    action="Call now"
+                  />
+                  <ContactMethod
+                    href={appointmentWhatsAppUrl()}
+                    external
+                    icon={<MessageCircle className="h-4 w-4" aria-hidden="true" />}
+                    label="WhatsApp"
+                    value="Chat instantly"
+                    body="Fastest for quick questions and appointment scheduling."
+                    action="Open WhatsApp"
+                  />
+                  <ContactMethod
+                    href={`mailto:${site.email}`}
+                    icon={<Mail className="h-4 w-4" aria-hidden="true" />}
+                    label="Email"
+                    value={site.email}
+                    body="Best for detailed questions, referrals, and document sharing."
+                    action="Send an email"
+                    valueClassName="break-all"
+                  />
+                </div>
+              </section>
             </div>
-          </aside>
+
+            <aside className="space-y-8 border-t border-border-subtle pt-8 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+              <section>
+                <h2 className="text-subsection-title tracking-normal text-text-primary">Availability</h2>
+                <p className="mt-2 text-support text-text-secondary">
+                  Dr Olaosebikan is available on weekdays and weekends by appointment.
+                </p>
+                <dl className="mt-5 border-y border-border-subtle text-support">
+                  <AvailabilityRow label="Mon - Fri" value="9:00 AM - 5:00 PM" />
+                  <AvailabilityRow label="Saturday" value="10:00 AM - 4:00 PM" />
+                  <AvailabilityRow label="Sunday" value="By appointment" />
+                </dl>
+              </section>
+
+              <section className="border-t border-border-subtle pt-8">
+                <h2 className="text-subsection-title tracking-normal text-text-primary">Location</h2>
+                <p className="mt-3 flex min-w-0 gap-2 text-support text-text-secondary">
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-primary" aria-hidden="true" />
+                  <span>{site.address}</span>
+                </p>
+                <Link href="/contact-location" className={`${buttonStyles.tertiary} mt-5`}>
+                  Clinic Location
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </section>
+            </aside>
+          </div>
         </div>
       </section>
     </>
   );
 }
 
-type ContactCardProps = {
+type ContactMethodProps = {
   href: string;
   icon: React.ReactNode;
   label: string;
-  title: string;
+  value: string;
   body: string;
   action: string;
   external?: boolean;
-  accent?: "blue" | "emerald";
+  valueClassName?: string;
 };
 
-function ContactCard({
+function ContactMethod({
   href,
   icon,
   label,
-  title,
+  value,
   body,
   action,
   external = false,
-  accent = "blue",
-}: ContactCardProps) {
-  const className = "group min-w-0 rounded-lg border border-border-subtle bg-surface-emphasis p-5 transition hover:border-brand-primary-border sm:p-6";
-  const iconClass = accent === "emerald" ? "bg-success-subtle text-success ring-success-border" : "bg-brand-primary-subtle text-brand-primary ring-brand-primary-border";
+  valueClassName = "break-words",
+}: ContactMethodProps) {
+  const className = "group grid min-w-0 gap-3 border-b border-border-subtle py-5 transition last:border-b-0 hover:border-brand-primary sm:grid-cols-[2rem_minmax(0,1fr)_auto] sm:items-start sm:gap-4";
 
   const content = (
     <>
-      <div className="flex min-w-0 items-start justify-between gap-4">
-        <div className="min-w-0">
-          <p className="text-support font-semibold text-text-secondary">{label}</p>
-          <p className="mt-2 min-w-0 break-words text-base font-bold leading-relaxed text-text-primary sm:text-lg">{title}</p>
-          <p className="mt-2 text-support text-text-tertiary">{body}</p>
-        </div>
-        <span className={`shrink-0 rounded-lg p-3 ring-1 ${iconClass}`}>
-          {icon}
-        </span>
+      <span className="flex h-5 w-5 shrink-0 items-center justify-center text-brand-primary">
+        {icon}
+      </span>
+      <div className="min-w-0">
+        <p className="text-xs font-bold text-text-tertiary">{label}</p>
+        <p className={`mt-1 min-w-0 text-base font-bold leading-snug text-text-primary ${valueClassName}`}>{value}</p>
+        <p className="mt-2 max-w-reading text-support text-text-secondary">{body}</p>
       </div>
-      <span className="mt-5 inline-flex items-center gap-2 text-support font-semibold text-brand-primary group-hover:underline">
+      <span className="text-support font-semibold text-brand-primary group-hover:underline sm:justify-self-end">
         {action}
       </span>
     </>
@@ -175,5 +169,14 @@ function ContactCard({
     <a href={href} className={className}>
       {content}
     </a>
+  );
+}
+
+function AvailabilityRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex justify-between gap-4 border-b border-border-subtle py-3 last:border-b-0">
+      <dt className="text-text-tertiary">{label}</dt>
+      <dd className="text-right font-semibold text-text-primary">{value}</dd>
+    </div>
   );
 }

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CalendarDays } from "lucide-react";
+import { ArrowRight, CalendarDays, ChevronDown } from "lucide-react";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
 import { faqs } from "@/lib/content";
 import { defaultMetadata, faqJsonLd } from "@/lib/seo";
+import { buttonStyles } from "@/lib/styles";
 
 export const metadata: Metadata = defaultMetadata({
   title: "Rheumatology FAQ | Dr Olaosebikan",
@@ -54,40 +55,55 @@ export default function FaqPage() {
         secondaryLabel="Contact the Clinic"
       />
 
-      <section className="bg-white py-14 sm:py-16">
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="space-y-5">
+      <section className="bg-surface-emphasis py-10 sm:py-14">
+        <div className="mx-auto max-w-wide px-4 sm:px-6">
+          <section className="grid gap-5 border-t border-border-subtle pt-8 lg:grid-cols-[16rem_minmax(0,1fr)]">
+            <h2 className="text-subsection-title tracking-normal text-text-primary">Common questions</h2>
+            <div className="border-y border-border-subtle">
             {faqs.map((faq) => (
-              <section key={faq.question} className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
-                <h2 className="text-xl font-semibold text-slate-950">{faq.question}</h2>
-                <p className="mt-3 leading-relaxed text-slate-700">{faq.answer}</p>
-              </section>
+                <details key={faq.question} className="group border-b border-border-subtle py-4 last:border-b-0">
+                  <summary className="flex cursor-pointer list-none items-start justify-between gap-4 text-base font-bold leading-snug text-text-primary transition hover:text-brand-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 [&::-webkit-details-marker]:hidden">
+                    <span>{faq.question}</span>
+                    <ChevronDown className="mt-0.5 h-4 w-4 shrink-0 text-brand-primary transition group-open:rotate-180" aria-hidden="true" />
+                  </summary>
+                  <p className="mt-3 max-w-reading text-body text-text-secondary">{faq.answer}</p>
+                </details>
             ))}
           </div>
+          </section>
 
-          <section className="mt-10 rounded-lg bg-slate-50 p-8 ring-1 ring-slate-200">
-            <h2 className="text-2xl font-semibold text-slate-950">Need specialist review?</h2>
-            <p className="mt-3 max-w-2xl leading-relaxed text-slate-700">
+          <section className="mt-10 border-y border-brand-primary-border bg-brand-primary-subtle py-8 sm:py-10">
+            <div className="grid gap-6 px-4 sm:px-6 lg:grid-cols-[16rem_minmax(0,1fr)]">
+              <h2 className="text-subsection-title tracking-normal text-text-primary">Need specialist review?</h2>
+              <div>
+                <p className="max-w-reading text-body text-text-secondary">
               Book an appointment for assessment of arthritis, autoimmune disease, joint pain, swelling, stiffness, or related symptoms.
             </p>
-            <div className="mt-6 flex flex-wrap gap-4">
-              <Link href="/appointments/book" className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-medium text-white transition hover:bg-blue-700">
-                <CalendarDays className="h-5 w-5" aria-hidden="true" />
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <Link href="/appointments/book" className={`${buttonStyles.primarySmall} w-full sm:w-auto`}>
+                    <CalendarDays className="h-4 w-4" aria-hidden="true" />
                 Book Appointment
               </Link>
-              <Link href="/about-dr-olaosebikan" className="inline-flex items-center rounded-xl border border-slate-300 bg-white px-5 py-3 font-medium text-slate-700 transition hover:bg-slate-100">
+                  <Link href="/about-dr-olaosebikan" className={`${buttonStyles.secondary} w-full sm:w-auto`}>
                 About Dr Olaosebikan
               </Link>
+                </div>
+              </div>
             </div>
           </section>
 
-          <section className="mt-12">
-            <h2 className="text-2xl font-semibold text-slate-950">Related pages</h2>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+          <section className="mt-12 grid gap-5 border-t border-border-subtle pt-8 lg:grid-cols-[16rem_minmax(0,1fr)]">
+            <h2 className="text-subsection-title tracking-normal text-text-primary">Related pages</h2>
+            <div className="border-y border-border-subtle">
               {related.map((link) => (
-                <Link key={link.href} href={link.href} className="rounded-lg border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50">
-                  <span className="block font-semibold text-slate-950">{link.title}</span>
-                  <span className="mt-1 block text-sm text-slate-600">{link.description}</span>
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="group grid gap-2 border-b border-border-subtle py-4 transition last:border-b-0 hover:border-brand-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 sm:grid-cols-[minmax(12rem,0.42fr)_1fr_auto] sm:gap-6"
+                >
+                  <span className="font-bold text-text-primary">{link.title}</span>
+                  <span className="max-w-reading text-support text-text-secondary">{link.description}</span>
+                  <ArrowRight className="h-4 w-4 text-brand-primary transition group-hover:translate-x-1" aria-hidden="true" />
                 </Link>
               ))}
             </div>
