@@ -2,321 +2,296 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
-  Activity,
-  Bone,
   CalendarDays,
-  CheckCircle2,
-  ClipboardCheck,
-  HeartPulse,
   MessageCircle,
-  ShieldCheck,
-  Stethoscope,
 } from "lucide-react";
 import { JsonLd } from "@/components/JsonLd";
-import { doctor, publications, services, site } from "@/lib/content";
+import { doctor, pages, services, site } from "@/lib/content";
+import { buttonStyles } from "@/lib/styles";
 import { appointmentWhatsAppUrl } from "@/lib/whatsapp";
 import { physicianJsonLd } from "@/lib/seo";
 
-const conditionLinks = [
+const conditionRouteOrder = [
+  "/rheumatoid-arthritis-treatment-lagos",
+  "/gout-treatment-lagos",
+  "/lupus-care-lagos",
+  "/autoimmune-disease-specialist-lagos",
+  "/joint-pain-and-stiffness-clinic-lagos",
+];
+
+const carePathways = conditionRouteOrder.flatMap((path) => {
+  const page = pages.find((candidate) => candidate.path === path);
+  return page
+    ? [
+        {
+          title: page.title,
+          href: page.path,
+          description: page.description,
+        },
+      ]
+    : [];
+});
+
+const professionalDetails = [
   {
-    title: "Rheumatoid arthritis treatment in Lagos",
-    href: "/rheumatoid-arthritis-treatment-lagos",
+    label: "Professional title",
+    value: doctor.title,
   },
   {
-    title: "Gout treatment in Lagos",
-    href: "/gout-treatment-lagos",
+    label: "Specialty focus",
+    value: doctor.specialization,
   },
   {
-    title: "Lupus care in Lagos",
-    href: "/lupus-care-lagos",
+    label: "Clinic location",
+    value: doctor.hospitalAffiliations.join(", "),
   },
   {
-    title: "Autoimmune disease specialist in Lagos",
-    href: "/autoimmune-disease-specialist-lagos",
-  },
-  {
-    title: "Joint pain and stiffness clinic in Lagos",
-    href: "/joint-pain-and-stiffness-clinic-lagos",
-  },
-  {
-    title: "Rheumatology FAQ",
-    href: "/faq",
+    label: "Professional networks",
+    value: doctor.professionalMemberships.join(", "),
   },
 ];
 
-const iconMap = {
-  "shield-check": ShieldCheck,
-  activity: Activity,
-  "heart-pulse": HeartPulse,
-  bone: Bone,
-  stethoscope: Stethoscope,
-  "clipboard-check": ClipboardCheck,
-};
+const carePrinciples = [
+  "Careful clinical assessment",
+  "Clear diagnosis",
+  "Structured follow-up",
+];
 
 export default function HomePage() {
-  const featuredPublications = publications
-    .filter((publication) => publication.isPublished !== false)
-    .slice(0, 3);
-
   return (
     <>
       <JsonLd data={physicianJsonLd()} />
 
-      <section className="relative min-h-[72vh] overflow-hidden bg-slate-950 pb-10 text-white">
-        <Image
-          src="/images/hero/clinic-hero-1600.webp"
-          alt="Clinic consultation for pain, arthritis and autoimmune care"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-70"
-        />
-        <div className="absolute inset-0 bg-slate-950/55" />
-        <div className="relative mx-auto flex max-w-7xl flex-col justify-center px-4 py-20 sm:px-6 lg:min-h-[72vh] lg:py-24">
-          <div className="max-w-3xl">
-            <div className="flex flex-wrap gap-2">
-              <span className="inline-flex items-center rounded-full bg-white/95 px-4 py-1.5 text-sm font-semibold text-blue-700">
-                Rheumatology & Autoimmune Expertise
-              </span>
-              <span className="inline-flex items-center rounded-full bg-emerald-50 px-4 py-1.5 text-sm font-semibold text-emerald-800">
+      <section className="bg-surface-page" aria-labelledby="homepage-hero-heading">
+        <div className="mx-auto max-w-wide px-4 py-10 sm:px-6 sm:py-14 lg:py-16">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(320px,430px)] lg:items-center">
+            <div className="max-w-reading">
+              <p className="text-sm font-semibold text-brand-primary">
+                {doctor.title}
+              </p>
+              <h1
+                id="homepage-hero-heading"
+                className="mt-3 text-page-title tracking-normal text-text-primary sm:text-page-title-lg lg:text-display"
+              >
+                {doctor.displayName}
+              </h1>
+              <p className="mt-4 text-subsection-title tracking-normal text-text-secondary">
+                {doctor.specialization}
+              </p>
+              <p className="mt-5 text-lead text-text-secondary">
+                {site.heroSubtitle}
+              </p>
+
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <Link href="/appointments/book" className={`${buttonStyles.primary} w-full sm:w-auto`}>
+                  <CalendarDays className="h-4 w-4" aria-hidden="true" />
+                  {site.heroCtaText}
+                </Link>
+                <Link href="#care-areas" className={`${buttonStyles.tertiary} justify-center sm:justify-start`}>
+                  Can he help me?
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </div>
+            </div>
+
+            <div className="relative mx-auto w-full max-w-[26rem] lg:mr-0">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-surface-muted ring-1 ring-border-subtle">
+                <Image
+                  src={doctor.profilePhoto}
+                  alt={`Photo of ${doctor.displayName}`}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 90vw, 430px"
+                  className="object-cover object-top"
+                />
+              </div>
+            </div>
+          </div>
+
+          <dl className="mt-8 grid gap-5 border-t border-border-subtle pt-6 sm:grid-cols-3">
+            <div>
+              <dt className="text-support font-semibold text-text-tertiary">
+                Clinic
+              </dt>
+              <dd className="mt-1 text-sm font-semibold text-text-primary">
+                {doctor.hospitalAffiliations[0]}
+              </dd>
+            </div>
+            <div>
+              <dt className="text-support font-semibold text-text-tertiary">
+                Focus
+              </dt>
+              <dd className="mt-1 text-sm font-semibold text-text-primary">
+                Pain, arthritis and autoimmune care
+              </dd>
+            </div>
+            <div>
+              <dt className="text-support font-semibold text-text-tertiary">
+                Access
+              </dt>
+              <dd className="mt-1 text-sm font-semibold text-text-primary">
                 No referral needed
-              </span>
+              </dd>
             </div>
+          </dl>
+        </div>
+      </section>
 
-            <h1 className="mt-6 text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-              {site.heroTitle}
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-100 sm:text-xl">
-              {site.heroSubtitle}
+      <section className="border-y border-brand-primary-border bg-brand-primary-subtle py-8 sm:py-16" aria-labelledby="approach-heading">
+        <div className="mx-auto grid max-w-wide gap-7 px-4 sm:px-6 lg:grid-cols-[minmax(17rem,0.68fr)_minmax(0,1.32fr)] lg:items-center">
+          <div className="lg:max-w-sm">
+            <p className="text-sm font-semibold text-brand-primary">
+              Care approach
             </p>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <Link
-                href="/appointments/book"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-950/20 transition hover:bg-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 sm:px-8 sm:text-base"
-              >
-                <CalendarDays className="h-5 w-5" aria-hidden="true" />
-                {site.heroCtaText}
-              </Link>
-              <a
-                href={appointmentWhatsAppUrl()}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-emerald-800 transition hover:bg-emerald-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 sm:px-8 sm:text-base"
-              >
-                <MessageCircle className="h-5 w-5" aria-hidden="true" />
-                WhatsApp
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative z-10 -mt-12 pb-8" aria-label="Care highlights">
-        <div className="mx-auto grid max-w-7xl gap-3 px-4 sm:grid-cols-3 sm:px-6">
-          {["Specialist-led care", "Evidence-based diagnosis", "Clear next steps"].map((item) => (
-            <div key={item} className="flex items-center gap-3 rounded-xl border border-slate-200/80 bg-white px-4 py-4 text-sm font-semibold text-slate-700 shadow-md shadow-slate-950/5">
-              <CheckCircle2 className="h-5 w-5 text-blue-700" aria-hidden="true" />
-              {item}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <div className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-white">
-        <div className="pointer-events-none absolute left-1/2 top-0 h-80 w-[48rem] -translate-x-1/2 rounded-full bg-blue-100/35 blur-3xl" />
-        <div className="pointer-events-none absolute -right-24 top-[38rem] h-72 w-72 rounded-full bg-cyan-100/40 blur-3xl" />
-
-      <section className="relative py-12 sm:py-14" aria-labelledby="doctor-heading">
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-          <div className="relative aspect-[4/4.15] overflow-hidden rounded-2xl bg-slate-200 shadow-sm ring-1 ring-slate-200 sm:aspect-[4/3.6] lg:aspect-[4/4.25]">
-            <Image
-              src={doctor.profilePhoto}
-              alt={`Photo of ${doctor.displayName}`}
-              fill
-              sizes="(max-width: 1024px) 100vw, 520px"
-              className="object-cover object-top"
-            />
-          </div>
-          <div>
-            <span className="inline-flex items-center rounded-full bg-blue-50 px-4 py-1.5 text-sm font-semibold text-blue-700 ring-1 ring-blue-100">
-              {doctor.title}
-            </span>
-            <h2 id="doctor-heading" className="mt-5 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
-              {doctor.displayName}
+            <h2 id="approach-heading" className="mt-3 text-section-title tracking-normal text-text-primary sm:text-section-title-lg">
+              Specialist review with clear next steps
             </h2>
-            <p className="mt-3 text-lg font-semibold text-slate-700">
-              {doctor.specialization} - {doctor.yearsOfExperience}+ years experience
+          </div>
+          <div className="max-w-[52rem] text-body text-text-secondary">
+            <p className="max-w-reading">
+              {doctor.bio[2]}
             </p>
-            <div className="mt-5 space-y-4 leading-relaxed text-slate-700">
-              {doctor.bio.slice(0, 2).map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
+            <div className="mt-6 grid border-y border-brand-primary-border sm:grid-cols-3 sm:divide-x sm:divide-brand-primary-border">
+              {carePrinciples.map((item, index) => (
+                <div key={item} className="border-b border-brand-primary-border py-4 last:border-b-0 sm:border-b-0 sm:px-5 sm:first:pl-0 sm:last:pr-0">
+                  <p className="text-xs font-bold text-brand-primary">
+                    {String(index + 1).padStart(2, "0")}
+                  </p>
+                  <p className="mt-2 text-sm font-semibold text-text-primary">
+                    {item}
+                  </p>
+                </div>
               ))}
             </div>
-            <Link href="/about-dr-olaosebikan" className="mt-6 inline-flex items-center gap-2 font-semibold text-blue-700 hover:text-blue-800">
-              Learn more about Dr Olaosebikan
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
           </div>
         </div>
       </section>
 
-      <section id="services" className="relative py-14 sm:py-16" aria-labelledby="services-heading">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <header className="mx-auto max-w-3xl text-center">
-            <span className="inline-flex items-center rounded-full bg-blue-50 px-4 py-1.5 text-sm font-semibold text-blue-700 ring-1 ring-blue-100">
-              Rheumatology Clinic Services
-            </span>
-            <h2 id="services-heading" className="mt-5 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
-              Pain, Arthritis & Autoimmune Care
+      <section id="services" className="bg-surface-page py-8 sm:py-16" aria-labelledby="services-heading">
+        <div className="mx-auto max-w-wide px-4 sm:px-6">
+          <div className="max-w-reading">
+            <p className="text-sm font-semibold text-brand-primary">
+              Clinic services
+            </p>
+            <h2 id="services-heading" className="mt-3 text-section-title tracking-normal text-text-primary sm:text-section-title-lg">
+              {site.heroTitle}
             </h2>
-            <p className="mt-5 text-lg leading-relaxed text-slate-600">
+            <p className="mt-4 text-body text-text-secondary">
               Targeted, evidence-based care for joint pain, stiffness, inflammation, autoimmune conditions, and chronic pain with clear plans and structured follow-up.
             </p>
-          </header>
-
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((service) => {
-              const Icon = iconMap[service.icon as keyof typeof iconMap] || ShieldCheck;
-              return (
-                <Link
-                  key={service.slug}
-                  href="/appointments/book"
-                  className="group flex h-full flex-col rounded-xl border border-slate-200 bg-white/95 p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-                >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-50 text-blue-700 ring-1 ring-blue-100">
-                    <Icon className="h-6 w-6" aria-hidden="true" />
-                  </div>
-                  <h3 className="mt-5 text-xl font-bold text-slate-950">{service.name}</h3>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-600">
-                    {service.description}
-                  </p>
-                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-blue-700">
-                    Book this service
-                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" />
-                  </span>
-                </Link>
-              );
-            })}
           </div>
-        </div>
-      </section>
 
-      <section className="relative mx-auto my-6 max-w-7xl overflow-hidden rounded-none py-16 sm:my-10 sm:rounded-3xl sm:py-20" aria-labelledby="conditions-heading">
-        <Image
-          src="/images/sections/clinic-hero-1200.webp"
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover opacity-20"
-          aria-hidden="true"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/95 to-cyan-50/90" />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
-          <header className="max-w-3xl">
-            <span className="inline-flex items-center rounded-full bg-blue-50 px-4 py-1.5 text-sm font-semibold text-blue-700 ring-1 ring-blue-100">
-              Specialist Care Areas
-            </span>
-            <h2 id="conditions-heading" className="mt-5 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
-              Explore conditions and specialist care
-            </h2>
-            <p className="mt-5 text-lg leading-relaxed text-slate-600">
-              Learn more about arthritis, autoimmune disease, lupus, gout, joint pain, and specialist rheumatology care in Lagos.
-            </p>
-          </header>
-
-          <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {conditionLinks.map((link, index) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="group flex min-h-32 flex-col justify-between rounded-2xl border border-white/80 bg-white/90 p-5 shadow-sm backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-white hover:shadow-md"
-              >
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-50 text-sm font-extrabold text-blue-700 ring-1 ring-blue-100">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <span className="mt-5 flex items-center justify-between gap-4 font-bold leading-snug text-slate-950">
-                  <span>{link.title}</span>
-                  <ArrowRight className="h-4 w-4 shrink-0 text-blue-700 transition group-hover:translate-x-1" aria-hidden="true" />
-                </span>
-              </Link>
+          <div className="mt-9 grid gap-x-10 md:grid-cols-2 lg:grid-cols-3">
+            {services.map((service) => (
+              <section key={service.slug} className="border-t border-border-subtle py-5" aria-labelledby={`${service.slug}-heading`}>
+                <h3 id={`${service.slug}-heading`} className="text-subsection-title tracking-normal text-text-primary">
+                  {service.name}
+                </h3>
+                <p className="mt-2 text-support text-text-secondary">
+                  {service.description}
+                </p>
+              </section>
             ))}
           </div>
         </div>
       </section>
 
-      {featuredPublications.length > 0 ? (
-        <section className="relative py-14 sm:py-16" aria-labelledby="publications-heading">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6">
-            <header className="mx-auto max-w-3xl text-center">
-              <span className="inline-flex items-center rounded-full bg-amber-50 px-4 py-1.5 text-sm font-semibold text-amber-800 ring-1 ring-amber-100">
-                Research & Scholarship
-              </span>
-              <h2 id="publications-heading" className="mt-5 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
-                Publications & Rheumatology Insights
+      <section id="care-areas" className="bg-surface-emphasis py-8 sm:py-16" aria-labelledby="care-areas-heading">
+        <div className="mx-auto max-w-wide px-4 sm:px-6">
+          <div className="grid gap-8 lg:grid-cols-[0.74fr_1fr] lg:items-start">
+            <header>
+              <p className="text-sm font-semibold text-brand-primary">
+                Can he help me?
+              </p>
+              <h2 id="care-areas-heading" className="mt-3 text-section-title tracking-normal text-text-primary sm:text-section-title-lg">
+                Explore condition pathways
               </h2>
-              <p className="mt-5 text-lg leading-relaxed text-slate-600">
-                Peer-reviewed research and clinical contributions supporting better outcomes in arthritis, autoimmune disease, and pain care.
+              <p className="mt-4 text-body text-text-secondary">
+                Learn more about arthritis, autoimmune disease, lupus, gout, joint pain, and specialist rheumatology care in Lagos.
               </p>
             </header>
 
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {featuredPublications.map((publication) => (
+            <div className="border-b border-border-subtle">
+              {carePathways.map((link, index) => (
                 <Link
-                  key={publication.slug}
-                  href={`/publications/${publication.slug}`}
-                  className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-blue-200 hover:shadow-md"
+                  key={link.href}
+                  href={link.href}
+                  className="group grid gap-3 border-t border-border-subtle py-5 transition hover:border-brand-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 sm:grid-cols-[3rem_1fr_auto]"
                 >
-                  <h3 className="text-lg font-bold leading-snug text-slate-950">
-                    {publication.title}
-                  </h3>
-                  <p className="mt-3 text-sm font-semibold text-slate-600">
-                    {publication.journal} - {publication.year}
-                  </p>
-                  <p className="mt-4 line-clamp-4 text-sm leading-relaxed text-slate-600">
-                    {publication.abstract}
-                  </p>
+                  <span className="text-sm font-semibold text-text-tertiary">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span>
+                    <span className="block text-base font-bold text-text-primary">
+                      {link.title}
+                    </span>
+                    <span className="mt-2 block text-support text-text-secondary">
+                      {link.description}
+                    </span>
+                  </span>
+                  <ArrowRight className="h-4 w-4 text-brand-primary transition group-hover:translate-x-1" aria-hidden="true" />
                 </Link>
               ))}
             </div>
-
-            <div className="mt-10 text-center">
-              <Link
-                href="/publications"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-              >
-                View all publications
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
-            </div>
           </div>
-        </section>
-      ) : null}
-      </div>
+        </div>
+      </section>
 
-      <section className="relative -mt-1 rounded-t-[2rem] bg-blue-600 py-16 text-white sm:py-20" aria-labelledby="final-cta-heading">
-        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
-          <h2 id="final-cta-heading" className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-            Move better. Hurt less. Live fully.
+      <section className="bg-surface-page py-8 sm:py-16" aria-labelledby="doctor-context-heading">
+        <div className="mx-auto grid max-w-wide gap-9 px-4 sm:px-6 lg:grid-cols-[0.88fr_1.12fr] lg:items-start">
+          <div className="max-w-reading">
+            <p className="text-sm font-semibold text-brand-primary">
+              Professional context
+            </p>
+            <h2 id="doctor-context-heading" className="mt-3 text-section-title tracking-normal text-text-primary sm:text-section-title-lg">
+              Care led by {doctor.displayName}
+            </h2>
+            <div className="mt-5 space-y-4 text-body text-text-secondary">
+              {doctor.bio.slice(0, 2).map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+            <Link href="/about-dr-olaosebikan" className={`${buttonStyles.tertiary} mt-6`}>
+              Learn more about Dr Olaosebikan
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </div>
+
+          <dl className="grid gap-x-10 gap-y-7 sm:grid-cols-2 lg:pt-2">
+            {professionalDetails.map((detail) => (
+              <div key={detail.label} className="border-l border-border-default pl-4">
+                <dt className="text-support font-semibold text-text-tertiary">
+                  {detail.label}
+                </dt>
+                <dd className="mt-2 text-body font-semibold text-text-primary">
+                  {detail.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      <section className="border-b border-slate-800 bg-text-primary py-10 text-white sm:py-16" aria-labelledby="final-cta-heading">
+        <div className="mx-auto max-w-standard px-4 text-center sm:px-6">
+          <h2 id="final-cta-heading" className="text-section-title tracking-normal sm:text-section-title-lg">
+            Ready to plan the next step?
           </h2>
-          <p className="mt-5 text-lg leading-relaxed text-blue-50">
+          <p className="mx-auto mt-4 max-w-reading text-body text-blue-50">
             Book a consultation for joint pain, stiffness, inflammatory back pain, arthritis, gout, lupus, and autoimmune conditions.
           </p>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Link
-              href="/appointments/book"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-8 py-3.5 text-sm font-semibold text-blue-700 shadow-sm transition hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600"
-            >
-              <CalendarDays className="h-5 w-5" aria-hidden="true" />
+          <div className="mt-7 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link href="/appointments/book" className={`${buttonStyles.primary} w-full sm:w-auto`}>
+              <CalendarDays className="h-4 w-4" aria-hidden="true" />
               Book an Appointment
             </Link>
             <a
               href={appointmentWhatsAppUrl()}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-blue-200 bg-blue-700 px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-blue-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600"
+              className="inline-flex min-h-11 items-center justify-center gap-2 text-sm font-semibold text-blue-100 underline-offset-4 transition hover:text-white hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-text-primary"
             >
-              <MessageCircle className="h-5 w-5" aria-hidden="true" />
+              <MessageCircle className="h-4 w-4" aria-hidden="true" />
               WhatsApp
             </a>
           </div>
