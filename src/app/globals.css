@@ -12,13 +12,13 @@ html {
 
 body {
   min-height: 100vh;
-  background: #f8fafc;
-  color: #1e293b;
+  background: theme("colors.surface-page");
+  color: theme("colors.text-secondary");
 }
 
 ::selection {
-  background: #bfdbfe;
-  color: #0f172a;
+  background: theme("colors.brand-primary-border");
+  color: theme("colors.text-primary");
 }
 
 .skip-link {
@@ -26,8 +26,8 @@ body {
   left: 1rem;
   top: -4rem;
   z-index: 100;
-  border-radius: 0.75rem;
-  background: #2563eb;
+  border-radius: theme("borderRadius.foundation-md");
+  background: theme("colors.brand-primary");
   color: white;
   padding: 0.7rem 1rem;
   font-weight: 700;

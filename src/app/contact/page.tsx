@@ -5,6 +5,7 @@ import { PageHero } from "@/components/PageHero";
 import { JsonLd } from "@/components/JsonLd";
 import { site } from "@/lib/content";
 import { defaultMetadata } from "@/lib/seo";
+import { surfaceStyles } from "@/lib/styles";
 import { appointmentWhatsAppUrl } from "@/lib/whatsapp";
 
 export const metadata: Metadata = defaultMetadata({
@@ -40,9 +41,9 @@ export default function ContactPage() {
         secondaryLabel="Clinic Location"
       />
 
-      <section className="bg-white py-14 sm:py-16">
-        <div className="mx-auto grid max-w-6xl gap-6 px-4 sm:px-6 lg:grid-cols-3">
-          <div className="grid gap-5 lg:col-span-2 sm:grid-cols-2">
+      <section className="bg-surface-emphasis py-12 sm:py-16">
+        <div className="mx-auto grid max-w-standard gap-6 px-4 sm:px-6 lg:grid-cols-3">
+          <div className="grid min-w-0 gap-5 sm:grid-cols-2 lg:col-span-2">
             <ContactCard
               href={`mailto:${site.email}`}
               icon={<Mail className="h-5 w-5" aria-hidden="true" />}
@@ -79,29 +80,29 @@ export default function ContactPage() {
             />
           </div>
 
-          <aside className="rounded-lg border border-slate-200 bg-slate-50 p-6">
-            <h2 className="text-lg font-extrabold text-slate-950">Availability</h2>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600">
+          <aside className={`${surfaceStyles.muted} p-6`}>
+            <h2 className="text-subsection-title text-text-primary">Availability</h2>
+            <p className="mt-2 text-support text-text-tertiary">
               Dr Olaosebikan is available on weekdays and weekends by appointment.
             </p>
             <dl className="mt-5 space-y-3 text-sm">
               <div className="flex justify-between gap-4">
-                <dt className="text-slate-600">Mon - Fri</dt>
-                <dd className="font-semibold text-slate-950">9:00 AM - 5:00 PM</dd>
+                <dt className="text-text-tertiary">Mon - Fri</dt>
+                <dd className="font-semibold text-text-primary">9:00 AM - 5:00 PM</dd>
               </div>
               <div className="flex justify-between gap-4">
-                <dt className="text-slate-600">Saturday</dt>
-                <dd className="font-semibold text-slate-950">10:00 AM - 4:00 PM</dd>
+                <dt className="text-text-tertiary">Saturday</dt>
+                <dd className="font-semibold text-text-primary">10:00 AM - 4:00 PM</dd>
               </div>
               <div className="flex justify-between gap-4">
-                <dt className="text-slate-600">Sunday</dt>
-                <dd className="font-semibold text-slate-950">By appointment</dd>
+                <dt className="text-text-tertiary">Sunday</dt>
+                <dd className="font-semibold text-text-primary">By appointment</dd>
               </div>
             </dl>
-            <div className="mt-8 rounded-lg bg-white p-4 ring-1 ring-slate-200">
-              <h3 className="text-sm font-bold text-slate-950">Location</h3>
-              <p className="mt-2 flex gap-2 text-sm leading-relaxed text-slate-600">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-blue-700" aria-hidden="true" />
+            <div className={`${surfaceStyles.card} mt-8 p-4`}>
+              <h3 className="text-support font-bold text-text-primary">Location</h3>
+              <p className="mt-2 flex gap-2 text-support text-text-tertiary">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-primary" aria-hidden="true" />
                 {site.address}
               </p>
             </div>
@@ -133,22 +134,22 @@ function ContactCard({
   external = false,
   accent = "blue",
 }: ContactCardProps) {
-  const className = "group rounded-lg border border-slate-200 bg-white p-6 shadow-sm transition hover:border-blue-200 hover:shadow-soft";
-  const iconClass = accent === "emerald" ? "bg-emerald-50 text-emerald-700 ring-emerald-100" : "bg-blue-50 text-blue-700 ring-blue-100";
+  const className = "group min-w-0 rounded-lg border border-border-subtle bg-surface-emphasis p-5 transition hover:border-brand-primary-border sm:p-6";
+  const iconClass = accent === "emerald" ? "bg-success-subtle text-success ring-success-border" : "bg-brand-primary-subtle text-brand-primary ring-brand-primary-border";
 
   const content = (
     <>
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="text-sm font-semibold text-slate-700">{label}</p>
-          <p className="mt-2 break-words text-lg font-bold text-slate-950">{title}</p>
-          <p className="mt-2 text-sm leading-relaxed text-slate-600">{body}</p>
+      <div className="flex min-w-0 items-start justify-between gap-4">
+        <div className="min-w-0">
+          <p className="text-support font-semibold text-text-secondary">{label}</p>
+          <p className="mt-2 min-w-0 break-words text-base font-bold leading-relaxed text-text-primary sm:text-lg">{title}</p>
+          <p className="mt-2 text-support text-text-tertiary">{body}</p>
         </div>
         <span className={`shrink-0 rounded-lg p-3 ring-1 ${iconClass}`}>
           {icon}
         </span>
       </div>
-      <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-blue-700 group-hover:underline">
+      <span className="mt-5 inline-flex items-center gap-2 text-support font-semibold text-brand-primary group-hover:underline">
         {action}
       </span>
     </>

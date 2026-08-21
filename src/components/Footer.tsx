@@ -18,10 +18,10 @@ export function Footer() {
 
   return (
     <footer className="bg-slate-950 text-slate-300">
-      <div className="mx-auto max-w-7xl px-6 py-14">
+      <div className="mx-auto max-w-wide px-6 py-14">
         <div className="grid gap-10 text-sm md:grid-cols-4">
           <div>
-            <h2 className="mb-3 text-base font-extrabold text-white">
+            <h2 className="mb-3 text-base font-bold text-white">
               {site.clinicName}
             </h2>
             <p className="leading-relaxed text-slate-400">{site.clinicTagline}</p>

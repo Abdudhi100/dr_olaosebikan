@@ -3,10 +3,13 @@
 import { FormEvent, MouseEvent, useEffect, useRef, useState } from "react";
 import { CalendarDays, MessageCircle, Send } from "lucide-react";
 import { services, site } from "@/lib/content";
+import { buttonStyles } from "@/lib/styles";
 import { appointmentWhatsAppUrl } from "@/lib/whatsapp";
 
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
 const FORM_SUBJECT = "New Appointment Request - Dr Olaosebikan Clinic";
+const fieldClassName = "mt-2 w-full rounded-lg border border-border-default px-4 py-3 text-sm text-text-primary shadow-subtle outline-none transition focus:border-brand-primary focus:ring-2 focus:ring-brand-primary-border";
+const labelClassName = "block text-support font-semibold text-text-secondary";
 
 type AppointmentFormFields = {
   name: string;
@@ -174,7 +177,7 @@ export function AppointmentForm() {
       action={WEB3FORMS_ENDPOINT}
       method="post"
       onSubmit={handleSubmit}
-      className="grid gap-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:grid-cols-2 sm:p-6"
+      className="grid gap-5 rounded-lg border border-border-subtle bg-surface-emphasis p-5 sm:grid-cols-2 sm:p-6"
     >
       <input type="hidden" name="access_key" value={accessKey} />
       <input type="hidden" name="subject" value={FORM_SUBJECT} />
@@ -184,10 +187,10 @@ export function AppointmentForm() {
 
       {statusMessage ? (
         <div
-          className={`sm:col-span-2 rounded-lg border px-4 py-3 text-sm font-medium ${
+          className={`sm:col-span-2 rounded-lg border px-4 py-3 text-support font-medium ${
             status === "success"
-              ? "border-emerald-200 bg-emerald-50 text-emerald-800"
-              : "border-red-200 bg-red-50 text-red-700"
+              ? "border-success-border bg-success-subtle text-success"
+              : "border-danger-border bg-danger-subtle text-danger"
           }`}
           role="status"
           aria-live="polite"
@@ -197,45 +200,45 @@ export function AppointmentForm() {
       ) : null}
 
       <div className="sm:col-span-2">
-        <label htmlFor="name" className="block text-sm font-semibold text-slate-800">
+        <label htmlFor="name" className={labelClassName}>
           Patient full name
         </label>
-        <input id="name" name="name" type="text" required autoComplete="name" className="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 text-sm text-slate-950 shadow-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100" />
+        <input id="name" name="name" type="text" required autoComplete="name" className={fieldClassName} />
       </div>
 
       <div>
-        <label htmlFor="phone" className="block text-sm font-semibold text-slate-800">
+        <label htmlFor="phone" className={labelClassName}>
           Phone number
         </label>
-        <input id="phone" name="phone" type="tel" required autoComplete="tel" placeholder="+234..." className="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 text-sm text-slate-950 shadow-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100" />
+        <input id="phone" name="phone" type="tel" required autoComplete="tel" placeholder="+234..." className={fieldClassName} />
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm font-semibold text-slate-800">
-          Email address <span className="font-normal text-slate-500">(optional)</span>
+        <label htmlFor="email" className={labelClassName}>
+          Email address <span className="font-normal text-text-tertiary">(optional)</span>
         </label>
-        <input id="email" name="email" type="email" autoComplete="email" className="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 text-sm text-slate-950 shadow-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100" />
+        <input id="email" name="email" type="email" autoComplete="email" className={fieldClassName} />
       </div>
 
       <div>
-        <label htmlFor="preferredDate" className="block text-sm font-semibold text-slate-800">
+        <label htmlFor="preferredDate" className={labelClassName}>
           Preferred appointment date
         </label>
-        <input id="preferredDate" name="preferredDate" type="date" required min={minDate || undefined} className="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 text-sm text-slate-950 shadow-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100" />
+        <input id="preferredDate" name="preferredDate" type="date" required min={minDate || undefined} className={fieldClassName} />
       </div>
 
       <div>
-        <label htmlFor="preferredTime" className="block text-sm font-semibold text-slate-800">
-          Preferred appointment time <span className="font-normal text-slate-500">(optional)</span>
+        <label htmlFor="preferredTime" className={labelClassName}>
+          Preferred appointment time <span className="font-normal text-text-tertiary">(optional)</span>
         </label>
-        <input id="preferredTime" name="preferredTime" type="time" className="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 text-sm text-slate-950 shadow-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100" />
+        <input id="preferredTime" name="preferredTime" type="time" className={fieldClassName} />
       </div>
 
       <div className="sm:col-span-2">
-        <label htmlFor="service" className="block text-sm font-semibold text-slate-800">
+        <label htmlFor="service" className={labelClassName}>
           Reason for visit
         </label>
-        <select id="service" name="service" required defaultValue="" className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 shadow-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100">
+        <select id="service" name="service" required defaultValue="" className={`${fieldClassName} bg-surface-emphasis`}>
           <option value="" disabled>
             Select a care area
           </option>
@@ -249,31 +252,31 @@ export function AppointmentForm() {
       </div>
 
       <div className="sm:col-span-2">
-        <label htmlFor="message" className="block text-sm font-semibold text-slate-800">
-          Scheduling note <span className="font-normal text-slate-500">(optional)</span>
+        <label htmlFor="message" className={labelClassName}>
+          Scheduling note <span className="font-normal text-text-tertiary">(optional)</span>
         </label>
-        <textarea id="message" name="message" rows={4} aria-describedby="message-privacy" placeholder="Share callback preferences or simple scheduling context only." className="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 text-sm text-slate-950 shadow-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100" />
-        <p id="message-privacy" className="mt-2 text-xs leading-relaxed text-slate-500">
+        <textarea id="message" name="message" rows={4} aria-describedby="message-privacy" placeholder="Share callback preferences or simple scheduling context only." className={fieldClassName} />
+        <p id="message-privacy" className="mt-2 text-xs leading-relaxed text-text-tertiary">
           Please do not include sensitive medical information. The clinic will contact you to discuss your appointment securely.
         </p>
       </div>
 
       <div className="flex flex-col gap-3 sm:col-span-2 sm:flex-row">
-        <button type="submit" disabled={isSubmitting} className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-sm shadow-blue-600/20 transition hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70">
+        <button type="submit" disabled={isSubmitting} className={`${buttonStyles.primary} flex-1 disabled:cursor-not-allowed disabled:opacity-70`}>
           <Send className="h-5 w-5" aria-hidden="true" />
           {isSubmitting ? "Sending..." : "Submit Request"}
         </button>
-        <a href={appointmentWhatsAppUrl()} onClick={handleWhatsApp} target="_blank" rel="noreferrer" className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-6 py-3 font-semibold text-emerald-800 transition hover:bg-emerald-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2">
+        <a href={appointmentWhatsAppUrl()} onClick={handleWhatsApp} target="_blank" rel="noreferrer" className={`${buttonStyles.secondarySuccess} flex-1`}>
           <MessageCircle className="h-5 w-5" aria-hidden="true" />
           Send on WhatsApp
         </a>
       </div>
 
-      <p className="sm:col-span-2 text-sm leading-relaxed text-slate-500">
+      <p className="sm:col-span-2 text-support text-text-tertiary">
         Appointment requests are reviewed before confirmation. If symptoms are urgent or severe, visit the nearest hospital.
       </p>
 
-      <div className="sm:col-span-2 flex items-center gap-2 rounded-lg bg-blue-50 px-4 py-3 text-sm font-semibold text-blue-800">
+      <div className="sm:col-span-2 flex items-center gap-2 rounded-lg bg-brand-primary-subtle px-4 py-3 text-support font-semibold text-brand-primary">
         <CalendarDays className="h-5 w-5" aria-hidden="true" />
         Weekday and weekend appointments are scheduled by confirmation.
       </div>

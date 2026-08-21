@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CalendarDays, MessageCircle } from "lucide-react";
+import { buttonStyles } from "@/lib/styles";
 import { appointmentWhatsAppUrl } from "@/lib/whatsapp";
 
 type PageHeroProps = {
@@ -20,39 +21,39 @@ export function PageHero({
   secondaryLabel = "Read FAQ",
 }: PageHeroProps) {
   return (
-    <section className="border-b border-slate-200 bg-white">
-      <div className="mx-auto max-w-5xl px-6 py-12 sm:py-16">
-        <nav aria-label="Breadcrumb" className="mb-8 text-sm text-slate-600">
-          <Link href="/" className="hover:text-blue-700">
+    <section className="border-b border-border-subtle bg-surface-emphasis">
+      <div className="mx-auto max-w-standard px-4 py-12 sm:px-6 sm:py-16">
+        <nav aria-label="Breadcrumb" className="mb-8 text-support text-text-tertiary">
+          <Link href="/" className="hover:text-brand-primary">
             Home
           </Link>
           <span className="mx-2">/</span>
           <span aria-current="page">{current}</span>
         </nav>
 
-        <span className="inline-flex items-center rounded-full bg-blue-50 px-4 py-1.5 text-sm font-semibold text-blue-700 ring-1 ring-blue-100">
+        <span className="inline-flex items-center rounded-full bg-brand-primary-subtle px-4 py-1.5 text-support font-semibold text-brand-primary ring-1 ring-brand-primary-border">
           {eyebrow}
         </span>
 
-        <h1 className="mt-5 max-w-4xl text-4xl font-extrabold tracking-tight text-slate-950 sm:text-5xl">
+        <h1 className="mt-5 max-w-reading text-page-title text-text-primary sm:text-page-title-lg">
           {title}
         </h1>
 
-        <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate-700">
+        <p className="mt-5 max-w-reading text-lead text-text-secondary">
           {description}
         </p>
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <Link
             href="/appointments/book"
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-sm shadow-blue-600/20 transition hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            className={buttonStyles.primary}
           >
             <CalendarDays className="h-5 w-5" aria-hidden="true" />
             Book Appointment
           </Link>
           <Link
             href={secondaryHref}
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            className={buttonStyles.secondary}
           >
             {secondaryLabel}
           </Link>
@@ -60,7 +61,7 @@ export function PageHero({
             href={appointmentWhatsAppUrl()}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-6 py-3 font-semibold text-emerald-800 transition hover:bg-emerald-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
+            className={buttonStyles.secondarySuccess}
           >
             <MessageCircle className="h-5 w-5" aria-hidden="true" />
             WhatsApp
