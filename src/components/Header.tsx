@@ -4,24 +4,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
-  Award,
-  BookOpen,
   CalendarDays,
   ChevronDown,
   MapPin,
   Menu,
-  Stethoscope,
   X,
-  type LucideIcon,
 } from "lucide-react";
-import { achievements, doctor, publications, site } from "@/lib/content";
+import { doctor } from "@/lib/content";
 import { buttonStyles } from "@/lib/styles";
 
 type HeaderLink = {
   label: string;
   href: string;
   description: string;
-  icon?: LucideIcon;
 };
 
 const careLinks: HeaderLink[] = [
@@ -57,39 +52,21 @@ const careLinks: HeaderLink[] = [
   },
 ];
 
-const hasVisiblePublications = publications.some(
-  (publication) => publication.isPublished !== false,
-);
-const hasVisibleAchievements = achievements.some(
-  (achievement) => achievement.isPublished !== false,
-);
-
-const resourceLinks = [
-  ...(hasVisiblePublications
-    ? [
-        {
-          label: "Publications",
-          href: "/publications",
-          description: "Research, papers and clinical insights",
-          icon: BookOpen,
-        },
-      ]
-    : []),
-  ...(hasVisibleAchievements
-    ? [
-        {
-          label: "Achievements",
-          href: "/publications/achievements",
-          description: "Awards, recognitions and milestones",
-          icon: Award,
-        },
-      ]
-    : []),
+const resourceLinks: HeaderLink[] = [
   {
     label: "FAQ",
     href: "/faq",
     description: "Common questions about rheumatology care",
-    icon: Stethoscope,
+  },
+  {
+    label: "Publications",
+    href: "/publications",
+    description: "Verified publication records",
+  },
+  {
+    label: "Achievements",
+    href: "/publications/achievements",
+    description: "Verified achievement records",
   },
 ];
 
@@ -113,6 +90,18 @@ function classNames(...classes: Array<string | false | null | undefined>) {
 function isExactRoute(pathname: string, href: string) {
   if (href.includes("#")) return false;
   return pathname === href;
+}
+
+function isNavigationActive(pathname: string, href: string) {
+  if (href === "/publications") {
+    return (
+      pathname === "/publications" ||
+      (pathname.startsWith("/publications/") &&
+        !pathname.startsWith("/publications/achievements"))
+    );
+  }
+
+  return isExactRoute(pathname, href);
 }
 
 function desktopLinkClass(active: boolean) {
@@ -152,9 +141,7 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
 
   const careActive = careLinks.some((link) => isExactRoute(pathname, link.href));
-  const resourcesActive =
-    resourceLinks.some((link) => isExactRoute(pathname, link.href)) ||
-    pathname.startsWith("/publications");
+  const resourcesActive = resourceLinks.some((link) => isNavigationActive(pathname, link.href));
   const contactActive = pathname === "/contact-location" || pathname === "/contact";
   const appointmentActive = pathname === "/appointments/book";
   const careMenuOpen = openDesktopMenu === "care";
@@ -201,21 +188,15 @@ export function Header() {
       <nav className="mx-auto flex h-16 max-w-wide items-center justify-between gap-2 px-3 sm:px-6 md:gap-4" aria-label="Primary">
         <Link
           href="/"
-          className="inline-flex min-w-0 flex-1 items-center gap-2 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 md:max-w-xs md:flex-none lg:max-w-sm"
+          className="inline-flex min-w-0 flex-1 flex-col justify-center rounded-lg py-1 leading-tight focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 md:max-w-xs md:flex-none lg:max-w-sm"
           onClick={closeMobile}
           aria-current={pathname === "/" ? "page" : undefined}
         >
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-brand-primary text-xs font-bold text-white sm:h-10 sm:w-10 sm:text-sm">
-            {site.clinicInitials}
+          <span data-brand-element className="block truncate text-sm font-bold text-text-primary sm:text-base">
+            {doctor.displayName}
           </span>
-          <span className="min-w-0 leading-tight">
-            <span className="block truncate text-sm font-bold text-text-primary sm:text-base">
-              <span className="sm:hidden">Dr Olaosebikan</span>
-              <span className="hidden sm:inline">{doctor.displayName}</span>
-            </span>
-            <span className="hidden truncate text-xs text-text-tertiary sm:block">
-              {doctor.specialization}
-            </span>
+          <span data-brand-element className="hidden truncate text-xs text-text-tertiary sm:block">
+            {doctor.specialization}
           </span>
         </Link>
 
@@ -286,22 +267,18 @@ export function Header() {
               resourcesMenuOpen ? "visible translate-y-0 opacity-100" : "invisible translate-y-1 opacity-0",
             )}>
               {resourceLinks.map((link) => {
-                const Icon = link.icon;
-                const active = isExactRoute(pathname, link.href);
+                const active = isNavigationActive(pathname, link.href);
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={classNames(dropdownLinkClass(active), "flex gap-3")}
+                    className={dropdownLinkClass(active)}
                     aria-current={active ? "page" : undefined}
                     onClick={() => setOpenDesktopMenu(null)}
                   >
-                    {Icon ? <Icon className="mt-0.5 h-4 w-4 shrink-0 text-brand-primary" aria-hidden="true" /> : null}
-                    <span>
-                      {link.label}
-                      <span className="mt-1 block text-xs font-normal text-text-tertiary">
-                        {link.description}
-                      </span>
+                    {link.label}
+                    <span className="mt-1 block text-xs font-normal text-text-tertiary">
+                      {link.description}
                     </span>
                   </Link>
                 );
@@ -396,8 +373,8 @@ function MobileSection({ title, links, pathname, closeMobile }: MobileSectionPro
             key={link.href}
             href={link.href}
             onClick={closeMobile}
-            className={mobileLinkClass(isExactRoute(pathname, link.href))}
-            aria-current={isExactRoute(pathname, link.href) ? "page" : undefined}
+            className={mobileLinkClass(isNavigationActive(pathname, link.href))}
+            aria-current={isNavigationActive(pathname, link.href) ? "page" : undefined}
           >
             {link.label}
           </Link>
