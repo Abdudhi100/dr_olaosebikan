@@ -176,6 +176,7 @@ export function AppointmentForm() {
       ref={formRef}
       action={WEB3FORMS_ENDPOINT}
       method="post"
+      aria-labelledby="appointment-request-heading"
       onSubmit={handleSubmit}
       className="grid gap-5 rounded-lg border border-border-subtle bg-surface-emphasis p-5 sm:grid-cols-2 sm:p-6"
     >

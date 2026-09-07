@@ -36,3 +36,23 @@ body {
 .skip-link:focus {
   top: 1rem;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Preserve state feedback while suppressing the site's spatial transforms. */
+  [class~="translate-y-0"],
+  [class~="translate-y-1"],
+  [class~="group-hover:translate-x-1"] {
+    transform: none !important;
+  }
+
+  header button[aria-controls="care-navigation-panel"] > svg,
+  header button[aria-controls="resources-navigation-panel"] > svg,
+  details > summary [class~="group-open:rotate-180"] {
+    transition-property: color, background-color, border-color,
+      text-decoration-color, fill, stroke, opacity, box-shadow;
+  }
+}

@@ -45,7 +45,7 @@ export default function BookAppointmentPage() {
               <span className="inline-flex items-center rounded-full bg-brand-primary-subtle px-4 py-1.5 text-support font-semibold text-brand-primary ring-1 ring-brand-primary-border">
                 Appointment Request
               </span>
-              <h1 className="mt-5 max-w-reading text-page-title text-text-primary sm:text-page-title-lg">
+              <h1 id="appointment-request-heading" className="mt-5 max-w-reading text-page-title text-text-primary sm:text-page-title-lg">
                 Book a specialist rheumatology consultation
               </h1>
               <p className="mt-5 max-w-reading text-lead text-text-secondary">
