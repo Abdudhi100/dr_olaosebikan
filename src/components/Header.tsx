@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   CalendarDays,
   ChevronDown,
@@ -83,6 +83,9 @@ const mainLinks: HeaderLink[] = [
   },
 ];
 
+const CARE_NAVIGATION_PANEL_ID = "care-navigation-panel";
+const RESOURCES_NAVIGATION_PANEL_ID = "resources-navigation-panel";
+
 function classNames(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");
 }
@@ -120,7 +123,7 @@ function dropdownButtonClass(active: boolean) {
 
 function dropdownLinkClass(active: boolean) {
   return classNames(
-    "block border-l-2 border-b border-border-subtle px-4 py-3 text-sm transition last:border-b-0 hover:bg-surface-muted focus:outline-none focus-visible:bg-surface-muted",
+    "block border-l-2 border-b border-border-subtle px-4 py-3 text-sm transition last:border-b-0 hover:bg-surface-muted focus:outline-none focus-visible:bg-surface-muted focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-primary",
     active
       ? "border-l-brand-primary font-bold text-text-primary"
       : "border-l-transparent font-semibold text-text-secondary",
@@ -136,6 +139,10 @@ function mobileLinkClass(active: boolean) {
 
 export function Header() {
   const pathname = usePathname() || "/";
+  const careMenuButtonRef = useRef<HTMLButtonElement>(null);
+  const resourcesMenuButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
+  const suppressDesktopFocusOpenRef = useRef(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDesktopMenu, setOpenDesktopMenu] = useState<"care" | "resources" | null>(null);
   const [scrolled, setScrolled] = useState(false);
@@ -154,6 +161,26 @@ export function Header() {
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key !== "Escape") return;
+
+      const activeElement = document.activeElement;
+      let focusTarget: HTMLButtonElement | null = null;
+
+      if (activeElement instanceof Node) {
+        if (document.getElementById("mobile-menu")?.contains(activeElement)) {
+          focusTarget = mobileMenuButtonRef.current;
+        } else if (document.getElementById(CARE_NAVIGATION_PANEL_ID)?.contains(activeElement)) {
+          focusTarget = careMenuButtonRef.current;
+        } else if (document.getElementById(RESOURCES_NAVIGATION_PANEL_ID)?.contains(activeElement)) {
+          focusTarget = resourcesMenuButtonRef.current;
+        }
+      }
+
+      if (focusTarget) {
+        suppressDesktopFocusOpenRef.current = true;
+        focusTarget.focus();
+        suppressDesktopFocusOpenRef.current = false;
+      }
+
       setMobileOpen(false);
       setOpenDesktopMenu(null);
     }
@@ -209,21 +236,24 @@ export function Header() {
             className="relative"
             onMouseEnter={() => setOpenDesktopMenu("care")}
             onMouseLeave={() => setOpenDesktopMenu(null)}
-            onFocus={() => setOpenDesktopMenu("care")}
+            onFocus={() => {
+              if (!suppressDesktopFocusOpenRef.current) setOpenDesktopMenu("care");
+            }}
             onBlur={closeDesktopMenuOnBlur}
           >
             <button
+              ref={careMenuButtonRef}
               type="button"
               className={dropdownButtonClass(careActive)}
-              aria-haspopup="true"
               aria-expanded={careMenuOpen}
+              aria-controls={CARE_NAVIGATION_PANEL_ID}
               aria-label={careActive ? "Care Areas, current section" : "Care Areas"}
               onClick={() => setOpenDesktopMenu(careMenuOpen ? null : "care")}
             >
               Care Areas
               <ChevronDown className={classNames("h-4 w-4 transition", careMenuOpen && "rotate-180")} aria-hidden="true" />
             </button>
-            <div className={classNames(
+            <div id={CARE_NAVIGATION_PANEL_ID} className={classNames(
               "absolute left-0 top-full mt-2 w-80 overflow-hidden rounded-lg border border-border-subtle bg-surface-emphasis shadow-floating transition",
               careMenuOpen ? "visible translate-y-0 opacity-100" : "invisible translate-y-1 opacity-0",
             )}>
@@ -248,32 +278,36 @@ export function Header() {
             className="relative"
             onMouseEnter={() => setOpenDesktopMenu("resources")}
             onMouseLeave={() => setOpenDesktopMenu(null)}
-            onFocus={() => setOpenDesktopMenu("resources")}
+            onFocus={() => {
+              if (!suppressDesktopFocusOpenRef.current) setOpenDesktopMenu("resources");
+            }}
             onBlur={closeDesktopMenuOnBlur}
           >
             <button
+              ref={resourcesMenuButtonRef}
               type="button"
               className={dropdownButtonClass(resourcesActive)}
-              aria-haspopup="true"
               aria-expanded={resourcesMenuOpen}
+              aria-controls={RESOURCES_NAVIGATION_PANEL_ID}
               aria-label={resourcesActive ? "Resources, current section" : "Resources"}
               onClick={() => setOpenDesktopMenu(resourcesMenuOpen ? null : "resources")}
             >
               Resources
               <ChevronDown className={classNames("h-4 w-4 transition", resourcesMenuOpen && "rotate-180")} aria-hidden="true" />
             </button>
-            <div className={classNames(
+            <div id={RESOURCES_NAVIGATION_PANEL_ID} className={classNames(
               "absolute left-0 top-full mt-2 w-72 overflow-hidden rounded-lg border border-border-subtle bg-surface-emphasis shadow-floating transition",
               resourcesMenuOpen ? "visible translate-y-0 opacity-100" : "invisible translate-y-1 opacity-0",
             )}>
               {resourceLinks.map((link) => {
                 const active = isNavigationActive(pathname, link.href);
+                const current = isExactRoute(pathname, link.href);
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
                     className={dropdownLinkClass(active)}
-                    aria-current={active ? "page" : undefined}
+                    aria-current={current ? "page" : undefined}
                     onClick={() => setOpenDesktopMenu(null)}
                   >
                     {link.label}
@@ -289,7 +323,7 @@ export function Header() {
           <Link
             href="/contact-location"
             className={desktopLinkClass(contactActive)}
-            aria-current={contactActive ? "page" : undefined}
+            aria-current={pathname === "/contact-location" ? "page" : undefined}
           >
             <MapPin className="h-4 w-4" aria-hidden="true" />
             Contact
@@ -318,6 +352,7 @@ export function Header() {
         </Link>
 
         <button
+          ref={mobileMenuButtonRef}
           type="button"
           className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-text-secondary hover:bg-surface-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary lg:hidden"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -374,7 +409,7 @@ function MobileSection({ title, links, pathname, closeMobile }: MobileSectionPro
             href={link.href}
             onClick={closeMobile}
             className={mobileLinkClass(isNavigationActive(pathname, link.href))}
-            aria-current={isNavigationActive(pathname, link.href) ? "page" : undefined}
+            aria-current={isExactRoute(pathname, link.href) ? "page" : undefined}
           >
             {link.label}
           </Link>

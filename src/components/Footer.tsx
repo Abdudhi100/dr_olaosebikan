@@ -28,7 +28,7 @@ export function Footer() {
             <h2 data-brand-element className="text-base font-bold text-white">
               {doctor.displayName}
             </h2>
-            <p data-brand-element className="mt-1 text-xs text-slate-500">
+            <p data-brand-element className="mt-1 text-xs text-slate-400">
               {doctor.specialization}
             </p>
             <p className="mt-4 leading-relaxed text-slate-400">
@@ -103,7 +103,7 @@ export function Footer() {
 
         <div className="my-8 border-t border-slate-800" />
 
-        <div className="flex flex-col items-start justify-between gap-4 text-xs text-slate-500 md:flex-row md:items-center">
+        <div className="flex flex-col items-start justify-between gap-4 text-xs text-slate-400 md:flex-row md:items-center">
           <p>
             Copyright {year} {site.clinicName}. All rights reserved.
           </p>

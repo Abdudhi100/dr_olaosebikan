@@ -4,14 +4,13 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import { JsonLd } from "@/components/JsonLd";
 import { getPublicationBySlug, publications } from "@/lib/content";
+import { EMPTY_PUBLICATION_FALLBACK_SLUG } from "@/lib/publication-policy";
 import { defaultMetadata, publicationJsonLd } from "@/lib/seo";
 import { buttonStyles } from "@/lib/styles";
 
 type PublicationDetailProps = {
   params: Promise<{ slug: string }>;
 };
-
-const EMPTY_PUBLICATION_FALLBACK_SLUG = "publication-record-unavailable";
 
 export const dynamicParams = false;
 export const dynamic = "force-static";

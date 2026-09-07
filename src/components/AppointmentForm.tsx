@@ -8,7 +8,7 @@ import { appointmentWhatsAppUrl } from "@/lib/whatsapp";
 
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
 const FORM_SUBJECT = "New Appointment Request - Dr Olaosebikan Clinic";
-const fieldClassName = "mt-2 w-full rounded-lg border border-border-default px-4 py-3 text-sm text-text-primary shadow-subtle outline-none transition focus:border-brand-primary focus:ring-2 focus:ring-brand-primary-border";
+const fieldClassName = "mt-2 w-full rounded-lg border border-border-control px-4 py-3 text-sm text-text-primary placeholder:text-text-tertiary shadow-subtle outline-none transition focus:border-brand-primary focus:ring-2 focus:ring-brand-primary";
 const labelClassName = "block text-support font-semibold text-text-secondary";
 
 type AppointmentFormFields = {

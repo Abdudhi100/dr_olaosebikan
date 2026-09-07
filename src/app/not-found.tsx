@@ -1,6 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Home } from "lucide-react";
 import { buttonStyles } from "@/lib/styles";
+
+export const metadata: Metadata = {
+  title: "Page not found | Dr Olaosebikan",
+  description: "The requested page could not be found.",
+  alternates: {
+    canonical: null,
+  },
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function NotFound() {
   return (

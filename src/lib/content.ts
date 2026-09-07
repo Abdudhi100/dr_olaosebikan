@@ -5,6 +5,7 @@ import pagesData from "@/content/pages.json";
 import publicationsData from "@/content/publications.json";
 import servicesData from "@/content/services.json";
 import siteData from "@/content/site.json";
+import { assertNoReservedPublicationSlugs } from "@/lib/publication-policy";
 
 export type SiteSettings = typeof siteData;
 export type Doctor = typeof doctorData;
@@ -70,6 +71,8 @@ export const faqs = faqData;
 export const pages = pagesData as ClinicPage[];
 export const publications = publicationsData as Publication[];
 export const achievements = achievementsData as Achievement[];
+
+assertNoReservedPublicationSlugs(publications);
 
 export function getPageBySlug(slug: string) {
   return pages.find((page) => page.slug === slug);
