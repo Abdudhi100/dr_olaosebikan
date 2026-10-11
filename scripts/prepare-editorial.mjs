@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { validateSnapshot } from "../shared/publishing-policy.mjs";
 // Explicit public-field projection. Never query confidential workflow documents or arbitrary document spreads.
 export const CONTENT_QUERY = `*[_type in ["editorialEntry", "researchPublication", "professionalAchievement"] && !(_id in path("drafts.**")) && !(_id in path("versions.**"))]{
- _id,_type,kind,title,slug,summary,body,topic,publishedAt,modifiedAt,authorName,authorRole,sources,seoTitle,seoDescription,featured,
+ _id,_type,kind,title,slug,summary,body,topic,tags,publishedAt,modifiedAt,authorName,authorRole,sources,seoTitle,seoDescription,featured,
  featuredImage{asset, "url": asset->url},imageAlt,imageCredit,requiresClinicalReview,
  clinicalReview{status,reviewerName,reviewerRole,credentialsVerified,reviewedAt,evidenceReference,approvedFingerprint},
  mediaRightsStatus,mediaRightsEvidenceReference,publicSafeConfirmed,publicationStatus,correctionNote,
@@ -129,6 +129,13 @@ export async function prepareEditorial({
         { recursive: true },
       );
     }
+  }
+  if (editorial.length) {
+    await cp(
+      new URL("../src/editorial-routes/topics", import.meta.url),
+      new URL("topics", routes),
+      { recursive: true },
+    );
   }
   console.log(
     `Prepared ${editorial.length} editorial entries, ${research.length} research records and ${achievements.length} achievements.`,

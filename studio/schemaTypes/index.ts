@@ -125,6 +125,12 @@ export const editorialEntry = defineType({
       group: "content",
       options: { list: TOPICS },
     }),
+    field("tags", "Tags", "array", {
+      group: "content",
+      of: [{ type: "string" }],
+      options: { layout: "tags" },
+      validation: (r: Rule) => r.max(8).unique(),
+    }),
     field("authorName", "Actual author name", "string", { group: "content" }),
     field("authorRole", "Author role / attribution", "string", {
       group: "content",

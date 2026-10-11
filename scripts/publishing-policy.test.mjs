@@ -249,3 +249,36 @@ test("missing or deleted image references cannot export incomplete media metadat
   delete doc.featuredImage.url;
   await assert.rejects(validateSnapshot([doc], options), /must resolve/);
 });
+
+test("optional empty tags preserve old content fingerprints but added tags require new approval", async () => {
+  const doc = await entry();
+  assert.equal(
+    await contentFingerprint(doc),
+    await contentFingerprint({ ...doc, tags: null }),
+  );
+  assert.equal(
+    await contentFingerprint(doc),
+    await contentFingerprint({ ...doc, tags: [] }),
+  );
+  assert.match(
+    (
+      await releaseErrors(
+        { ...doc, tags: ["Appointment preparation"] },
+        options,
+      )
+    ).join(),
+    /does not match/,
+  );
+});
+test("tags reject duplicates, unsafe text and excessive counts", async () => {
+  const doc = await entry("news");
+  for (const tags of [
+    ["Same", "Same"],
+    ["<script>"],
+    Array.from({ length: 9 }, (_, i) => `Tag ${i}`),
+  ])
+    assert.match(
+      (await releaseErrors({ ...doc, tags }, options)).join(),
+      /unique plain-text tags/,
+    );
+});

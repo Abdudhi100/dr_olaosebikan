@@ -1,8 +1,12 @@
 import Link from "next/link";
+import { InsightsSearch } from "@/components/insights/InsightsSearch";
 import { InsightsHero } from "@/components/insights/InsightsHero";
 import styles from "@/components/insights/insights.module.css";
 import {
   editorialEntries,
+  editorialTopics,
+  topicSlug,
+  searchEntries,
   entryPath,
   displayDate,
   formatLabel,
@@ -16,7 +20,11 @@ export const metadata = {
       "Educational articles, videos, verified research and clinic updates.",
     path: "/insights",
   }),
-  robots: { index: editorialEntries.length > 0, follow: true },
+  robots: {
+    index:
+      process.env.CLINIC_RELEASE === "approved" && editorialEntries.length > 0,
+    follow: true,
+  },
 };
 const collections = [
   {
@@ -87,9 +95,13 @@ export default function InsightsPage() {
         )}
         <div className={styles.collections}>
           {collections.map((collection) => (
-            <a
+            <Link
               className={styles.card}
-              href={`#${collection.id}`}
+              href={
+                editorialEntries.some((e) => e.kind === collection.kind)
+                  ? `/insights/${collection.id}`
+                  : `#${collection.id}`
+              }
               key={collection.id}
             >
               <p className={styles.eyebrow}>{collection.title}</p>
@@ -97,7 +109,7 @@ export default function InsightsPage() {
               <span className={styles.cardAction}>
                 Explore category <span aria-hidden="true">↗</span>
               </span>
-            </a>
+            </Link>
           ))}
           {visiblePublications.length > 0 ? (
             <Link className={styles.card} href="/publications">
@@ -115,6 +127,28 @@ export default function InsightsPage() {
             </div>
           )}
         </div>
+        {editorialEntries.length > 0 && (
+          <InsightsSearch entries={searchEntries(editorialEntries)} />
+        )}
+        {editorialTopics.length > 0 && (
+          <section
+            className={styles.collectionSection}
+            aria-labelledby="topics-heading"
+          >
+            <h2 id="topics-heading">Browse by topic.</h2>
+            <div className="clinic-actions">
+              {editorialTopics.map((topic) => (
+                <Link
+                  key={topic}
+                  className="clinic-button clinic-button-outline"
+                  href={`/insights/topics/${topicSlug(topic)}`}
+                >
+                  {topic}
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
         {collections.map((collection) => {
           const entries = editorialEntries.filter(
             (entry) => entry.kind === collection.kind,
