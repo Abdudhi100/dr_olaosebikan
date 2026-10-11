@@ -98,3 +98,9 @@ The old Django blog depended on database-backed posts and CKEditor content. It i
 - `docs/CONTENT_REQUIREMENTS.md` - verified content needed from the clinic
 - `docs/DEPLOYMENT_RUNBOOK.md` - Cloudflare Pages deployment and Render retirement steps
 - `docs/TEST_CHECKLIST.md` - manual smoke-test checklist
+
+## V12 editorial publishing (review implementation)
+
+Owner-managed weekly articles, videos and genuine news use a separate hosted Sanity Studio and build-time static export. Default CMS mode is disabled until account setup; `/insights` is an honest, unindexed empty page, hidden from main navigation. See [V12 publishing handover](docs/V12_PUBLISHING_HANDOVER.md) for setup, release checks, weekly operation and withdrawal acceptance. No production CMS, webhook or deployment is provisioned by this code.
+
+Run `npm ci`, `npm test`, `npm run typecheck`, and `npm run test:export`. Install Studio separately with `npm ci --prefix studio`; it requires Node 22.12 or newer. Generated content snapshots and active detail routes are intentionally ignored and recreated before builds.

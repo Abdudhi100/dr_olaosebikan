@@ -10,7 +10,8 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import { doctor } from "@/lib/content";
+import publishingNavigation from "@/generated/navigation.json";
+import { doctor, visiblePublications, visibleAchievements } from "@/lib/content";
 import { buttonStyles } from "@/lib/styles";
 
 type HeaderLink = {
@@ -53,6 +54,7 @@ const careLinks: HeaderLink[] = [
 ];
 
 const resourceLinks: HeaderLink[] = [
+  ...(publishingNavigation.hasInsights ? [{label: "Insights & media", href: "/insights", description: "Articles, videos and clinic updates"}] : []),
   {
     label: "FAQ",
     href: "/faq",
@@ -68,7 +70,7 @@ const resourceLinks: HeaderLink[] = [
     href: "/publications/achievements",
     description: "Verified achievement records",
   },
-];
+].filter(link => (link.href !== "/publications" || visiblePublications.length > 0) && (link.href !== "/publications/achievements" || visibleAchievements.length > 0));
 
 const mainLinks: HeaderLink[] = [
   {
@@ -96,6 +98,7 @@ function isExactRoute(pathname: string, href: string) {
 }
 
 function isNavigationActive(pathname: string, href: string) {
+  if (href === "/insights") return pathname === href || pathname.startsWith("/insights/");
   if (href === "/publications") {
     return (
       pathname === "/publications" ||

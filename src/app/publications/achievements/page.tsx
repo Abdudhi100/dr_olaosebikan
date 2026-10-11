@@ -85,6 +85,7 @@ export default function AchievementsPage() {
                       ) : null}
                       <span>{achievement.year}</span>
                     </div>
+                    {achievement.sourceUrl ? <a href={achievement.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-brand-primary underline focus-visible:ring-2 focus-visible:ring-brand-primary">View original institutional evidence</a> : null}
                     {achievement.description ? (
                       <p className="mt-3 text-body text-text-secondary">
                         {achievement.description}

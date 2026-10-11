@@ -150,6 +150,10 @@ export default async function PublicationDetailPage({ params }: PublicationDetai
               </header>
 
               <div className="mt-8 grid max-w-reading gap-6">
+                {publication.sourceUrl ? <section className="border-t border-border-subtle pt-5">
+                  <h2 className="text-subsection-title tracking-normal text-text-primary">Original research record</h2>
+                  <a href={publication.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-2 block break-words text-sm font-semibold text-brand-primary underline focus-visible:ring-2 focus-visible:ring-brand-primary">View original source</a>
+                </section> : null}
                 {publication.doiLink ? (
                   <section className="border-t border-border-subtle pt-5">
                     <h2 className="text-subsection-title tracking-normal text-text-primary">DOI / External Link</h2>
@@ -175,7 +179,7 @@ export default async function PublicationDetailPage({ params }: PublicationDetai
                     rel="noreferrer"
                     className={`${buttonStyles.secondary} w-full sm:w-fit`}
                   >
-                    Visit DOI Link
+                    Visit DOI record
                     <ExternalLink className="h-4 w-4" aria-hidden="true" />
                   </a>
                 ) : null}

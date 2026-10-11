@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CalendarDays, Mail, MapPin, Phone } from "lucide-react";
-import { doctor, site } from "@/lib/content";
+import publishingNavigation from "@/generated/navigation.json";
+import { doctor, site, visiblePublications, visibleAchievements } from "@/lib/content";
 
 const careLinks = [
   { label: "Rheumatoid Arthritis", href: "/rheumatoid-arthritis-treatment-lagos" },
@@ -11,11 +12,12 @@ const careLinks = [
 ];
 
 const resourceLinks = [
+  ...(publishingNavigation.hasInsights ? [{label: "Insights & media", href: "/insights"}] : []),
   { label: "About Dr Olaosebikan", href: "/about-dr-olaosebikan" },
   { label: "FAQ", href: "/faq" },
   { label: "Publications", href: "/publications" },
   { label: "Achievements", href: "/publications/achievements" },
-];
+].filter(link => (link.href !== "/publications" || visiblePublications.length > 0) && (link.href !== "/publications/achievements" || visibleAchievements.length > 0));
 
 export function Footer() {
   const year = new Date().getFullYear();

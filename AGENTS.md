@@ -12,7 +12,8 @@ This repository contains legacy Django code, but the approved public production 
 ## Recovery Rules
 
 - Do not restore or extend Django for public production work unless it is only used as a reference for verified content.
-- Do not add patient accounts, dashboards, Django admin, database appointments, CMS, payment processing, or medical-record storage.
+- Do not add patient accounts, dashboards, Django admin, database appointments, payment processing, or medical-record storage.
+- The owner's V12 instruction authorises a separate hosted Sanity Studio for public editorial content. It supersedes the former no-CMS rule only for that scope. Keep the clinic site a static export; no clinical records or private approval evidence in the CMS dataset.
 - Do not commit real secrets. `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` belongs in Cloudflare Pages environment variables.
 - Do not invent qualifications, publications, awards, clinic details, testimonials, or medical claims.
 - Keep changes small, static-export compatible, and easy to review.
