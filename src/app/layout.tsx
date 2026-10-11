@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
+import { SiteHeader, SiteFooter } from "@/components/insights/InsightsChrome";
+import "@fontsource/inter/latin-300.css";
+import "@fontsource/inter/latin-400.css";
+import "@fontsource/inter/latin-500.css";
+import "@fontsource/inter/latin-600.css";
 import { JsonLd } from "@/components/JsonLd";
 import { clinicJsonLd, defaultMetadata } from "@/lib/seo";
 import site from "@/content/site.json";
@@ -31,11 +34,11 @@ export default function RootLayout({
           Skip to main content
         </a>
         <JsonLd data={clinicJsonLd()} />
-        <Header />
+        <SiteHeader />
         <main id="main-content" className="min-h-[65vh]">
           {children}
         </main>
-        <Footer />
+        <SiteFooter />
       </body>
     </html>
   );

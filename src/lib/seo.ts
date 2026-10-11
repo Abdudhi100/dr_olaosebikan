@@ -152,11 +152,11 @@ export function publicationJsonLd(publication: Publication) {
     "@type": "ScholarlyArticle",
     headline: publication.title,
     name: publication.title,
-    author: publication.authors || doctor.displayName,
+    ...(publication.authorNames?.length ? {author: publication.authorNames.map(name => ({"@type": "Person", name}))} : publication.authors ? {author: publication.authors} : {}),
     datePublished: String(publication.year),
     isPartOf: publication.journal,
     description: publication.abstract,
     url: absoluteUrl(`/publications/${publication.slug}`),
-    sameAs: publication.doiLink,
+    sameAs: publication.doiLink || publication.sourceUrl,
   };
 }
