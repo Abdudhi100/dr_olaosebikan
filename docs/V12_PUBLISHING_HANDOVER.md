@@ -4,9 +4,9 @@ Status: code implemented and tested locally; **not a live CMS or production depl
 
 ## Continuity and scope
 
-The continuation uses `ui/refactoring-ui-phase-1` at `14ed0ee00c8c17c25c617c25c9eeb3b40c956821`, the latest recovered remote source. It preserves its existing accessibility, JSON-LD escaping, reserved publication slugs and Web3Forms booking transport. It does not claim to contain later local M1–M5 changes that were unavailable in the recovered repository. The V12 request supersedes the previous no-CMS instruction only for public editorial publishing.
+The continuation uses `ui/refactoring-ui-phase-1` at `14ed0ee00c8c17c25c617c25c9eeb3b40c956821`, the latest recovered remote source. It preserves accessibility, JSON-LD escaping and reserved publication slugs. The subsequent full-Figma implementation recovered M3 booking state logic and M4 delivery requirements, with the live recipient workflow approval-gated; see FIGMA_IMPLEMENTATION_PROGRESS.md. The V12 request supersedes the previous no-CMS instruction only for public editorial publishing.
 
-Design source: [existing Figma V12 hub](https://www.figma.com/design/r95tId7u6GFLycP47UroFM?node-id=549-4015) and [V12.2 responsive continuation](https://www.figma.com/design/r95tId7u6GFLycP47UroFM?node-id=557-4390). The new Insights routes use the approved teal/paper treatment, self-hosted Inter and the actual Figma clinic symbol. Existing pages retain their recovered implementation. The publishing mock represents hosted Sanity Studio, not a separate custom dashboard.
+Design source: [existing Figma V12 hub](https://www.figma.com/design/r95tId7u6GFLycP47UroFM?node-id=549-4015) and [V12.2 responsive continuation](https://www.figma.com/design/r95tId7u6GFLycP47UroFM?node-id=557-4390). The new Insights routes use the approved teal/paper treatment, self-hosted Inter and the actual Figma clinic symbol. The subsequent full-Figma implementation restyles existing pages using the native V5–V11 frames; see FIGMA_IMPLEMENTATION_PROGRESS.md. The publishing mock represents hosted Sanity Studio, not a separate custom dashboard.
 
 ## Implemented
 
@@ -46,7 +46,7 @@ Design source: [existing Figma V12 hub](https://www.figma.com/design/r95tId7u6GF
 
 ## Validation evidence and remaining limits
 
-- `npm test`: 27 checks, including review-version invalidation, draft/version exclusion, invalid API writes, duplicate paths, unsafe URLs, impossible/future dates, rights, video accessibility and query failure.
+- `npm test`: 51 checks, including review-version invalidation, draft/version exclusion, invalid API writes, duplicate paths, unsafe URLs, impossible/future dates, rights, video accessibility and query failure.
 - `npm run test:export`: synthetic article/video/news/research static pages, metadata/schema, escaped script-like text, withheld evidence references, empty state and withdrawal. A seeded stale export file is also removed by the explicit build cleanup. The script restores the configured real snapshot and rebuilds in `finally`; final default export contains no fixtures.
 - Root and Studio type checks and Studio local bundle build pass. The Studio build used a clearly synthetic project identifier; no account provisioning, login, deployment or invitations occurred.
 - Public-site production dependency audit is clean after a compatible Next 15.5.27 patch and PostCSS override. Studio's toolchain still reports transitive npm advisories (including braces/sprintf-js/uuid). No forced major downgrade or unverified major override was applied. Review those advisories before hosted Studio deployment; Studio dependencies are not installed by or bundled into the public Next export. The root Tailwind development toolchain also has upstream advisories; that audit is separate from the public production-dependency result.
@@ -68,3 +68,7 @@ Design source: [existing Figma V12 hub](https://www.figma.com/design/r95tId7u6GF
 | Studio checks | `npm run typecheck --prefix studio`, `npm run build --prefix studio` (requires project/dataset environment values) |
 
 Official references used for this implementation: [Sanity installation](https://www.sanity.io/docs/studio/installation), [published perspectives](https://www.sanity.io/docs/content-lake/perspectives), [query API](https://www.sanity.io/docs/http-reference/query), [Studio validation versus Content Lake](https://www.sanity.io/docs/content-lake/schema-validation-and-the-content-lake), [webhook filters](https://www.sanity.io/docs/developer-guides/filters-in-groq-powered-webhooks), [Cloudflare deploy hooks](https://developers.cloudflare.com/pages/configuration/deploy-hooks/), [Cloudflare 404 behaviour](https://developers.cloudflare.com/pages/configuration/serving-pages/).
+
+## Full redesign continuation — 11 October 2026
+
+The existing V12 gates remain intact. Optional tags now participate in the approval fingerprint when populated (absent/null/empty tags preserve prior fingerprints). The public hub has search, format/topic/tag filters and permanent populated format/topic archive URLs. The Studio has an authenticated draft Reading preview without public draft tokens or endpoints. All client search props are explicitly projected to public listing fields. Public review builds stay noindex. No Sanity project/dataset exists yet and no genuine CMS publish/deploy operation has been performed. Consult FIGMA_IMPLEMENTATION_PROGRESS.md and FIGMA_DEPLOYMENT_HANDOVER.md for the current branch and remaining release tasks.

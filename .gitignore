@@ -20,3 +20,6 @@ src/generated/
 studio/dist/
 studio/.sanity/
 src/app/insights/(entries)/
+
+# Review captures are retained as compressed WebP; PNGs are reproducible intermediates.
+docs/figma-review/*.png

@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./insights.module.css";
 import {
   displayDate,
@@ -21,6 +21,8 @@ type SearchEntry = Pick<
   | "publishedAt"
 >;
 export function InsightsSearch({ entries }: { entries: SearchEntry[] }) {
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
   const [search, setSearch] = useState("");
   const [kind, setKind] = useState("");
   const [topic, setTopic] = useState("");
@@ -49,6 +51,7 @@ export function InsightsSearch({ entries }: { entries: SearchEntry[] }) {
           <label htmlFor="insights-search">Search resources</label>
           <input
             id="insights-search"
+            disabled={!ready}
             type="search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -60,6 +63,7 @@ export function InsightsSearch({ entries }: { entries: SearchEntry[] }) {
           <label htmlFor="insights-format">Format</label>
           <select
             id="insights-format"
+            disabled={!ready}
             value={kind}
             onChange={(e) => setKind(e.target.value)}
           >
@@ -75,6 +79,7 @@ export function InsightsSearch({ entries }: { entries: SearchEntry[] }) {
           <label htmlFor="insights-topic">Topic</label>
           <select
             id="insights-topic"
+            disabled={!ready}
             value={topic}
             onChange={(e) => setTopic(e.target.value)}
           >
@@ -89,6 +94,7 @@ export function InsightsSearch({ entries }: { entries: SearchEntry[] }) {
             <label htmlFor="insights-tag">Tag</label>
             <select
               id="insights-tag"
+              disabled={!ready}
               value={tag}
               onChange={(e) => setTag(e.target.value)}
             >
