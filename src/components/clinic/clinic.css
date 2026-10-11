@@ -2664,3 +2664,70 @@ textarea:focus-visible {
 @media (max-width: 600px) {
  .clinic-services-hero + .clinic-page-body { margin-top: -54px; border-radius: 32px 32px 0 0; }
 }
+
+/* Native V9-V11 page treatment. Shared navigation and booking remain unchanged. */
+.clinic-page-hero-contact,
+.clinic-page-hero-faq,
+.clinic-page-hero-resources,
+.clinic-page-hero-achievements { padding: 40px 0 96px; }
+:is(.clinic-page-hero-contact,.clinic-page-hero-faq,.clinic-page-hero-resources,.clinic-page-hero-achievements) > .clinic-container { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+:is(.clinic-page-hero-contact,.clinic-page-hero-faq,.clinic-page-hero-resources,.clinic-page-hero-achievements) :is(h1,.clinic-eyebrow,.clinic-page-description,.clinic-page-cta) { margin: 0; }
+:is(.clinic-page-hero-contact,.clinic-page-hero-faq,.clinic-page-hero-resources,.clinic-page-hero-achievements) .clinic-page-description { color: var(--clinic-sage); }
+:is(.clinic-page-hero-contact,.clinic-page-hero-faq,.clinic-page-hero-resources,.clinic-page-hero-achievements) .clinic-page-cta { width: 270px; min-height: 52px; }
+.clinic-contact-location > .clinic-page-body { margin-top: 0; padding: 80px 0 96px; }
+.clinic-contact-opening { grid-template-columns: minmax(0,680fr) minmax(0,470fr); gap: 120px; }
+.clinic-contact-opening > .clinic-contact-methods { grid-column: 2; grid-row: 1; gap: 24px; }
+.clinic-contact-opening > div:last-child { grid-column: 1; grid-row: 1; }
+.clinic-contact-opening h2 { font-size: 58px; line-height: 1.1; margin-bottom: 24px; }
+.clinic-contact-opening > div:last-child > .clinic-button { margin: 24px 0; }
+.clinic-contact-guidance { border-top: 1px solid var(--clinic-line); padding-top: 24px; }
+.clinic-contact-guidance p { font-size: 16px; line-height: 1.5; margin-top: 12px; }
+.clinic-contact-guidance p:first-child { font-weight: 500; }
+.clinic-contact-location .clinic-contact-card:first-child { border: 1px solid var(--clinic-line); }
+.clinic-faq-page > .clinic-page-body { margin: 0; border-radius: 0; }
+.clinic-faq-page > .clinic-page-body .clinic-subtitle { font-size: 58px; line-height: 1.2; }
+:is(.clinic-page-hero-resources,.clinic-page-hero-achievements) + .clinic-page-body { margin: 0; border-radius: 0; padding: 100px 0; }
+:is(.clinic-page-hero-resources,.clinic-page-hero-achievements) + .clinic-page-body > .clinic-container > .clinic-subtitle { font-size: 58px; line-height: 1.2; margin: 43px 0; }
+.clinic-resource-layout { grid-template-columns: minmax(0,760fr) minmax(0,482fr); gap: 28px; }
+.clinic-resource-empty { display: flex; flex-direction: column; gap: 23px; padding: 52px 42px; border-radius: 30px; }
+.clinic-resource-empty .clinic-eyebrow { margin: 0; font-size: 14px; }
+.clinic-resource-empty h3 { margin: 0; font-size: 40px; line-height: 1.21; }
+.clinic-resource-empty p { font-size: 19px; line-height: 1.55; }
+.clinic-resource-empty p:last-child { border-top: 1px solid var(--clinic-line); padding-top: 23px; font-size: 16px; line-height: 1.5; color: #536865; }
+.clinic-achievement-empty { background: #d5e1dc; }
+.clinic-resource-explore { padding: 42px 34px; border-radius: 30px; }
+.clinic-resource-explore h2 { font-size: 30px; line-height: 1.24; margin-bottom: 27px; }
+.clinic-resource-route { border-bottom: 1px solid #40676a; padding-bottom: 17px; margin-top: 17px; }
+.clinic-resource-route a { display: flex; justify-content: space-between; gap: 16px; border: 0; padding: 0; font-size: 19px; line-height: 1.35; }
+.clinic-resource-route p { margin-top: 10px; font-size: 15px; line-height: 1.45; color: var(--clinic-sage); }
+.clinic-resource-layout + .clinic-inline-status { background: #e6ece8; border-radius: 22px; margin-top: 43px; }
+@media (max-width: 1100px) {
+ .clinic-contact-opening { gap: 48px; }
+ .clinic-contact-opening h2 { font-size: 44px; }
+ .clinic-resource-empty { padding: 32px; }
+ .clinic-resource-empty h3 { font-size: 32px; }
+}
+@media (max-width: 600px) {
+ :is(.clinic-page-hero-contact,.clinic-page-hero-faq,.clinic-page-hero-resources,.clinic-page-hero-achievements) { padding: 24px 0 80px; }
+ :is(.clinic-page-hero-contact,.clinic-page-hero-faq,.clinic-page-hero-resources,.clinic-page-hero-achievements) > .clinic-container { gap: 12px; }
+ :is(.clinic-page-hero-contact,.clinic-page-hero-faq,.clinic-page-hero-resources,.clinic-page-hero-achievements) .clinic-page-description { font-size: 18px; line-height: 29px; }
+ .clinic-contact-location > .clinic-page-body { padding: 40px 0 56px; border-radius: 32px 32px 0 0; }
+ .clinic-contact-opening { grid-template-columns: 1fr; gap: 48px; }
+ .clinic-contact-opening > .clinic-contact-methods, .clinic-contact-opening > div:last-child { grid-column: auto; grid-row: auto; }
+ .clinic-contact-opening h2 { font-size: 38px; line-height: 44px; max-width: 320px; }
+ .clinic-contact-location .clinic-contact-card { padding: 24px; }
+ .clinic-contact-location .clinic-contact-card .clinic-contact-value { font-size: 28px !important; }
+ .clinic-faq-page > .clinic-page-body { padding: 64px 0; }
+ .clinic-faq-page > .clinic-page-body .clinic-faq-layout { gap: 28px; }
+ .clinic-faq-page > .clinic-page-body .clinic-subtitle { font-size: 38px; line-height: 1.2; margin: 28px 0; }
+ .clinic-faq-page > .clinic-page-body .clinic-faq-layout > div > p:last-child { font-size: 15px; line-height: 1.45; }
+ .clinic-faq-page .clinic-faq-list summary { font-size: 24px; line-height: 1.3; }
+ :is(.clinic-page-hero-resources,.clinic-page-hero-achievements) + .clinic-page-body { padding: 64px 0; }
+ :is(.clinic-page-hero-resources,.clinic-page-hero-achievements) + .clinic-page-body > .clinic-container > .clinic-subtitle { font-size: 38px; margin: 28px 0; }
+ .clinic-resource-layout { grid-template-columns: 1fr; gap: 24px; }
+ .clinic-resource-empty { padding: 30px 24px; }
+ .clinic-resource-empty h3 { font-size: 30px; }
+ .clinic-resource-empty p { font-size: 16px; line-height: 1.5; }
+ .clinic-resource-empty p:last-child { font-size: 15px; }
+ .clinic-resource-explore { padding: 30px 24px; }
+}

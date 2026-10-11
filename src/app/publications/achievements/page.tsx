@@ -35,18 +35,16 @@ export default function AchievementsPage() {
           <div className="clinic-resource-layout">
             <div>
               {visibleAchievements.length === 0 ? (
-                <div className="clinic-resource-empty">
+                <div className="clinic-resource-empty clinic-achievement-empty">
                   <p className="clinic-eyebrow">Verification pending</p>
                   <h3 className="clinic-subtitle">
-                    Achievements pending
-                    <br />
-                    verification
+                    Achievements pending verification
                   </h3>
                   <p>
                     Verified achievements have not been added to the website
                     yet.
                   </p>
-                  <p style={{ marginTop: 24 }}>
+                  <p>
                     No awards, fellowships, professional recognitions or
                     milestone dates are displayed without verification.
                   </p>
@@ -77,7 +75,7 @@ export default function AchievementsPage() {
                 ))
               )}
             </div>
-            <ResourceExplore />
+            <ResourceExplore variant="achievements" />
           </div>
           {visibleAchievements.length === 0 && (
             <div className="clinic-inline-status">

@@ -10,7 +10,9 @@ Native Home and Services comparisons led to scoped corrections for heading wrapp
 
 Shared chrome, appointment validation and delivery states, in-memory preferences, generic WhatsApp, provider adapter, clinical content JSON, condition URLs, dependency locks and release gates are preserved. Browser harness changes make evidence output configurable, await asynchronous navigation and decode encoded static chunk URLs. The latter fixed the test server's editorial hydration failure without weakening the video control.
 
-The continuation inventory is nine text source files (eight modified, one new), seven image assets and review documentation. The portable package contains `CHANGE_INVENTORY.json`, `TASK_SOURCE_DIFF.patch`, the new component copy, asset provenance and `PROTECTED_FILES.json`. The larger PR also contains the earlier recovered full-site/V12 commits; that branch delta is distinct from this continuation.
+The continuation inventory is fourteen text source files (thirteen modified, one new), seven image assets and review documentation. The portable package contains `CHANGE_INVENTORY.json`, `TASK_SOURCE_DIFF.patch`, the new component copy, asset provenance and `PROTECTED_FILES.json`. The larger PR also contains the earlier recovered full-site/V12 commits; that branch delta is distinct from this continuation.
+
+A wider native comparison also corrected Contact/Location's mobile channel-first order and appointment-guidance hierarchy, the FAQ's native health-section heading/spacing, and resource empty-state typography, proportions, helpful links and achievement colours. Those changes retain all clinical answers, verified-content filtering, canonical URLs and booking behavior. The earlier review ZIP at `edb0828` is preserved as a separate checkpoint; the final revision contains these additions.
 
 ## Fresh validation
 
@@ -28,7 +30,7 @@ Existing portable Node **22.16.0**, npm **10.9.2**, was used. No system-wide run
 | Studio `npm.cmd run build` | Exit 0; compilation only, not a configured or authenticated CMS |
 | `git diff --check` | Exit 0 |
 
-The populated test used synthetic approved fixtures and mocked third-party media, then restored default content and rebuilt. Final root checks and four-width captures were rerun after the last Services corrections. Earlier failed dependency, navigation-race and editorial-hydration attempts remain separate evidence. Previous handover passes are historical, not substituted for these new results.
+The populated test used synthetic approved fixtures and mocked third-party media, then restored default content and rebuilt. Final root checks and four-width captures were rerun after the secondary-page corrections. Earlier failed dependency, navigation-race and editorial-hydration attempts remain separate evidence. An overlapping build/fixture-export attempt failed because both used the same generated output; it was discarded and the commands were rerun sequentially. A subsequent run passed all 40 UI checks but could not save its result into a new directory; the harness now creates its output directory before writing. The successful final run is recorded separately. Previous handover passes are historical, not substituted for these new results.
 
 Root/Studio packages were installed at existing lockfile versions. Registry failures required integrity-verified recovery of locked tarballs. Studio install used `--legacy-peer-deps --ignore-scripts`. Its transitive `skills@1.7.2` warns that Node >=22.20 is required; Studio typecheck/build nevertheless passed under the requested 22.16.0. Next.js warns about the nested workspace's multiple lockfiles; Studio emits a Tailwind content warning. Logs preserve these warnings.
 
@@ -40,7 +42,7 @@ Intentional differences include honest still-image labels, functional native dat
 
 ## Integration/release gates
 
-Cloudflare saved authentication was expired at the read-only account check. No protected preview or production deployment was made. Verify the existing Pages project, actual production branch, Access protection, domains and environment after secure sign-in. Historical project records are leads, not fresh proof. `noindex` alone is not access control; verify unauthenticated Access blocking before uploading the release candidate.
+Cloudflare saved authentication was expired at the initial read-only account check; the latest recheck failed on connectivity. Sanity project discovery also failed. No protected preview or production deployment was made. Verify the existing Pages project, actual production branch, Access protection, domains and environment after secure sign-in. Historical project records are leads, not fresh proof. `noindex` alone is not access control; verify unauthenticated Access blocking before uploading the release candidate.
 
 No actual Sanity project/dataset or authenticated publish/deploy/withdraw pipeline is verified. The Studio build and synthetic fixtures do not establish a live CMS. Use the owner's intended free-plan project and demonstrate a clearly nonmedical item's actual creation, publication, protected deployment and withdrawal.
 

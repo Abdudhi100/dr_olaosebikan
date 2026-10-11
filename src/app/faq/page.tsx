@@ -16,7 +16,7 @@ export const metadata = defaultMetadata({
 });
 export default function FaqPage() {
   return (
-    <>
+    <div className="clinic-faq-page">
       <JsonLd
         data={{
           "@context": "https://schema.org",
@@ -39,21 +39,12 @@ export default function FaqPage() {
           <div>
             <p className="clinic-eyebrow">Questions about your health</p>
             <h2 className="clinic-subtitle">
-              Understanding
-              <br />
-              rheumatology care.
+              Understand your next steps.
             </h2>
             <p>
               These answers offer general information and do not replace an
               individual clinical assessment.
             </p>
-            <Link
-              href="/appointments/book"
-              className="clinic-button"
-              style={{ marginTop: 32 }}
-            >
-              Request an appointment
-            </Link>
           </div>
           <FaqList items={faqs} />
         </div>
@@ -106,6 +97,6 @@ export default function FaqPage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

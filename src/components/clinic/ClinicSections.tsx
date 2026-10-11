@@ -169,7 +169,7 @@ export function PageIntro({
   title: React.ReactNode;
   description: string;
   eyebrow?: string;
-  variant?: "standard" | "faq" | "resources" | "achievements";
+  variant?: "standard" | "faq" | "resources" | "achievements" | "contact";
 }) {
   return (
     <section
@@ -230,22 +230,24 @@ export function ContactMethods() {
     </div>
   );
 }
-export function ResourceExplore() {
+export function ResourceExplore({ variant = "publications" }: { variant?: "publications" | "achievements" }) {
+  const routes = variant === "achievements" ? [
+    { href: "/about-dr-olaosebikan", label: "Meet the specialist", description: "Read the specialist profile." },
+    { href: "/contact-location", label: "Consultation information", description: "Find practical appointment guidance." },
+    { href: "/faq", label: "Common questions", description: "Read the common clinic questions." },
+  ] : [
+    { href: "/about-dr-olaosebikan", label: "Meet the specialist", description: "Read the specialist profile." },
+    { href: "/faq", label: "Frequently asked questions", description: "Explore general rheumatology information." },
+    { href: "/contact-location", label: "Contact & location", description: "Find consultation and contact information." },
+  ];
   return (
     <aside className="clinic-resource-explore clinic-dark">
-      <h2>Explore the clinic.</h2>
-      <Link href="/about-dr-olaosebikan">
-        Meet the specialist <span aria-hidden>↗</span>
-      </Link>
-      <Link href="/services">
-        Our areas of care <span aria-hidden>↗</span>
-      </Link>
-      <Link href="/faq">
-        Frequently asked questions <span aria-hidden>↗</span>
-      </Link>
-      <Link href="/contact-location">
-        Contact &amp; consultations <span aria-hidden>↗</span>
-      </Link>
+      <p className="clinic-eyebrow">Explore the clinic</p>
+      <h2>{variant === "achievements" ? "Learn more about the specialist" : "Other ways to explore care"}</h2>
+      {routes.map((route) => <div className="clinic-resource-route" key={route.href}>
+        <Link href={route.href}>{route.label}<span aria-hidden>↗</span></Link>
+        <p>{route.description}</p>
+      </div>)}
     </aside>
   );
 }

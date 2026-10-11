@@ -170,8 +170,10 @@ const { chromium } = require(
       );
     }
     assert.deepEqual(errors, []);
+    const outputDirectory = process.env.CLINIC_REVIEW_OUTPUT_DIR || "docs/figma-review";
+    fs.mkdirSync(outputDirectory, { recursive: true });
     fs.writeFileSync(
-      path.join(process.env.CLINIC_REVIEW_OUTPUT_DIR || "docs/figma-review", "editorial-browser-results.json"),
+      path.join(outputDirectory, "editorial-browser-results.json"),
       JSON.stringify(
         {
           checks,

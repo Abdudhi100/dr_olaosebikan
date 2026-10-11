@@ -40,15 +40,13 @@ export default function PublicationsPage() {
                 <div className="clinic-resource-empty">
                   <p className="clinic-eyebrow">Verification pending</p>
                   <h3 className="clinic-subtitle">
-                    Publications pending
-                    <br />
-                    verification
+                    Publications pending verification
                   </h3>
                   <p>
                     Verified publication details have not been added to the
                     website yet.
                   </p>
-                  <p style={{ marginTop: 24 }}>
+                  <p>
                     No publication titles, journals, authors or publication
                     dates are displayed without verification.
                   </p>
