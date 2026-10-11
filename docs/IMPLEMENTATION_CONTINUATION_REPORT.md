@@ -14,6 +14,8 @@ The continuation inventory is fourteen text source files (thirteen modified, one
 
 A wider native comparison also corrected Contact/Location's mobile channel-first order and appointment-guidance hierarchy, the FAQ's native health-section heading/spacing, and resource empty-state typography, proportions, helpful links and achievement colours. Those changes retain all clinical answers, verified-content filtering, canonical URLs and booking behavior. The earlier review ZIP at `edb0828` is preserved as a separate checkpoint; the final revision contains these additions.
 
+The final contact screenshot review caught an oversized mobile email value and a missing curved section transition. A small contact-only CSS correction restored the 17px email size and 32px overlap. The subsequent production build, all 68 route/viewport browser checks and `git diff --check` passed separately in the `final-v3` logs; publishing and booking behavior were unchanged.
+
 ## Fresh validation
 
 Existing portable Node **22.16.0**, npm **10.9.2**, was used. No system-wide runtime, persistent PATH, dependency version or lockfile changes were made.

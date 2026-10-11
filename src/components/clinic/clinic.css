@@ -2711,12 +2711,13 @@ textarea:focus-visible {
  :is(.clinic-page-hero-contact,.clinic-page-hero-faq,.clinic-page-hero-resources,.clinic-page-hero-achievements) { padding: 24px 0 80px; }
  :is(.clinic-page-hero-contact,.clinic-page-hero-faq,.clinic-page-hero-resources,.clinic-page-hero-achievements) > .clinic-container { gap: 12px; }
  :is(.clinic-page-hero-contact,.clinic-page-hero-faq,.clinic-page-hero-resources,.clinic-page-hero-achievements) .clinic-page-description { font-size: 18px; line-height: 29px; }
- .clinic-contact-location > .clinic-page-body { padding: 40px 0 56px; border-radius: 32px 32px 0 0; }
+ .clinic-contact-location > .clinic-page-body { margin-top: -32px; padding: 40px 0 56px; border-radius: 32px 32px 0 0; }
  .clinic-contact-opening { grid-template-columns: 1fr; gap: 48px; }
  .clinic-contact-opening > .clinic-contact-methods, .clinic-contact-opening > div:last-child { grid-column: auto; grid-row: auto; }
  .clinic-contact-opening h2 { font-size: 38px; line-height: 44px; max-width: 320px; }
  .clinic-contact-location .clinic-contact-card { padding: 24px; }
  .clinic-contact-location .clinic-contact-card .clinic-contact-value { font-size: 28px !important; }
+ .clinic-contact-location .clinic-contact-card:last-child .clinic-contact-value { font-size: 17px !important; }
  .clinic-faq-page > .clinic-page-body { padding: 64px 0; }
  .clinic-faq-page > .clinic-page-body .clinic-faq-layout { gap: 28px; }
  .clinic-faq-page > .clinic-page-body .clinic-subtitle { font-size: 38px; line-height: 1.2; margin: 28px 0; }
