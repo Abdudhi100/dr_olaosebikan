@@ -2,13 +2,14 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { BookingEntryLink } from "@/components/booking/BookingEntryLink";
+import { HomepageMedia } from "./HomepageMedia";
 const items = [
-  { title: "Pain, joint pain & stiffness", reason: "Pain consultation" },
-  { title: "Arthritis consultation", reason: "Arthritis consultation" },
-  { title: "Autoimmune & lupus care", reason: "Autoimmune consultation" },
-  { title: "Gout treatment", reason: "Gout treatment" },
-  { title: "Rheumatology consultation", reason: "Rheumatology consultation" },
-  { title: "Follow-up consultation", reason: "Follow-up consultation" },
+  { title: "Pain, joint pain & stiffness", reason: "Pain consultation", media: "pain" as const },
+  { title: "Arthritis consultation", reason: "Arthritis consultation", media: "arthritis" as const },
+  { title: "Autoimmune & lupus care", reason: "Autoimmune consultation", media: "autoimmune" as const },
+  { title: "Gout treatment", reason: "Gout treatment", media: "gout" as const },
+  { title: "Rheumatology consultation", reason: "Rheumatology consultation", media: "notes" as const },
+  { title: "Follow-up consultation", reason: "Follow-up consultation", media: "laptop" as const },
 ];
 export function CareRail() {
   const ref = useRef<HTMLDivElement>(null);
@@ -82,11 +83,7 @@ export function CareRail() {
                 seed={{ reason: item.reason }}
                 className="clinic-care-tile"
               >
-                <div
-                  className="clinic-media-slot"
-                  data-media-review="pending"
-                  aria-hidden="true"
-                />
+                <HomepageMedia media={item.media} />
                 <div className="clinic-care-tile-label">
                   <span>{item.title}</span>
                   <ArrowUpRight aria-hidden />

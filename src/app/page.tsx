@@ -2,7 +2,8 @@ import Link from "next/link";
 import { QuickBookingPanel } from "@/components/booking/QuickBookingPanel";
 import { BookingEntryLink } from "@/components/booking/BookingEntryLink";
 import { CareRail } from "@/components/clinic/CareRail";
-import { AppointmentFaq, MediaSlot } from "@/components/clinic/ClinicSections";
+import { AppointmentFaq } from "@/components/clinic/ClinicSections";
+import { HomepageMedia } from "@/components/clinic/HomepageMedia";
 export default function HomePage() {
   return (
     <div className="clinic-home">
@@ -38,12 +39,10 @@ export default function HomePage() {
         <div className="clinic-container">
           <p className="clinic-eyebrow">Our care</p>
           <h2 className="clinic-title">
-            Care for the concerns
-            <br />
-            that affect your everyday.
+            Care for the concerns that affect your everyday.
           </h2>
           <div className="clinic-practice-grid">
-            <MediaSlot label="Practice image" />
+            <HomepageMedia media="notes" />
             <div className="clinic-copy clinic-lead">
               <p>
                 Specialist consultations for pain, arthritis and autoimmune
@@ -53,12 +52,6 @@ export default function HomePage() {
                 Explore our areas of care and choose the consultation that best
                 matches what you would like to discuss.
               </p>
-              <Link
-                href="/services"
-                className="clinic-button clinic-button-inverse"
-              >
-                Explore our care
-              </Link>
             </div>
           </div>
         </div>
@@ -87,8 +80,8 @@ export default function HomePage() {
               Specialist consultations for pain, arthritis and autoimmune
               concerns, in person and virtually.
             </p>
-            <Link href="/about-dr-olaosebikan" className="clinic-button">
-              Meet the specialist
+            <Link href="/about-dr-olaosebikan" className="clinic-text-link">
+              Meet the specialist <span aria-hidden>↗</span>
             </Link>
           </div>
         </div>
@@ -103,7 +96,7 @@ export default function HomePage() {
           </h2>
           <div className="clinic-two">
             <div className="clinic-setting-card">
-              <MediaSlot label="In-person consultation setting" />
+              <HomepageMedia media="notes" />
               <h3>In-person consultations</h3>
               <p>
                 Consultations available in person at Maryamville Medical Center,
@@ -121,7 +114,7 @@ export default function HomePage() {
               </BookingEntryLink>
             </div>
             <div className="clinic-setting-card">
-              <MediaSlot label="Virtual consultation illustration" />
+              <HomepageMedia media="laptop" />
               <h3>Virtual consultations</h3>
               <p>
                 Consult Dr Hakeem Olaosebikan remotely. Joining instructions
@@ -158,9 +151,9 @@ export default function HomePage() {
             </p>
           </div>
           <div className="clinic-collage">
-            <MediaSlot label="Editorial image one" />
-            <MediaSlot label="Editorial image two" />
-            <MediaSlot label="Editorial image three" />
+            <HomepageMedia media="autoimmune" />
+            <HomepageMedia media="movement" />
+            <HomepageMedia media="preparation" />
           </div>
         </div>
       </section>

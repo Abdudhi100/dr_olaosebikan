@@ -70,15 +70,16 @@ export function ServicesView() {
         <div className="clinic-container clinic-hero-content">
           <p className="clinic-eyebrow">Our care</p>
           <h1>
-            Find the right care
+            Find the right care{" "}
             <br />
             for your concerns.
           </h1>
-          <div className="clinic-search" role="search">
-            <label htmlFor="care-search">
-              <Search aria-hidden />
-              <span className="sr-only">Search our areas of care</span>
-            </label>
+          <div className="clinic-services-search">
+            <label htmlFor="care-search">Search our areas of care</label>
+          <form className="clinic-search" role="search" onSubmit={(event) => {
+            event.preventDefault();
+            document.getElementById("care-results")?.focus();
+          }}>
             <input
               id="care-search"
               type="search"
@@ -87,6 +88,8 @@ export function ServicesView() {
               onChange={(e) => setQuery(e.target.value)}
               aria-controls="care-results"
             />
+            <button type="submit"><Search aria-hidden /> Search</button>
+          </form>
           </div>
         </div>
         <span className="clinic-media-state">Still image</span>
@@ -108,7 +111,7 @@ export function ServicesView() {
               found.
             </p>
           )}
-          <div id="care-results" className="clinic-service-grid">
+          <div id="care-results" className="clinic-service-grid" tabIndex={-1} aria-label="Care search results">
             {filtered.map((s) => (
               <article className="clinic-service-card" key={s.title}>
                 <img
@@ -119,6 +122,11 @@ export function ServicesView() {
                 <div className="clinic-service-card-content">
                   <h2>{s.title}</h2>
                   <p>{s.description}</p>
+                  {s.image === "arthritis" && (
+                    <BookingEntryLink seed={{ reason: s.reason }}>
+                      Request an appointment <span aria-hidden>↗</span>
+                    </BookingEntryLink>
+                  )}
                   {s.href ? (
                     <Link href={s.href}>
                       {s.image === "arthritis"
