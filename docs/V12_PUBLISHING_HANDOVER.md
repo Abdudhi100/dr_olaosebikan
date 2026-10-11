@@ -21,7 +21,7 @@ Design source: [existing Figma V12 hub](https://www.figma.com/design/r95tId7u6GF
 | Rendering | Text-only Portable Text blocks, headings, single-level lists, bold/italic and validated HTTPS links. No arbitrary HTML or embed code. |
 | Video | Matching YouTube/Vimeo source and ID; real duration/upload date/speaker; rights-cleared Sanity thumbnail, confirmed captions and human-reviewed transcript; external player loads on visitor action. |
 | SEO | Actual authors, publication/update dates, canonical URLs and sources. Article, NewsArticle or VideoObject schema; no false doctor-author fallback. Existing undated pages omit sitemap lastmod. |
-| Withdrawal | Every build queries current published state and regenerates routes, navigation and sitemap. Unpublish/delete must trigger a successful rebuild before live removal is claimed. |
+| Withdrawal | Every build queries current published state, clears the generated `out/` directory, then regenerates routes, navigation and sitemap. Next export alone can retain stale files; explicit cleanup prevents them surviving withdrawal. Unpublish/delete must trigger a successful rebuild before live removal is claimed. |
 
 ## Setup — owner action and subsequent connection
 
@@ -47,7 +47,7 @@ Design source: [existing Figma V12 hub](https://www.figma.com/design/r95tId7u6GF
 ## Validation evidence and remaining limits
 
 - `npm test`: 27 checks, including review-version invalidation, draft/version exclusion, invalid API writes, duplicate paths, unsafe URLs, impossible/future dates, rights, video accessibility and query failure.
-- `npm run test:export`: synthetic article/video/news/research static pages, metadata/schema, escaped script-like text, withheld evidence references, empty state and withdrawal. The script restores the configured real snapshot and rebuilds in `finally`; final default export contains no fixtures.
+- `npm run test:export`: synthetic article/video/news/research static pages, metadata/schema, escaped script-like text, withheld evidence references, empty state and withdrawal. A seeded stale export file is also removed by the explicit build cleanup. The script restores the configured real snapshot and rebuilds in `finally`; final default export contains no fixtures.
 - Root and Studio type checks and Studio local bundle build pass. The Studio build used a clearly synthetic project identifier; no account provisioning, login, deployment or invitations occurred.
 - Public-site production dependency audit is clean after a compatible Next 15.5.27 patch and PostCSS override. Studio's toolchain still reports transitive npm advisories (including braces/sprintf-js/uuid). No forced major downgrade or unverified major override was applied. Review those advisories before hosted Studio deployment; Studio dependencies are not installed by or bundled into the public Next export. The root Tailwind development toolchain also has upstream advisories; that audit is separate from the public production-dependency result.
 - Actual Sanity auth/roles, independent approval evidence, dataset confidentiality, webhook deliveries, Cloudflare failure notifications and live HTTP removal need account-connected acceptance checks. No claim that these are verified.
@@ -59,7 +59,7 @@ Design source: [existing Figma V12 hub](https://www.figma.com/design/r95tId7u6GF
 | Purpose | Location |
 | --- | --- |
 | Shared release rules and fingerprint | `shared/publishing-policy.mjs` |
-| Published content query and snapshot preparation | `scripts/prepare-editorial.mjs` |
+| Published content query and snapshot preparation | `scripts/prepare-editorial.mjs`; output cleanup in `scripts/clean-static-export.mjs` |
 | Public templates and responsive chrome | `src/components/insights/`, `src/app/insights/page.tsx` |
 | Conditional detail-route templates | `src/editorial-routes/` (generated copies are ignored) |
 | Hosted editor, schemas and Publish guard | `studio/` |

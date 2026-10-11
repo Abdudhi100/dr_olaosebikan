@@ -1,10 +1,16 @@
 import assert from "node:assert/strict";
-import { readFile, access } from "node:fs/promises";
+import { readFile, access, writeFile } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
 import { prepareEditorial } from "./prepare-editorial.mjs";
 import { entry, research, body } from "./fixtures/editorial.mjs";
 const root = new URL("../", import.meta.url);
 function build() {
+  const clean = spawnSync(
+    process.execPath,
+    ["scripts/clean-static-export.mjs"],
+    { cwd: root, stdio: "inherit" },
+  );
+  if (clean.status !== 0) throw new Error("Static export cleanup failed.");
   const result = spawnSync(
     process.execPath,
     ["node_modules/next/dist/bin/next", "build"],
@@ -71,12 +77,17 @@ try {
   assert.ok(sitemap.includes("/insights/articles/synthetic-article-test"));
   assert.ok(sitemap.includes("2020-01-03T09:00:00.000Z"));
   assert.ok(!(await read("insights.html")).includes("noindex"));
+  await writeFile(
+    new URL("../out/stale-synthetic-page.html", import.meta.url),
+    "<h1>Stale synthetic page</h1>",
+  );
   console.log("Populated static export checks passed.");
 } finally {
   // Always restore the real configured source. Synthetic content cannot remain in the final export.
   await prepareEditorial();
   build();
 }
+await absent("stale-synthetic-page.html");
 await absent("insights/articles/synthetic-article-test.html");
 await absent("insights/videos/synthetic-video-test.html");
 await absent("insights/news/synthetic-news-test.html");
