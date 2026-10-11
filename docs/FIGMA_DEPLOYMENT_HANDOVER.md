@@ -20,3 +20,9 @@ The implementation covers the shared clinic shell, homepage, services and condit
 6. Only release after the requested approvals and hosted acceptance. Verify the actual Pages and canonical domain content after deployment.
 
 No production deployment, live patient delivery or functioning live CMS is claimed. No paid service was enabled.
+
+## Interrupted remote save
+
+The owner reports repeated “Turn ended by Auto-review. Add more context to continue” interruptions during GitHub asset uploads. No detailed rejection reason was exposed in tool results. Terminal push also lacks GitHub authentication. Some unattached blobs were uploaded, but no completed full-redesign remote commit, branch update or PR has been verified. The existing remote feat/figma-full-implementation branch was last observed at the V12 base 83edefa.
+
+All source changes, assets, progress records and prior review captures are committed locally. A verified complete-history Git bundle preserves the implementation. Resume external writes only after resolving the review interruption or obtaining explicit confirmation for the concrete branch/asset/PR operation. Production and patient delivery remain unchanged.
