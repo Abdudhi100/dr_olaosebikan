@@ -7,7 +7,8 @@ const fs = require("node:fs"),
 const root = process.cwd();
 const esbuild = require(process.env.ESBUILD_MODULE || "esbuild");
 const { chromium } = require(
-  process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES + "/playwright",
+  process.env.PLAYWRIGHT_MODULE ||
+    process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES + "/playwright",
 );
 (async () => {
   const temp = fs.mkdtempSync(path.join(os.tmpdir(), "clinic-booking-review-"));
@@ -171,7 +172,7 @@ const { chromium } = require(
       0,
     );
     fs.writeFileSync(
-      root + "/docs/figma-review/booking-state-results.json",
+      path.resolve(process.env.CLINIC_REVIEW_OUTPUT_DIR || "docs/figma-review", "booking-state-results.json"),
       JSON.stringify(
         {
           method:

@@ -66,3 +66,11 @@ No paid services or subscriptions were enabled. Use manual publication and exter
 - Fixed stale Next.js route definitions after content withdrawal: `pretypecheck` now removes generated `.next/types` and regenerates current definitions with `next typegen`. Root type checking and production build passed afterward.
 - All 51 unit tests pass; retained the pending hydration guards on search filters and the video load button.
 - Cloudflare dashboard redirected to its sign-in page; account/project settings, protected hosted preview and production remain unverified.
+
+## Recovered-bundle continuation - 11 October 2026
+
+The bundle was restored at `699c5c883b389d0ff1e7a4fdf8b102f13192d322` in an isolated checkout. The original workspace was preserved. Twelve homepage slots now contain provenance-recorded review candidates, and scoped Home/Services fidelity corrections were applied. Media publication approval remains pending.
+
+Fresh results: 51 unit tests, root/Studio TypeScript and builds, 68 default route/viewport browser checks, synthetic booking-state checks, and 40 populated editorial browser checks plus export/withdrawal passed. The earlier pending populated-browser item above is now resolved by fresh local evidence; it remains distinct from a real Sanity pipeline. See `IMPLEMENTATION_CONTINUATION_REPORT.md` for commands, warnings and limits.
+
+All 32 native reference frames were recovered for comparison, with downscaled exports labelled. Cloudflare authentication was initially expired and its latest read-only recheck failed on connectivity. Protected hosted acceptance, live Sanity integration, owner approval gates and public release remain pending. No production write was made. GitHub save details and the current external checkpoint are kept with the portable continuation review package.

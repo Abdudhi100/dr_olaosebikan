@@ -11,7 +11,7 @@ const { chromium } = require(
 );
 (async () => {
   const root = path.join(process.cwd(), "out");
-  const screenshots = path.join(process.cwd(), "docs/figma-review");
+  const screenshots = path.resolve(process.env.CLINIC_REVIEW_OUTPUT_DIR || "docs/figma-review");
   fs.mkdirSync(screenshots, { recursive: true });
   const server = http.createServer((req, res) => {
     const pathname = decodeURIComponent(
@@ -202,6 +202,7 @@ const { chromium } = require(
     await page
       .getByRole("link", { name: "Continue to appointment request" })
       .click();
+    await page.waitForURL(origin + "/appointments/book");
     assert.equal(new URL(page.url()).pathname, "/appointments/book");
     assert.equal(new URL(page.url()).search, "");
     await page.waitForFunction(

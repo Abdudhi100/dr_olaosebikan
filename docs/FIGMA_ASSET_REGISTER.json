@@ -109,7 +109,7 @@
       "usage": "existing repository asset"
     }
   ],
-  "pendingHomepageSlots": {
+  "homepageSlotBaseline": {
     "count": 12,
     "practice": 1,
     "careRail": 6,
@@ -117,6 +117,13 @@
     "virtualConsultation": 1,
     "wholePersonCare": 3,
     "status": "Native Figma frames contain blank media slots. No replacement images invented; public release blocked pending authorised selection."
+  },
+  "homepageIntegration": {
+    "date": "2026-10-11",
+    "filledReviewSlots": 12,
+    "newPreparedWebPFiles": 7,
+    "provenanceRegister": "HOMEPAGE_MEDIA_REVIEW.json",
+    "status": "Recovered candidates integrated for local review. Final selection and publication rights remain pending; no real clinic/patient attribution. Existing hero and portrait unchanged."
   },
   "videoStatus": "Original Figma still posters used. Hero video controls intentionally deferred until media-rights approval; no nonfunctional pause button.",
   "cropStatus": "Responsive CSS object-fit and source crop positions; final deployed visual comparison remains pending."

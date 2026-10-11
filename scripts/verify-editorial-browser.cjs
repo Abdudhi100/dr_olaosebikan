@@ -10,7 +10,7 @@ const { chromium } = require(
 (async () => {
   const root = path.join(process.cwd(), "out");
   const server = http.createServer((req, res) => {
-    const pathname = new URL(req.url, "http://local").pathname;
+    const pathname = decodeURIComponent(new URL(req.url, "http://local").pathname);
     let file = path.join(root, pathname);
     if (!file.startsWith(root + path.sep)) {
       res.writeHead(403);
@@ -65,7 +65,8 @@ const { chromium } = require(
   try {
     const page = await browser.newPage();
     const errors = [];
-    page.on("pageerror", (e) => errors.push(e.message));
+    page.on("pageerror", (e) => { errors.push(e.message); console.error("Client error:", e.message); });
+    page.on("requestfailed", r => console.error("Request failed:", new URL(r.url()).pathname, r.failure()?.errorText));
     await page.route("**/*", (route) => {
       const u = route.request().url();
       if (new URL(u).origin === origin) return route.continue();
@@ -170,7 +171,7 @@ const { chromium } = require(
     }
     assert.deepEqual(errors, []);
     fs.writeFileSync(
-      "docs/figma-review/editorial-browser-results.json",
+      path.join(process.env.CLINIC_REVIEW_OUTPUT_DIR || "docs/figma-review", "editorial-browser-results.json"),
       JSON.stringify(
         {
           checks,
