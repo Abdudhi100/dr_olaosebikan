@@ -1,0 +1,590 @@
+/* Booking flow only; the accepted homepage composition and shared shell stay unchanged. */
+.page {
+  background: #f8f7f2;
+  color: #002a30;
+  padding: 24px 16px;
+}
+.layout {
+  display: grid;
+  gap: 16px;
+  align-items: start;
+}
+.formCard,
+.information {
+  min-width: 0;
+  border-radius: 24px;
+  padding: 20px;
+}
+.formCard {
+  background: #fff;
+}
+.form,
+.fieldset {
+  display: grid;
+  min-width: 0;
+  gap: 20px;
+}
+.fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.title {
+  font-size: 28px;
+  line-height: 34px;
+  font-weight: 500;
+}
+.intro,
+.help,
+.privacy,
+.status {
+  font-size: 14px;
+  line-height: 22px;
+  overflow-wrap: anywhere;
+}
+.intro,
+.help,
+.privacy {
+  color: #496267;
+}
+.prototype {
+  border-color: #667e43;
+  background: #dde5d1;
+  color: #002a30;
+  border-width: 1px;
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 600;
+}
+.fields {
+  min-width: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+}
+.field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 8px;
+}
+.label {
+  color: #002a30;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 600;
+}
+.optional {
+  font-weight: 400;
+}
+.control {
+  border-color: #748a8a;
+  background: #fff;
+  color: #002a30;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 52px;
+  border-width: 1px;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font: inherit;
+  font-size: 16px;
+  line-height: 24px;
+  scroll-margin-top: calc(var(--v2-header-height, 6rem) + 24px);
+}
+.control::placeholder {
+  color: #496267;
+  opacity: 1;
+}
+.control:focus-visible,
+.errorSummary:focus-visible,
+.status:focus-visible,
+.errorSummary a:focus-visible,
+.reset:focus-visible {
+  outline-style: solid;
+  outline-width: 2px;
+  outline-offset: 3px;
+}
+.control[aria-invalid="true"] {
+  border-color: #a12222;
+}
+.control:disabled {
+  background: #f8f7f2;
+  color: #496267;
+  cursor: not-allowed;
+}
+textarea.control {
+  min-height: 128px;
+  resize: vertical;
+}
+.error {
+  color: #a12222;
+  font-size: 14px;
+  line-height: 22px;
+  overflow-wrap: anywhere;
+}
+.errorSummary {
+  border-color: #a12222;
+  background: #fff0ee;
+  color: #a12222;
+  border-width: 2px;
+  border-radius: 12px;
+  padding: 16px;
+  scroll-margin-top: calc(var(--v2-header-height, 6rem) + 24px);
+}
+.errorSummary h2,
+.errorSummary h3 {
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 600;
+}
+.errorSummary ul {
+  padding-left: 20px;
+  list-style: disc;
+}
+.errorSummary a {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  padding-block: 8px;
+  font-size: 14px;
+  line-height: 22px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+.preferenceSummary {
+  border-color: #748a8a;
+  background: #f8f7f2;
+  border-width: 1px;
+  border-radius: 12px;
+  padding: 16px;
+}
+.preferenceSummary h2 {
+  margin-bottom: 12px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+}
+.preferenceSummary dl {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+.preferenceSummary dl > div {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+}
+.preferenceSummary dt,
+.preferenceSummary dd {
+  font-size: 14px;
+  line-height: 22px;
+  overflow-wrap: anywhere;
+}
+.preferenceSummary dt {
+  font-weight: 600;
+}
+.preferenceSummary dd {
+  color: #496267;
+}
+.actions,
+.quickActions {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+}
+.actions > *,
+.quickActions > * {
+  max-width: 100%;
+}
+.status:not(:empty) {
+  border-color: #748a8a;
+  background: #f8f7f2;
+  color: #002a30;
+  border-width: 1px;
+  border-radius: 12px;
+  padding: 16px;
+  scroll-margin-top: calc(var(--v2-header-height, 6rem) + 24px);
+}
+.status strong {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.status[data-state="acknowledged"] {
+  border-color: #667e43;
+  background: #dde5d1;
+}
+.status[data-state="failure"],
+.status[data-state="uncertain"] {
+  border-color: #946418;
+  background: #fff9e9;
+}
+.reset {
+  color: #002a30;
+  justify-self: start;
+  min-height: 48px;
+  padding-block: 12px;
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 600;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.information {
+  background: #002a30;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+.eyebrow {
+  color: #dde5d1;
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 500;
+}
+.informationHeading {
+  font-size: 28px;
+  line-height: 34px;
+  font-weight: 500;
+}
+.informationLead,
+.informationCopy,
+.informationMuted {
+  font-size: 14px;
+  line-height: 24px;
+}
+.informationMuted {
+  color: #dde5d1;
+}
+.informationAddress {
+  display: grid;
+  gap: 16px;
+}
+.informationAction {
+  width: 100%;
+}
+.informationPhone {
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 500;
+}
+.quickForm {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  gap: 20px;
+}
+.quickForm .fields {
+  align-items: start;
+}
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 640px) {
+  .page {
+    padding: 32px;
+  }
+  .preferenceSummary dl {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .actions,
+  .quickActions {
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: 32px;
+  }
+  .formCard {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .information {
+    grid-column: 1;
+    grid-row: 1;
+    gap: 24px;
+  }
+  .formCard,
+  .information {
+    padding: 32px;
+    border-radius: 32px;
+  }
+  .form,
+  .fieldset {
+    gap: 24px;
+  }
+  .title {
+    font-size: 30px;
+    line-height: 38px;
+  }
+  .informationHeading {
+    font-size: 40px;
+    line-height: 46px;
+  }
+  .informationLead {
+    font-size: 18px;
+    line-height: 29px;
+  }
+  .informationCopy,
+  .informationMuted {
+    font-size: 16px;
+    line-height: 26px;
+  }
+  .informationAddress {
+    gap: 24px;
+  }
+  .quickForm .fields {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* V8 booking composition; preferences share the mounted client draft. */
+.title {
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 1.15;
+}
+.label {
+  font-weight: 500;
+}
+.control {
+  border-radius: 12px;
+  min-height: 52px;
+}
+.form {
+  gap: 28px;
+}
+.quickForm {
+  background: rgba(248, 247, 242, 0.92);
+  color: #002a30;
+  border-radius: 32px;
+  padding: 28px;
+  text-align: left;
+  gap: 20px;
+}
+.quickForm .label {
+  font-size: 12px;
+  font-weight: 400;
+}
+.quickForm .control {
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+  padding-inline: 0;
+  font-size: 16px;
+}
+.quickForm .help {
+  font-size: 11px;
+  line-height: 18px;
+}
+.quickForm .fields {
+  gap: 24px;
+}
+.quickActions {
+  justify-content: flex-end;
+}
+.prototype {
+  font-weight: 400;
+  border: 0;
+}
+.privacy {
+  font-size: 12px;
+  line-height: 20px;
+}
+.form .title {
+  margin-bottom: 0;
+}
+.form .intro {
+  font-size: 14px;
+  line-height: 24px;
+}
+.fields {
+  gap: 24px;
+}
+.quickForm .field {
+  padding-right: 24px;
+  border-right: 1px solid #bbc9c6;
+}
+.quickForm .field:last-child {
+  padding-right: 0;
+  border: 0;
+}
+@media (max-width: 600px) {
+  .quickForm {
+    padding: 24px;
+    border-radius: 24px;
+  }
+  .quickForm .fields {
+    gap: 12px;
+  }
+  .quickForm .field {
+    padding: 0 0 8px;
+    border-right: 0;
+    border-bottom: 1px solid #bbc9c6;
+  }
+  .quickForm .control {
+    min-height: 40px;
+  }
+  .quickForm .help {
+    margin-top: -8px;
+  }
+  .title {
+    font-size: 26px;
+  }
+  .quickActions {
+    gap: 12px;
+  }
+}
+
+.radioGroup {
+  display: flex;
+  gap: 12px;
+  min-height: 52px;
+}
+.radioCard {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex: 1;
+  padding: 12px 14px;
+  border: 1px solid #748a8a;
+  border-radius: 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.radioCard:has(input:checked) {
+  background: #dde5d1;
+  border-color: #002a30;
+}
+.radioCard input {
+  accent-color: #002a30;
+  width: 18px;
+  height: 18px;
+}
+.radioGroup[aria-invalid="true"] .radioCard {
+  border-color: #a12222;
+}
+@media (max-width: 600px) {
+  .radioGroup {
+    flex-direction: column;
+  }
+}
+
+.notice {
+  background: #d6e1dc;
+  border-radius: 12px;
+  padding: 20px;
+  font-size: 14px;
+  line-height: 21px;
+}
+.notice p + p {
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 19px;
+}
+.contactTitle {
+  border-top: 1px solid #cbd8d2;
+  padding-top: 32px;
+  margin-top: 8px;
+}
+.radioGroup {
+  flex-direction: column;
+}
+.radioCard {
+  min-height: 52px;
+}
+.form .title {
+  font-size: 24px;
+  line-height: 32px;
+}
+.form .actions {
+  flex-direction: column;
+}
+.form .actions > .clinic-button {
+  width: 100%;
+}
+.quickForm {
+  background: rgba(248, 247, 242, 0.8);
+}
+.quickForm .label {
+  font-size: 13px;
+  font-weight: 500;
+}
+.quickForm .help {
+  font-size: 12px;
+}
+.quickNotice {
+  font-size: 12px;
+  line-height: 19px;
+  color: #526366;
+  max-width: 620px;
+}
+.quickActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.quickButtons {
+  display: flex;
+  gap: 16px;
+  flex-shrink: 0;
+}
+.quickButtons > a:first-child {
+  min-width: 296px;
+}
+.quickButtons > a:last-child {
+  min-width: 206px;
+}
+@media (max-width: 1100px) {
+  .quickActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .quickButtons {
+    justify-content: flex-end;
+  }
+}
+@media (max-width: 600px) {
+  .quickForm {
+    padding: 20px;
+  }
+  .quickButtons {
+    flex-direction: column;
+  }
+  .quickButtons > a:first-child,
+  .quickButtons > a:last-child {
+    min-width: 0;
+  }
+  .fields {
+    grid-template-columns: 1fr;
+  }
+  .notice {
+    padding: 20px;
+  }
+}

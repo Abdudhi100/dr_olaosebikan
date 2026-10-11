@@ -1,0 +1,21 @@
+{
+  "releaseStatus": "pending",
+  "professionalClaimsVerified": false,
+  "clinicalCopyApproved": false,
+  "contactDetailsConfirmed": false,
+  "mediaRightsApproved": false,
+  "homepageMediaComplete": false,
+  "canonicalDomainConfirmed": false,
+  "privatePreviewAccessVerified": false,
+  "productionBranch": "",
+  "booking": {
+    "enabled": false,
+    "recipientBindingVerified": false,
+    "privacyNoticeApproved": false,
+    "privacyNoticePath": "",
+    "retentionApproved": false,
+    "rateProtectionVerified": false,
+    "contactOnlyFallbackApproved": false
+  },
+  "evidenceReferences": {}
+}

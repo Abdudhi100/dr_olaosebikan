@@ -8,8 +8,12 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: "/",
-        disallow: ["/admin/", "/accounts/", "/dashboard/"],
+        ...(process.env.CLINIC_RELEASE === "approved"
+          ? { allow: "/" }
+          : { disallow: "/" }),
+        ...(process.env.CLINIC_RELEASE === "approved"
+          ? { disallow: ["/admin/", "/accounts/", "/dashboard/"] }
+          : {}),
       },
     ],
     sitemap: `${site.siteUrl}/sitemap.xml`,

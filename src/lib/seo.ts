@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { doctor, faqs, site, type ClinicPage, type Publication } from "@/lib/content";
+import {
+  doctor,
+  faqs,
+  site,
+  type ClinicPage,
+  type Publication,
+} from "@/lib/content";
 
 type MetadataInput = {
   title: string;
@@ -57,14 +63,22 @@ export function defaultMetadata({
       images: [imageUrl],
     },
     robots: {
-      index: true,
+      index: process.env.CLINIC_RELEASE === "approved",
       follow: true,
     },
     icons: {
       icon: [
         { url: "/favicon/favicon.ico" },
-        { url: "/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-        { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+        {
+          url: "/favicon/favicon-32x32.png",
+          sizes: "32x32",
+          type: "image/png",
+        },
+        {
+          url: "/favicon/favicon-16x16.png",
+          sizes: "16x16",
+          type: "image/png",
+        },
       ],
       apple: [{ url: "/favicon/apple-touch-icon.png" }],
     },
@@ -102,7 +116,6 @@ export function physicianJsonLd() {
     areaServed: "Lagos, Nigeria",
     telephone: site.phone,
     email: site.email,
-    affiliation: doctor.hospitalAffiliations.join(", "),
     address: {
       "@type": "PostalAddress",
       streetAddress: site.address,
@@ -122,11 +135,6 @@ export function medicalPageJsonLd(page: ClinicPage) {
     mainEntity: {
       "@type": "MedicalCondition",
       name: page.title,
-    },
-    reviewedBy: {
-      "@type": "Physician",
-      name: doctor.displayName,
-      medicalSpecialty: "Rheumatology",
     },
   };
 }
@@ -152,7 +160,16 @@ export function publicationJsonLd(publication: Publication) {
     "@type": "ScholarlyArticle",
     headline: publication.title,
     name: publication.title,
-    ...(publication.authorNames?.length ? {author: publication.authorNames.map(name => ({"@type": "Person", name}))} : publication.authors ? {author: publication.authors} : {}),
+    ...(publication.authorNames?.length
+      ? {
+          author: publication.authorNames.map((name) => ({
+            "@type": "Person",
+            name,
+          })),
+        }
+      : publication.authors
+        ? { author: publication.authors }
+        : {}),
     datePublished: String(publication.year),
     isPartOf: publication.journal,
     description: publication.abstract,

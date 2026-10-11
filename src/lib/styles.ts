@@ -22,3 +22,5 @@ export const surfaceStyles = {
   muted: "rounded-lg border border-border-subtle bg-surface-muted",
   elevated: "rounded-lg border border-border-subtle bg-surface-emphasis shadow-floating",
 };
+
+export const v2ButtonStyles = { primary: "clinic-button", secondary: "clinic-button clinic-button-outline" };
