@@ -11,6 +11,18 @@ export const CONTENT_QUERY = `*[_type in ["editorialEntry", "researchPublication
  video{platform,videoId,sourceUrl,durationSeconds,uploadedAt,speakerName,captionsConfirmed,transcriptReviewed,transcript},
  news{eventAt,organisation,sourceUrl},journal,year,authors,abstract,doiLink,sourceUrl,verified,organisation,description
 }`;
+// GROQ projects missing object fields as null. Match Studio's absent fields
+// before validation/fingerprinting and generation; retain invalid array items.
+function omitNullObjectFields(value) {
+  if (Array.isArray(value)) return value.map(omitNullObjectFields);
+  if (value && typeof value === "object")
+    return Object.fromEntries(
+      Object.entries(value)
+        .filter(([, field]) => field !== null)
+        .map(([key, field]) => [key, omitNullObjectFields(field)]),
+    );
+  return value;
+}
 export async function fetchPublished(env = process.env, fetcher = fetch) {
   const mode = env.SANITY_CONTENT_MODE ?? "disabled";
   if (!["disabled", "sanity"].includes(mode))
@@ -60,7 +72,7 @@ export async function fetchPublished(env = process.env, fetcher = fetch) {
   const data = JSON.parse(raw);
   if (!Array.isArray(data.result))
     throw new Error("CMS query returned an invalid result.");
-  return data.result;
+  return omitNullObjectFields(data.result);
 }
 export async function prepareEditorial({
   env = process.env,

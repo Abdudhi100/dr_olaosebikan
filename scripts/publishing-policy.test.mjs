@@ -238,6 +238,34 @@ test("query failures and malformed CMS responses stop the build", async () => {
   ])
     await assert.rejects(fetchPublished(env, async () => response));
 });
+test("real GROQ null projections preserve optional-field types and approval fingerprints", async () => {
+  const doc = await entry("article");
+  const projected = {
+    ...doc,
+    modifiedAt: null,
+    video: null,
+    news: null,
+    featuredImage: null,
+    imageAlt: null,
+    correctionNote: null,
+  };
+  const env = {
+    SANITY_CONTENT_MODE: "sanity",
+    SANITY_PROJECT_ID: "example1",
+    SANITY_DATASET: "production",
+  };
+  const read = (result) => fetchPublished(env, async () =>
+    new Response(JSON.stringify({ result })),
+  );
+  const [normalized] = await read([projected]);
+  assert.equal(Object.hasOwn(normalized, "modifiedAt"), false);
+  assert.equal(await contentFingerprint(normalized), await contentFingerprint(doc));
+  assert.equal((await validateSnapshot([normalized], options)).editorial.length, 1);
+  const invalid = await read([{ ...projected, title: null }]);
+  await assert.rejects(validateSnapshot(invalid, options), /title/i);
+  const invalidBody = await read([{ ...projected, body: [null] }]);
+  await assert.rejects(validateSnapshot(invalidBody, options));
+});
 test("unpublishing removes cards and route candidates from a fresh snapshot", async () => {
   const doc = await entry();
   assert.equal((await validateSnapshot([doc], options)).editorial.length, 1);
