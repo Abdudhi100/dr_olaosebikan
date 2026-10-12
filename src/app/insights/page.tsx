@@ -50,17 +50,18 @@ export default function InsightsPage() {
   const featured =
     editorialEntries.find((entry) => entry.featured) ?? editorialEntries[0];
   return (
-    <div className={styles.scope}>
+    <div className={`${styles.scope} ${styles.hub}`}>
       <InsightsHero
         eyebrow="Clinic education & resources"
-        title="Insights & media."
+        title={<><span>Insights &amp;</span>{" "}<span>media.</span></>}
         description="A space for educational articles, videos, verified research and clinic updates."
       />
       <div className={`${styles.container} ${styles.body}`}>
         <p className={styles.eyebrow}>Browse by format</p>
         <h2 className={styles.sectionTitle}>Resources to explore.</h2>
         <p className={styles.lead}>
-          Browse educational content by format, with clear authorship, sources
+          Browse educational content by format. When clinic material is approved,
+          new entries will appear here with clear authorship, review information
           and publication dates.
         </p>
         {featured ? (
@@ -76,23 +77,17 @@ export default function InsightsPage() {
             </Link>
           </section>
         ) : (
-          <div className={styles.empty}>
+          <section className={`${styles.feature} ${styles.awaiting}`} aria-labelledby="awaiting-title">
+            <p className={styles.eyebrow}>Featured content &bull; Awaiting approved material</p>
+            <h3 id="awaiting-title">Helpful health education, clearly explained.</h3>
             <p>
-              No articles, videos or clinic news have been published here yet.
+              The first approved article, research update or video can take this
+              featured position. No media asset is displayed until it is supplied
+              and cleared.
             </p>
-            <p>
-              For current care information,{" "}
-              <Link href="/#services" className="underline">
-                explore our care pages
-              </Link>{" "}
-              or{" "}
-              <Link href="/contact-location" className="underline">
-                contact the clinic
-              </Link>
-              .
-            </p>
-          </div>
+          </section>
         )}
+        <p className={styles.eyebrow}>Explore the library</p>
         <div className={styles.collections}>
           {collections.map((collection) => (
             <Link
@@ -127,6 +122,24 @@ export default function InsightsPage() {
             </div>
           )}
         </div>
+        {!featured && (
+          <div className={styles.empty}>
+            <p>
+              No articles, videos or clinic news have been published here yet.
+            </p>
+            <p>
+              For current care information,{" "}
+              <Link href="/#services" className="underline">
+                explore our care pages
+              </Link>{" "}
+              or{" "}
+              <Link href="/contact-location" className="underline">
+                contact the clinic
+              </Link>
+              .
+            </p>
+          </div>
+        )}
         {editorialEntries.length > 0 && (
           <InsightsSearch entries={searchEntries(editorialEntries)} />
         )}

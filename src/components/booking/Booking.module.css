@@ -562,6 +562,12 @@ textarea.control {
   min-width: 206px;
 }
 @media (max-width: 1100px) {
+  .quickForm .fields { grid-template-columns: 1fr; gap: 12px; }
+  .quickForm .field { padding: 0 0 8px; border-right: 0; border-bottom: 1px solid #bbc9c6; }
+  .quickForm .field:last-child { border-bottom: 1px solid #bbc9c6; }
+  .quickForm .control { min-height: 40px; }
+  .quickButtons { flex-direction: column; }
+  .quickButtons > a:first-child, .quickButtons > a:last-child { min-width: 0; width: 100%; }
   .quickActions {
     flex-direction: column;
     align-items: stretch;
@@ -588,3 +594,7 @@ textarea.control {
     padding: 20px;
   }
 }
+
+/* Native V8 input surfaces; preserve native controls and validation. */
+.form .control { min-height: 56px; }
+.form .radioCard { min-height: 48px; }

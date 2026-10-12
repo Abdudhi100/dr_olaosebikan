@@ -33,7 +33,6 @@ export default function HomePage() {
             whatsappLabel="Book via WhatsApp"
           />
         </div>
-        <span className="clinic-media-state">Still image</span>
       </section>
       <section className="clinic-practice clinic-section clinic-dark clinic-rounded">
         <div className="clinic-container">
@@ -58,6 +57,7 @@ export default function HomePage() {
       </section>
       <section className="clinic-specialist-preview">
         <div className="clinic-container clinic-two">
+          <div className="clinic-home-portrait">
           <img
             className="clinic-portrait"
             src="/images/dr_hakeem.webp"
@@ -66,6 +66,7 @@ export default function HomePage() {
             alt="Dr Hakeem Olaosebikan"
             loading="lazy"
           />
+          </div>
           <div className="clinic-copy">
             <p className="clinic-eyebrow">The specialist behind your care</p>
             <h2 className="clinic-preview-heading">

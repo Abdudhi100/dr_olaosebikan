@@ -22,8 +22,7 @@ export default function AchievementsPage() {
         eyebrow="Professional milestones"
         title={
           <>
-            Achievements <br className="clinic-mobile-break" />
-            &amp; recognitions.
+            Achievements &amp;<br className="clinic-mobile-break" /> recognitions.
           </>
         }
         description="A dedicated page for professional milestones and recognitions when their details are verified."

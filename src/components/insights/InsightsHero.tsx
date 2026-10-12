@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import styles from "./insights.module.css";
 export function InsightsHero({
@@ -5,7 +6,7 @@ export function InsightsHero({
   description,
   eyebrow,
 }: {
-  title: string;
+  title: ReactNode;
   description: string;
   eyebrow: string;
 }) {

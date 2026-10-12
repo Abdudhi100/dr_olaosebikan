@@ -117,16 +117,18 @@ const { chromium } = require(
         await page.evaluate(async () => {
           await document.fonts.ready;
           await Promise.all(
-            Array.from(document.images).map((im) => {
+            Array.from(document.images).map(async (im) => {
               im.loading = "eager";
-              return im.complete
+              await (im.complete
                 ? Promise.resolve()
                 : new Promise((r) => {
                     im.onload = r;
                     im.onerror = r;
-                  });
+                  }));
+              await im.decode().catch(() => {});
             }),
           );
+          await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
         });
         assert.equal(
           response.status(),
@@ -155,12 +157,34 @@ const { chromium } = require(
             layout.title && layout.description && layout.canonical,
             `${route} SEO`,
           );
-        if (route === "/")
+        if (route === "/") {
+          const geometry = await page.locator(".clinic-care-scroll").evaluate((el) => {
+            const card = el.firstElementChild;
+            return { width: card.getBoundingClientRect().width, height: card.getBoundingClientRect().height, image: card.querySelector(".clinic-media-slot").getBoundingClientRect().height, gap: parseFloat(getComputedStyle(el).columnGap) };
+          });
+          assert.equal(geometry.width, width <= 1100 ? 268 : 295, `Care card width at ${width}`);
+          assert.equal(geometry.image, width <= 1100 ? 233 : 226.75, `Care image height at ${width}`);
+          assert.equal(geometry.height, width <= 1100 ? 335 : 368.75, `Care card height at ${width}`);
+          assert.equal(geometry.gap, width <= 1100 ? 12 : 30, `Care gap at ${width}`);
+          const preferences = await page.locator('[class*="quickForm"] [class*="fields"]').evaluate((el) => new Set(Array.from(el.children, (child) => Math.round(child.getBoundingClientRect().left))).size);
+          assert.equal(preferences, width <= 1100 ? 1 : 4, `Native quick preference columns at ${width}`);
+          await page.waitForFunction((expected) => document.querySelector(".clinic-rail-controls > span").textContent.replace(/\s+/g, " ").trim() === expected, width === 390 ? "1 / 6" : width === 768 ? "1–2 / 6" : "1–4 / 6");
           assert.equal(
             await page.locator('img[src="/images/dr_hakeem.webp"]').count(),
             1,
             "Single homepage portrait",
           );
+        }
+        if (route === "/publications" || route === "/publications/achievements") {
+          const columns = await page.locator(".clinic-resource-layout").evaluate((el) => new Set(Array.from(el.children, (child) => Math.round(child.getBoundingClientRect().left))).size);
+          assert.equal(columns, width <= 1100 ? 1 : 2, `Resource columns at ${width}`);
+        }
+        if (route === "/insights") {
+          assert.equal(await page.locator("#awaiting-title").count(), 1, "Truthful awaiting-content feature");
+          assert.equal(await page.getByText("No articles, videos or clinic news have been published here yet.", { exact: true }).count(), 1, "Existing empty state preserved");
+          const titleRows = await page.locator("h1 > span").evaluateAll((els) => new Set(els.map((el) => Math.round(el.getBoundingClientRect().top))).size);
+          assert.equal(titleRows, width === 390 ? 2 : 1, `Editorial heading rows at ${width}`);
+        }
         await page.screenshot({
           path: path.join(
             screenshots,
@@ -264,6 +288,16 @@ const { chromium } = require(
     assert.equal(await page.locator("#booking-reason").inputValue(), "");
     assert.equal(await page.locator("input[type=radio]:checked").count(), 0);
     await page.goto(origin + "/services");
+    await page.getByRole("button", { name: "Open navigation", exact: true }).click();
+    assert.equal(await page.locator('#clinic-mobile-navigation a[aria-current="page"]').textContent(), "Our care");
+    await page.keyboard.press("Escape");
+    const discussion = page.locator(".clinic-services-discussion details");
+    await discussion.locator("summary").focus();
+    await page.keyboard.press("Enter");
+    assert.equal(await discussion.getAttribute("open"), null);
+    assert.equal(await page.locator(".clinic-services-identity img").isVisible(), true);
+    await page.keyboard.press("Enter");
+    assert.equal(await discussion.getAttribute("open"), "");
     await page
       .getByRole("searchbox", { name: "Search our areas of care" })
       .fill("gout");
@@ -280,13 +314,15 @@ const { chromium } = require(
     await details.locator("summary").click();
     assert.equal(await details.getAttribute("open"), "");
     await page.goto(origin + "/");
+    await page.emulateMedia({ reducedMotion: "reduce" });
     const scroll = page.locator(".clinic-care-scroll");
+    const step = await scroll.evaluate((e) => e.firstElementChild.getBoundingClientRect().width + parseFloat(getComputedStyle(e).columnGap));
     const before = await scroll.evaluate((e) => e.scrollLeft);
     await page.getByRole("button", { name: "Next care area" }).click();
     await page.waitForFunction(
       () => document.querySelector(".clinic-care-scroll").scrollLeft > 0,
     );
-    assert.ok((await scroll.evaluate((e) => e.scrollLeft)) > before);
+    assert.ok(Math.abs((await scroll.evaluate((e) => e.scrollLeft)) - before - step) <= 2, "Care control advances one card plus its actual CSS gap");
     await page.emulateMedia({ reducedMotion: "reduce" });
     assert.equal(
       await page.evaluate(

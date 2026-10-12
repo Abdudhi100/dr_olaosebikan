@@ -33,8 +33,8 @@ export function CareRail() {
         }))
         .filter(
           (c) =>
-            c.right > el.scrollLeft + 1 &&
-            c.left < el.scrollLeft + el.clientWidth - 1,
+            c.left >= el.scrollLeft - 2 &&
+            c.right <= el.scrollLeft + el.clientWidth + 2,
         );
       setPosition({
         first: (visible[0]?.i ?? 0) + 1,
@@ -56,7 +56,8 @@ export function CareRail() {
     const el = ref.current;
     if (el)
       el.scrollBy({
-        left: direction * (el.children[0].getBoundingClientRect().width + 24),
+        left: direction * (el.children[0].getBoundingClientRect().width +
+          (Number.parseFloat(getComputedStyle(el).columnGap) || 0)),
         behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
           ? "instant"
           : "smooth",
@@ -74,6 +75,7 @@ export function CareRail() {
           ref={ref}
           className="clinic-care-scroll"
           tabIndex={0}
+          role="region"
           aria-label="Areas of care"
         >
           <>
@@ -94,7 +96,9 @@ export function CareRail() {
         </div>
         <div className="clinic-rail-controls">
           <span aria-live="polite">
-            {position.first}–{position.last} / {items.length}
+            {position.first === position.last
+              ? position.first
+              : `${position.first}–${position.last}`} / {items.length}
           </span>
           <div>
             <button

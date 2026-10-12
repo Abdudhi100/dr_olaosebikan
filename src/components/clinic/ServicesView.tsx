@@ -92,7 +92,6 @@ export function ServicesView() {
           </form>
           </div>
         </div>
-        <span className="clinic-media-state">Still image</span>
       </section>
       <section className="clinic-page-body">
         <div className="clinic-container">

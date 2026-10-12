@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Phone, MessageCircle, Mail } from "lucide-react";
 import { site } from "@/lib/content";
 import { BookingEntryLink } from "@/components/booking/BookingEntryLink";
 import { appointmentWhatsAppUrl } from "@/lib/whatsapp";
@@ -81,17 +82,16 @@ export function FaqList({
     </div>
   );
 }
-export function AppointmentFaq({ dark = false }: { dark?: boolean }) {
+export function AppointmentFaq({ dark = false, layout = "columns" }: { dark?: boolean; layout?: "columns" | "full-width" }) {
   return (
     <section
       className={`clinic-faq-panel clinic-rounded ${dark ? "clinic-dark" : ""}`}
     >
       <div className="clinic-container clinic-faq-layout">
         <div>
+          {layout === "full-width" && <p className="clinic-eyebrow">Questions &amp; answers</p>}
           <h2 className="clinic-title">
-            Before your
-            <br />
-            appointment.
+            {layout === "full-width" ? "Before your appointment." : <>Before your<br />appointment.</>}
           </h2>
           <p>Helpful answers about arranging your consultation.</p>
         </div>
@@ -190,18 +190,21 @@ export function ContactMethods() {
   const methods = [
     {
       label: "Phone",
+      icon: Phone,
       value: "+234 803 575 1154",
       href: `tel:${site.phoneDial}`,
       action: "Call the clinic",
     },
     {
       label: "WhatsApp",
+      icon: MessageCircle,
       value: "+234 803 575 1154",
       href: appointmentWhatsAppUrl(),
       action: "Open WhatsApp",
     },
     {
       label: "Email",
+      icon: Mail,
       value: site.email,
       href: `mailto:${site.email}`,
       action: "Email the clinic",
@@ -211,7 +214,7 @@ export function ContactMethods() {
     <div className="clinic-contact-methods">
       {methods.map((m) => (
         <div key={m.label} className="clinic-contact-card">
-          <p className="clinic-eyebrow">{m.label}</p>
+          <p className="clinic-eyebrow clinic-contact-channel"><m.icon aria-hidden />{m.label}</p>
           <a className="clinic-contact-value" href={m.href}>
             {m.value}
           </a>

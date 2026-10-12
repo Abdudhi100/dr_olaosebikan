@@ -51,7 +51,7 @@ export function SiteHeader() {
   }, [open]);
   return (
     <header
-      className={`clinic-header ${dark ? "on-dark" : ""} ${overlay ? "over-hero" : ""}`}
+      className={`clinic-header ${path === "/" ? "clinic-header-home" : ""} ${dark ? "on-dark" : ""} ${overlay ? "over-hero" : ""}`}
     >
       <div className="clinic-header-row">
         <Link
@@ -111,13 +111,13 @@ export function SiteHeader() {
         }}
       >
         {links.map((l) => (
-          <Link key={l.href} href={l.href} onClick={() => setOpen(false)}>
+          <Link key={l.href} href={l.href} aria-current={path === l.href ? "page" : undefined} onClick={() => setOpen(false)}>
             {l.label}
           </Link>
         ))}
-        <Link href="/faq">FAQ</Link>
+        <Link href="/faq" aria-current={path === "/faq" ? "page" : undefined} onClick={() => setOpen(false)}>FAQ</Link>
         {hasEditorialContent && (
-          <Link href="/insights">Insights &amp; media</Link>
+          <Link href="/insights" aria-current={path?.startsWith("/insights") ? "page" : undefined} onClick={() => setOpen(false)}>Insights &amp; media</Link>
         )}
         <Link
           href="/appointments/book"
