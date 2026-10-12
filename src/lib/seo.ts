@@ -46,7 +46,7 @@ export function defaultMetadata({
       url,
       siteName: site.clinicName,
       type,
-      locale: "en_US",
+      locale: "en_NG",
       images: [
         {
           url: imageUrl,
