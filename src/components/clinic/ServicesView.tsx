@@ -6,6 +6,8 @@ import { BookingEntryLink } from "@/components/booking/BookingEntryLink";
 const services = [
   {
     image: "pain",
+    width: 1206,
+    height: 1920,
     title: "Pain, joint pain & stiffness",
     description:
       "A consultation to discuss pain, stiffness and the concerns affecting your daily activities.",
@@ -14,6 +16,8 @@ const services = [
   },
   {
     image: "arthritis",
+    width: 1920,
+    height: 1080,
     title: "Arthritis consultation",
     description:
       "Discuss arthritis-related concerns and your ongoing care with a rheumatology specialist.",
@@ -22,6 +26,8 @@ const services = [
   },
   {
     image: "autoimmune",
+    width: 933,
+    height: 1400,
     title: "Autoimmune & lupus care",
     description:
       "Arrange a consultation about autoimmune concerns or lupus care.",
@@ -31,6 +37,8 @@ const services = [
   },
   {
     image: "gout",
+    width: 1400,
+    height: 1050,
     title: "Gout treatment",
     description: "Arrange a consultation to discuss gout and your care.",
     href: "/gout-treatment-lagos",
@@ -38,6 +46,8 @@ const services = [
   },
   {
     image: "rheumatology",
+    width: 1400,
+    height: 933,
     title: "Rheumatology consultation",
     description:
       "A specialist consultation for rheumatology concerns and next-step guidance.",
@@ -45,6 +55,8 @@ const services = [
   },
   {
     image: "followup",
+    width: 1400,
+    height: 933,
     title: "Follow-up consultation",
     description:
       "Request a follow-up appointment to discuss your ongoing care.",
@@ -64,6 +76,8 @@ export function ServicesView() {
           className="clinic-hero-photo"
           src="/images/figma/services-hero.webp"
           alt=""
+          width={1280}
+          height={720}
           fetchPriority="high"
         />
         <div className="clinic-hero-shade" />
@@ -117,6 +131,8 @@ export function ServicesView() {
                 <img
                   src={`/images/figma/${s.image}.webp`}
                   alt=""
+                  width={s.width}
+                  height={s.height}
                   loading="lazy"
                 />
                 <div className="clinic-service-card-content">

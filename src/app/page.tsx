@@ -12,6 +12,8 @@ export default function HomePage() {
           className="clinic-hero-photo"
           src="/images/figma/home-hero.webp"
           alt=""
+          width={1280}
+          height={720}
           fetchPriority="high"
         />
         <div className="clinic-hero-shade" />
