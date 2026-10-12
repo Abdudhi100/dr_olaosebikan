@@ -2767,9 +2767,13 @@ textarea:focus-visible {
  .clinic-contact-opening { grid-template-columns: 1fr; gap: 48px; }
  .clinic-contact-opening > .clinic-contact-methods, .clinic-contact-opening > div:last-child { grid-column: auto; grid-row: auto; }
  .clinic-contact-opening h2 { font-size: 38px; line-height: 44px; max-width: 320px; }
- .clinic-contact-location .clinic-contact-card { padding: 24px; }
- .clinic-contact-location .clinic-contact-card .clinic-contact-value { font-size: 28px !important; }
- .clinic-contact-location .clinic-contact-card:last-child .clinic-contact-value { font-size: 17px !important; }
+ .clinic-contact-location .clinic-contact-card { display: flex; flex-direction: column; gap: 16px; padding: 24px; }
+ .clinic-contact-location .clinic-contact-card .clinic-eyebrow { margin: 0; }
+ /* Preserve a 48px hit area around the native 24px action line. */
+ .clinic-contact-location .clinic-contact-card .clinic-text-link { margin-block: -12px; }
+ .clinic-contact-location .clinic-contact-card .clinic-contact-value { margin: 0; line-height: 32px; }
+ .clinic-contact-location .clinic-contact-card .clinic-contact-value { font-size: 24px !important; }
+ .clinic-contact-location .clinic-contact-card:last-child .clinic-contact-value { font-size: 16px !important; line-height: 24px; font-weight: 400; }
  .clinic-faq-page > .clinic-page-body { padding: 64px 0; }
  .clinic-faq-page > .clinic-page-body .clinic-faq-layout { gap: 28px; }
  .clinic-faq-page > .clinic-page-body .clinic-subtitle { font-size: 38px; line-height: 1.2; margin: 28px 0; }
