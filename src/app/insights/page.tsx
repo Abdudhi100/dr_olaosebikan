@@ -101,6 +101,11 @@ export default function InsightsPage() {
             >
               <p className={styles.eyebrow}>{collection.title}</p>
               <h3>{collection.description}</h3>
+              {!editorialEntries.some((entry) => entry.kind === collection.kind) && (
+                <p id={collection.id} className={styles.categoryStatus}>
+                  No {collection.title.toLowerCase()} have been published yet.
+                </p>
+              )}
               <span className={styles.cardAction}>
                 Explore category <span aria-hidden="true">↗</span>
               </span>
@@ -166,6 +171,7 @@ export default function InsightsPage() {
           const entries = editorialEntries.filter(
             (entry) => entry.kind === collection.kind,
           );
+          if (!entries.length) return null;
           return (
             <section
               id={collection.id}

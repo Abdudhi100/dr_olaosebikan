@@ -15,7 +15,7 @@ export default function SpecialistPage() {
   return (
     <>
       <JsonLd data={physicianJsonLd()} />
-      <article>
+      <article className="clinic-specialist-page">
         <section className="clinic-profile-intro">
           <div className="clinic-container">
             <p className="clinic-eyebrow">The specialist</p>
@@ -77,7 +77,8 @@ export default function SpecialistPage() {
                 with you in mind.
               </h2>
               <p className="clinic-lead">{doctor.bio[0]}</p>
-              <p className="clinic-eyebrow" style={{ marginTop: 48 }}>
+              <div className="clinic-profile-focus">
+              <p className="clinic-eyebrow">
                 Care focus
               </p>
               {[
@@ -114,6 +115,7 @@ export default function SpecialistPage() {
                   </div>
                 </div>
               ))}
+              </div>
             </div>
           </div>
         </section>
@@ -141,7 +143,9 @@ export default function SpecialistPage() {
                 </div>
               </details>
             </div>
-            <p className="clinic-eyebrow" style={{ marginTop: 64 }}>
+            <div className="clinic-profile-approach">
+            <div>
+            <p className="clinic-eyebrow">
               Consultation approach
             </p>
             <h2 className="clinic-subtitle">
@@ -149,6 +153,7 @@ export default function SpecialistPage() {
               <br />
               Planning your care.
             </h2>
+            </div>
             <FaqList
               items={[
                 {
@@ -171,9 +176,10 @@ export default function SpecialistPage() {
                 },
               ]}
             />
+            </div>
           </div>
         </section>
-        <section className="clinic-section clinic-sage clinic-rounded">
+        <section className="clinic-profile-related clinic-section clinic-sage clinic-rounded">
           <div className="clinic-container">
             <p className="clinic-eyebrow">Related care</p>
             <h2 className="clinic-title">Explore relevant care.</h2>

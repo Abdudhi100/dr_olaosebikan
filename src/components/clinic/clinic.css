@@ -813,120 +813,6 @@ textarea:focus-visible {
   font-size: 18px;
   line-height: 28px;
 }
-.clinic-profile-intro {
-  padding: 80px 0 96px;
-}
-.clinic-profile-intro h1 {
-  font-size: 96px;
-  line-height: 1.05;
-  margin-bottom: 40px;
-  max-width: 1000px;
-}
-.clinic-profile-role {
-  font-size: 18px;
-  line-height: 28px;
-}
-.clinic-profile-summary {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 100px;
-  border-top: 1px solid var(--clinic-line);
-  padding-top: 40px;
-  margin-top: 56px;
-}
-.clinic-profile-summary p {
-  font-size: 18px;
-  line-height: 28px;
-}
-.clinic-profile-summary p + p {
-  font-size: 15px;
-  line-height: 1.5;
-  color: var(--clinic-muted);
-  margin-top: 24px;
-}
-.clinic-profile-summary .clinic-actions {
-  margin-top: 0;
-}
-.clinic-profile-main .clinic-two {
-  grid-template-columns: 548fr 592fr;
-  gap: 96px;
-  align-items: center;
-}
-.clinic-profile-main h2 {
-  font-size: 60px;
-  line-height: 1.1;
-  margin-bottom: 48px;
-}
-.clinic-profile-main .clinic-portrait {
-  border-radius: 24px;
-}
-.clinic-focus-group {
-  border-top: 1px solid #ffffff40;
-  padding-top: 24px;
-  margin-top: 28px;
-}
-.clinic-focus-group h3 {
-  font-size: 21px;
-  line-height: 30px;
-  margin-bottom: 16px;
-}
-.clinic-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.clinic-chip {
-  border: 1px solid #ffffff50;
-  border-radius: 999px;
-  padding: 8px 16px;
-  font-size: 12px;
-  line-height: 20px;
-}
-.clinic-biography .clinic-faq-list summary {
-  font-size: 32px;
-  line-height: 40px;
-}
-.clinic-biography-text {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 120px;
-  padding: 40px 0 64px;
-}
-.clinic-biography-text h3 {
-  font-size: 48px;
-  line-height: 1.1;
-}
-.clinic-biography-text p {
-  font-size: 18px;
-  line-height: 28px;
-}
-.clinic-related-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
-}
-.clinic-related-card {
-  border-radius: 24px;
-  overflow: hidden;
-  background: var(--clinic-paper);
-}
-.clinic-related-card > img {
-  width: 100%;
-  height: 310px;
-  object-fit: cover;
-}
-.clinic-related-card > div {
-  padding: 30px;
-}
-.clinic-related-card h3 {
-  font-size: 30px;
-  line-height: 1.2;
-  margin-bottom: 16px;
-}
-.clinic-related-card p {
-  font-size: 14px;
-  line-height: 22px;
-}
 .clinic-booking {
   padding: 64px 0 120px;
 }
@@ -1217,8 +1103,7 @@ textarea:focus-visible {
   .clinic-footer-contact {
     gap: 40px;
   }
-  .clinic-page-hero h1,
-  .clinic-profile-intro h1 {
+  .clinic-page-hero h1 {
     font-size: 72px;
   }
   .clinic-page-hero {
@@ -1253,28 +1138,16 @@ textarea:focus-visible {
   .clinic-venue-card {
     padding: 32px;
   }
-  .clinic-profile-summary {
+.clinic-profile-main .clinic-two {
     gap: 48px;
   }
-  .clinic-profile-main .clinic-two {
+.clinic-biography-text {
     gap: 48px;
   }
-  .clinic-profile-main h2 {
-    font-size: 48px;
-  }
-  .clinic-biography-text {
-    gap: 48px;
-  }
-  .clinic-related-card > img {
-    height: 240px;
-  }
-  .clinic-related-card > div {
+.clinic-related-card > div {
     padding: 24px;
   }
-  .clinic-related-card h3 {
-    font-size: 24px;
-  }
-  .clinic-booking-layout {
+.clinic-booking-layout {
     grid-template-columns: minmax(0, 1fr) 240px;
     gap: 32px;
   }
@@ -1579,58 +1452,34 @@ textarea:focus-visible {
   .clinic-services-guidance .clinic-title {
     font-size: 40px;
   }
-  .clinic-profile-intro {
-    padding: 56px 0 64px;
-  }
-  .clinic-profile-intro h1 {
+.clinic-profile-intro h1 {
     font-size: 48px;
     margin-bottom: 28px;
   }
-  .clinic-profile-role {
-    font-size: 16px;
-    line-height: 25px;
-  }
-  .clinic-profile-summary {
+.clinic-profile-summary {
     grid-template-columns: 1fr;
     gap: 28px;
     margin-top: 36px;
     padding-top: 28px;
   }
-  .clinic-profile-summary p {
-    font-size: 16px;
-    line-height: 26px;
-  }
-  .clinic-profile-main .clinic-two {
+.clinic-profile-main .clinic-two {
     grid-template-columns: 1fr;
     gap: 48px;
   }
-  .clinic-profile-main h2 {
-    font-size: 40px;
-  }
-  .clinic-biography-text {
+.clinic-biography-text {
     grid-template-columns: 1fr;
     gap: 32px;
     padding-bottom: 40px;
   }
-  .clinic-biography-text h3 {
-    font-size: 36px;
-  }
-  .clinic-biography-text p {
+.clinic-biography-text p {
     font-size: 16px;
     line-height: 26px;
   }
-  .clinic-biography .clinic-faq-list summary {
-    font-size: 26px;
-    line-height: 34px;
-  }
-  .clinic-related-grid {
+.clinic-related-grid {
     grid-template-columns: 1fr;
     gap: 24px;
   }
-  .clinic-related-card > img {
-    height: 300px;
-  }
-  .clinic-related-card h3 {
+.clinic-related-card h3 {
     font-size: 28px;
   }
   .clinic-booking {
@@ -1878,120 +1727,6 @@ textarea:focus-visible {
 .clinic-menu[aria-expanded="true"]::after {
   content: "Close";
 }
-.clinic-profile-intro {
-  padding: 100px 0 112px;
-}
-.clinic-profile-role {
-  font-size: 21px;
-  line-height: 1.4;
-  font-weight: 300;
-  color: #496267;
-}
-.clinic-profile-summary {
-  grid-template-columns: 620px 320px;
-  gap: 72px;
-  margin-top: 48px;
-  padding-top: 48px;
-}
-.clinic-profile-summary p {
-  font-size: 21px;
-  line-height: 1.4;
-  font-weight: 300;
-}
-.clinic-profile-summary .clinic-actions {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-}
-.clinic-profile-summary .clinic-button {
-  width: 270px;
-}
-.clinic-profile-main {
-  padding-top: 80px;
-}
-.clinic-profile-main .clinic-two {
-  grid-template-columns: 548px minmax(0, 1fr);
-  gap: 137px;
-  align-items: start;
-}
-.clinic-profile-main h2 {
-  font-size: 48px;
-  line-height: 1.3;
-  margin-bottom: 24px;
-}
-.clinic-profile-main .clinic-lead {
-  font-size: 18px;
-  line-height: 1.5;
-  font-weight: 400;
-  color: #cdd9d7;
-}
-.clinic-profile-main .clinic-eyebrow {
-  color: #cdd9d7;
-}
-.clinic-focus-group {
-  border: 0;
-  padding: 0;
-  margin-top: 24px;
-}
-.clinic-focus-group h3 {
-  font-size: 15px;
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: 1.4;
-  color: #cdd9d7;
-  margin-bottom: 12px;
-}
-.clinic-chip {
-  border: 0;
-  background: #153e43;
-  padding: 10px 16px;
-  font-size: 15px;
-  line-height: 1.5;
-}
-.clinic-biography .clinic-faq-list summary {
-  font-size: 68px;
-  line-height: 1.2;
-}
-.clinic-biography-text {
-  grid-template-columns: 439px minmax(0, 1fr);
-  gap: 100px;
-}
-.clinic-biography-text h3 {
-  font-size: 38px;
-  line-height: 1.2;
-}
-.clinic-related-card {
-  position: relative;
-  min-height: 310px;
-  color: white;
-  background: #002a30;
-  display: flex;
-  align-items: end;
-}
-.clinic-related-card > img {
-  position: absolute;
-  inset: 0;
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
-}
-.clinic-related-card::after {
-  position: absolute;
-  content: "";
-  inset: 0;
-  background: linear-gradient(transparent, #002a30d9);
-}
-.clinic-related-card > div {
-  position: relative;
-  z-index: 1;
-  padding: 30px;
-}
-.clinic-related-card h3 {
-  font-size: 30px;
-}
-.clinic-related-card .clinic-text-link {
-  font-size: 14px;
-}
 .clinic-booking {
   padding-top: 48px;
   padding-bottom: 80px;
@@ -2067,11 +1802,7 @@ textarea:focus-visible {
   .clinic-footer .clinic-container {
     max-width: 1654px;
   }
-  .clinic-profile-main .clinic-two {
-    grid-template-columns: 620px minmax(0, 1fr);
-    gap: 160px;
-  }
-  .clinic-booking-layout {
+.clinic-booking-layout {
     grid-template-columns: minmax(0, 1fr) 360px;
     gap: 96px;
   }
@@ -2124,63 +1855,34 @@ textarea:focus-visible {
     min-height: 102px;
     letter-spacing: -.22px;
   }
-  .clinic-profile-intro {
-    padding: 64px 0 80px;
-  }
-  .clinic-profile-intro h1 {
+.clinic-profile-intro h1 {
     font-size: 60px;
     line-height: 66px;
   }
-  .clinic-profile-role {
-    font-size: 18px;
-  }
-  .clinic-profile-summary {
+.clinic-profile-summary {
     grid-template-columns: 1fr;
     gap: 32px;
   }
-  .clinic-profile-summary p {
-    font-size: 18px;
-    line-height: 27px;
-  }
-  .clinic-profile-summary .clinic-actions {
+.clinic-profile-summary .clinic-actions {
     flex-direction: row;
     align-items: center;
   }
-  .clinic-profile-main {
-    padding: 40px 0 72px;
-  }
-  .clinic-profile-main .clinic-two {
+.clinic-profile-main .clinic-two {
     grid-template-columns: 1fr;
     gap: 48px;
   }
-  .clinic-profile-main .clinic-portrait {
-    width: 460px;
-    max-width: 100%;
-    margin: auto;
-  }
-  .clinic-profile-main h2 {
+.clinic-profile-main h2 {
     font-size: 30px;
     line-height: 1.3;
   }
-  .clinic-biography .clinic-faq-list summary {
-    font-size: 38px;
-    line-height: 1.2;
-  }
-  .clinic-biography-text {
+.clinic-biography-text {
     grid-template-columns: 1fr;
     gap: 40px;
   }
-  .clinic-biography-text h3 {
-    font-size: 30px;
-    line-height: 1.3;
-  }
-  .clinic-related-grid {
+.clinic-related-grid {
     grid-template-columns: 1fr 1fr;
   }
-  .clinic-related-card:last-child {
-    grid-column: 1/-1;
-  }
-  .clinic-related-card {
+.clinic-related-card {
     min-height: 280px;
   }
   .clinic-booking {
@@ -2266,79 +1968,42 @@ textarea:focus-visible {
     font-size: 38px;
     line-height: 1.2;
   }
-  .clinic-profile-intro {
-    padding: 56px 0 64px;
-  }
-  .clinic-profile-intro h1 {
+.clinic-profile-intro h1 {
     font-size: 44px;
     line-height: 48.4px;
   }
-  .clinic-profile-role {
-    font-size: 16px;
-    line-height: 24px;
-  }
-  .clinic-profile-summary {
+.clinic-profile-summary {
     grid-template-columns: 1fr;
     gap: 28px;
     margin-top: 32px;
     padding-top: 32px;
   }
-  .clinic-profile-summary p {
-    font-size: 15px;
-    line-height: 1.5;
-  }
-  .clinic-profile-summary .clinic-button {
+.clinic-profile-summary .clinic-button {
     width: 100%;
   }
-  .clinic-profile-summary .clinic-actions {
-    align-items: stretch;
-  }
-  .clinic-profile-main {
+.clinic-profile-main {
     padding: 32px 0 56px;
   }
-  .clinic-profile-main .clinic-two {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  .clinic-profile-main h2 {
+.clinic-profile-main h2 {
     font-size: 30px;
     line-height: 1.3;
   }
-  .clinic-profile-main .clinic-portrait {
-    max-width: 342px;
-    margin: auto;
-  }
-  .clinic-profile-main .clinic-lead {
+.clinic-profile-main .clinic-lead {
     font-size: 16px;
     line-height: 24px;
   }
-  .clinic-chip {
-    font-size: 15px;
-    padding: 10px 16px;
-    white-space: normal;
-  }
-  .clinic-biography .clinic-faq-list summary {
+.clinic-biography .clinic-faq-list summary {
     font-size: 38px;
     line-height: 1.2;
   }
-  .clinic-biography-text {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-  .clinic-biography-text h3 {
+.clinic-biography-text h3 {
     font-size: 30px;
     line-height: 1.3;
   }
-  .clinic-related-grid {
-    grid-template-columns: 1fr;
-  }
-  .clinic-related-card {
+.clinic-related-card {
     min-height: 280px;
   }
-  .clinic-related-card:last-child {
-    grid-column: auto;
-  }
-  .clinic-related-card h3 {
+.clinic-related-card h3 {
     font-size: 28px;
   }
   .clinic-booking-heading h1 {
@@ -2724,16 +2389,6 @@ textarea:focus-visible {
 .clinic-contact-guidance p { font-size: 16px; line-height: 1.5; margin-top: 12px; }
 .clinic-contact-guidance p:first-child { font-weight: 500; }
 .clinic-contact-location .clinic-contact-card:first-child { border: 1px solid var(--clinic-line); }
-.clinic-faq-page > .clinic-page-body { margin: 0; border-radius: 0; }
-.clinic-faq-page > .clinic-page-body .clinic-subtitle { font-size: 58px; line-height: 1.2; }
-.clinic-faq-page > .clinic-page-body .clinic-faq-layout { display: block; }
-.clinic-faq-page > .clinic-page-body .clinic-faq-layout > div:first-child { margin-bottom: 48px; }
-.clinic-faq-page > .clinic-page-body .clinic-faq-layout > div > p:last-child { max-width: 760px; color: var(--clinic-muted); }
-.clinic-faq-page > .clinic-page-body .clinic-faq-list summary { font-size: 34px; line-height: 1.33; align-items: center; gap: 36px; }
-.clinic-faq-page > .clinic-page-body .clinic-faq-list summary::after { display: grid; place-items: center; background: #002f34; color: white; border-radius: 50%; width: 40px; height: 40px; flex: 0 0 40px; font-size: 18px; }
-.clinic-faq-page > .clinic-page-body .clinic-faq-list details:first-child { border-top: 0; }
-.clinic-faq-page > .clinic-page-body .clinic-faq-list details { padding: 28px 0; }
-.clinic-faq-page > .clinic-page-body .clinic-faq-list details p { max-width: 1080px; color: var(--clinic-muted); }
 .clinic-contact-channel { display: flex; align-items: center; gap: 12px; font-size: 14px; letter-spacing: 0; }
 .clinic-contact-channel svg { width: 24px; height: 24px; flex: 0 0 24px; }
 .clinic-contact-location .clinic-contact-card:nth-child(2) { background: #d6e1dc; }
@@ -2759,6 +2414,10 @@ textarea:focus-visible {
  .clinic-resource-empty h3 { font-size: 32px; }
  .clinic-resource-layout { grid-template-columns: 1fr; }
 }
+@media (min-width: 601px) and (max-width: 1100px) {
+ .clinic-contact-location > .clinic-page-body { margin-top: -54px; padding: 64px 0 72px; border-radius: 32px 32px 0 0; }
+ .clinic-contact-opening { grid-template-columns: minmax(0,330fr) minmax(0,342fr); gap: 32px; }
+}
 @media (max-width: 600px) {
  :is(.clinic-page-hero-contact,.clinic-page-hero-faq,.clinic-page-hero-resources,.clinic-page-hero-achievements) { padding: 24px 0 80px; }
  :is(.clinic-page-hero-contact,.clinic-page-hero-faq,.clinic-page-hero-resources,.clinic-page-hero-achievements) > .clinic-container { gap: 12px; }
@@ -2774,16 +2433,11 @@ textarea:focus-visible {
  .clinic-contact-location .clinic-contact-card .clinic-contact-value { margin: 0; line-height: 32px; }
  .clinic-contact-location .clinic-contact-card .clinic-contact-value { font-size: 24px !important; }
  .clinic-contact-location .clinic-contact-card:last-child .clinic-contact-value { font-size: 16px !important; line-height: 24px; font-weight: 400; }
- .clinic-faq-page > .clinic-page-body { padding: 64px 0; }
- .clinic-faq-page > .clinic-page-body .clinic-faq-layout { gap: 28px; }
- .clinic-faq-page > .clinic-page-body .clinic-subtitle { font-size: 38px; line-height: 1.2; margin: 28px 0; }
- .clinic-faq-page > .clinic-page-body .clinic-faq-layout > div > p:last-child { font-size: 15px; line-height: 1.45; }
- .clinic-faq-page .clinic-faq-list summary { font-size: 24px; line-height: 1.33; }
- .clinic-faq-page > .clinic-page-body .clinic-faq-list summary { font-size: 24px; gap: 22px; }
- .clinic-faq-page > .clinic-page-body .clinic-faq-list summary::after { width: 34px; height: 34px; flex-basis: 34px; }
- .clinic-faq-page > .clinic-page-body .clinic-faq-list details { padding: 22px 0; }
- .clinic-faq-page > .clinic-page-body .clinic-faq-layout > div:first-child { margin-bottom: 28px; }
- :is(.clinic-page-hero-resources,.clinic-page-hero-achievements) + .clinic-page-body { padding: 64px 0; }
+.clinic-faq-page > .clinic-page-body .clinic-faq-layout { gap: 28px; }
+.clinic-faq-page > .clinic-page-body .clinic-faq-layout > div > p:last-child { font-size: 15px; line-height: 1.45; }
+.clinic-faq-page > .clinic-page-body .clinic-faq-list summary { font-size: 24px; gap: 22px; }
+.clinic-faq-page > .clinic-page-body .clinic-faq-list details { padding: 22px 0; }
+:is(.clinic-page-hero-resources,.clinic-page-hero-achievements) + .clinic-page-body { padding: 64px 0; }
  :is(.clinic-page-hero-resources,.clinic-page-hero-achievements) + .clinic-page-body > .clinic-container > .clinic-subtitle { font-size: 38px; margin: 28px 0; }
  .clinic-resource-layout { grid-template-columns: 1fr; gap: 24px; }
  .clinic-resource-empty { padding: 36px 26px; gap: 20px; }
@@ -2795,8 +2449,157 @@ textarea:focus-visible {
  .clinic-resource-route a { font-size: 18px; }
  .clinic-resource-route p { font-size: 14px; }
  .clinic-page-hero-achievements h1 { font-size: 40px; letter-spacing: 0; }
- .clinic-profile-main .clinic-portrait { width: 100%; }
- .clinic-profile-main .clinic-eyebrow[style] { border-top: 1px solid #ffffff26; padding-top: 32px; }
+.clinic-profile-main .clinic-eyebrow[style] { border-top: 1px solid #ffffff26; padding-top: 32px; }
+}
+
+/* Secondary-page native geometry. Content and disclosure semantics are retained. */
+.clinic-faq-page > .clinic-page-body { margin: 0; border-radius: 0; padding: 100px 0; }
+.clinic-faq-page .clinic-faq-layout { display: block; }
+.clinic-faq-page > .clinic-page-body .clinic-faq-layout { display: flex; flex-direction: column; gap: 42px; }
+.clinic-faq-page > .clinic-page-body .clinic-faq-layout > div:first-child { display: flex; flex-direction: column; gap: 42px; }
+.clinic-faq-page > .clinic-page-body :is(.clinic-eyebrow,.clinic-subtitle) { margin: 0; }
+.clinic-faq-page > .clinic-page-body .clinic-eyebrow { font-size: 14px; line-height: 1.32; color: var(--clinic-muted); }
+.clinic-faq-page > .clinic-page-body .clinic-subtitle { font-size: 62px; line-height: 1.2; letter-spacing: 0; }
+.clinic-faq-page > .clinic-page-body .clinic-faq-layout > div > p:last-child { max-width: 880px; font-size: 18px; line-height: 1.45; color: var(--clinic-muted); }
+.clinic-faq-page .clinic-faq-list { width: 100%; }
+.clinic-faq-page .clinic-faq-list summary { align-items: center; min-height: 44px; }
+.clinic-faq-page .clinic-faq-list summary::after { display: grid; place-items: center; border-radius: 50%; background: #002f34; color: white; width: 40px; height: 40px; flex: 0 0 40px; font-size: 18px; }
+.clinic-faq-page > .clinic-page-body .clinic-faq-list summary { font-size: 34px; line-height: 1.33; gap: 36px; }
+.clinic-faq-page > .clinic-page-body .clinic-faq-list details { border-top: 0; border-bottom: 1px solid #bed0ca; padding: 28px 0; }
+.clinic-faq-page > .clinic-page-body .clinic-faq-list details p { max-width: 1080px; color: var(--clinic-muted); margin-top: 18px; font-size: 18px; line-height: 1.6; }
+/* Supplemental appointment questions are absent from the native FAQ frame, but remain available. */
+.clinic-faq-page > .clinic-faq-panel { padding: 64px 0; }
+.clinic-faq-page > .clinic-faq-panel .clinic-faq-layout { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,2fr); gap: 64px; }
+.clinic-faq-page > .clinic-faq-panel summary { font-size: 24px; line-height: 1.33; }
+.clinic-faq-page > .clinic-faq-panel summary::after { background: var(--clinic-paper); color: var(--clinic-teal); }
+.clinic-faq-page > .clinic-section { padding: 78px 0; }
+.clinic-faq-page > .clinic-section .clinic-subtitle { font-size: 54px; line-height: 1.2; }
+.clinic-profile-intro { padding: 100px 0 67px; }
+.clinic-profile-intro h1 { font-size: 96px; line-height: 1.05; margin-bottom: 32px; max-width: 1000px; }
+.clinic-profile-role { font-size: 21px; line-height: 1.4; font-weight: 300; color: var(--clinic-muted); }
+.clinic-profile-summary { display: grid; grid-template-columns: minmax(0,620px) minmax(0,320px); gap: 72px; border-top: 1px solid var(--clinic-line); margin-top: 48px; padding-top: 48px; }
+.clinic-profile-summary p { font-size: 21px; line-height: 1.4; font-weight: 300; }
+.clinic-profile-summary p + p { font-size: 15px; line-height: 1.5; font-weight: 400; color: var(--clinic-muted); margin-top: 16px; }
+.clinic-profile-summary .clinic-actions { margin: 0; flex-direction: column; align-items: flex-start; gap: 8px; }
+.clinic-profile-summary .clinic-button { width: 270px; }
+.clinic-profile-summary .clinic-text-link { font-size: 15px; line-height: 1.5; }
+.clinic-profile-main { padding: 80px 0 120px; }
+.clinic-profile-main .clinic-two { grid-template-columns: 548px minmax(0,1fr); gap: 137px; align-items: start; }
+.clinic-profile-main .clinic-portrait { width: 100%; height: auto; border-radius: 24px; }
+.clinic-profile-main h2 { font-size: 48px; line-height: 1.3; margin-bottom: 24px; letter-spacing: -.02em; }
+.clinic-profile-main .clinic-lead { font-size: 18px; line-height: 1.5; font-weight: 400; color: #cdd9d7; }
+.clinic-profile-main .clinic-eyebrow { color: #cdd9d7; }
+.clinic-profile-focus { border-top: 1px solid #ffffff33; margin-top: 40px; padding-top: 40px; }
+.clinic-profile-focus > .clinic-eyebrow { margin-bottom: 24px; }
+.clinic-focus-group + .clinic-focus-group { margin-top: 24px; }
+.clinic-focus-group h3 { font-size: 15px; line-height: 1.4; font-weight: 400; letter-spacing: 0; color: #cdd9d7; margin-bottom: 12px; }
+.clinic-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.clinic-chip { border-radius: 999px; background: #153e43; padding: 10px 16px; font-size: 15px; line-height: 1.5; max-width: 100%; }
+.clinic-biography { padding: 120px 0; }
+.clinic-biography .clinic-faq-list > details { border: 0; padding: 0; }
+.clinic-biography .clinic-faq-list summary { font-size: 68px; line-height: 1.2; }
+.clinic-biography-text { display: grid; grid-template-columns: minmax(0,439px) minmax(0,1fr); gap: 100px; padding: 64px 0; }
+.clinic-biography-text h3 { font-size: 38px; line-height: 1.2; }
+.clinic-biography-text .clinic-copy p { font-size: 18px; line-height: 1.5; }
+.clinic-profile-approach { display: grid; grid-template-columns: minmax(0,439px) minmax(0,1fr); gap: 100px; border-top: 1px solid var(--clinic-line); padding-top: 64px; }
+.clinic-profile-approach .clinic-subtitle { font-size: 32px; line-height: 1.3; margin: 0; }
+.clinic-profile-approach .clinic-eyebrow { margin-bottom: 16px; }
+.clinic-profile-approach .clinic-faq-list summary { font-size: 24px; line-height: 1.4; }
+.clinic-profile-approach .clinic-faq-list details { padding: 0 0 20px; border-top: 0; border-bottom: 1px solid var(--clinic-line); }
+.clinic-profile-approach .clinic-faq-list details + details { margin-top: 24px; }
+.clinic-profile-related { padding: 64px 0 80px; }
+.clinic-profile-related .clinic-title { font-size: 48px; line-height: 1.3; margin: 32px 0; }
+.clinic-related-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 24px; }
+.clinic-related-card { position: relative; border-radius: 24px; min-height: 310px; color: white; background: var(--clinic-teal); display: flex; align-items: end; overflow: hidden; }
+.clinic-related-card > img { position: absolute; inset: 0; object-fit: cover; height: 100%; width: 100%; }
+.clinic-related-card::after { position: absolute; content: ''; inset: 0; background: linear-gradient(transparent,#002a30d9); }
+.clinic-related-card > div { position: relative; z-index: 1; padding: 24px; }
+.clinic-related-card h3 { font-size: 26px; line-height: 1.2; }
+.clinic-related-card p { font-size: 15px; line-height: 1.4; margin-top: 8px; }
+.clinic-related-card .clinic-text-link { font-size: 14px; }
+@media (min-width: 1800px) {
+ .clinic-faq-page .clinic-container,.clinic-specialist-page .clinic-container { max-width: 1600px; }
+ .clinic-faq-page > .clinic-page-body { padding-block: 108px; }
+ .clinic-faq-page > .clinic-page-body .clinic-subtitle { font-size: 70px; line-height: 1.19; }
+ .clinic-faq-page > .clinic-page-body .clinic-faq-layout > div > p:last-child { max-width: 1020px; font-size: 19px; line-height: 1.52; }
+ .clinic-faq-page > .clinic-page-body .clinic-faq-list summary { font-size: 38px; line-height: 1.37; gap: 44px; }
+ .clinic-faq-page > .clinic-page-body .clinic-faq-list summary::after { width: 42px; height: 42px; flex-basis: 42px; }
+ .clinic-faq-page > .clinic-page-body .clinic-faq-list details { padding-block: 29px; }
+ .clinic-faq-page > .clinic-page-body .clinic-faq-list details p { max-width: 1100px; font-size: 19px; margin-top: 22px; }
+ .clinic-faq-page > .clinic-section { padding-block: 90px; }
+ .clinic-faq-page > .clinic-section .clinic-subtitle { font-size: 66px; }
+ .clinic-profile-main .clinic-two { grid-template-columns: 620px minmax(0,1fr); gap: 160px; }
+ .clinic-profile-approach,.clinic-biography-text { grid-template-columns: minmax(0,500px) minmax(0,1fr); }
+ .clinic-related-card { min-height: 340px; }
+}
+@media (min-width: 601px) and (max-width: 1100px) {
+ .clinic-faq-page > .clinic-page-body { padding-block: 78px; }
+ .clinic-faq-page > .clinic-page-body .clinic-faq-layout,.clinic-faq-page > .clinic-page-body .clinic-faq-layout > div:first-child { gap: 32px; }
+ .clinic-faq-page > .clinic-page-body .clinic-eyebrow { font-size: 13px; }
+ .clinic-faq-page > .clinic-page-body .clinic-subtitle { font-size: 48px; line-height: 1.19; }
+ .clinic-faq-page > .clinic-page-body .clinic-faq-layout > div > p:last-child { max-width: 650px; font-size: 17px; line-height: 1.52; }
+ .clinic-faq-page > .clinic-page-body .clinic-faq-list summary { font-size: 28px; line-height: 1.37; gap: 28px; }
+ .clinic-faq-page > .clinic-page-body .clinic-faq-list summary::after { width: 36px; height: 36px; flex-basis: 36px; }
+ .clinic-faq-page > .clinic-page-body .clinic-faq-list details { padding-block: 23px; }
+ .clinic-faq-page > .clinic-page-body .clinic-faq-list details p { font-size: 17px; }
+ .clinic-faq-page > .clinic-section { padding-block: 68px; }
+ .clinic-faq-page > .clinic-section .clinic-subtitle { font-size: 42px; }
+ .clinic-profile-intro { padding: 64px 0 55px; }
+ .clinic-profile-intro h1 { font-size: 60px; line-height: 66px; margin-bottom: 24px; }
+ .clinic-profile-role { font-size: 18px; }
+ .clinic-profile-main .clinic-portrait { width: 460px; max-width: 100%; margin-inline: auto; }
+ .clinic-profile-main h2 { font-size: 38px; }
+ .clinic-biography { padding-block: 80px; }
+ .clinic-profile-related { padding: 48px 0 56px; }
+ .clinic-related-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+ .clinic-related-card { min-height: 280px; }
+ .clinic-related-card:last-child { grid-column: 1/-1; min-height: 260px; }
+}
+@media (max-width: 1100px) {
+ .clinic-faq-page > .clinic-faq-panel .clinic-faq-layout { grid-template-columns: 1fr; gap: 32px; }
+ .clinic-profile-summary { grid-template-columns: 1fr; gap: 28px; margin-top: 40px; padding-top: 40px; }
+ .clinic-profile-summary p { font-size: 15px; line-height: 1.5; font-weight: 400; }
+ .clinic-profile-summary .clinic-actions { flex-direction: row; align-items: center; }
+ .clinic-profile-main { padding: 40px 0 72px; }
+ .clinic-profile-main .clinic-two { grid-template-columns: 1fr; gap: 48px; }
+ .clinic-profile-focus { margin-top: 32px; padding-top: 32px; }
+ .clinic-biography .clinic-faq-list summary { font-size: 38px; }
+ .clinic-biography-text { grid-template-columns: 1fr; gap: 40px; padding: 40px 0; }
+ .clinic-biography-text h3 { font-size: 30px; line-height: 1.3; }
+ .clinic-profile-approach { grid-template-columns: 1fr; gap: 32px; padding-top: 40px; }
+ .clinic-profile-approach .clinic-subtitle { font-size: 30px; }
+}
+@media (max-width: 600px) {
+ .clinic-faq-page > .clinic-page-body { padding-block: 64px; }
+ .clinic-faq-page > .clinic-page-body .clinic-faq-layout,.clinic-faq-page > .clinic-page-body .clinic-faq-layout > div:first-child { gap: 28px; }
+ .clinic-faq-page > .clinic-page-body .clinic-eyebrow { font-size: 12px; }
+ .clinic-faq-page > .clinic-page-body .clinic-subtitle { font-size: 38px; }
+ .clinic-faq-page > .clinic-page-body .clinic-faq-layout > div > p:last-child { font-size: 15px; line-height: 1.45; }
+ .clinic-faq-page > .clinic-page-body .clinic-faq-list summary { font-size: 24px; line-height: 1.33; gap: 22px; }
+ .clinic-faq-page > .clinic-page-body .clinic-faq-list summary::after { width: 34px; height: 34px; flex-basis: 34px; }
+ .clinic-faq-page > .clinic-page-body .clinic-faq-list details { padding-block: 22px; }
+ .clinic-faq-page > .clinic-page-body .clinic-faq-list details p { font-size: 15px; line-height: 1.55; margin-top: 14px; }
+ .clinic-faq-page > .clinic-faq-panel { padding-block: 48px; }
+ .clinic-faq-page > .clinic-section { padding-block: 56px; }
+ .clinic-faq-page > .clinic-section .clinic-subtitle { font-size: 36px; }
+ .clinic-profile-intro { padding: 52px 0 47px; }
+ .clinic-profile-intro h1 { font-size: 44px; line-height: 48.4px; margin-bottom: 24px; }
+ .clinic-profile-role { font-size: 16px; line-height: 24px; }
+ .clinic-profile-summary { margin-top: 32px; padding-top: 32px; }
+ .clinic-profile-summary .clinic-button { width: 100%; }
+ .clinic-profile-summary .clinic-actions { flex-direction: column; align-items: stretch; }
+ .clinic-profile-main { padding: 40px 0 60px; }
+ .clinic-profile-main .clinic-two { gap: 40px; }
+ .clinic-profile-main .clinic-portrait { max-width: 342px; margin-inline: auto; }
+ .clinic-profile-main h2 { font-size: 30px; }
+ .clinic-profile-main .clinic-lead { font-size: 15px; line-height: 21px; }
+ .clinic-biography { padding: 64px 0 72px; }
+ .clinic-biography-text .clinic-copy p { font-size: 15px; line-height: 21px; }
+ .clinic-profile-related { padding: 40px 0 48px; }
+ .clinic-profile-related .clinic-title { font-size: 32px; line-height: 1.25; }
+ .clinic-related-grid { grid-template-columns: 1fr; }
+ .clinic-related-card { min-height: 264.3px; }
+ .clinic-related-card:last-child { grid-column: auto; }
 }
 
 /*
