@@ -111,13 +111,30 @@ export function SiteHeader() {
         }}
       >
         {links.map((l) => (
-          <Link key={l.href} href={l.href} onClick={() => setOpen(false)}>
+          <Link
+            key={l.href}
+            href={l.href}
+            aria-current={path === l.href ? "page" : undefined}
+            onClick={() => setOpen(false)}
+          >
             {l.label}
           </Link>
         ))}
-        <Link href="/faq">FAQ</Link>
+        <Link
+          href="/faq"
+          aria-current={path === "/faq" ? "page" : undefined}
+          onClick={() => setOpen(false)}
+        >
+          FAQ
+        </Link>
         {hasEditorialContent && (
-          <Link href="/insights">Insights &amp; media</Link>
+          <Link
+            href="/insights"
+            aria-current={path === "/insights" ? "page" : undefined}
+            onClick={() => setOpen(false)}
+          >
+            Insights &amp; media
+          </Link>
         )}
         <Link
           href="/appointments/book"

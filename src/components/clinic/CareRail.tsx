@@ -56,7 +56,10 @@ export function CareRail() {
     const el = ref.current;
     if (el)
       el.scrollBy({
-        left: direction * (el.children[0].getBoundingClientRect().width + 24),
+        left:
+          direction *
+          (el.children[0].getBoundingClientRect().width +
+            (Number.parseFloat(getComputedStyle(el).columnGap) || 0)),
         behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
           ? "instant"
           : "smooth",
@@ -94,7 +97,7 @@ export function CareRail() {
         </div>
         <div className="clinic-rail-controls">
           <span aria-live="polite">
-            {position.first}–{position.last} / {items.length}
+            {position.first} / {items.length}
           </span>
           <div>
             <button

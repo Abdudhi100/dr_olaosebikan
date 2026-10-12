@@ -2732,3 +2732,29 @@ textarea:focus-visible {
  .clinic-resource-empty p:last-child { font-size: 15px; }
  .clinic-resource-explore { padding: 30px 24px; }
 }
+
+/* V5 Figma mobile care rail (330:1649): 268 × 335 tiles with 12px gaps.
+   Keep this scoped to the homepage; desktop/tablet and Services are unchanged. */
+@media (max-width: 600px) {
+  .clinic-home .clinic-care-scroll {
+    gap: 12px;
+    padding-bottom: 0;
+  }
+  .clinic-home .clinic-care-tile {
+    flex: 0 0 268px;
+  }
+  .clinic-home .clinic-care-tile .clinic-media-slot {
+    height: 233px;
+  }
+  .clinic-home .clinic-care-tile-label {
+    min-height: 102px;
+    padding: 20px 24px;
+    font-size: 16px;
+    line-height: 1.4;
+    letter-spacing: -0.22px;
+  }
+}
+.clinic-mobile-nav > a[aria-current="page"] {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}

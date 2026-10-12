@@ -280,6 +280,26 @@ const { chromium } = require(
     await details.locator("summary").click();
     assert.equal(await details.getAttribute("open"), "");
     await page.goto(origin + "/");
+    const mobileRail = await page.evaluate(() => {
+      const rail = document.querySelector(".clinic-care-scroll");
+      const tile = rail?.querySelector(".clinic-care-tile");
+      const media = tile?.querySelector(".clinic-media-slot");
+      const counter = document.querySelector(".clinic-rail-controls > span");
+      if (!rail || !tile || !media || !counter) return null;
+      return {
+        width: tile.getBoundingClientRect().width,
+        height: tile.getBoundingClientRect().height,
+        mediaHeight: media.getBoundingClientRect().height,
+        gap: Number.parseFloat(getComputedStyle(rail).columnGap),
+        counter: counter.textContent.trim(),
+      };
+    });
+    assert.ok(mobileRail, "Mobile care rail exists");
+    assert.ok(Math.abs(mobileRail.width - 268) < 1, "Figma mobile tile width");
+    assert.ok(Math.abs(mobileRail.height - 335) < 1, "Figma mobile tile height");
+    assert.ok(Math.abs(mobileRail.mediaHeight - 233) < 1, "Figma mobile media height");
+    assert.equal(mobileRail.gap, 12, "Figma mobile card gap");
+    assert.equal(mobileRail.counter, "1 / 6", "Figma current-card indicator");
     const scroll = page.locator(".clinic-care-scroll");
     const before = await scroll.evaluate((e) => e.scrollLeft);
     await page.getByRole("button", { name: "Next care area" }).click();
