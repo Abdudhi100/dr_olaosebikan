@@ -1,100 +1,66 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { CalendarDays, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
-import { AppointmentForm } from "@/components/AppointmentForm";
-import { JsonLd } from "@/components/JsonLd";
+import { BookingForm } from "@/components/booking/BookingForm";
 import { site } from "@/lib/content";
 import { defaultMetadata } from "@/lib/seo";
-import { surfaceStyles } from "@/lib/styles";
 import { appointmentWhatsAppUrl } from "@/lib/whatsapp";
-
-export const metadata: Metadata = defaultMetadata({
-  title: "Book Appointment - Pain, Arthritis, Autoimmune & Rheumatology Clinic",
-  description: "Book a consultation for arthritis, gout, lupus, inflammatory back pain, joint pain and chronic pain management with Dr Olaosebikan.",
-  keywords: [
-    "book rheumatology appointment Lagos",
-    "arthritis clinic appointment Lagos",
-    "Dr Olaosebikan appointment",
-  ],
+export const metadata = defaultMetadata({
+  title: "Request an appointment | Dr Olaosebikan",
+  description:
+    "Request an in-person or virtual consultation. Appointment dates, times and fees are confirmed privately by the clinic.",
   path: "/appointments/book",
 });
-
-export default function BookAppointmentPage() {
+export default function BookingPage() {
   return (
-    <>
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "MedicalWebPage",
-          name: "Book Appointment",
-          url: `${site.siteUrl}/appointments/book`,
-          description: metadata.description,
-        }}
-      />
-
-      <section className="border-b border-border-subtle bg-surface-emphasis">
-        <div className="mx-auto max-w-standard px-4 py-12 sm:px-6 sm:py-16">
-          <nav aria-label="Breadcrumb" className="mb-8 text-support text-text-tertiary">
-            <Link href="/" className="hover:text-brand-primary">Home</Link>
-            <span className="mx-2">/</span>
-            <span aria-current="page">Book Appointment</span>
-          </nav>
-
-          <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-            <div>
-              <span className="inline-flex items-center rounded-full bg-brand-primary-subtle px-4 py-1.5 text-support font-semibold text-brand-primary ring-1 ring-brand-primary-border">
-                Appointment Request
-              </span>
-              <h1 id="appointment-request-heading" className="mt-5 max-w-reading text-page-title text-text-primary sm:text-page-title-lg">
-                Book a specialist rheumatology consultation
-              </h1>
-              <p className="mt-5 max-w-reading text-lead text-text-secondary">
-                Request a consultation for joint pain, stiffness, gout, lupus, rheumatoid arthritis, autoimmune symptoms, or long-term rheumatology follow-up.
-              </p>
-
-              <div className="mt-8 grid gap-4">
-                <a href={`tel:${site.phoneDial}`} className={`${surfaceStyles.muted} flex items-start gap-3 p-4`}>
-                  <Phone className="mt-0.5 h-5 w-5 shrink-0 text-brand-primary" aria-hidden="true" />
-                  <span>
-                    <span className="block text-support font-semibold text-text-primary">Phone</span>
-                    <span className="mt-1 block text-support text-text-tertiary">{site.phone}</span>
-                  </span>
-                </a>
-                <a href={`mailto:${site.email}`} className={`${surfaceStyles.muted} flex min-w-0 items-start gap-3 p-4`}>
-                  <Mail className="mt-0.5 h-5 w-5 shrink-0 text-brand-primary" aria-hidden="true" />
-                  <span className="min-w-0">
-                    <span className="block text-support font-semibold text-text-primary">Email</span>
-                    <span className="mt-1 block break-all text-support text-text-tertiary">{site.email}</span>
-                  </span>
-                </a>
-                <a href={appointmentWhatsAppUrl()} target="_blank" rel="noreferrer" className="flex items-start gap-3 rounded-lg border border-success-border bg-success-subtle p-4">
-                  <MessageCircle className="mt-0.5 h-5 w-5 shrink-0 text-success" aria-hidden="true" />
-                  <span>
-                    <span className="block text-support font-semibold text-text-primary">WhatsApp</span>
-                    <span className="mt-1 block text-support text-success">Fastest for appointment scheduling and quick questions.</span>
-                  </span>
-                </a>
-                <div className={`${surfaceStyles.muted} flex items-start gap-3 p-4`}>
-                  <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-brand-primary" aria-hidden="true" />
-                  <span>
-                    <span className="block text-support font-semibold text-text-primary">Clinic location</span>
-                    <span className="mt-1 block text-support text-text-tertiary">{site.address}</span>
-                  </span>
-                </div>
-                <div className={`${surfaceStyles.muted} flex items-start gap-3 p-4`}>
-                  <CalendarDays className="mt-0.5 h-5 w-5 shrink-0 text-brand-primary" aria-hidden="true" />
-                  <span>
-                    <span className="block text-support font-semibold text-text-primary">Availability</span>
-                    <span className="mt-1 block text-support text-text-tertiary">{site.hours}</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <AppointmentForm />
-          </div>
+    <section className="clinic-booking">
+      <div className="clinic-container">
+        <nav className="clinic-breadcrumb" aria-label="Breadcrumb">
+          <Link href="/">Home</Link>
+          <span aria-hidden>/</span>Appointment request
+        </nav>
+        <div className="clinic-booking-heading">
+          <h1>Request an appointment</h1>
+          <p>
+            Choose your preferences and tell us how to contact you. The clinic
+            will confirm availability and the consultation arrangements.
+          </p>
         </div>
-      </section>
-    </>
+        <div className="clinic-booking-layout">
+          <BookingForm />
+          <aside className="clinic-booking-sidebar">
+            <h2>What happens next?</h2>
+            <div>
+              <h3>Agree the arrangements</h3>
+              <p>
+                The clinic will contact you to confirm availability and
+                communicate the consultation fee privately.
+              </p>
+            </div>
+            <hr />
+            <p>
+              In-person consultations available at Maryamville Medical Center,
+              144 Bode Thomas Road, Surulere, Lagos.
+            </p>
+            <p>
+              For virtual consultations, joining instructions are shared after
+              confirmation.
+            </p>
+            <a
+              href={appointmentWhatsAppUrl()}
+              className="clinic-button clinic-button-outline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Book via WhatsApp
+            </a>
+            <a href={`tel:${site.phoneDial}`} className="clinic-text-link">
+              +234 803 575 1154
+            </a>
+            <Link href="/contact-location" className="clinic-text-link">
+              Contact and location <span aria-hidden>↗</span>
+            </Link>
+          </aside>
+        </div>
+      </div>
+    </section>
   );
 }

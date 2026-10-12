@@ -20,7 +20,7 @@ export type PublicEntry = Omit<
   };
 };
 export const editorialEntries = snapshot.editorial as PublicEntry[];
-export const entryPath = (entry: PublicEntry) =>
+export const entryPath = (entry: Pick<PublicEntry, "kind" | "slug">) =>
   `/insights/${{ article: "articles", video: "videos", news: "news" }[entry.kind]}/${entry.slug.current}`;
 export const formatLabel = {
   article: "Article",
@@ -46,3 +46,36 @@ export function getEntry(kind: PublicEntry["kind"], slug: string) {
     (entry) => entry.kind === kind && entry.slug.current === slug,
   );
 }
+
+export const topicSlug = (topic: string) =>
+  topic
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+export const editorialTopics = [
+  ...new Set(editorialEntries.map((e) => e.topic)),
+].sort();
+export const searchEntries = (entries: PublicEntry[]) =>
+  entries.map(
+    ({
+      _id,
+      kind,
+      title,
+      summary,
+      slug,
+      topic,
+      tags,
+      authorName,
+      publishedAt,
+    }) => ({
+      _id,
+      kind,
+      title,
+      summary,
+      slug,
+      topic,
+      ...(tags ? { tags } : {}),
+      authorName,
+      publishedAt,
+    }),
+  );

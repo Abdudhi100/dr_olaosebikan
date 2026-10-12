@@ -52,7 +52,8 @@ body {
   header button[aria-controls="care-navigation-panel"] > svg,
   header button[aria-controls="resources-navigation-panel"] > svg,
   details > summary [class~="group-open:rotate-180"] {
-    transition-property: color, background-color, border-color,
-      text-decoration-color, fill, stroke, opacity, box-shadow;
+    transition-property:
+      color, background-color, border-color, text-decoration-color, fill,
+      stroke, opacity, box-shadow;
   }
 }

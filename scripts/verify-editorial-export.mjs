@@ -30,12 +30,13 @@ async function absent(path) {
 try {
   const docs = [
     await entry("article", {
+      tags: ["Demo"],
       body: body(
         'Synthetic <script>alert("test")</script> text must render as escaped text.',
       ),
     }),
-    await entry("video"),
-    await entry("news"),
+    await entry("video", { tags: ["Demo"] }),
+    await entry("news", { tags: ["News"] }),
     research(),
   ];
   await prepareEditorial({
@@ -64,6 +65,23 @@ try {
     assert.ok(!html.includes("TEST-APPROVAL-1"));
     assert.ok(!html.includes("TEST-MEDIA-1"));
   }
+  for (const path of [
+    "insights/articles.html",
+    "insights/videos.html",
+    "insights/news.html",
+    "insights/topics/rheumatology-care.html",
+    "insights/topics/clinic-news.html",
+  ])
+    assert.ok((await read(path)).includes("Synthetic"));
+  if (process.env.CLINIC_TEST_POPULATED_BROWSER === "1") {
+    const browser = spawnSync(
+      process.execPath,
+      ["scripts/verify-editorial-browser.cjs"],
+      { cwd: root, env: process.env, stdio: "inherit" },
+    );
+    if (browser.status !== 0)
+      throw new Error("Populated editorial browser checks failed.");
+  }
   const article = await read("insights/articles/synthetic-article-test.html");
   assert.ok(article.includes("&lt;script&gt;"));
   assert.ok(!article.includes('<script>alert("test")</script>'));
@@ -76,7 +94,8 @@ try {
   const sitemap = await read("sitemap.xml");
   assert.ok(sitemap.includes("/insights/articles/synthetic-article-test"));
   assert.ok(sitemap.includes("2020-01-03T09:00:00.000Z"));
-  assert.ok(!(await read("insights.html")).includes("noindex"));
+  // Review builds remain noindex even when the synthetic collection is populated.
+  assert.ok((await read("insights.html")).includes("noindex"));
   await writeFile(
     new URL("../out/stale-synthetic-page.html", import.meta.url),
     "<h1>Stale synthetic page</h1>",
@@ -96,3 +115,6 @@ assert.ok((await read("insights.html")).includes("noindex"));
 assert.ok(!(await read("sitemap.xml")).includes("/insights"));
 assert.ok(!(await read("index.html")).includes('href="/insights"'));
 console.log("Withdrawal, empty hub, navigation and sitemap checks passed.");
+
+await absent("insights/articles.html");
+await absent("insights/topics/rheumatology-care.html");

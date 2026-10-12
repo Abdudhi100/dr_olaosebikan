@@ -1,6 +1,7 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { guardPublishAction } from "./GuardPublishAction";
+import { ReadingPreview } from "./ReadingPreview";
 import { schemaTypes } from "./schemaTypes";
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID;
 const dataset = process.env.SANITY_STUDIO_DATASET;
@@ -15,6 +16,11 @@ export default defineConfig({
   dataset,
   plugins: [
     structureTool({
+      defaultDocumentNode: (S) =>
+        S.document().views([
+          S.view.form(),
+          S.view.component(ReadingPreview).title("Reading preview"),
+        ]),
       structure: (S) =>
         S.list()
           .title("Weekly publishing")

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./insights.module.css";
 export function VideoPlayer({
   embedUrl,
@@ -9,6 +9,8 @@ export function VideoPlayer({
   title: string;
 }) {
   const [loaded, setLoaded] = useState(false);
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
   return (
     <div className={styles.video}>
       {loaded ? (
@@ -22,7 +24,11 @@ export function VideoPlayer({
         />
       ) : (
         <>
-          <button type="button" onClick={() => setLoaded(true)}>
+          <button
+            type="button"
+            disabled={!ready}
+            onClick={() => setLoaded(true)}
+          >
             Load video
           </button>
           <p>

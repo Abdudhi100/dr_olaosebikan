@@ -26,6 +26,7 @@ const publicFields = [
   "summary",
   "body",
   "topic",
+  "tags",
   "publishedAt",
   "modifiedAt",
   "authorName",
@@ -125,7 +126,15 @@ export async function contentFingerprint(doc) {
   };
   const content = Object.fromEntries(
     publicFields
-      .filter((k) => normalized[k] !== undefined)
+      .filter(
+        (k) =>
+          normalized[k] !== undefined &&
+          !(
+            k === "tags" &&
+            (normalized[k] === null ||
+              (Array.isArray(normalized[k]) && normalized[k].length === 0))
+          ),
+      )
       .map((k) => [k, normalized[k]]),
   );
   const bytes = new TextEncoder().encode(JSON.stringify(canonical(content)));
@@ -308,6 +317,16 @@ export async function releaseErrors(doc, { now = new Date() } = {}) {
   const errors = commonErrors(doc, now);
   if (!KINDS.includes(doc.kind)) errors.push("Select article, video or news.");
   if (!TOPICS.includes(doc.topic)) errors.push("Choose an approved topic.");
+  if (
+    doc.tags != null &&
+    (!Array.isArray(doc.tags) ||
+      doc.tags.length > 8 ||
+      new Set(doc.tags).size !== doc.tags.length ||
+      doc.tags.some(
+        (tag) => !text(tag, 2, 40) || /[\u0000-\u001f\u007f<>]/.test(tag),
+      ))
+  )
+    errors.push("Use up to eight unique plain-text tags of 2–40 characters.");
   errors.push(...bodyErrors(doc.body));
   // Articles and videos always need clinical review. News may be nonclinical, explicitly classified.
   if (typeof doc.requiresClinicalReview !== "boolean")

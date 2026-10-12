@@ -107,6 +107,7 @@ export const visibleAchievements = achievements.filter(
 
 export const publicRoutes = [
   "/",
+  "/services",
   ...pages.map((page) => page.path),
   "/faq",
   "/contact",

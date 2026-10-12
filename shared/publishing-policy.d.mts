@@ -22,6 +22,7 @@ export type EditorialEntry = {
   summary: string;
   body: RichBlock[];
   topic: string;
+  tags?: string[];
   publishedAt: string;
   modifiedAt?: string;
   authorName: string;

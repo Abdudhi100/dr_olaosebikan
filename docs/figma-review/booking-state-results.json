@@ -1,0 +1,13 @@
+{
+  "method": "Local React harness; injected synthetic transports, no provider calls; not proof of real recipient delivery",
+  "passed": [
+    "Acknowledged success clears all fields/type",
+    "Definite failure preserves values and permits deliberate retry",
+    "Uncertain outcome preserves values and blocks automatic retry",
+    "Duplicate submit lock",
+    "Reset during delivery invalidates stale acknowledgement",
+    "Timeout stays uncertain after late acknowledgement",
+    "No browser storage",
+    "No client errors"
+  ]
+}
