@@ -2,10 +2,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Menu, X } from "lucide-react";
-import { site, visibleAchievements, visiblePublications } from "@/lib/content";
-import { editorialEntries } from "@/lib/editorial";
-const hasEditorialContent = editorialEntries.length > 0;
+import { ChevronDown, Menu, X } from "lucide-react";
+import { site } from "@/lib/content";
 import { appointmentWhatsAppUrl } from "@/lib/whatsapp";
 const links = [
   { href: "/services", label: "Our care" },
@@ -13,6 +11,38 @@ const links = [
   { href: "/appointments/book", label: "Consultations" },
   { href: "/contact-location", label: "Contact" },
 ];
+const resourceLinks = [
+  { href: "/insights", label: "Insights & Media" },
+  { href: "/publications", label: "Research & Publications" },
+  { href: "/publications/achievements", label: "Achievements & Recognitions" },
+];
+function ResourcesNavigation() {
+  const path = usePathname();
+  const [open, setOpen] = useState(false);
+  const group = useRef<HTMLDivElement>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
+  useEffect(() => setOpen(false), [path]);
+  useEffect(() => {
+    if (!open) return;
+    const outside = (event: PointerEvent) => {
+      if (event.target instanceof Node && !group.current?.contains(event.target)) setOpen(false);
+    };
+    document.addEventListener("pointerdown", outside);
+    return () => document.removeEventListener("pointerdown", outside);
+  }, [open]);
+  return <div className="clinic-resources" ref={group}
+    onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false); }}
+    onKeyDown={(event) => {
+      if (event.key === "Escape" && open) { event.preventDefault(); setOpen(false); trigger.current?.focus(); }
+    }}>
+    <button ref={trigger} type="button" aria-expanded={open} aria-controls="clinic-resources-links"
+      className="clinic-resources-trigger" data-current={path?.startsWith("/insights") || path?.startsWith("/publications") || undefined}
+      onClick={() => setOpen(!open)}>Resources <ChevronDown size={16} aria-hidden="true" /></button>
+    <div id="clinic-resources-links" className="clinic-resources-links" hidden={!open}>
+      {resourceLinks.map((link) => <Link key={link.href} href={link.href} aria-current={path === link.href ? "page" : undefined} onClick={() => setOpen(false)}>{link.label}</Link>)}
+    </div>
+  </div>;
+}
 export function SiteHeader() {
   const path = usePathname();
   const [open, setOpen] = useState(false);
@@ -76,6 +106,7 @@ export function SiteHeader() {
               {l.label}
             </Link>
           ))}
+          <ResourcesNavigation />
           <Link
             href="/appointments/book"
             className={`clinic-button ${dark ? "clinic-button-inverse" : ""}`}
@@ -116,9 +147,10 @@ export function SiteHeader() {
           </Link>
         ))}
         <Link href="/faq" aria-current={path === "/faq" ? "page" : undefined} onClick={() => setOpen(false)}>FAQ</Link>
-        {hasEditorialContent && (
-          <Link href="/insights" aria-current={path?.startsWith("/insights") ? "page" : undefined} onClick={() => setOpen(false)}>Insights &amp; media</Link>
-        )}
+        <div className="clinic-mobile-resources" aria-label="Resources">
+          <p className="clinic-eyebrow">Resources</p>
+          {resourceLinks.map((link) => <Link key={link.href} href={link.href} aria-current={path === link.href ? "page" : undefined} onClick={() => setOpen(false)}>{link.label}</Link>)}
+        </div>
         <Link
           href="/appointments/book"
           className="clinic-button clinic-button-inverse"
@@ -167,15 +199,7 @@ export function SiteFooter() {
           </nav>
           <nav aria-label="Footer resources">
             <p className="clinic-eyebrow">Resources</p>
-            {visiblePublications.length > 0 && (
-              <Link href="/publications">Publications</Link>
-            )}
-            {visibleAchievements.length > 0 && (
-              <Link href="/publications/achievements">Achievements</Link>
-            )}
-            {hasEditorialContent && (
-              <Link href="/insights">Insights &amp; media</Link>
-            )}
+            {resourceLinks.map((link) => <Link key={link.href} href={link.href}>{link.label}</Link>)}
             <Link href="/contact">Contact channels</Link>
             <Link href="/rheumatoid-arthritis-treatment-lagos">
               Rheumatoid arthritis

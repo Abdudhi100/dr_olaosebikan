@@ -1,4 +1,5 @@
 "use client";
+import { ClinicHeroVideo } from "@/components/clinic/ClinicHeroVideo";
 import Link from "next/link";
 import { useState } from "react";
 import { Search } from "lucide-react";
@@ -60,13 +61,7 @@ export function ServicesView() {
   return (
     <>
       <section className="clinic-hero clinic-services-hero">
-        <img
-          className="clinic-hero-photo"
-          src="/images/figma/services-hero.webp"
-          alt=""
-          fetchPriority="high"
-        />
-        <div className="clinic-hero-shade" />
+        <ClinicHeroVideo variant="services" />
         <div className="clinic-container clinic-hero-content">
           <p className="clinic-eyebrow">Our care</p>
           <h1>

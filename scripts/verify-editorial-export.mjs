@@ -113,7 +113,10 @@ await absent("insights/news/synthetic-news-test.html");
 await absent("publications/synthetic-research-test.html");
 assert.ok((await read("insights.html")).includes("noindex"));
 assert.ok(!(await read("sitemap.xml")).includes("/insights"));
-assert.ok(!(await read("index.html")).includes('href="/insights"'));
+// Empty destinations remain discoverable; withdrawal still removes every content route above.
+for (const href of ["/insights", "/publications", "/publications/achievements"]) {
+  assert.ok((await read("index.html")).includes(`href="${href}"`));
+}
 console.log("Withdrawal, empty hub, navigation and sitemap checks passed.");
 
 await absent("insights/articles.html");

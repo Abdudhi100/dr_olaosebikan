@@ -1,3 +1,4 @@
+import { ClinicHeroVideo } from "@/components/clinic/ClinicHeroVideo";
 import Link from "next/link";
 import { QuickBookingPanel } from "@/components/booking/QuickBookingPanel";
 import { BookingEntryLink } from "@/components/booking/BookingEntryLink";
@@ -8,13 +9,7 @@ export default function HomePage() {
   return (
     <div className="clinic-home">
       <section className="clinic-hero">
-        <img
-          className="clinic-hero-photo"
-          src="/images/figma/home-hero.webp"
-          alt=""
-          fetchPriority="high"
-        />
-        <div className="clinic-hero-shade" />
+        <ClinicHeroVideo variant="home" />
         <div className="clinic-container clinic-hero-content">
           <h1>
             Specialist
