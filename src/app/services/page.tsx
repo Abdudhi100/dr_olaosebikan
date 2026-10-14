@@ -14,7 +14,7 @@ export const metadata = defaultMetadata({
 });
 export default function ServicesPage() {
   return (
-    <>
+    <div className="clinic-services-page">
       <ServicesView />
       <section className="clinic-services-guidance clinic-section clinic-dark clinic-rounded">
         <div className="clinic-container">
@@ -23,9 +23,9 @@ export default function ServicesPage() {
             Your consultation, <span>with the whole picture in mind.</span>
           </h2>
           <div className="clinic-services-disclosures">
+            <div className="clinic-services-discussion">
             <details open>
               <summary>Discuss your concerns</summary>
-              <div className="clinic-two">
               <div>
               <p>Your consultation is an opportunity to discuss your symptoms, previous assessments and ongoing care with Dr Hakeem Olaosebikan, and to clarify the next steps.</p>
               <Link href="/about-dr-olaosebikan" className="clinic-text-link">
@@ -34,8 +34,9 @@ export default function ServicesPage() {
               <BookingEntryLink className="clinic-button clinic-button-inverse">
                 Request an appointment
               </BookingEntryLink>
-            </div>
-            <div>
+              </div>
+            </details>
+            <div className="clinic-services-identity">
               <img
                 className="clinic-portrait"
                 src="/images/dr_hakeem.webp"
@@ -44,15 +45,14 @@ export default function ServicesPage() {
                 alt="Dr Hakeem Olaosebikan"
                 loading="lazy"
               />
-              <p style={{ fontSize: 21, marginTop: 24 }}>
+              <p className="clinic-services-name">
                 Dr Hakeem Olaosebikan
               </p>
-              <p className="clinic-small" style={{ marginTop: 12 }}>
+              <p className="clinic-small">
                 Associate Professor and Senior Consultant Rheumatologist
               </p>
             </div>
-              </div>
-            </details>
+            </div>
             <details>
               <summary>Choose your consultation setting</summary>
               <p>Appointments are available in person and virtually. The clinic will confirm the arrangements with you.</p>
@@ -64,8 +64,8 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
-      <AppointmentFaq />
+      <AppointmentFaq layout="full-width" />
       <VenueSection />
-    </>
+    </div>
   );
 }

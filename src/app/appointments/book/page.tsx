@@ -1,3 +1,4 @@
+import { ClinicHeroVideo } from "@/components/clinic/ClinicHeroVideo";
 import Link from "next/link";
 import { BookingForm } from "@/components/booking/BookingForm";
 import { site } from "@/lib/content";
@@ -17,7 +18,8 @@ export default function BookingPage() {
           <Link href="/">Home</Link>
           <span aria-hidden>/</span>Appointment request
         </nav>
-        <div className="clinic-booking-heading">
+        <div className="clinic-booking-heading clinic-video-host">
+          <ClinicHeroVideo variant="appointments" overlayClassName="clinic-hero-shade clinic-hero-shade-paper" />
           <h1>Request an appointment</h1>
           <p>
             Choose your preferences and tell us how to contact you. The clinic

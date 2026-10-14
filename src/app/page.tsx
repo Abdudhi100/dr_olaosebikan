@@ -1,3 +1,4 @@
+import { ClinicHeroVideo } from "@/components/clinic/ClinicHeroVideo";
 import Link from "next/link";
 import { QuickBookingPanel } from "@/components/booking/QuickBookingPanel";
 import { BookingEntryLink } from "@/components/booking/BookingEntryLink";
@@ -8,13 +9,7 @@ export default function HomePage() {
   return (
     <div className="clinic-home">
       <section className="clinic-hero">
-        <img
-          className="clinic-hero-photo"
-          src="/images/figma/home-hero.webp"
-          alt=""
-          fetchPriority="high"
-        />
-        <div className="clinic-hero-shade" />
+        <ClinicHeroVideo variant="home" />
         <div className="clinic-container clinic-hero-content">
           <h1>
             Specialist
@@ -33,7 +28,6 @@ export default function HomePage() {
             whatsappLabel="Book via WhatsApp"
           />
         </div>
-        <span className="clinic-media-state">Still image</span>
       </section>
       <section className="clinic-practice clinic-section clinic-dark clinic-rounded">
         <div className="clinic-container">
@@ -58,6 +52,7 @@ export default function HomePage() {
       </section>
       <section className="clinic-specialist-preview">
         <div className="clinic-container clinic-two">
+          <div className="clinic-home-portrait">
           <img
             className="clinic-portrait"
             src="/images/dr_hakeem.webp"
@@ -66,6 +61,7 @@ export default function HomePage() {
             alt="Dr Hakeem Olaosebikan"
             loading="lazy"
           />
+          </div>
           <div className="clinic-copy">
             <p className="clinic-eyebrow">The specialist behind your care</p>
             <h2 className="clinic-preview-heading">
