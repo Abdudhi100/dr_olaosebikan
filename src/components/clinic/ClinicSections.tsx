@@ -1,3 +1,4 @@
+import { ClinicHeroVideo } from "@/components/clinic/ClinicHeroVideo";
 import Link from "next/link";
 import { Phone, MessageCircle, Mail } from "lucide-react";
 import { site } from "@/lib/content";
@@ -173,8 +174,9 @@ export function PageIntro({
 }) {
   return (
     <section
-      className={`clinic-page-hero clinic-dark clinic-page-hero-${variant}`}
+      className={`clinic-page-hero clinic-video-host clinic-dark clinic-page-hero-${variant}`}
     >
+      <ClinicHeroVideo variant={variant === "resources" ? "publications" : variant === "standard" ? "clinical" : variant} />
       <div className="clinic-container">
         {eyebrow && <p className="clinic-eyebrow">{eyebrow}</p>}
         <h1>{title}</h1>

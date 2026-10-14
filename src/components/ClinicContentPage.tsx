@@ -1,3 +1,4 @@
+import { ClinicHeroVideo } from "@/components/clinic/ClinicHeroVideo";
 import Link from "next/link";
 import type { ClinicPage } from "@/lib/content";
 import { BookingEntryLink } from "@/components/booking/BookingEntryLink";
@@ -81,7 +82,8 @@ export function ClinicContentPage({ page }: { page: ClinicPage }) {
   ];
   return (
     <article>
-      <section className="clinic-care-intro clinic-dark clinic-rounded">
+      <section className="clinic-care-intro clinic-video-host clinic-dark clinic-rounded">
+        <ClinicHeroVideo variant={`clinical:${page.slug}`} />
         <div className="clinic-container">
           <nav className="clinic-breadcrumb" aria-label="Breadcrumb">
             <Link href="/">Home</Link>

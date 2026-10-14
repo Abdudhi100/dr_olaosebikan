@@ -1,3 +1,4 @@
+import { ClinicHeroVideo } from "@/components/clinic/ClinicHeroVideo";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import styles from "./insights.module.css";
@@ -11,7 +12,8 @@ export function InsightsHero({
   eyebrow: string;
 }) {
   return (
-    <section className={styles.hero}>
+    <section className={`${styles.hero} clinic-video-host`}>
+      <ClinicHeroVideo variant="insights" />
       <p className={styles.eyebrow}>{eyebrow}</p>
       <h1>{title}</h1>
       <p>{description}</p>

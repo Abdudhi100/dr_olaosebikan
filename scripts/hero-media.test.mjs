@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import { heroMedia, heroVideoSource } from "../src/lib/hero-media.ts";
+import { heroMedia, heroVideoSource, heroRoutes } from "../src/lib/hero-media.ts";
 test("hero mapping preserves real posters and fails closed on every remote host", () => {
   for (const media of Object.values(heroMedia)) {
     assert.equal(media.rightsApproved, false);
@@ -23,4 +23,15 @@ test("an approved source still requires explicit rights approval", () => {
   const candidate = { fallback: "existing", approvedSource: "/media/approved.mp4", rightsApproved: false };
   assert.equal(heroVideoSource(candidate, "clinic.example", ""), undefined);
   assert.equal(heroVideoSource({ ...candidate, rightsApproved: true }, "clinic.example", ""), candidate.approvedSource);
+});
+
+test("every major hero route has a specific ready-or-missing media record", () => {
+  assert.equal(Object.keys(heroRoutes).length, 14);
+  for (const variant of Object.values(heroRoutes)) assert.ok(heroMedia[variant]);
+});
+test("mobile selection uses the smaller clip without changing release rights", () => {
+  assert.equal(heroVideoSource(heroMedia.home, "localhost", "?heroVideoReview=1", 390), "/__clinic-review-media/home-mobile.mp4");
+  assert.equal(heroVideoSource(heroMedia.services, "localhost", "?heroVideoReview=1", 390), "/__clinic-review-media/services-mobile.mp4");
+  assert.equal(heroVideoSource(heroMedia.home, "localhost", "?heroVideoReview=1", 768), "/__clinic-review-media/home.mp4");
+  assert.equal(heroVideoSource(heroMedia.home, "preview.pages.dev", "?heroVideoReview=1", 390), undefined);
 });

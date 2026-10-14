@@ -1,3 +1,4 @@
+import { ClinicHeroVideo } from "@/components/clinic/ClinicHeroVideo";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { doctor, getPageBySlug, site } from "@/lib/content";
@@ -16,7 +17,8 @@ export default function SpecialistPage() {
     <>
       <JsonLd data={physicianJsonLd()} />
       <article className="clinic-specialist-page">
-        <section className="clinic-profile-intro">
+        <section className="clinic-profile-intro clinic-video-host">
+          <ClinicHeroVideo variant="specialist" overlayClassName="clinic-hero-shade clinic-hero-shade-paper" />
           <div className="clinic-container">
             <p className="clinic-eyebrow">The specialist</p>
             <h1>

@@ -2674,3 +2674,9 @@ textarea:focus-visible {
 @media (min-width: 1101px) and (max-width: 1350px) { .clinic-desktop-nav { gap: 14px; font-size: 14px; } .clinic-desktop-nav > .clinic-button { padding-inline: 16px; } }
 
 @media (max-width: 1100px) { .clinic-hero-playback { top: 100px; bottom: auto; } }
+
+/* Prepared hero slots preserve their current background until matching media is approved. */
+.clinic-video-host { position: relative; isolation: isolate; }
+.clinic-video-host > .clinic-hero-media, .clinic-video-host > .clinic-hero-shade { z-index: -1; border-radius: inherit; overflow: hidden; }
+
+.clinic-hero-shade-paper { background: #f8f7f2e6; }

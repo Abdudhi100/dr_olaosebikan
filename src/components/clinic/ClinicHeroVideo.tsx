@@ -9,6 +9,7 @@ export function ClinicHeroVideo({ variant, overlayClassName = "clinic-hero-shade
   const media = heroMedia[variant];
   const root = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
+  const manuallyPaused = useRef(false);
   const [source, setSource] = useState<string>();
   const [ready, setReady] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -21,7 +22,7 @@ export function ClinicHeroVideo({ variant, overlayClassName = "clinic-hero-shade
     const update = () => {
       const allowed = visible && !motion.matches && !connection?.saveData;
       if (!allowed) { setReady(false); setPlaying(false); }
-      setSource(allowed ? heroVideoSource(media, location.hostname, location.search) : undefined);
+      setSource(allowed ? heroVideoSource(media, location.hostname, location.search, window.innerWidth) : undefined);
     };
     const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; update(); });
     if (root.current) observer.observe(root.current);
@@ -34,15 +35,16 @@ export function ClinicHeroVideo({ variant, overlayClassName = "clinic-hero-shade
     if (!source || !element || failed) return;
     let active = true;
     element.muted = true;
-    element.play().catch(() => { if (active) { setFailed(true); setReady(false); } });
+    if (manuallyPaused.current) { setReady(true); setPlaying(false); }
+    else element.play().catch(() => { if (active) { setFailed(true); setReady(false); } });
     return () => { active = false; element.pause(); element.removeAttribute("src"); element.load(); };
   }, [source, failed]);
-  if (!media?.poster) return null;
+  if (!media?.poster) return <span hidden data-hero-media-missing={variant} />;
   return <>
     <div ref={root} className="clinic-hero-media" data-hero-media={variant}>
       <img className="clinic-hero-photo" src={media.poster} alt="" fetchPriority="high" />
       {source && !failed && <video ref={video} className="clinic-hero-video" style={{ opacity: ready ? 1 : 0 }}
-        src={source} poster={media.poster} muted loop playsInline autoPlay preload="none" aria-hidden="true" tabIndex={-1}
+        src={source} poster={media.poster} muted loop playsInline autoPlay={!manuallyPaused.current} preload="none" aria-hidden="true" tabIndex={-1}
         onPlaying={() => { setReady(true); setPlaying(true); }} onPause={() => setPlaying(false)}
         onError={() => { setFailed(true); setReady(false); }} />}
     </div>
@@ -51,8 +53,8 @@ export function ClinicHeroVideo({ variant, overlayClassName = "clinic-hero-shade
       onClick={() => {
         const element = video.current;
         if (!element) return;
-        if (playing) element.pause();
-        else element.play().catch(() => { setFailed(true); setReady(false); });
+        if (playing) { manuallyPaused.current = true; element.pause(); }
+        else { manuallyPaused.current = false; element.play().catch(() => { setFailed(true); setReady(false); }); }
       }}>{playing ? <Pause aria-hidden="true" size={18} /> : <Play aria-hidden="true" size={18} />}<span>{playing ? "Pause" : "Play"}</span></button>}
   </>;
 }

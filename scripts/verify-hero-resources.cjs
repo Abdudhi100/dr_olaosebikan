@@ -2,13 +2,13 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { chromium } = require('playwright');
-const { createReviewServer } = require('./serve-hero-review.cjs');
+const { createReviewServer, mediaFiles } = require('./serve-hero-review.cjs');
 (async () => {
  const output = path.resolve(process.env.CLINIC_REVIEW_OUTPUT_DIR || 'visual-review-codex-20261012-video-resources/browser');
  fs.mkdirSync(output,{recursive:true});
- const [home,services] = process.argv.slice(2);
- assert.ok(home && services,'Pass the two inventoried review MP4 paths');
- const server=createReviewServer({'/__clinic-review-media/home.mp4':home,'/__clinic-review-media/services.mp4':services});
+ const [first,second] = process.argv.slice(2);
+ const files=first==='--media-dir'?mediaFiles(second):{'/__clinic-review-media/home.mp4':first,'/__clinic-review-media/home-mobile.mp4':first,'/__clinic-review-media/services.mp4':second,'/__clinic-review-media/services-mobile.mp4':second};
+ const server=createReviewServer(files);
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
  const origin='http://127.0.0.1:'+server.address().port;
  const browser=await chromium.launch({headless:true});
@@ -35,13 +35,15 @@ const { createReviewServer } = require('./serve-hero-review.cjs');
     await page.goto(origin+route+'?heroVideoReview=1');await painted(page);
     await page.getByRole('button',{name:'Pause background video'}).waitFor({timeout:15000});
     const video=page.locator('video');
-    assert.ok((await video.getAttribute('src')).endsWith(id+'.mp4'));
+    assert.ok((await video.getAttribute('src')).endsWith(id+(width<768?'-mobile':'')+'.mp4'));
     assert.deepEqual(await page.locator('.clinic-hero').boundingBox(),geometry,'Motion preserves hero geometry');
     assert.ok(await video.evaluate(v=>v.muted&&v.loop&&v.playsInline&&!v.paused));
     assert.equal(await video.evaluate(v=>getComputedStyle(v).pointerEvents),'none');
     assert.equal(await video.evaluate(v=>getComputedStyle(v).objectFit),'cover');
     const pause=page.getByRole('button',{name:'Pause background video'});await pause.click();
     await page.getByRole('button',{name:'Play background video'}).waitFor();assert.ok(await video.evaluate(v=>v.paused));
+    await page.evaluate(()=>scrollTo(0,document.body.scrollHeight));await page.waitForTimeout(150);await page.evaluate(()=>scrollTo(0,0));await page.getByRole('button',{name:'Play background video'}).waitFor();
+    assert.equal(await page.locator('video').evaluate(v=>v.paused),true,'Manual pause survives offscreen cleanup');
     await page.getByRole('button',{name:'Play background video'}).click();await page.getByRole('button',{name:'Pause background video'}).waitFor();
     assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'No horizontal overflow');
     const target=page.locator(id==='home'?'.clinic-hero-content > .clinic-text-link':'.clinic-services-search input');
@@ -82,6 +84,11 @@ const { createReviewServer } = require('./serve-hero-review.cjs');
    await page.screenshot({path:path.join(output,mode+'.png')});results.push({mode,poster:true,mediaRequests:requests.length});await ctx.close();
   }
   const ctx=await context();const page=await ctx.newPage();await page.goto(origin+'/?heroVideoReview=1');await page.getByRole('button',{name:'Pause background video'}).waitFor();await page.emulateMedia({reducedMotion:'reduce'});await page.waitForFunction(()=>!document.querySelector('video'));results.push({mode:'live motion preference change',poster:true});await ctx.close();
+  const missingContext=await context();const missingPage=await missingContext.newPage();
+  for(const route of ['/about-dr-olaosebikan','/appointments/book','/contact-location','/faq','/insights','/publications','/publications/achievements','/joint-pain-and-stiffness-clinic-lagos','/rheumatoid-arthritis-treatment-lagos','/gout-treatment-lagos','/lupus-care-lagos','/autoimmune-disease-specialist-lagos']) {
+    await missingPage.goto(origin+route+'?heroVideoReview=1');assert.equal(await missingPage.locator('[data-hero-media-missing]').count(),1,route+' has one prepared hero slot');assert.equal(await missingPage.locator('video').count(),0,route+' does not substitute unrelated footage');
+  }await missingContext.close();results.push({mode:'12 missing-media hero slots',fallback:true});
+  const galleryContext=await context();const gallery=await galleryContext.newPage();await gallery.goto(origin+'/__hero-review');assert.equal(await gallery.locator('iframe').count(),2);await gallery.selectOption('#route','/faq');await gallery.getByRole('button',{name:'Compare poster and video'}).click();await gallery.frameLocator('#video').locator('[data-hero-media-missing="faq"]').waitFor({state:'attached'});await galleryContext.close();
   assert.deepEqual(external,[]);assert.deepEqual(errors,[]);
   fs.writeFileSync(path.join(output,'results.json'),JSON.stringify({results,external,errors},null,2));console.log('Video and Resources browser checks passed:',results.length,'scenarios; no external requests or client errors.');
  } finally {await browser.close();await new Promise(r=>server.close(r));}
