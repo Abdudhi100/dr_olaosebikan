@@ -6,8 +6,8 @@
   "mediaRightsApproved": false,
   "homepageMediaComplete": false,
   "canonicalDomainConfirmed": false,
-  "privatePreviewAccessVerified": false,
-  "productionBranch": "",
+  "privatePreviewAccessVerified": true,
+  "productionBranch": "main",
   "booking": {
     "enabled": false,
     "recipientBindingVerified": false,
@@ -17,5 +17,6 @@
     "rateProtectionVerified": false,
     "contactOnlyFallbackApproved": false
   },
-  "evidenceReferences": {}
+  "evidenceReferences": {"privatePreviewAccessVerified": "2026-10-14: Cloudflare Pages preview Access application verified; one-email Allow policy confirmed in Zero Trust; authorized email OTP login succeeded. Screenshot evidence retained by owner."
+}
 }
