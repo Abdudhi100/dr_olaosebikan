@@ -21,6 +21,7 @@ if (
 const nextConfig = {
   output: "export",
   env: {
+    NEXT_PUBLIC_CLINIC_HERO_PREVIEW: process.env.CLINIC_REVIEW_BUILD === "1" && process.env.CF_PAGES_BRANCH && process.env.CF_PAGES_BRANCH !== clinicReadiness.productionBranch ? "1" : "0",
     NEXT_PUBLIC_CLINIC_PRIVACY_NOTICE_PATH: clinicReadiness.booking.enabled
       ? clinicReadiness.booking.privacyNoticePath
       : "",

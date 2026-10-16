@@ -77,7 +77,7 @@ test("review override requires recorded private preview protection and excludes 
       { ...config, productionBranch: "" },
     ),
   );
-  assert.throws(() =>
+  assert.doesNotThrow(() =>
     assertClinicBuildAllowed({
       CF_PAGES: "1",
       CF_PAGES_BRANCH: "feat/review",

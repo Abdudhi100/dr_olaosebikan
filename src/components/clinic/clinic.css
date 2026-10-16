@@ -2690,3 +2690,19 @@ textarea:focus-visible {
   }
   .clinic-services-page .clinic-service-card-content { background: transparent; }
 }
+
+/* Keep playback controls clear of secondary hero headings and actions on phones. */
+@media (max-width: 600px) {
+  .clinic-care-intro .clinic-hero-playback,
+  .clinic-video-host:not(.clinic-booking-heading):not(.clinic-hero) .clinic-hero-playback {
+    top: auto;
+    bottom: 4px;
+    right: 12px;
+  }
+  .clinic-page-hero-contact.clinic-video-host:not(.clinic-booking-heading):not(.clinic-hero) .clinic-hero-playback { top: 12px; bottom: auto; }
+  .clinic-booking-heading .clinic-hero-playback {
+    top: -48px;
+    bottom: auto;
+    right: 0;
+  }
+}
