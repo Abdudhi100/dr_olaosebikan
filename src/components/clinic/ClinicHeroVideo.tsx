@@ -39,16 +39,19 @@ export function ClinicHeroVideo({ variant, overlayClassName = "clinic-hero-shade
     else element.play().catch(() => { if (active) { setFailed(true); setReady(false); } });
     return () => { active = false; element.pause(); element.removeAttribute("src"); element.load(); };
   }, [source, failed]);
-  if (!media?.poster) return <span hidden data-hero-media-missing={variant} />;
+  // Keep the intersection target mounted even when a hero has no approved poster.
+  // A local-review poster is visible only after a loopback, opt-in source is selected.
+  const poster = media?.poster || (source ? media?.reviewPoster : undefined);
+  if (!media) return null;
   return <>
     <div ref={root} className="clinic-hero-media" data-hero-media={variant}>
-      <img className="clinic-hero-photo" src={media.poster} alt="" fetchPriority="high" />
-      {source && !failed && <video ref={video} className="clinic-hero-video" style={{ opacity: ready ? 1 : 0 }}
-        src={source} poster={media.poster} muted loop playsInline autoPlay={!manuallyPaused.current} preload="none" aria-hidden="true" tabIndex={-1}
+      {poster && <img className="clinic-hero-photo" src={poster} alt="" fetchPriority="high" />}
+      {source && poster && !failed && <video ref={video} className="clinic-hero-video" style={{ opacity: ready ? 1 : 0 }}
+        src={source} poster={poster} muted loop playsInline autoPlay={!manuallyPaused.current} preload="none" aria-hidden="true" tabIndex={-1}
         onPlaying={() => { setReady(true); setPlaying(true); }} onPause={() => setPlaying(false)}
         onError={() => { setFailed(true); setReady(false); }} />}
     </div>
-    <div className={overlayClassName} aria-hidden="true" />
+    {poster && <div className={overlayClassName} aria-hidden="true" />}
     {ready && !failed && <button type="button" className="clinic-hero-playback" aria-label={playing ? "Pause background video" : "Play background video"}
       onClick={() => {
         const element = video.current;

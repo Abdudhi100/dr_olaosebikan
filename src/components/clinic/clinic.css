@@ -2680,3 +2680,13 @@ textarea:focus-visible {
 .clinic-video-host > .clinic-hero-media, .clinic-video-host > .clinic-hero-shade { z-index: -1; border-radius: inherit; overflow: hidden; }
 
 .clinic-hero-shade-paper { background: #f8f7f2e6; }
+
+/* Services card text scrim: no hard mid-card seam at the 1440px native breakpoint.
+   Keeps full card copy and actions in place, with a continuous bottom contrast fade. */
+@media (min-width: 1101px) {
+  .clinic-services-page .clinic-service-card::after {
+    background: linear-gradient(180deg, transparent 38%, #002a3038 55%, #002a30f0 100%);
+    pointer-events: none;
+  }
+  .clinic-services-page .clinic-service-card-content { background: transparent; }
+}

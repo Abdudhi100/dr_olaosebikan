@@ -5,6 +5,7 @@ export type HeroMedia = {
   reviewSource?: string;
   approvedSource?: string;
   reviewMobileSource?: string;
+  reviewPoster?: string;
   approvedMobileSource?: string;
   rightsApproved: boolean;
   missing?: string;
@@ -34,6 +35,17 @@ export const heroRoutes: Record<string, string> = {
 for (const [route, variant] of Object.entries(heroRoutes)) {
   if (variant.startsWith("clinical:")) heroMedia[variant] = { ...heroMedia.clinical, missing: `Reviewed condition-specific footage and poster for ${route}` };
 }
+// Review-only. The recorded source depicts a knee examination in a wheelchair;
+// rights, context and clinical suitability are NOT approved for publication.
+const kneeVariant = "clinical:joint-pain-and-stiffness-clinic-lagos";
+heroMedia[kneeVariant] = {
+  ...heroMedia[kneeVariant],
+  reviewSource: "/__clinic-review-media/joint-pain.mp4",
+  reviewMobileSource: "/__clinic-review-media/joint-pain-mobile.mp4",
+  reviewPoster: "/__clinic-review-media/joint-pain-poster.webp",
+  rightsApproved: false,
+  missing: "Knee-assessment footage is for loopback review only; source rights, patient/model consent, clinical context and owner acceptance unverified",
+};
 export function heroVideoSource(media: HeroMedia, hostname: string, search: string, width = 1440): string | undefined {
   if (media.rightsApproved && media.approvedSource) return width < 768 ? media.approvedMobileSource || media.approvedSource : media.approvedSource;
   if (["localhost", "127.0.0.1", "[::1]"].includes(hostname) && new URLSearchParams(search).get("heroVideoReview") === "1") return width < 768 ? media.reviewMobileSource || media.reviewSource : media.reviewSource;
