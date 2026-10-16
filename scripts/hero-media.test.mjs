@@ -35,3 +35,16 @@ test("mobile selection uses the smaller clip without changing release rights", (
   assert.equal(heroVideoSource(heroMedia.home, "localhost", "?heroVideoReview=1", 768), "/__clinic-review-media/home.mp4");
   assert.equal(heroVideoSource(heroMedia.home, "preview.pages.dev", "?heroVideoReview=1", 390), undefined);
 });
+
+test("knee assessment stays review-only and cannot leak to public preview", () => {
+  const knee = heroMedia["clinical:joint-pain-and-stiffness-clinic-lagos"];
+  assert.equal(knee.rightsApproved, false);
+  assert.equal(knee.poster, undefined);
+  assert.equal(knee.reviewPoster, "/__clinic-review-media/joint-pain-poster.webp");
+  assert.equal(heroVideoSource(knee, "127.0.0.1", "?heroVideoReview=1", 390), "/__clinic-review-media/joint-pain-mobile.mp4");
+  assert.equal(heroVideoSource(knee, "localhost", "?heroVideoReview=1", 1440), "/__clinic-review-media/joint-pain.mp4");
+  for (const host of ["preview.pages.dev", "drolaosebikan.com", "localhost.evil.test"]) {
+    assert.equal(heroVideoSource(knee, host, "?heroVideoReview=1"), undefined);
+  }
+  assert.equal(heroVideoSource(knee, "localhost", ""), undefined);
+});
