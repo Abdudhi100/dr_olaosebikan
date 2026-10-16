@@ -23,6 +23,10 @@ The reusable component is integrated into 14 existing hero routes. Home and Serv
 | Achievements | Missing professional footage and approved poster |
 | Joint pain, rheumatoid arthritis, gout, lupus, autoimmune disease pages | Five individually mapped slots; condition-specific selection and poster approval missing |
 
+## Follow-up — 16 October 2026
+
+Secondary video heroes now share the Homepage's transparent header overlay and full-bleed media layering. The appointment breadcrumb and heading are inside the video host so the background also reaches behind the navigation. Specialist and non-joint condition heroes reuse the existing Services background in the explicitly gated preview build; their existing non-preview backgrounds remain unchanged. Video sizing uses full-container cover, and viewport resizing reselects the mobile source below 768 pixels. No new media, booking behavior, or release-gate configuration was added.
+
 Utility/error pages receive no new motion. Recovered interviews require editorial review/captions/transcripts/permissions and are not substituted as decorative backgrounds. The knee assessment clip is only a potential relevant clinical candidate, not an approved assignment. The complete original inventory and project-location search are included in the review package.
 
 ## Review

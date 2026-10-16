@@ -12,6 +12,7 @@ test("hero mapping preserves real posters and fails closed on every remote host"
     } else assert.equal(media.rightsApproved, false);
     assert.equal(media.fallback, "existing");
     if (media.poster) assert.ok(fs.existsSync("public" + media.poster));
+    else if (media.approvedPoster) assert.ok(fs.existsSync("public" + media.approvedPoster));
     else assert.ok(media.missing);
     for (const host of ["clinic.example", "preview.pages.dev", "localhost.evil.test"]) assert.equal(heroVideoSource(media, host, "?heroVideoReview=1", 1440, false), undefined);
     assert.equal(heroVideoSource(media, "localhost", "", 1440, false), undefined);
@@ -67,6 +68,8 @@ test("explicit preview flag selects responsive approved media while production s
     assert.equal(heroVideoSource(media, "drolaosebikan.com", "", 1440, false), undefined);
   }
   for (const route of ["/about-dr-olaosebikan", "/rheumatoid-arthritis-treatment-lagos", "/gout-treatment-lagos", "/lupus-care-lagos", "/autoimmune-disease-specialist-lagos"]) {
-    assert.equal(heroVideoSource(heroMedia[heroRoutes[route]], "example-preview.pages.dev", "", 390, true), undefined);
+    assert.equal(heroVideoSource(heroMedia[heroRoutes[route]], "example-preview.pages.dev", "", 390, true), "/video/clinic/services-mobile.mp4");
+    assert.equal(heroVideoSource(heroMedia[heroRoutes[route]], "example-preview.pages.dev", "", 1440, true), "/video/clinic/services-desktop.mp4");
+    assert.equal(heroVideoSource(heroMedia[heroRoutes[route]], "drolaosebikan.com", "", 1440, false), undefined);
   }
 });

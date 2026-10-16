@@ -36,6 +36,18 @@ export const heroRoutes: Record<string, string> = {
 for (const [route, variant] of Object.entries(heroRoutes)) {
   if (variant.startsWith("clinical:")) heroMedia[variant] = { ...heroMedia.clinical, missing: `Reviewed condition-specific footage and poster for ${route}` };
 }
+const sharedClinicHero = {
+  approvedPoster: heroMedia.services.poster,
+  approvedSource: heroMedia.services.approvedSource,
+  approvedMobileSource: heroMedia.services.approvedMobileSource,
+  rightsApproved: true,
+};
+heroMedia.specialist = { ...heroMedia.specialist, ...sharedClinicHero, missing: undefined };
+for (const [route, variant] of Object.entries(heroRoutes)) {
+  if (variant.startsWith("clinical:") && variant !== "clinical:joint-pain-and-stiffness-clinic-lagos") {
+    heroMedia[variant] = { ...heroMedia[variant], ...sharedClinicHero, missing: undefined };
+  }
+}
 // The owner-cleared Joint Pain clip remains limited to the protected preview build.
 const kneeVariant = "clinical:joint-pain-and-stiffness-clinic-lagos";
 heroMedia[kneeVariant] = {

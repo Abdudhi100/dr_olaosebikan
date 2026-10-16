@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { site } from "@/lib/content";
 import { appointmentWhatsAppUrl } from "@/lib/whatsapp";
+import { heroRoutes } from "@/lib/hero-media";
 const links = [
   { href: "/services", label: "Our care" },
   { href: "/about-dr-olaosebikan", label: "The specialist" },
@@ -48,9 +49,10 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const button = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLElement>(null);
-  const overlay = path === "/" || path === "/services";
+  const overlay = path !== null && Object.hasOwn(heroRoutes, path);
+  const lightHero = path === "/about-dr-olaosebikan" || path === "/appointments/book";
   const dark =
-    overlay ||
+    (overlay && !lightHero) ||
     path === "/faq" ||
     path === "/contact-location" ||
     path?.startsWith("/publications") ||

@@ -28,7 +28,8 @@ export function ClinicHeroVideo({ variant, overlayClassName = "clinic-hero-shade
     if (root.current) observer.observe(root.current);
     motion.addEventListener("change", update);
     connection?.addEventListener("change", update);
-    return () => { observer.disconnect(); motion.removeEventListener("change", update); connection?.removeEventListener("change", update); };
+    window.addEventListener("resize", update);
+    return () => { observer.disconnect(); motion.removeEventListener("change", update); connection?.removeEventListener("change", update); window.removeEventListener("resize", update); };
   }, [media]);
   useEffect(() => {
     const element = video.current;

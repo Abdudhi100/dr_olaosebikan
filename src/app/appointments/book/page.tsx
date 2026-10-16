@@ -13,19 +13,23 @@ export const metadata = defaultMetadata({
 export default function BookingPage() {
   return (
     <section className="clinic-booking">
-      <div className="clinic-container">
-        <nav className="clinic-breadcrumb" aria-label="Breadcrumb">
-          <Link href="/">Home</Link>
-          <span aria-hidden>/</span>Appointment request
-        </nav>
-        <div className="clinic-booking-heading clinic-video-host">
-          <ClinicHeroVideo variant="appointments" overlayClassName="clinic-hero-shade clinic-hero-shade-paper" />
-          <h1>Request an appointment</h1>
-          <p>
-            Choose your preferences and tell us how to contact you. The clinic
-            will confirm availability and the consultation arrangements.
-          </p>
+      <div className="clinic-booking-hero clinic-video-host">
+        <ClinicHeroVideo variant="appointments" overlayClassName="clinic-hero-shade clinic-hero-shade-paper" />
+        <div className="clinic-container">
+          <nav className="clinic-breadcrumb" aria-label="Breadcrumb">
+            <Link href="/">Home</Link>
+            <span aria-hidden>/</span>Appointment request
+          </nav>
+          <div className="clinic-booking-heading">
+            <h1>Request an appointment</h1>
+            <p>
+              Choose your preferences and tell us how to contact you. The clinic
+              will confirm availability and the consultation arrangements.
+            </p>
+          </div>
         </div>
+      </div>
+      <div className="clinic-container">
         <div className="clinic-booking-layout">
           <BookingForm />
           <aside className="clinic-booking-sidebar">
