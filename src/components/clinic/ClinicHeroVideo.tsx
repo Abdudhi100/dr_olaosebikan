@@ -38,7 +38,7 @@ export function ClinicHeroVideo({ variant, overlayClassName = "clinic-hero-shade
     element.muted = true;
     if (manuallyPaused.current) { setReady(true); setPlaying(false); }
     else element.play().catch(() => { if (active) { setFailed(true); setReady(false); } });
-    return () => { active = false; element.pause(); element.removeAttribute("src"); element.load(); };
+    return () => { active = false; element.pause(); };
   }, [source, failed]);
   // Keep the intersection target mounted even when a hero has no approved poster.
   // A local-review poster is visible only after a loopback, opt-in source is selected.
