@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { site } from "@/lib/content";
+import release from "../../../config/clinic-release.json";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import styles from "./insights.module.css";
@@ -121,8 +122,9 @@ function InsightsFooter() {
               Olaosebikan.
             </p>
             <p>
-              Submitting a request does not confirm an appointment. Fees are
-              communicated privately.
+              {release.booking.enabled
+                ? "Submitting a request does not confirm an appointment. Fees are communicated privately."
+                : "Contact the clinic by WhatsApp, phone or email. Appointment times and fees are confirmed directly."}
             </p>
             <Link className={styles.inverseButton} href="/appointments/book">
               Request an appointment
