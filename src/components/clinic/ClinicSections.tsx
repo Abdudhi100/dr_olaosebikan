@@ -17,7 +17,7 @@ export const appointmentFaqs = [
   },
   {
     question: "How long is a consultation?",
-    answer: "Consultations are arranged as one-hour appointments.",
+    answer: "Consultations are arranged as 45-minute appointments.",
   },
   {
     question: "How will I know the consultation fee?",
@@ -155,7 +155,7 @@ export function VenueSection({ dark = false }: { dark?: boolean }) {
           </div>
         </div>
         <p className="clinic-small">
-          One-hour appointments. Fees are communicated privately.
+          45-minute appointments. Fees are communicated privately.
         </p>
       </div>
     </section>

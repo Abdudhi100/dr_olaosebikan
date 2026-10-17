@@ -1,10 +1,10 @@
 {
   "releaseStatus": "pending",
-  "professionalClaimsVerified": false,
-  "clinicalCopyApproved": false,
+  "professionalClaimsVerified": true,
+  "clinicalCopyApproved": true,
   "contactDetailsConfirmed": false,
-  "mediaRightsApproved": false,
-  "homepageMediaComplete": false,
+  "mediaRightsApproved": true,
+  "homepageMediaComplete": true,
   "canonicalDomainConfirmed": false,
   "privatePreviewAccessVerified": true,
   "productionBranch": "main",
@@ -17,6 +17,11 @@
     "rateProtectionVerified": false,
     "contactOnlyFallbackApproved": false
   },
-  "evidenceReferences": {"privatePreviewAccessVerified": "2026-10-14: Cloudflare Pages preview Access application verified; one-email Allow policy confirmed in Zero Trust; authorized email OTP login succeeded. Screenshot evidence retained by owner."
-}
+  "evidenceReferences": {
+    "privatePreviewAccessVerified": "2026-10-14: Cloudflare Pages preview Access application verified; one-email Allow policy confirmed in Zero Trust; authorized email OTP login succeeded. Screenshot evidence retained by owner.",
+    "professionalClaimsVerified": "2026-10-17: Website project owner explicitly approved existing professional-information wording in ChatGPT conversation; final clinician documentation remains the owner's responsibility.",
+    "clinicalCopyApproved": "2026-10-17: Website project owner explicitly approved remaining existing clinic and patient-facing information in ChatGPT conversation.",
+    "mediaRightsApproved": "2026-10-16/17: Owner explicitly confirmed rights and approved existing website media during ChatGPT conversation.",
+    "homepageMediaComplete": "2026-10-17: Owner approved current homepage presentation, including its existing hero media, in ChatGPT conversation."
+  }
 }
