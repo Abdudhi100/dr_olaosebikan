@@ -39,7 +39,7 @@ export default function FaqPage() {
           <div>
             <p className="clinic-eyebrow">Questions about your health</p>
             <h2 className="clinic-subtitle">
-              Understand your next steps.
+              Understanding rheumatology care.
             </h2>
             <p>
               These answers offer general information and do not replace an
