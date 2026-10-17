@@ -18,6 +18,64 @@ export function bookingDeliveryReady(config: BookingDeliveryConfiguration) {
     config.rateProtectionVerified === true
   );
 }
+/** Deployment switch alone never grants permission to accept patient submissions. */
+export type BookingReleaseControls = {
+  enabled: boolean;
+  recipientBindingVerified: boolean;
+  privacyNoticeApproved: boolean;
+  privacyNoticePath: string;
+  retentionApproved: boolean;
+  rateProtectionVerified: boolean;
+};
+export function approvedBookingConfiguration(
+  release: BookingReleaseControls,
+  deliveryFlag: string | undefined,
+  accessKey: string | undefined,
+  privacyNoticePath: string | undefined,
+): BookingDeliveryConfiguration | null {
+  if (
+    release.enabled !== true || deliveryFlag !== "1" ||
+    !/^\/[a-z0-9][a-z0-9/-]*$/.test(release.privacyNoticePath) ||
+    release.privacyNoticePath !== privacyNoticePath
+  ) return null;
+  const config: BookingDeliveryConfiguration = {
+    accessKey: accessKey ?? "",
+    recipientBindingVerified: release.recipientBindingVerified,
+    privacyNoticeApproved: release.privacyNoticeApproved,
+    retentionApproved: release.retentionApproved,
+    rateProtectionVerified: release.rateProtectionVerified,
+  };
+  return bookingDeliveryReady(config) ? config : null;
+}
+
+/** Synthetic recipient verification: never accept real appointment details. */
+export const SYNTHETIC_TEST_NAME = "SYNTHETIC CLINIC TEST - NOT A PATIENT";
+export const SYNTHETIC_TEST_PHONE = "+12025550147";
+export function isSyntheticTestPayload(payload: BookingPayload) {
+  return payload.fullName === SYNTHETIC_TEST_NAME &&
+    payload.phone === SYNTHETIC_TEST_PHONE &&
+    payload.consultationType === "virtual" &&
+    !payload.reason && !payload.preferredDate && !payload.preferredTime &&
+    !payload.email && !payload.bookingNote;
+}
+export function createSyntheticWeb3FormsTransport(
+  accessKey: string,
+  authorizedPreview: boolean,
+  fetcher: typeof fetch = fetch,
+): ReviewTransport {
+  if (!authorizedPreview) throw new Error("Synthetic form test is private-preview-only.");
+  // The synthetic transport cannot replace the release approvals. Its only
+  // accepted request is the exact fictional marker above.
+  const config: BookingDeliveryConfiguration = {
+    accessKey, recipientBindingVerified: true, privacyNoticeApproved: true,
+    retentionApproved: true, rateProtectionVerified: true,
+  };
+  const send = createApprovedBookingTransport(config, fetcher);
+  return async (payload) => isSyntheticTestPayload(payload)
+    ? send(payload)
+    : { kind: "definite-failure" };
+}
+
 export function bookingProviderPayload(
   payload: BookingPayload,
   accessKey: string,
