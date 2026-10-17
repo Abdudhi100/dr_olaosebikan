@@ -89,12 +89,13 @@ export function bookingProviderPayload(
     phone: payload.phone,
     consultationType: payload.consultationType,
   };
+  // Scheduling-only data. A selected reason can reveal a diagnosis, and
+  // free text can contain medical information despite the visible warning.
+  // Neither belongs in a third-party email notification by default.
   for (const field of [
-    "reason",
     "preferredDate",
     "preferredTime",
     "email",
-    "bookingNote",
   ] as const) {
     if (payload[field]) body[field] = payload[field];
   }
