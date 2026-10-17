@@ -3,6 +3,9 @@ const fs = require("node:fs");
 const path = require("node:path");
 const http = require("node:http");
 const assert = require("node:assert/strict");
+const contactOnly = JSON.parse(
+  fs.readFileSync(path.join(process.cwd(), "config/clinic-release.json"), "utf8"),
+).booking.enabled !== true;
 const { chromium } = require(
   process.env.PLAYWRIGHT_MODULE ||
     (process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES
@@ -166,8 +169,13 @@ const { chromium } = require(
           assert.equal(geometry.image, width <= 1100 ? 233 : 226.75, `Care image height at ${width}`);
           assert.equal(geometry.height, width <= 1100 ? 335 : 368.75, `Care card height at ${width}`);
           assert.equal(geometry.gap, width <= 1100 ? 12 : 30, `Care gap at ${width}`);
-          const preferences = await page.locator('[class*="quickForm"] [class*="fields"]').evaluate((el) => new Set(Array.from(el.children, (child) => Math.round(child.getBoundingClientRect().left))).size);
-          assert.equal(preferences, width <= 1100 ? 1 : 4, `Native quick preference columns at ${width}`);
+          if (contactOnly) {
+            assert.equal(await page.locator('[data-booking-mode="contact-only"]').count(), 1, "Contact-only homepage panel");
+            assert.equal(await page.locator("#quick-reason").count(), 0, "No inactive homepage intake");
+          } else {
+            const preferences = await page.locator('[class*="quickForm"] [class*="fields"]').evaluate((el) => new Set(Array.from(el.children, (child) => Math.round(child.getBoundingClientRect().left))).size);
+            assert.equal(preferences, width <= 1100 ? 1 : 4, `Native quick preference columns at ${width}`);
+          }
           await page.waitForFunction((expected) => document.querySelector(".clinic-rail-controls > span").textContent.replace(/\s+/g, " ").trim() === expected, width === 390 ? "1 / 6" : width === 768 ? "1–2 / 6" : "1–4 / 6");
           assert.equal(
             await page.locator('img[src="/images/dr_hakeem.webp"]').count(),
@@ -220,6 +228,18 @@ const { chromium } = require(
         .evaluate((e) => e === document.activeElement),
       true,
     );
+    if (contactOnly) {
+      assert.equal(await page.locator('[data-booking-mode="contact-only"]').count(), 1);
+      assert.equal(await page.locator("#quick-reason").count(), 0);
+      await page.goto(origin + "/appointments/book");
+      assert.equal(await page.locator('[data-booking-mode="contact-only"]').count(), 1);
+      assert.equal(await page.locator("form").count(), 0, "No patient form in contact-only mode");
+      assert.equal(await page.locator("#booking-fullName").count(), 0);
+      assert.equal(await page.locator('a[href^="https://wa.me/2348035751154"]').count() > 0, true);
+      assert.equal(await page.locator('a[href="tel:+2348035751154"]').count() > 0, true);
+      assert.equal(await page.locator('a[href="mailto:contact@drolaosebikan.com"]').count() > 0, true);
+      assert.equal(await page.evaluate(() => localStorage.length + sessionStorage.length), 0);
+    } else {
     await page.locator("#quick-reason").selectOption("Gout treatment");
     await page.locator("#quick-consultationType").selectOption("virtual");
     await page.locator("#quick-preferredTime").fill("14:30");
@@ -287,6 +307,7 @@ const { chromium } = require(
     await page.getByRole("button", { name: "Clear this request" }).click();
     assert.equal(await page.locator("#booking-reason").inputValue(), "");
     assert.equal(await page.locator("input[type=radio]:checked").count(), 0);
+    }
     await page.goto(origin + "/services");
     await page.getByRole("button", { name: "Open navigation", exact: true }).click();
     assert.equal(await page.locator('#clinic-mobile-navigation a[aria-current="page"]').textContent(), "Our care");

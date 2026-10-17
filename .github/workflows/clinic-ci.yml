@@ -60,6 +60,9 @@ jobs:
           test -s out/index.html
           test -s out/404.html
 
+      - name: Verify contact-only export does not render patient intake forms
+        run: node scripts/verify-contact-only-export.mjs
+
       - name: Validate exported internal links and anchors
         run: npm run check:links
 
