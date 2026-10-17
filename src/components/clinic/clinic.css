@@ -2802,3 +2802,66 @@ textarea:focus-visible {
     line-height: 21px;
   }
 }
+
+/* Appointment privacy draft: deliberately restrained, readable, and visually
+   distinct from a final legally approved notice. Protected preview only. */
+.clinic-privacy-page {
+  padding: calc(var(--clinic-header-height) + 48px) 0 88px;
+  background: #faf8f2;
+  color: #002a30;
+}
+.clinic-privacy-content {
+  max-width: 770px;
+  margin: 28px auto 0;
+  padding: 44px clamp(24px, 4vw, 54px);
+  border: 1px solid rgba(0, 42, 48, 0.12);
+  border-radius: 32px;
+  background: #fffefa;
+}
+.clinic-privacy-eyebrow {
+  margin: 0 0 18px;
+  color: #8f4e23;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+}
+.clinic-privacy-content h1 {
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 1.1;
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  margin: 0 0 20px;
+}
+.clinic-privacy-content h2 {
+  font-size: clamp(19px, 2vw, 23px);
+  font-weight: 550;
+  line-height: 1.35;
+  margin: 30px 0 10px;
+}
+.clinic-privacy-content p {
+  font-size: 16px;
+  line-height: 1.75;
+  margin: 0 0 12px;
+}
+.clinic-privacy-content .clinic-privacy-lead {
+  font-size: 18px;
+  line-height: 1.6;
+}
+.clinic-privacy-content a:not(.clinic-text-link) {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+.clinic-privacy-draft-warning {
+  margin: 32px 0;
+  padding: 20px 24px;
+  border: 1px solid rgba(143, 78, 35, 0.3);
+  border-radius: 16px;
+  background: #f7f0e6;
+}
+.clinic-privacy-draft-warning p { margin: 7px 0 0; }
+@media (max-width: 600px) {
+  .clinic-privacy-page { padding: calc(var(--clinic-header-height) + 28px) 0 64px; }
+  .clinic-privacy-content { margin-top: 22px; border-radius: 22px; padding: 28px 22px; }
+  .clinic-privacy-draft-warning { padding: 18px; }
+}
