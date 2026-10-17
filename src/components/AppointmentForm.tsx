@@ -396,7 +396,7 @@ export function AppointmentForm({
           <div className={`${styles.field} ${styles.fullWidth}`}>
             <label htmlFor={fieldId("reason")} className={styles.label}>
               Reason for consultation{" "}
-              <span className={styles.optional}>(optional)</span>
+              <span className={styles.optional}>(optional; stays on this page)</span>
             </label>
             <select
               id={fieldId("reason")}
@@ -587,8 +587,8 @@ export function AppointmentForm({
               )}
             />
             <p id="booking-note-help" className={styles.help}>
-              Please do not include medical records or detailed medical
-              information.
+              For your own reference only; this text is not emailed to the
+              clinic. Do not include symptoms, diagnoses or medical records.
             </p>
             <p id="booking-note-count" className={styles.help}>
               {countBookingNoteCharacters(draft.bookingNote)} of 300 characters.
@@ -599,9 +599,11 @@ export function AppointmentForm({
         </div>
         <p className={styles.privacy}>
           Please do not enter medical records or detailed medical information.
+          The consultation reason and booking note stay in this page only; they
+          are excluded from Web3Forms email notifications.
           {transport === unavailableTransport
-            ? "These controls cannot currently send your request. Contact the clinic to arrange your appointment."
-            : "The clinic will use these details to arrange your appointment."}
+            ? " These controls cannot currently send your request. Contact the clinic to arrange your appointment."
+            : " Only the required contact details and scheduling preferences are sent to arrange your appointment."}
         </p>
         {transport !== unavailableTransport &&
           process.env.NEXT_PUBLIC_CLINIC_PRIVACY_NOTICE_PATH && (
