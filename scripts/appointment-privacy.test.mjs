@@ -15,6 +15,9 @@ test("appointment privacy draft is clearly unapproved and non-indexable", () => 
   assert.match(page, /retention and deletion policy/);
   assert.equal(clinicReadiness.booking.privacyNoticeApproved, false);
   assert.equal(clinicReadiness.booking.retentionApproved, false);
+  assert.equal(clinicReadiness.booking.retentionTargetDays, 30);
+  assert.match(page, /30 days/);
+  assert.match(page, /not yet[\s\S]*?verified/);
   assert.equal(clinicReadiness.booking.rateProtectionVerified, false);
   assert.equal(clinicReadiness.booking.enabled, false);
   assert.equal(clinicReadiness.releaseStatus, "pending");
