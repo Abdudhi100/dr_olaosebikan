@@ -1,12 +1,48 @@
 # Dr Olaosebikan — owner-operated production go-live checklist
 
-**Updated 17 October 2026. Status: NOT APPROVED / DO NOT DEPLOY.**
+**Updated 17 October 2026. Status: OWNER-APPROVED RELEASE — verify CI, Cloudflare deployment, and live functionality.**
 Source: [draft release PR #28](https://github.com/Abdudhi100/dr_olaosebikan/pull/28).
 Use this practical sequence with the real Cloudflare, Web3Forms and Sanity
 accounts. Do not place passwords, webhook URLs, university-mailbox destination
 addresses, session cookies, or private patient details in GitHub.
 
-## Contact-only release track selected — 17 October 2026
+
+## Approved Web3Forms production release — 17 October 2026
+
+The owner explicitly superseded the contact-only launch and approved public
+deployment WITH live Web3Forms for administrative appointment requests.
+Dr Hakeem Olaosebikan personally operates the clinic; Maryamville Medical
+Center is the consultation venue, not the practice operator.
+
+The owner confirmed that Cloudflare production contains the correct
+Web3Forms identifier. The production Next.js build now fails closed if that
+identifier is missing or incorrectly formatted. Only a build on the
+Cloudflare Pages `main` branch can submit to Web3Forms. All protected
+previews must be non-delivering, even when showing the form.
+
+The Web3Forms account retains submissions for **3 years** by the selected
+provider setting. The clinic approved a **12-month retention schedule for
+routine forwarded email appointment notifications**, with reasonable
+documented exceptions for ongoing cases or legal obligations.
+**Cloudflare Email Routing does not delete mailbox copies.** Dr Olaosebikan
+or his specifically authorized mailbox manager must routinely review and
+delete routine notification emails older than 12 months, checking backups
+and applicable university-mailbox policies. The user confirmation of the
+schedule is not proof that automatic deletion is configured.
+
+Release steps: wait for both latest-commit GitHub CI jobs to pass;
+confirm the exact PR head and `main` baseline have not unexpectedly moved;
+merge the tested draft PR #28 into `main` only under owner's authorization;
+check resulting Cloudflare Pages `main` deployment status and build logs;
+inspect the new public site, /appointments/book and /appointment-privacy;
+confirm the privacy notice is published (no draft label), production
+booking genuinely sends with the clinic's verified provider identifier,
+then perform a **fictional-data-only** mailbox receipt smoke test.
+If any check fails, stop, disable new intake or restore the known baseline
+production commit `aad73438939ecd2cf6d48a4bf0bd736852923b9d`.
+Never expose patient data or provider account identifiers in public evidence.
+
+## Superseded: historical contact-only release plan — 17 October 2026
 
 The owner explicitly selected contact-only as the initial public launch plan.
 The new draft release candidate presents WhatsApp, telephone and email
