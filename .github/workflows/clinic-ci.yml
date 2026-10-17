@@ -63,13 +63,6 @@ jobs:
       - name: Validate exported internal links and anchors
         run: npm run check:links
 
-      # Temporary single-review browser check; remove before merging to keep CI lean.
-      - name: One-off 17-route responsive browser audit (four widths)
-        run: |
-          npm install --no-save --no-package-lock playwright@1.56.1
-          npx playwright install --with-deps chromium
-          node scripts/verify-clinic-browser.cjs
-
       - name: Confirm production-release gate has not been enabled
         run: |
           node --input-type=module -e "
