@@ -52,3 +52,24 @@ test("appointment page transparently links to review-only privacy information", 
   assert.match(form, /excluded from Web3Forms email notifications/);
   assert.match(form, /text is not emailed to the/);
 });
+
+test("approved live booking requires a completed hCaptcha and forwards its token to Web3Forms", () => {
+  const component = source("../src/components/AppointmentForm.tsx");
+  const wrapper = source("../src/components/booking/BookingForm.tsx");
+  assert.match(wrapper, /captchaRequired=\{Boolean\(transport\)\}/);
+  assert.match(component, /https:\/\/js\.hcaptcha\.com\/1\/api\.js/);
+  assert.match(component, /data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"/);
+  assert.match(component, /if \(captchaRequired && !challengeResponse\)/);
+  const token = "fictional-hcaptcha-test-token";
+  const payload = bookingProviderPayload({
+    fullName: "Synthetic Tester", phone: "+12025550147", consultationType: "virtual",
+    hCaptchaResponse: token,
+  }, "00000000-0000-4000-8000-000000000000");
+  assert.equal(payload["h-captcha-response"], token);
+  assert.ok(!JSON.stringify(payload).includes("Lupus care"));
+  const noChallenge = bookingProviderPayload({
+    fullName: "Synthetic Tester", phone: "+12025550147", consultationType: "virtual",
+  }, "00000000-0000-4000-8000-000000000000");
+  assert.equal("h-captcha-response" in noChallenge, false);
+  assert.equal(clinicReadiness.booking.enabled, false);
+});
