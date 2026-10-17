@@ -66,6 +66,13 @@ in the approved-to-test website source; `booking.enabled=false`.
 Do not set `retentionApproved`, `rateProtectionVerified` or
 `privacyNoticeApproved` true from these screenshots.
 
+## Updated clinic-operator and integration evidence — 17 October 2026
+
+- User confirms **Dr Hakeem Olaosebikan personally and legally operates** the private practice. Maryamville Medical Center is the venue; it must not be represented as the controller on this evidence.
+- Web3Forms settings persisted unchanged according to the user. The uploaded Integrations screenshot shows **no enabled third-party integrations**: Google Sheets disconnected, Telegram/Slack/Discord/Webhook OFF; Notion and Airtable unavailable.
+- The user explicitly **approves Web3Forms and requests deployment**. This establishes the provider choice, not an approved receiving-inbox retention policy or complete final notice.
+- User-provided screenshots indicate **three-year form retention**, CAPTCHA None, Advanced Spam Filter ON, Basic level and the approved recipient. The provider describes automated deletion after the configured retention period, while forwarded mailbox copies have distinct rules.
+- **Blocking production questions:** receiving-email and other admin copies' deletion schedule/access, review of final privacy wording, and verification of production Cloudflare Pages Web3Forms key. The release gates remain pending until these have documentary approval.
 ## Current provider evidence (external documents)
 
 1. Web3Forms homepage describes **submission retention of up to three years
@@ -100,9 +107,9 @@ service-level guarantees or proof of the clinic's account configuration.
 | Web3Forms correct form | Existing account screenshot confirms clinic form and recipient; prior fictional delivery test was owner-reported | **OBSERVED / RECIPIENT MATCHED** |
 | Provider retention | Selected **3 years** confirmed on screenshot. Still need saved-setting confirmation, clinic justification, deletion/erasure workflow and owner approval | **UI OBSERVED; APPROVAL PENDING** |
 | Email retention | Confirm accessible receiving-inbox retention/deletion, backups where applicable, how long enquiry emails are kept, and who can perform deletion | **PENDING** |
-| Controller and contact | Record responsible clinic/legal entity, a reachable privacy contact, and authorized users of forwarded private-clinic email | **PENDING** |
+| Controller and contact | Dr Olaosebikan personally operates clinic; email privacy contact known, but staff access to redirected inbox still needs approval | **IDENTITY VERIFIED; ACCESS PENDING** |
 | Legal basis and transparency | Clinic approves a lawful ground for collection, international processing arrangement, patient rights and incident protocol | **PENDING** |
-| Spam/rate handling | Screenshot shows Advanced Spam Filter ON, Basic level, CAPTCHA None, domain restriction Pro-only. Rate limiting and contingency untested | **SETTINGS OBSERVED; APPROVAL PENDING** |
+| Spam/rate handling | Owner approved settings: Advanced Spam Filter ON, Basic level, CAPTCHA None; Web3Forms documents temporary per-IP throttling. Actual effectiveness/quota response untested | **SETTINGS OWNER-APPROVED; OPERATIONAL CONTINGENCY PENDING** |
 | Scope/data minimization | Continue excluding diagnosis/reason/free text, attachments, patient records, symptoms from provider requests; confirm content is administrative only | **CODE CONTROL VERIFIED; OPERATOR REVIEW PENDING** |
 | Patient privacy notice | Replace the review-only copy only after complete clinic signoff, correct the public label, path, and effective wording. Current /appointment-privacy is draft/noindex | **PENDING** |
 | Clinical workflow | Verify who monitors the inbox, safe response time, fee/appointment confirmation, identity checks before further medical information | **PENDING** |
