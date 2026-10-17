@@ -2,7 +2,7 @@
   "releaseStatus": "pending",
   "professionalClaimsVerified": true,
   "clinicalCopyApproved": true,
-  "contactDetailsConfirmed": false,
+  "contactDetailsConfirmed": true,
   "mediaRightsApproved": true,
   "homepageMediaComplete": true,
   "canonicalDomainConfirmed": false,
@@ -22,6 +22,7 @@
     "professionalClaimsVerified": "2026-10-17: Website project owner explicitly approved existing professional-information wording in ChatGPT conversation; final clinician documentation remains the owner's responsibility.",
     "clinicalCopyApproved": "2026-10-17: Website project owner explicitly approved remaining existing clinic and patient-facing information in ChatGPT conversation.",
     "mediaRightsApproved": "2026-10-16/17: Owner explicitly confirmed rights and approved existing website media during ChatGPT conversation.",
-    "homepageMediaComplete": "2026-10-17: Owner approved current homepage presentation, including its existing hero media, in ChatGPT conversation."
+    "homepageMediaComplete": "2026-10-17: Owner approved current homepage presentation, including its existing hero media, in ChatGPT conversation.",
+    "contactDetailsConfirmed": "2026-10-17: Project owner approved existing clinic contact details, verified Cloudflare Email Routing destination, and explicitly confirmed successful receipt of an external test email sent to contact@drolaosebikan.com. This is owner-reported delivery evidence; do not treat as patient form delivery verification."
   }
 }
