@@ -17,10 +17,10 @@ test("both SEO and robots use the same release-controlled indexing rule", () => 
   assert.doesNotMatch(read("../src/app/robots.ts"), /process\.env\.CLINIC_RELEASE/);
 });
 
-test("pending or unverified clinic release remains noindex", () => {
+test("approved public release indexes main but never unverified builds", () => {
   const current = JSON.parse(read("../config/clinic-release.json"));
-  assert.equal(current.releaseStatus, "pending");
-  assert.equal(shouldIndexClinic(current, { CF_PAGES: "1", CF_PAGES_BRANCH: "main" }), false);
+  assert.equal(current.releaseStatus, "approved");
+  assert.equal(shouldIndexClinic(current, { CF_PAGES: "1", CF_PAGES_BRANCH: "main" }), true);
   assert.equal(shouldIndexClinic({ ...approved, canonicalDomainConfirmed: false }, {}), false);
   assert.equal(shouldIndexClinic({ ...approved, releaseStatus: "pending" }, {}), false);
   assert.equal(shouldIndexClinic({ ...approved, productionBranch: "" }, {}), false);
