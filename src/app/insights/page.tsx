@@ -89,28 +89,40 @@ export default function InsightsPage() {
         )}
         <p className={styles.eyebrow}>Explore the library</p>
         <div className={styles.collections}>
-          {collections.map((collection) => (
-            <Link
-              className={styles.card}
-              href={
-                editorialEntries.some((e) => e.kind === collection.kind)
-                  ? `/insights/${collection.id}`
-                  : `#${collection.id}`
-              }
-              key={collection.id}
-            >
-              <p className={styles.eyebrow}>{collection.title}</p>
-              <h3>{collection.description}</h3>
-              {!editorialEntries.some((entry) => entry.kind === collection.kind) && (
-                <p id={collection.id} className={styles.categoryStatus}>
-                  No {collection.title.toLowerCase()} have been published yet.
-                </p>
-              )}
-              <span className={styles.cardAction}>
-                Explore category <span aria-hidden="true">↗</span>
-              </span>
-            </Link>
-          ))}
+          {collections.map((collection) => {
+            const hasEntries = editorialEntries.some(
+              (entry) => entry.kind === collection.kind,
+            );
+            const cardContent = (
+              <>
+                <p className={styles.eyebrow}>{collection.title}</p>
+                <h3>{collection.description}</h3>
+                <span
+                  className={`${styles.cardAction} ${!hasEntries ? styles.pendingAction : ""}`}
+                >
+                  {hasEntries ? (
+                    <>Explore category <span aria-hidden="true">↗</span></>
+                  ) : (
+                    "Awaiting approved content"
+                  )}
+                </span>
+              </>
+            );
+            return hasEntries ? (
+              <Link
+                className={styles.card}
+                href={`#${collection.id}`}
+                key={collection.id}
+              >
+                {cardContent}
+              </Link>
+            ) : (
+              <div className={styles.card} key={collection.id}>
+                {cardContent}
+              </div>
+            );
+          })}
+
           {visiblePublications.length > 0 ? (
             <Link className={styles.card} href="/publications">
               <p className={styles.eyebrow}>Research</p>
@@ -124,6 +136,9 @@ export default function InsightsPage() {
               <p className={styles.eyebrow}>Research</p>
               <h3>Verified publications and citations</h3>
               <p>No verified research records have been added yet.</p>
+              <span className={`${styles.cardAction} ${styles.pendingAction}`}>
+                Awaiting verified publications
+              </span>
             </div>
           )}
         </div>
