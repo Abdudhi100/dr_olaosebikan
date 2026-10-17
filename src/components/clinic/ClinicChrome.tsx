@@ -202,7 +202,7 @@ export function SiteFooter() {
           <nav aria-label="Footer resources">
             <p className="clinic-eyebrow">Resources</p>
             {resourceLinks.map((link) => <Link key={link.href} href={link.href}>{link.label}</Link>)}
-            <Link href="/contact">Contact channels</Link>
+            <Link href="/contact-location">Contact channels</Link>
             <Link href="/rheumatoid-arthritis-treatment-lagos">
               Rheumatoid arthritis
             </Link>
