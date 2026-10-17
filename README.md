@@ -71,9 +71,18 @@ privacy notice, retention, rate protection, and handling uncertain requests.
 Client-side access keys are included in static exports; do not treat them as
 secrets. Never commit live credentials or bypass release controls.
 
+The earlier 45-versus-60-minute consultation discrepancy was resolved on
+17 October 2026: the approved duration is **45 minutes**, and the website and
+service metadata now agree. The current booking plan is CAPTCHA-free with no
+custom 30-day Web3Forms retention setting; provider defaults and privacy
+approval still need real-account checks.
+
 See [Owner prelaunch review](docs/CLINIC_OWNER_PRELAUNCH_REVIEW_20261017.md)
-for the outstanding approvals, including the unresolved consultation-duration
-difference, before asking anyone to deploy publicly.
+for the historical audit and
+[Production go-live operator checklist](docs/PRODUCTION_GO_LIVE_OPERATOR_CHECKLIST_20261017.md)
+for the current actionable launch gates. Draft production
+[PR #28](https://github.com/Abdudhi100/dr_olaosebikan/pull/28)
+must not be merged until these gates and explicit release approval pass.
 
 ## WhatsApp Number
 
