@@ -26,30 +26,34 @@ const payload = {
   consultationType: "virtual",
   bookingNote: "Synthetic arrangement check.",
 };
-test("local reviews are permitted while unapproved public Cloudflare releases fail closed", () => {
+test("approved public release requires a valid production Web3Forms configuration", () => {
   assert.doesNotThrow(() => assertClinicBuildAllowed({}));
+  assert.deepEqual(clinicReleaseErrors(clinicReadiness), []);
+  assert.equal(clinicReadiness.releaseStatus, "approved");
+  assert.equal(clinicReadiness.booking.enabled, true);
   assert.throws(
-    () => assertClinicBuildAllowed({ CF_PAGES: "1" }),
-    /Clinic release is pending/,
+    () => assertClinicBuildAllowed({ CF_PAGES: "1", CF_PAGES_BRANCH: "main" }),
+    /production Web3Forms access key missing or invalid/,
   );
+  assert.doesNotThrow(() => assertClinicBuildAllowed({
+    CF_PAGES: "1", CF_PAGES_BRANCH: "main", NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY: key,
+  }));
   assert.throws(
-    () => assertClinicBuildAllowed({ CLINIC_RELEASE: "approved" }),
+    () => assertClinicBuildAllowed({ CLINIC_RELEASE: "approved" },
+      { ...clinicReadiness, releaseStatus: "pending" }),
     /Clinic release is pending/,
-  );
-  assert.ok(
-    clinicReleaseErrors(clinicReadiness).includes("releaseStatus"),
-  );
-  assert.ok(
-    clinicReleaseErrors(clinicReadiness).includes("booking.contactOnlyFallbackApproved"),
   );
 });
-test("owner-reported working domain email marks contact confirmed without activating booking", () => {
+test("owner-approved domain and privacy claims match actual release evidence", () => {
   assert.equal(clinicReadiness.contactDetailsConfirmed, true);
   assert.ok(clinicReadiness.evidenceReferences?.contactDetailsConfirmed?.includes("2026-10-17"));
   assert.equal(clinicReadiness.canonicalDomainConfirmed, true);
   assert.match(clinicReadiness.evidenceReferences?.canonicalDomainConfirmed ?? "", /2026-10-17.*Cloudflare Pages/);
-  assert.equal(clinicReadiness.releaseStatus, "pending");
-  assert.equal(clinicReadiness.booking.enabled, false);
+  assert.equal(clinicReadiness.booking.recipientBindingVerified, true);
+  assert.equal(clinicReadiness.booking.retentionApproved, true);
+  assert.equal(clinicReadiness.booking.privacyNoticeApproved, true);
+  assert.equal(clinicReadiness.booking.rateProtectionVerified, true);
+  assert.equal(clinicReadiness.releaseStatus, "approved");
 });
 test("review override requires recorded private preview protection and excludes the verified production branch", () => {
   const config = {
