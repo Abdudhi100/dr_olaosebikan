@@ -140,3 +140,25 @@ service-level guarantees or proof of the clinic's account configuration.
 - Anti-spam / quota response:
 - Privacy notice version:
 - Evidence location (private; not a public URL or patient record):
+
+## Final approval record — 17 October 2026
+
+The user confirmed that Cloudflare's production environment has the correct
+Web3Forms form, and that Dr Olaosebikan **approves deleting routine appointment
+notification emails after 12 months**. The user explicitly authorized a
+Web3Forms-enabled production deployment. The operator personally controls
+the clinic, and the saved account configuration has basic server-side spam
+filtering, CAPTCHA None, three-year Web3Forms retention, no connected external
+integrations, and approved destination `contact@drolaosebikan.com`.
+
+The **three-year Web3Forms account policy** and **12-month clinic notification
+email policy** are separate schedules. The clinic must arrange deletion of
+routine emails after twelve months and retain evidence of its practice; the
+website cannot enforce upstream mailbox policies. These decisions are
+owner-reported and do not indicate automated mailbox deletion is already in
+place. Clinical records must follow a separate authorized policy.
+
+The operator's explicit instructions authorize a release gate change and
+deployment after CI. The production Pages build has a fail-closed provider-key
+check; deployment success and actual receipt are not assumed from the
+user's statement.
