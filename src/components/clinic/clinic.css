@@ -241,7 +241,10 @@ textarea:focus-visible {
   display: flex;
   align-items: center;
 }
+/* Keep a paper-coloured gutter between the final page section and the
+   rounded footer instead of letting adjacent dark panels visually merge. */
 .clinic-footer {
+  margin-top: 32px;
   padding: 80px 0 32px;
   border-radius: 48px 48px 0 0;
 }
@@ -1357,6 +1360,7 @@ textarea:focus-visible {
     line-height: 26px;
   }
   .clinic-footer {
+    margin-top: 24px;
     padding: 64px 0 28px;
     border-radius: 28px 28px 0 0;
   }
