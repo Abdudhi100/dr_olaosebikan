@@ -121,6 +121,8 @@ test("provider payload excludes extra properties, routing fields and patient val
   const body = bookingProviderPayload(
     {
       ...payload,
+      reason: "Autoimmune consultation",
+      bookingNote: "Patient medical details must not be forwarded",
       recipient: "example.invalid",
       cc: "example.invalid",
       privateField: "not allowed",
@@ -137,11 +139,14 @@ test("provider payload excludes extra properties, routing fields and patient val
       "fullName",
       "phone",
       "consultationType",
-      "bookingNote",
     ].sort(),
   );
   assert.equal(body.subject, "Clinic appointment request");
   assert.ok(!body.subject.includes(payload.fullName));
+  assert.ok(!("reason" in body));
+  assert.ok(!("bookingNote" in body));
+  assert.ok(!JSON.stringify(body).includes("medical details"));
+  assert.ok(!JSON.stringify(body).includes("Autoimmune consultation"));
 });
 test("acknowledgement, explicit rejection and ambiguous delivery have distinct outcomes", async () => {
   for (const [ok, result, kind] of [

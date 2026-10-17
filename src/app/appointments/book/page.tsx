@@ -64,6 +64,10 @@ export default function BookingPage() {
             <Link href="/contact-location" className="clinic-text-link">
               Contact and location <span aria-hidden>↗</span>
             </Link>
+            <Link href="/appointment-privacy" className="clinic-text-link">
+              Draft appointment privacy information (under review)
+              <span aria-hidden>↗</span>
+            </Link>
           </aside>
         </div>
       </div>
