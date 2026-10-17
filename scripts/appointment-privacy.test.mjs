@@ -16,7 +16,7 @@ test("appointment privacy remains draft and noindex until approved release, with
   assert.match(page, /Dr Hakeem Olaosebikan personally operates/);
   assert.match(page, /three years/);
   assert.match(page, /30-day submission-history/);
-  assert.match(page, /retention and deletion procedure/);
+  assert.match(page, /retention and deletion practice/);
   assert.equal(clinicReadiness.booking.privacyNoticeApproved, false);
   assert.equal(clinicReadiness.booking.retentionApproved, false);
   assert.equal(clinicReadiness.booking.retentionTargetDays, null);
