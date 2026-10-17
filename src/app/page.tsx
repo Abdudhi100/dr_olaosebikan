@@ -125,7 +125,7 @@ export default function HomePage() {
             </div>
           </div>
           <p className="clinic-small">
-            One-hour appointments. Fees are communicated privately.
+            45-minute appointments. Fees are communicated privately.
           </p>
         </div>
       </section>
