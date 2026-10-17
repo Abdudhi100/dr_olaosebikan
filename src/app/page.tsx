@@ -1,5 +1,5 @@
 import { ClinicHeroVideo } from "@/components/clinic/ClinicHeroVideo";
-import release from "../../../config/clinic-release.json";
+import release from "../../config/clinic-release.json";
 import Link from "next/link";
 import { QuickBookingPanel } from "@/components/booking/QuickBookingPanel";
 import { BookingEntryLink } from "@/components/booking/BookingEntryLink";
