@@ -4,6 +4,7 @@ import {
   clinicReadiness,
   clinicReleaseErrors,
   clinicDurationConsistencyErrors,
+  advertisedConsultationMinutes,
   assertClinicBuildAllowed,
 } from "./clinic-release.mjs";
 import {
@@ -102,6 +103,15 @@ test("public release detects contradictions across 45- and 60-minute consultatio
   assert.deepEqual(clinicDurationConsistencyErrors([45], [0]), ["consultationDurationMismatch"]);
   assert.ok(!clinicReleaseErrors(clinicReadiness).includes("consultationDurationMismatch"),
     "Owner-confirmed 45-minute copy should now agree with service metadata");
+});
+
+test("all page and component duration claims follow the approved 45 minutes", () => {
+  assert.deepEqual(
+    advertisedConsultationMinutes("One-hour consultations, 1-hour appointments, 60-minute consultations, 45-minute appointments."),
+    [60, 60, 60, 45],
+  );
+  assert.deepEqual(advertisedConsultationMinutes("Consultation time: 45 minutes."), []);
+  assert.equal(clinicReleaseErrors(clinicReadiness).includes("consultationDurationMismatch"), false);
 });
 
 test("provider keys alone cannot activate patient-data delivery", () => {

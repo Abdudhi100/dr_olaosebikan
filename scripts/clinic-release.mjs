@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import path from "node:path";
 import { fileURLToPath } from "node:url";
 const configPath = new URL("../config/clinic-release.json", import.meta.url);
 export const clinicReadiness = JSON.parse(fs.readFileSync(configPath, "utf8"));
@@ -15,12 +16,26 @@ export function clinicDurationConsistencyErrors(advertisedMinutes, serviceMinute
     : [];
 }
 const services = JSON.parse(fs.readFileSync(new URL("../src/content/services.json", import.meta.url), "utf8"));
-const timingCopyFiles = ["../src/app/page.tsx", "../src/components/clinic/ClinicSections.tsx"];
-const advertisedMinutes = timingCopyFiles.flatMap((filename) => {
-  const content = fs.readFileSync(new URL(filename, import.meta.url), "utf8");
-  return Array.from(content.matchAll(/\b(one.hour|45.minute|60.minute)\s+(?:appointments?|consultations?)\b/gi),
-    ([, duration]) => duration.toLowerCase().startsWith("one") || duration.startsWith("60") ? 60 : 45);
-});
+// Scan all route, shared component and content copy for duration claims.
+function listing(dir) {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const target = path.join(dir, entry.name);
+    return entry.isDirectory() ? listing(target)
+      : entry.isFile() && /\.(?:tsx?|json)$/.test(entry.name) ? [target]
+      : [];
+  });
+}
+export function advertisedConsultationMinutes(text) {
+  return Array.from(
+    text.matchAll(/\b(one.hour|1.hour|45.minute|60.minute)\s+(?:appointments?|consultations?)\b/gi),
+    ([, duration]) => /^(one|1|60)/i.test(duration) ? 60 : 45,
+  );
+}
+const sourceRoot = fileURLToPath(new URL("../src/", import.meta.url));
+const timingCopyFiles = ["app", "components", "content"].flatMap((folder) =>
+  listing(path.join(sourceRoot, folder)));
+const advertisedMinutes = timingCopyFiles.flatMap((filename) =>
+  advertisedConsultationMinutes(fs.readFileSync(filename, "utf8")));
 const contentConsistencyIssues = clinicDurationConsistencyErrors(advertisedMinutes,
   services.map((service) => service.durationMinutes));
 export function clinicReleaseErrors(config) {

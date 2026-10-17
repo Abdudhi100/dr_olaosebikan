@@ -36,7 +36,7 @@ export default function SpecialistPage() {
                   concerns, in person and virtually.
                 </p>
                 <p>
-                  One-hour consultations. Fees are communicated privately. An
+                  45-minute consultations. Fees are communicated privately. An
                   appointment request is not a confirmed appointment.
                 </p>
               </div>

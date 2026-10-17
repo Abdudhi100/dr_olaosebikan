@@ -31,7 +31,7 @@ export default function ContactLocationPage() {
             <Link href="/appointments/book" className="clinic-button">Request an appointment</Link>
             <div className="clinic-contact-guidance">
             <p>An appointment request is not a confirmed appointment.</p>
-            <p>One-hour consultations. Fees are communicated privately.</p>
+            <p>45-minute consultations. Fees are communicated privately.</p>
             <p>
               Ask the clinic how to share medical information before sending
               records.

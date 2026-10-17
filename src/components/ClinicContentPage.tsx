@@ -136,7 +136,7 @@ export function ClinicContentPage({ page }: { page: ClinicPage }) {
                       Request an appointment
                     </BookingEntryLink>
                     <p className="clinic-small" style={{ marginTop: 24 }}>
-                      In person or virtually. One-hour appointments. Fees are
+                      In person or virtually. 45-minute appointments. Fees are
                       communicated privately. A request is not a confirmed
                       appointment.
                     </p>
