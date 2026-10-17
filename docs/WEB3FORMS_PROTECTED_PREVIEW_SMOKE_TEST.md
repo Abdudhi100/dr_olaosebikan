@@ -1,5 +1,15 @@
 # Web3Forms synthetic browser delivery test — protected preview only
 
+## Final outcome — completed 17 October 2026
+
+**PASS (owner-reported):** The owner submitted the exact fictional test from the authenticated protected website appointment form and confirmed receiving the notification in the verified university inbox, via Web3Forms and Cloudflare Email Routing. This verifies the **website → Web3Forms → Cloudflare forwarding → destination inbox** chain with synthetic data. The assistant did not independently inspect the inbox or view the email headers.
+
+**Temporary test implementation disabled:** The booking page has been returned to the ordinary fail-closed component on the protected preview branch. It no longer consults `NEXT_PUBLIC_CLINIC_WEB3FORMS_TEST`; that flag by itself cannot re-enable delivery. The project owner should also delete `NEXT_PUBLIC_CLINIC_WEB3FORMS_TEST` from Cloudflare **Preview environment variables**, optionally remove the Web3Forms key there, and redeploy or confirm the new protected-preview deployment. Do not alter Cloudflare Access or the preview hero-video variable.
+
+**Still blocked:** `booking.enabled: false`, `releaseStatus: pending`, privacy notice, retention and anti-abuse/rate-protection approvals. The direct email address is functional, but this successful fictional test is NOT authorization to accept real patient information or publish the main branch.
+
+The instructions below are retained as a record of how the completed **temporary test** was conducted; do **not** repeat them or re-enable this mode for normal operation.
+
 **Prepared 17 October 2026.** Web3Forms dashboard's **Send Test Submission**
 was confirmed received by the clinic owner. That proves provider-to-inbox delivery,
 **not** delivery from the website booking form.

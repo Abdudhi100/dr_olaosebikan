@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import fs from "node:fs";
 import { clinicReadiness, clinicReleaseErrors } from "./clinic-release.mjs";
 import {
   approvedBookingConfiguration,
@@ -17,6 +18,13 @@ const synthetic = {
   phone: SYNTHETIC_TEST_PHONE,
   consultationType: "virtual",
 };
+
+test("completed synthetic browser route is disconnected even if preview env flag remains", () => {
+  const bookingFormSource = fs.readFileSync(new URL("../src/components/booking/BookingForm.tsx", import.meta.url), "utf8");
+  assert.doesNotMatch(bookingFormSource, /NEXT_PUBLIC_CLINIC_WEB3FORMS_TEST/);
+  assert.doesNotMatch(bookingFormSource, /createSyntheticWeb3FormsTransport/);
+  assert.match(bookingFormSource, /approvedBookingConfiguration/);
+});
 
 test("clinic receipt confirmation never enables real patient delivery by itself", () => {
   assert.equal(clinicReadiness.booking.enabled, false);
