@@ -48,11 +48,16 @@ test("never email optional clinical reason, free-text note, or arbitrary patient
   assert.ok(!serialized.includes("not-a-clinic"));
 });
 
-test("appointment page transparently links to review-only privacy information", () => {
+test("contact-only launch hides draft policy links while preserving future form disclosures", () => {
   const page = source("../src/app/appointments/book/page.tsx");
   const form = source("../src/components/AppointmentForm.tsx");
+  const wrapper = source("../src/components/booking/BookingForm.tsx");
+  assert.equal(clinicReadiness.booking.enabled, false);
+  assert.match(wrapper, /release\.booking\.enabled !== true/);
+  assert.match(wrapper, /return <ContactOnlyBooking \/>/);
+  assert.match(page, /release\.booking\.enabled &&/);
   assert.match(page, /href="\/appointment-privacy"/);
-  assert.match(page, /privacy information \(under review\)/);
+  assert.doesNotMatch(page, /privacy information \(under review\)/);
   assert.match(form, /excluded from Web3Forms email notifications/);
   assert.match(form, /text is not emailed to the/);
 });
