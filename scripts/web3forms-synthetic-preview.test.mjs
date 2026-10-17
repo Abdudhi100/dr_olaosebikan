@@ -26,14 +26,16 @@ test("completed synthetic browser route is disconnected even if preview env flag
   assert.match(bookingFormSource, /approvedBookingConfiguration/);
 });
 
-test("clinic receipt confirmation never enables real patient delivery by itself", () => {
-  assert.equal(clinicReadiness.booking.enabled, false);
+test("approved clinic still requires production-specific flags and valid provider identity", () => {
+  assert.equal(clinicReadiness.booking.enabled, true);
   assert.equal(clinicReadiness.booking.recipientBindingVerified, true);
-  assert.equal(clinicReadiness.booking.privacyNoticeApproved, false);
-  assert.equal(clinicReadiness.booking.retentionApproved, false);
-  assert.equal(clinicReadiness.booking.rateProtectionVerified, false);
-  assert.equal(approvedBookingConfiguration(clinicReadiness.booking, "1", accessKey, "/appointment-privacy"), null);
-  assert.ok(clinicReleaseErrors(clinicReadiness).includes("releaseStatus"));
+  assert.equal(clinicReadiness.booking.privacyNoticeApproved, true);
+  assert.equal(clinicReadiness.booking.retentionApproved, true);
+  assert.equal(clinicReadiness.booking.rateProtectionVerified, true);
+  assert.deepEqual(clinicReleaseErrors(clinicReadiness), []);
+  assert.equal(approvedBookingConfiguration(clinicReadiness.booking, "0", accessKey, "/appointment-privacy"), null);
+  assert.equal(approvedBookingConfiguration(clinicReadiness.booking, "1", "", "/appointment-privacy"), null);
+  assert.ok(approvedBookingConfiguration(clinicReadiness.booking, "1", accessKey, "/appointment-privacy"));
 });
 
 test("production form requires all release approvals and matching privacy notice", () => {
