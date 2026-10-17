@@ -36,7 +36,7 @@ test("local reviews are permitted while unapproved public Cloudflare releases fa
     /Clinic release is pending/,
   );
   assert.ok(
-    clinicReleaseErrors(clinicReadiness).includes("homepageMediaComplete"),
+    clinicReleaseErrors(clinicReadiness).includes("contactDetailsConfirmed"),
   );
 });
 test("review override requires recorded private preview protection and excludes the verified production branch", () => {
@@ -87,16 +87,14 @@ test("review override requires recorded private preview protection and excludes 
   );
 });
 
-test("public release blocks contradictory one-hour copy and 45-minute service metadata", () => {
-  assert.deepEqual(clinicDurationConsistencyErrors(true, [60, 60]), []);
-  assert.deepEqual(clinicDurationConsistencyErrors(false, [45, 60]), []);
-  assert.deepEqual(clinicDurationConsistencyErrors(true, [45, 60]), [
-    "consultationDurationMismatch",
-  ]);
-  assert.ok(
-    clinicReleaseErrors(clinicReadiness).includes("consultationDurationMismatch"),
-    "Existing launch configuration must remain blocked until the owner reconciles durations",
-  );
+test("public release detects contradictions across 45- and 60-minute consultation copy", () => {
+  assert.deepEqual(clinicDurationConsistencyErrors([45], [45,45]), []);
+  assert.deepEqual(clinicDurationConsistencyErrors([60], [60,60]), []);
+  assert.deepEqual(clinicDurationConsistencyErrors([45], [60,45]), ["consultationDurationMismatch"]);
+  assert.deepEqual(clinicDurationConsistencyErrors([60,45], [45,45]), ["consultationDurationMismatch"]);
+  assert.deepEqual(clinicDurationConsistencyErrors([45], [0]), ["consultationDurationMismatch"]);
+  assert.ok(!clinicReleaseErrors(clinicReadiness).includes("consultationDurationMismatch"),
+    "Owner-confirmed 45-minute copy should now agree with service metadata");
 });
 
 test("provider keys alone cannot activate patient-data delivery", () => {
