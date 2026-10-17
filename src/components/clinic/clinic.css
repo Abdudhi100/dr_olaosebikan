@@ -2754,3 +2754,12 @@ textarea:focus-visible {
     right: 0;
   }
 }
+
+/* Figma mobile control width: Home 330:1604 uses 64px; Services
+   412:1965 uses 48px. Preserve the shared visible Menu/Close label. */
+@media (max-width: 600px) {
+  .clinic-header:not(.clinic-header-home) .clinic-menu {
+    width: 48px;
+    min-width: 48px;
+  }
+}
