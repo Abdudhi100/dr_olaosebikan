@@ -2,6 +2,30 @@ import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 const configPath = new URL("../config/clinic-release.json", import.meta.url);
 export const clinicReadiness = JSON.parse(fs.readFileSync(configPath, "utf8"));
+
+// Public-facing copy currently describes one-hour consultations, while the
+// legacy service records may contain a different configured duration. Keep
+// local/private review available, but do not publish contradictory timing data.
+export function clinicDurationConsistencyErrors(advertisesOneHour, serviceMinutes) {
+  if (!advertisesOneHour) return [];
+  return serviceMinutes.some((minutes) => Number.isFinite(minutes) && minutes !== 60)
+    ? ["consultationDurationMismatch"]
+    : [];
+}
+const services = JSON.parse(fs.readFileSync(new URL("../src/content/services.json", import.meta.url), "utf8"));
+const timingCopyFiles = [
+  "../src/app/page.tsx",
+  "../src/components/clinic/ClinicSections.tsx",
+];
+const advertisesOneHour = timingCopyFiles.some((filename) =>
+  /one.hour (?:appointments|consultations)/i.test(
+    fs.readFileSync(new URL(filename, import.meta.url), "utf8"),
+  ),
+);
+const contentConsistencyIssues = clinicDurationConsistencyErrors(
+  advertisesOneHour,
+  services.map((service) => service.durationMinutes),
+);
 export function clinicReleaseErrors(config) {
   const errors = [];
   for (const field of [
@@ -19,6 +43,7 @@ export function clinicReleaseErrors(config) {
     )
       errors.push(`${field} evidence reference`);
   }
+  errors.push(...contentConsistencyIssues);
   if (config.releaseStatus !== "approved") errors.push("releaseStatus");
   if (config.booking?.enabled === true) {
     if (

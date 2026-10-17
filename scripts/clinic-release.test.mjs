@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   clinicReadiness,
   clinicReleaseErrors,
+  clinicDurationConsistencyErrors,
   assertClinicBuildAllowed,
 } from "./clinic-release.mjs";
 import {
@@ -85,6 +86,19 @@ test("review override requires recorded private preview protection and excludes 
     }),
   );
 });
+
+test("public release blocks contradictory one-hour copy and 45-minute service metadata", () => {
+  assert.deepEqual(clinicDurationConsistencyErrors(true, [60, 60]), []);
+  assert.deepEqual(clinicDurationConsistencyErrors(false, [45, 60]), []);
+  assert.deepEqual(clinicDurationConsistencyErrors(true, [45, 60]), [
+    "consultationDurationMismatch",
+  ]);
+  assert.ok(
+    clinicReleaseErrors(clinicReadiness).includes("consultationDurationMismatch"),
+    "Existing launch configuration must remain blocked until the owner reconciles durations",
+  );
+});
+
 test("provider keys alone cannot activate patient-data delivery", () => {
   for (const field of [
     "recipientBindingVerified",
