@@ -7,7 +7,19 @@ import { readFileSync, existsSync } from "node:fs";
 
 const config = JSON.parse(readFileSync("config/clinic-release.json", "utf8"));
 if (config.booking.enabled !== false) {
-  console.log("Contact-only export check skipped: real booking release uses separate approvals.");
+  assert.equal(config.releaseStatus, "approved");
+  assert.equal(config.booking.privacyNoticeApproved, true);
+  assert.equal(config.booking.retentionApproved, true);
+  assert.equal(config.booking.rateProtectionVerified, true);
+  const booking = readFileSync("out/appointments/book.html", "utf8");
+  const privacy = readFileSync("out/appointment-privacy.html", "utf8");
+  assert.match(booking, /<form\b/i, "Approved public release must render appointment form");
+  assert.doesNotMatch(booking, /data-booking-mode="contact-only"/);
+  assert.match(booking, /appointment-privacy/, "Booking page must link policy");
+  assert.doesNotMatch(privacy, /PRELAUNCH REVIEW · NOT YET APPROVED/);
+  assert.match(privacy, /up to 12 months/);
+  assert.match(privacy, /three years/);
+  console.log("Approved booking export contains form and published privacy notice.");
 } else {
   assert.equal(config.releaseStatus, "pending", "CI must not approve release");
   assert.equal(config.booking.contactOnlyFallbackApproved, false, "Owner acceptance must remain a manual gate before this PR is finalized");
