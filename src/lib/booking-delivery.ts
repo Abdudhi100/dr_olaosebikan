@@ -99,6 +99,9 @@ export function bookingProviderPayload(
   ] as const) {
     if (payload[field]) body[field] = payload[field];
   }
+  // The Web3Forms dashboard must ALSO enforce mandatory hCaptcha; a token
+  // alone is not verification until Web3Forms validates it server-side.
+  if (payload.hCaptchaResponse) body["h-captcha-response"] = payload.hCaptchaResponse;
   return body;
 }
 export function createApprovedBookingTransport(

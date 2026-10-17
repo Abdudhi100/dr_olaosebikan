@@ -40,6 +40,7 @@ type AppointmentFormProps = {
   timeoutMs?: number;
   now?: () => Date;
   syntheticTestMode?: boolean;
+  captchaRequired?: boolean;
 };
 
 // Live delivery remains disabled until recipient, privacy and retention approval.
@@ -64,6 +65,7 @@ export function AppointmentForm({
   timeoutMs = 8000,
   now = currentTime,
   syntheticTestMode = false,
+  captchaRequired = false,
 }: AppointmentFormProps) {
   const {
     draft,
@@ -84,6 +86,7 @@ export function AppointmentForm({
   const [errors, setErrors] = useState<BookingErrors>({});
   const [hydrated, setHydrated] = useState(false);
   const [minDate, setMinDate] = useState("");
+  const [captchaError, setCaptchaError] = useState(false);
   const summaryRef = useRef<HTMLDivElement>(null);
   const statusRef = useRef<HTMLDivElement>(null);
   const summaryFocusRequestedRef = useRef(false);
@@ -114,6 +117,19 @@ export function AppointmentForm({
       window.removeEventListener("focus", refreshDate);
     };
   }, []);
+
+  // Load hCaptcha only when the release register has enabled real bookings.
+  // No third-party challenge script runs on the disabled form or synthetic tests.
+  useEffect(() => {
+    if (!captchaRequired) return;
+    if (document.querySelector('script[data-clinic-hcaptcha="true"]')) return;
+    const script = document.createElement("script");
+    script.src = "https://js.hcaptcha.com/1/api.js";
+    script.async = true;
+    script.defer = true;
+    script.dataset.clinicHcaptcha = "true";
+    document.head.appendChild(script);
+  }, [captchaRequired]);
 
   useEffect(() => {
     attemptRef.current += 1;
@@ -208,6 +224,7 @@ export function AppointmentForm({
     ownResetRevisionRef.current = null;
     resetFocusRequestedRef.current = true;
     setErrors({});
+    setCaptchaError(false);
     setState("initial");
     resetDraft();
   }
@@ -232,6 +249,14 @@ export function AppointmentForm({
       setState("invalid");
       return;
     }
+    const challengeResponse = captchaRequired
+      ? event.currentTarget.querySelector<HTMLTextAreaElement>('textarea[name="h-captcha-response"]')?.value.trim()
+      : undefined;
+    if (captchaRequired && !challengeResponse) {
+      setCaptchaError(true);
+      return;
+    }
+    setCaptchaError(false);
 
     busyRef.current = true;
     setSubmissionLock("submitting");
@@ -240,7 +265,7 @@ export function AppointmentForm({
     setState("submitting");
     const outcome = await submitWithTimeout(
       transport,
-      result.payload,
+      challengeResponse ? { ...result.payload, hCaptchaResponse: challengeResponse } : result.payload,
       timeoutMs,
     );
     if (
@@ -655,6 +680,13 @@ export function AppointmentForm({
             </dl>
           </section>
         ) : null}
+        {captchaRequired && (
+          <div className={`${styles.field} ${styles.fullWidth}`}>
+            <p className={styles.help}>Complete the security check before submitting. The challenge is processed by hCaptcha.</p>
+            <div className="h-captcha" data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2" data-theme="light" />
+            {captchaError && <p role="alert" className={styles.error}>Complete the security check before sending an appointment request.</p>}
+          </div>
+        )}
         <div className={styles.actions}>
           <button
             type="submit"
