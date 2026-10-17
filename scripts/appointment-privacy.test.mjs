@@ -7,19 +7,19 @@ import { bookingProviderPayload } from "../src/lib/booking-delivery.ts";
 const source = (filename) =>
   readFileSync(new URL(filename, import.meta.url), "utf8");
 
-test("appointment privacy draft is clearly unapproved and non-indexable", () => {
+test("appointment privacy remains draft and noindex until approved release, with physician as controller", () => {
   const page = source("../src/app/appointment-privacy/page.tsx");
   assert.match(page, /PRELAUNCH REVIEW/);
   assert.match(page, /NOT YET APPROVED/);
-  assert.match(page, /robots: \{ index: false, follow: false \}/);
-  assert.match(page, /default retention/);
+  assert.match(page, /robots: \{ index: published, follow: published \}/);
+  assert.match(page, /release\.booking\.privacyNoticeApproved === true/);
+  assert.match(page, /Dr Hakeem Olaosebikan personally operates/);
+  assert.match(page, /three years/);
+  assert.match(page, /30-day submission-history/);
+  assert.match(page, /retention and deletion procedure/);
   assert.equal(clinicReadiness.booking.privacyNoticeApproved, false);
   assert.equal(clinicReadiness.booking.retentionApproved, false);
   assert.equal(clinicReadiness.booking.retentionTargetDays, null);
-  assert.match(page, /three years/);
-  assert.match(page, /30-day submission-history/);
-  assert.match(page, /not yet[\s\S]*?confirmed/);
-  assert.equal(clinicReadiness.booking.rateProtectionVerified, false);
   assert.equal(clinicReadiness.booking.enabled, false);
   assert.equal(clinicReadiness.releaseStatus, "pending");
 });
