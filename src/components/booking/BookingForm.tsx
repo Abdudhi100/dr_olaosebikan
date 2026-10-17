@@ -23,5 +23,7 @@ export function BookingForm() {
     );
     return approved ? createApprovedBookingTransport(approved) : undefined;
   }, []);
-  return <AppointmentForm transport={transport} captchaRequired={Boolean(transport)} />;
+  // Keep booking CAPTCHA-free by default; review provider spam controls separately.
+  // Optional challenge support remains dormant for a future explicit opt-in.
+  return <AppointmentForm transport={transport} />;
 }

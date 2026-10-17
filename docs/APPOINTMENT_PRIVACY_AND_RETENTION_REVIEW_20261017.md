@@ -37,48 +37,42 @@ to notification subjects, recipient addresses or URLs.
 This is privacy-by-design risk reduction, not a guarantee visitors cannot
 voluntarily provide sensitive details in a contact name or email.
 
-## Confirmed mail permission and hCaptcha implementation (17 October 2026)
+## Owner's revised preference — no mandatory CAPTCHA or custom 30-day retention
 
-The website owner explicitly confirmed that Dr Olaosebikan's university inbox
-may receive private-clinic administrative appointment notifications. This is an
-owner-reported authorization; the account administrator must still ensure staff
-access, MFA, retention controls and appropriate incident handling.
+On 17 October 2026 the owner explicitly preferred a frictionless form with
+**no visible hCaptcha** and **no custom 30-day Web3Forms retention setting**.
+This supersedes the earlier working proposal. The standard booking component
+has been disconnected from the optional hCaptcha challenge; it therefore will
+not require one if a future release separately enables booking. Existing
+optional hCaptcha code is dormant for a possible later opt-in. The owner
+previously confirmed administrative use of the university receiving mailbox;
+its operator access, deletion and security practices still require review.
 
-A **free Web3Forms hCaptcha widget is now implemented in the website code**
-for the *future approved live appointment form only*. On a successful client
-challenge, the frontend includes `h-captcha-response` with a provider request.
-A missing challenge blocks the browser-side submission. The widget is dormant
-while `booking.enabled: false` and requires neither a key nor a third-party
-challenge script in the current preview. This is **not yet evidence of
-server-verified anti-spam protection**: the owner must visit their actual
-Web3Forms form → Settings → Spam & Security, set **Block Spam = hCaptcha**,
-save, and verify both unsolved and solved challenge outcomes in a controlled
-test. Domain restrictions and Turnstile may require a paid plan; do not assume
-they exist on the free plan.
+The provider publicly states that form-submission data is retained **up to
+three years by default** unless deleted earlier or a shorter period is
+selected. The free plan's **30-day history** is a dashboard viewing period,
+**not** automatic deletion after 30 days. Our actual Web3Forms account
+setting remains unverified. The forwarding inbox, trash and backups have
+separate policies. No 30-day guarantee should be presented to patients.
+The release configuration now uses `retentionTargetDays: null` to express
+that no custom period has been selected, while leaving
+`retentionApproved: false`. Nigerian data protection law requires retention
+to be no longer than necessary for a lawful purpose, so we still need an
+honest purpose-based retention decision before accepting live enquiries.
 
-Recommended proposed retention remains **30 days** for nonclinical scheduling
-emails and submissions, subject to confirmation in both Web3Forms' dashboard
-and the university mailbox's retention controls. This proposal has NOT been
-configured or marked approved.
+Web3Forms says it performs server-side spam checks on all submissions and
+advertises free-plan spam controls. These defaults may offer a low-friction
+starting point but cannot be assumed effective for this specific form.
+The existing `botcheck: false` payload does not by itself prove meaningful
+spam protection. The free plan's 250 monthly submissions can be exhausted
+by spam. Review the actual settings, run synthetic acceptance/rejection tests,
+and decide how to respond if abusive submissions occur. Keep
+`rateProtectionVerified: false` pending that review.
 
-## Retention selection — pending live enforcement
-
-**Working target: 30 days** for routine scheduling submissions in Web3Forms
-and the forwarded university mailbox, subject to legal/clinical record keeping
-exceptions. On 17 October the owner asked to proceed after this policy was
-proposed. We are treating it as a working choice, NOT proof of an implemented
-setting or legally approved full privacy policy. The release config therefore
-records `retentionTargetDays: 30` but continues `retentionApproved: false`.
-
-Web3Forms states that the free plan permits per-form retention adjustments,
-from 7 days up to 3 years. A 30-day selection is achievable in principle;
-actual dashboard verification and a deletion/expiry check are outstanding.
-The receiving mailbox may preserve messages independently, including trash,
-backups and forwarding copies. Approve the operator deletion schedule and
-who has access; do not claim deletion from every system just because the
-Web3Forms form setting was changed. See
-[Web3Forms policy](https://web3forms.com/privacy) and
-[pricing details](https://web3forms.com/pricing).
+Sources: [Web3Forms privacy](https://web3forms.com/privacy),
+[pricing](https://web3forms.com/pricing),
+[default server-side spam screening](https://docs.web3forms.com/getting-started/customizations/spam-protection)
+and [Nigeria Data Protection Act 2023](https://ndpc.gov.ng/download/nigeria-data-protection-act-2023).
 
 ## Final approval decisions still required
 
@@ -87,11 +81,11 @@ Web3Forms form setting was changed. See
 | Responsible clinic controller | Identify the accountable legal person or entity, privacy contact and authorized staff; do not assume that the treatment venue automatically controls this website | **Pending** — written confirmation |
 | University mailbox permission | Confirm institutional mailbox policy permits private medical-clinic administrative enquiries, access controls, MFA, account longevity and staff delegation | **Pending** — authorized owner/institution |
 | Purpose and legal basis | Scheduling-only, no marketing, no patient record created; determine suitable lawful basis and any conditions for handling incidental health data | **Pending** — owner/legal |
-| Web3Forms retention | **Proposal:** select 30 days if the actual plan and dashboard permit it; otherwise evaluate a different provider or deliberate manual deletion workflow before launch | **Pending** — plan settings and actual deletion test |
-| Email retention | **Proposal:** delete resolved scheduling emails after 30 days, subject to legitimate record-keeping/legal requirements; do not automatically delete clinical records under this rule | **Pending** — mailbox/admin permissions and written procedure |
+| Web3Forms retention | Prefer provider default; do not configure 30 days solely for this project | **Pending** — verify real account default, necessity, purpose and deletion options |
+| Email retention | Review actual university mailbox retention independently | **Pending** — staff/admin and deletion procedure |
 | Access and audit | Restrict Web3Forms dashboard and institutional inbox to authorized people, enable MFA where supported, document incident response | **Pending** |
 | Data processing and international transfers | Review Web3Forms processing agreement, subprocessors and transfers, Cloudflare routing and institutional email account handling; seek relevant Nigerian legal advice | **Pending** |
-| Spam control | Use Web3Forms **hCaptcha** (supported on free plan) with mandatory verification in the dashboard and tested widget; honeypot only is not enough | **Pending** — screenshot of settings and valid/invalid CAPTCHA tests |
+| Spam control | No mandatory visible CAPTCHA; evaluate provider default filtering and basic botcheck without assuming strong protection | **Pending** — actual settings and synthetic abuse checks |
 | Free plan limitations | Domain restriction / Turnstile may be paid-tier features; do not claim either is active | **Pending** — provider plan review |
 | Privacy notice | Review draft with actual staff, storage, disposal, rights-request processes, international handling and consent/lawful basis | **Pending** — dated approval |
 | Patient testing | Only synthetic data has been verified. Test controlled success, failure and uncertain results again once settings are finalized | **Pending** |
@@ -100,9 +94,9 @@ Web3Forms form setting was changed. See
 2026](https://web3forms.com/privacy), says submission data may be retained
 for a **maximum of three years** unless a shorter period applies or the
 controller deletes it sooner. Its [pricing page](https://web3forms.com/pricing)
-mentions configurable retention ranges; check the actual limits for this
-form and plan in the dashboard rather than promising 30 days based on a
-proposal. The older Web3Forms FAQ makes conflicting claims about storage;
+mentions configurable retention ranges; confirm the active form default
+before publishing a factual notice. Do not confuse 30-day dashboard history
+with a 30-day deletion setting. The older Web3Forms FAQ makes conflicting claims about storage;
 use the newer 2026 privacy policy for planning unless the provider supplies
 a newer written contract. Cloudflare incoming email forwarding and the
 university inbox have their own separate retention behavior.
@@ -110,9 +104,8 @@ university inbox have their own separate retention behavior.
 Web3Forms [hCaptcha documentation](https://docs.web3forms.com/getting-started/customizations/spam-protection/hcaptcha)
 describes the free-plan hCaptcha integration and dashboard activation.
 Its [honeypot documentation](https://docs.web3forms.com/getting-started/customizations/spam-protection/spam-protection)
-says a honeypot alone is **not recommended**. Implement provider-supported
-challenge verification rather than introducing a client-only checkbox
-without server validation.
+says a honeypot alone is **not recommended**. A visible challenge is a fallback option if spam becomes a problem,
+not a mandatory requirement in the currently chosen launch design.
 
 Applicable Nigerian reference materials include the
 [Nigeria Data Protection Act 2023](https://ndpc.gov.ng/download/nigeria-data-protection-act-2023)
@@ -127,10 +120,12 @@ as a substitute for a professional privacy/compliance determination.
    especially the university mailbox permission and actual retention.
 2. Edit `/appointment-privacy` into a final factual, approved notice; only
    then set the appropriate privacy notice path in release config.
-3. Configure and test Web3Forms hCaptcha or an equally suitable provider-
-   supported mechanism, including failure and repeated-submission behavior.
-4. Record how old Web3Forms submissions, forwarded email copies and exported
-   backups are deleted; avoid vague "deleted automatically" claims.
+3. Inspect the active Web3Forms default spam controls, test acceptance and
+   rejection with fictional data, and agree how to handle abuse. No visible
+   hCaptcha is required by the owner's present preference.
+4. Confirm and justify the actual provider-default retention (up to three
+   years) and independently document mailbox and exported-copy deletion;
+   do not imply free dashboard history controls erasure.
 5. Check real operator access controls and patients' rights-request pathway.
 6. Re-run unit tests, TypeScript, static export, link audit, and booking browser
    behavior; confirm form action still fails closed until all approvals exist.

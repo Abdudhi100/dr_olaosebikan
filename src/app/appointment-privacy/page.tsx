@@ -78,15 +78,19 @@ export default function AppointmentPrivacyDraft() {
 
           <h2>How long would the information be kept?</h2>
           <p>
-            The clinic&apos;s proposed operating target is <strong>30 days
-            for routine appointment scheduling enquiries</strong>, with
-            exceptions where applicable law or legitimate record-keeping
-            obligations require otherwise. This period is <strong>not yet
-            configured or independently verified</strong> in either Web3Forms
-            or the receiving mailbox. Web3Forms&apos; July 2026 privacy policy
-            permits longer retention unless a shorter setting or deletion
-            applies. The clinic must confirm and implement the stated period
-            in each applicable system before accepting online requests.
+            The clinic is considering Web3Forms&apos; default retention
+            arrangement, under which submitted form information may be
+            retained for <strong>up to three years</strong> unless deleted
+            earlier or a shorter policy applies. The free plan&apos;s
+            30-day submission-history view does not mean the information
+            is deleted after 30 days. Forwarded email and the receiving
+            mailbox may follow different retention and deletion rules.
+          </p>
+          <p>
+            The actual provider account settings, email retention arrangements,
+            and justification for keeping routine appointment requests have
+            not yet been confirmed or approved. This is a review-only draft,
+            and the online appointment form remains disabled.
           </p>
 
           <h2>Security and enquiries</h2>

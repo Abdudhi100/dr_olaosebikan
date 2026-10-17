@@ -12,12 +12,13 @@ test("appointment privacy draft is clearly unapproved and non-indexable", () => 
   assert.match(page, /PRELAUNCH REVIEW/);
   assert.match(page, /NOT YET APPROVED/);
   assert.match(page, /robots: \{ index: false, follow: false \}/);
-  assert.match(page, /proposed operating target/);
+  assert.match(page, /default retention/);
   assert.equal(clinicReadiness.booking.privacyNoticeApproved, false);
   assert.equal(clinicReadiness.booking.retentionApproved, false);
-  assert.equal(clinicReadiness.booking.retentionTargetDays, 30);
-  assert.match(page, /30 days/);
-  assert.match(page, /not yet[\s\S]*?verified/);
+  assert.equal(clinicReadiness.booking.retentionTargetDays, null);
+  assert.match(page, /three years/);
+  assert.match(page, /30-day submission-history/);
+  assert.match(page, /not yet[\s\S]*?confirmed/);
   assert.equal(clinicReadiness.booking.rateProtectionVerified, false);
   assert.equal(clinicReadiness.booking.enabled, false);
   assert.equal(clinicReadiness.releaseStatus, "pending");
@@ -56,23 +57,15 @@ test("appointment page transparently links to review-only privacy information", 
   assert.match(form, /text is not emailed to the/);
 });
 
-test("approved live booking requires a completed hCaptcha and forwards its token to Web3Forms", () => {
-  const component = source("../src/components/AppointmentForm.tsx");
+test("standard booking is CAPTCHA-free but live transport still fails closed", () => {
   const wrapper = source("../src/components/booking/BookingForm.tsx");
-  assert.match(wrapper, /captchaRequired=\{Boolean\(transport\)\}/);
-  assert.match(component, /https:\/\/js\.hcaptcha\.com\/1\/api\.js/);
-  assert.match(component, /data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"/);
-  assert.match(component, /if \(captchaRequired && !challengeResponse\)/);
-  const token = "fictional-hcaptcha-test-token";
-  const payload = bookingProviderPayload({
-    fullName: "Synthetic Tester", phone: "+12025550147", consultationType: "virtual",
-    hCaptchaResponse: token,
-  }, "00000000-0000-4000-8000-000000000000");
-  assert.equal(payload["h-captcha-response"], token);
-  assert.ok(!JSON.stringify(payload).includes("Lupus care"));
-  const noChallenge = bookingProviderPayload({
+  assert.match(wrapper, /return <AppointmentForm transport=\{transport\} \/>/);
+  assert.doesNotMatch(wrapper, /captchaRequired=/);
+  const body = bookingProviderPayload({
     fullName: "Synthetic Tester", phone: "+12025550147", consultationType: "virtual",
   }, "00000000-0000-4000-8000-000000000000");
-  assert.equal("h-captcha-response" in noChallenge, false);
+  assert.equal("h-captcha-response" in body, false);
   assert.equal(clinicReadiness.booking.enabled, false);
+  assert.equal(clinicReadiness.booking.rateProtectionVerified, false);
+  assert.equal(clinicReadiness.booking.retentionApproved, false);
 });
