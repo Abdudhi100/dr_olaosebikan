@@ -12,7 +12,8 @@
     "prebuild": "node scripts/prepare-editorial.mjs",
     "pretypecheck": "node scripts/prepare-editorial.mjs && node scripts/clean-route-types.mjs && next typegen",
     "test": "node --experimental-strip-types --test scripts/*.test.mjs",
-    "test:export": "node scripts/verify-editorial-export.mjs"
+    "test:export": "node scripts/verify-editorial-export.mjs",
+    "check:links": "node scripts/verify-static-links.mjs"
   },
   "keywords": [
     "clinic",
