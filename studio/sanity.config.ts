@@ -3,8 +3,10 @@ import { structureTool } from "sanity/structure";
 import { guardPublishAction } from "./GuardPublishAction";
 import { ReadingPreview } from "./ReadingPreview";
 import { schemaTypes } from "./schemaTypes";
-const projectId = process.env.SANITY_STUDIO_PROJECT_ID;
-const dataset = process.env.SANITY_STUDIO_DATASET;
+// Sanity project/dataset are public identifiers, not API credentials.
+// Using the confirmed owner project also lets the editor run without copying an env file.
+const projectId = process.env.SANITY_STUDIO_PROJECT_ID || "zavdffj8";
+const dataset = process.env.SANITY_STUDIO_DATASET || "production";
 if (!projectId || !dataset)
   throw new Error(
     "Set SANITY_STUDIO_PROJECT_ID and SANITY_STUDIO_DATASET. No project is created automatically.",
