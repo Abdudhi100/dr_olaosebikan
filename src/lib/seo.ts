@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import clinicRelease from "../../config/clinic-release.json";
+import { shouldIndexClinic } from "@/lib/site-indexing";
 import {
   doctor,
   faqs,
@@ -63,7 +65,7 @@ export function defaultMetadata({
       images: [imageUrl],
     },
     robots: {
-      index: process.env.CLINIC_RELEASE === "approved",
+      index: shouldIndexClinic(clinicRelease),
       follow: true,
     },
     icons: {
