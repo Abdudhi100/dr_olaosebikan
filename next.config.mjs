@@ -25,9 +25,12 @@ const nextConfig = {
     NEXT_PUBLIC_CLINIC_PRIVACY_NOTICE_PATH: clinicReadiness.booking.enabled
       ? clinicReadiness.booking.privacyNoticePath
       : "",
+    // Protected preview builds must never send real patient requests.
     NEXT_PUBLIC_BOOKING_DELIVERY_APPROVED:
       clinicReleaseErrors(clinicReadiness).length === 0 &&
-      clinicReadiness.booking.enabled
+      clinicReadiness.booking.enabled &&
+      process.env.CF_PAGES === "1" &&
+      process.env.CF_PAGES_BRANCH === clinicReadiness.productionBranch
         ? "1"
         : "0",
   },
