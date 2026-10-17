@@ -51,30 +51,29 @@ Most public content is stored in JSON:
 
 Images and favicons live in `public/`. The Google verification file is available at `/googlef8a66bd5cc73324b.html`.
 
-## Appointment Form
+## Appointment request — current release state
 
-The appointment page is static and does not save to a database. It submits directly from the browser to Web3Forms and keeps a WhatsApp fallback visible for patients.
+**The website is not publicly launched.** The Access-protected Cloudflare preview
+is on `preview/clinic-20261014`; public production `main` is unchanged.
+`config/clinic-release.json` has `releaseStatus: pending` and
+`booking.enabled: false`. Do not change these settings as part of visual review.
 
-Create a free Web3Forms access key at `https://web3forms.com/`, then configure it in one of these ways:
+The appointment page displays a non-delivery notice and a phone/WhatsApp
+contact fallback. **Entering details into the review form does not send them
+to the clinic.** No live form recipient, privacy/retention policy or delivery
+authorization is currently confirmed. Never enter real patient medical
+information into preview/test sessions.
 
-1. Recommended for Cloudflare Pages: add a build environment variable named `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` in the appropriate Preview and Production environments.
-2. For simple local/static setup: place the key in `src/content/site.json` as `web3FormsAccessKey`.
+A future Web3Forms transport exists behind an explicit release gate. Merely
+setting `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` does not enable it. Before any
+activation, record clinic approval and evidence for recipient binding,
+privacy notice, retention, rate protection, and handling uncertain requests.
+Client-side access keys are included in static exports; do not treat them as
+secrets. Never commit live credentials or bypass release controls.
 
-Do not commit a real Web3Forms key. Because this is a static client-side form, the key is included in the exported site when configured. Use the Web3Forms dashboard spam controls and allowed-domain settings where available.
-
-The form posts to `https://api.web3forms.com/submit` and sends these fields:
-
-- `name`
-- `phone`
-- `email` (optional)
-- `preferredDate`
-- `preferredTime` (optional)
-- `service`
-- `message` (optional scheduling note only)
-- `subject` (`New Appointment Request - Dr Olaosebikan Clinic`)
-- `botcheck` honeypot spam-protection field
-
-The free-text field warns patients not to include sensitive medical information.
+See [Owner prelaunch review](docs/CLINIC_OWNER_PRELAUNCH_REVIEW_20261017.md)
+for the outstanding approvals, including the unresolved consultation-duration
+difference, before asking anyone to deploy publicly.
 
 ## WhatsApp Number
 
@@ -86,7 +85,9 @@ Update `whatsappNumber` in `src/content/site.json` using international format wi
 
 ## Publications and Achievements
 
-No legacy database export was present in the repository, so `publications.json` and `achievements.json` are empty editable arrays. Add records there and the static listing/detail pages will be generated at build time.
+No legacy database export was present, so the current publication and achievement
+arrays are empty. Add records only after verifying their source and approval;
+static detail pages are generated at build time for published records.
 
 ## Blog
 
@@ -101,6 +102,8 @@ The old Django blog depended on database-backed posts and CKEditor content. It i
 
 ## V12 editorial publishing (review implementation)
 
-Owner-managed weekly articles, videos and genuine news use a separate hosted Sanity Studio and build-time static export. Default CMS mode is disabled until account setup; `/insights` is an honest, unindexed empty page, hidden from main navigation. See [V12 publishing handover](docs/V12_PUBLISHING_HANDOVER.md) for setup, release checks, weekly operation and withdrawal acceptance. No production CMS, webhook or deployment is provisioned by this code.
+Owner-managed weekly articles, videos and genuine news use a separate hosted Sanity Studio and build-time static export. Default CMS mode is disabled until account setup; `/insights` is an honest, unindexed empty page, hidden from main navigation. See [V12 publishing handover](docs/V12_PUBLISHING_HANDOVER.md) for setup, release checks, weekly operation and withdrawal acceptance. The editorial production CMS and webhook remain unprovisioned; the Insights
+page is an honest, unindexed empty state, but **Insights & Media is linked from
+the Resources navigation** in the current preview.
 
 Run `npm ci`, `npm test`, `npm run typecheck`, and `npm run test:export`. Install Studio separately with `npm ci --prefix studio`; it requires Node 22.12 or newer. Generated content snapshots and active detail routes are intentionally ignored and recreated before builds.
