@@ -12,7 +12,7 @@ test("appointment privacy draft is clearly unapproved and non-indexable", () => 
   assert.match(page, /PRELAUNCH REVIEW/);
   assert.match(page, /NOT YET APPROVED/);
   assert.match(page, /robots: \{ index: false, follow: false \}/);
-  assert.match(page, /retention and deletion policy/);
+  assert.match(page, /proposed operating target/);
   assert.equal(clinicReadiness.booking.privacyNoticeApproved, false);
   assert.equal(clinicReadiness.booking.retentionApproved, false);
   assert.equal(clinicReadiness.booking.retentionTargetDays, 30);
