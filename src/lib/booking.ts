@@ -45,6 +45,9 @@ export type BookingPayload = BookingValues & {
   fullName: string;
   phone: string;
   consultationType: ConsultationType;
+  // Web3Forms human-verification token exists only for an approved live form.
+  // It is never persisted in the appointment draft or included in URLs.
+  hCaptchaResponse?: string;
 };
 
 const EMPTY_BOOKING_DRAFT: Readonly<BookingDraft> = Object.freeze({
