@@ -25,6 +25,7 @@ import {
 } from "@/lib/booking-review-transport";
 import { v2ButtonStyles } from "@/lib/styles";
 import { appointmentWhatsAppUrl } from "@/lib/whatsapp";
+import { SYNTHETIC_TEST_NAME, SYNTHETIC_TEST_PHONE } from "@/lib/booking-delivery";
 
 type FormState =
   | "initial"
@@ -38,6 +39,7 @@ type AppointmentFormProps = {
   transport?: ReviewTransport;
   timeoutMs?: number;
   now?: () => Date;
+  syntheticTestMode?: boolean;
 };
 
 // Live delivery remains disabled until recipient, privacy and retention approval.
@@ -61,6 +63,7 @@ export function AppointmentForm({
   transport = unavailableTransport,
   timeoutMs = 8000,
   now = currentTime,
+  syntheticTestMode = false,
 }: AppointmentFormProps) {
   const {
     draft,
@@ -280,13 +283,17 @@ export function AppointmentForm({
     state === "submitting"
       ? "Sending your request…"
       : state === "acknowledged"
-        ? "Request submitted. The clinic will contact you to confirm availability and the consultation arrangements. Your appointment is not confirmed yet."
+        ? syntheticTestMode
+          ? "Synthetic request accepted by Web3Forms. Check the clinic inbox for actual delivery. No appointment has been requested or confirmed."
+          : "Request submitted. The clinic will contact you to confirm availability and the consultation arrangements. Your appointment is not confirmed yet."
         : state === "failure"
           ? transport === unavailableTransport
             ? "Online appointment delivery is not available yet. Your details have not been sent. Please call or contact the clinic through WhatsApp to arrange your appointment."
             : "We could not submit your request. Your details are still here. Please try again or contact the clinic through WhatsApp."
           : state === "uncertain"
-            ? "We could not verify whether your request was submitted. Please contact the clinic before sending it again."
+            ? syntheticTestMode
+              ? "The test response is uncertain. Check the inbox before attempting another test."
+              : "We could not verify whether your request was submitted. Please contact the clinic before sending it again."
             : "";
 
   return (
@@ -303,6 +310,12 @@ export function AppointmentForm({
         available appointment slots. Your appointment is confirmed separately by
         the clinic.
       </p>
+      {syntheticTestMode && (
+        <div className={styles.prototype} role="note">
+          <strong>SYNTHETIC TEST MODE — NOT AN APPOINTMENT.</strong>
+          <p>Only these fictional details can be sent: Full name <strong>{SYNTHETIC_TEST_NAME}</strong>, phone <strong>{SYNTHETIC_TEST_PHONE}</strong>, consultation type <strong>Virtual</strong>. Leave all other fields blank. Do not enter real names, phone numbers, health information or symptoms.</p>
+        </div>
+      )}
       {transport === unavailableTransport && (
         <p className={styles.prototype}>
           Online appointment delivery is not available yet. Please contact the
@@ -652,10 +665,10 @@ export function AppointmentForm({
             className={v2ButtonStyles.primary}
           >
             {state === "submitting"
-              ? "Sending your request…"
+              ? syntheticTestMode ? "Sending fictional test…" : "Sending your request…"
               : state === "failure"
-                ? "Try request again"
-                : "Send appointment request"}
+                ? syntheticTestMode ? "Try fictional test again" : "Try request again"
+                : syntheticTestMode ? "Send fictional test" : "Send appointment request"}
           </button>
           <a
             href={appointmentWhatsAppUrl()}
