@@ -138,8 +138,11 @@ deployment. Therefore do NOT merge preview→main until:
 
 For contact-only launch, leave `booking.enabled:false` and approve the
 working phone/email/WhatsApp fallback; the existing general release gate
-supports this. For online booking, finish hCaptcha, a verified retention
-policy and approved privacy notice first; only then enable real transport.
+supports this. For online booking, the owner prefers no mandatory visible
+CAPTCHA and no custom 30-day period. Review actual Web3Forms default spam
+controls and its published retention of up to three years, separate mailbox
+retention, the purpose-based deletion policy and an accurate approved privacy
+notice first; only then enable real transport.
 The synthetic site→Web3Forms→Email Routing→university inbox test is already
 complete, but it is not proof of compliance or consent for patient data.
 
