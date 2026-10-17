@@ -1,0 +1,130 @@
+{
+  "originalImageSources": [
+    {
+      "source": "01_Pain_Knee_Illustration.jpg",
+      "figmaImageHash": "025e445f75ce66b3bedc7b61e0c17dfdd5e1b670",
+      "exactSourceMatch": true,
+      "path": "public/images/figma/pain.webp",
+      "width": 1206,
+      "height": 1920,
+      "sha256": "217884b7e299855a5d855a375fb692ae727c176d3a191ec8008e90a44272df45",
+      "rightsApproval": "pending"
+    },
+    {
+      "source": "06_Arthritis_Assessment_1920.png",
+      "figmaImageHash": "5c37b4452c7feccdf65993ff8ab532fd56bcbe05",
+      "exactSourceMatch": true,
+      "path": "public/images/figma/arthritis.webp",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "87ccd5d73b5c7ad5e518e4fcb05c4cd4a5f0f8fdb26b778b20e9524239dc2355",
+      "rightsApproval": "pending"
+    },
+    {
+      "source": "Services_Hero_Poster_3s.png",
+      "figmaImageHash": "a88a9ce2ab9db6a05b434683946b1ab7b13b658a",
+      "exactSourceMatch": true,
+      "path": "public/images/figma/services-hero.webp",
+      "width": 1280,
+      "height": 720,
+      "sha256": "6d99b761a04fe108907fffe628310a064eafc84836868c6e2f17bea0f0cc7fb8",
+      "rightsApproval": "pending"
+    },
+    {
+      "source": "10_DR_HAKEEM_PORTRAIT.png",
+      "figmaImageHash": "8bd9f88cd3b9c34d446c356bec68d9ed1702c961",
+      "exactSourceMatch": true,
+      "path": "public/images/figma/specialist.webp",
+      "width": 1366,
+      "height": 2048,
+      "sha256": "77507dc76a80653308345ad939a4ae4cfce1c4031a79ae7848a0495049a115b2",
+      "rightsApproval": "pending"
+    },
+    {
+      "source": "hero-source-4s-1280x720.png",
+      "figmaImageHash": "1b5dc5c96b587cefe30f2301ff3e99740efc3fb4",
+      "exactSourceMatch": true,
+      "path": "public/images/figma/home-hero.webp",
+      "width": 1280,
+      "height": 720,
+      "sha256": "d2020cd70f3383ac84602e373a56265bd36cb3d331122afb16d9f78cacce2ad1",
+      "rightsApproval": "pending"
+    },
+    {
+      "source": "02_Supportive_Hands.jpeg",
+      "figmaImageHash": "f4b327a15851fe750305d90966d5d2ca6205ddc1",
+      "exactSourceMatch": true,
+      "path": "public/images/figma/autoimmune.webp",
+      "width": 933,
+      "height": 1400,
+      "sha256": "f758f0cc0b9c1abc0784d223443a6e0a836947f8f1d0b8122adac76081db1cc8",
+      "rightsApproval": "pending"
+    },
+    {
+      "source": "03_Foot_Examination.jpg",
+      "figmaImageHash": "028adf9e5ad6f32dc5d4e87c18fbe9b2ed7b1f47",
+      "exactSourceMatch": true,
+      "path": "public/images/figma/gout.webp",
+      "width": 1400,
+      "height": 1050,
+      "sha256": "fd5b7df03312778593161e240a6b75b2ea08a4ddad3379839576d2b465333e93",
+      "rightsApproval": "pending"
+    },
+    {
+      "source": "04_Consultation_Notes.jpeg",
+      "figmaImageHash": "030bd75f138cec58d9f23066ec1d8cbe53e95c96",
+      "exactSourceMatch": true,
+      "path": "public/images/figma/rheumatology.webp",
+      "width": 1400,
+      "height": 933,
+      "sha256": "8e63c57048cd66b465fac3bd76964e9dbd3dd0ff112850f3031de4d5b7ecaf44",
+      "rightsApproval": "pending"
+    },
+    {
+      "source": "05_Followup_Laptop.jpg",
+      "figmaImageHash": "8358c7cfd0b893e4f8daa6553afc1cdf55c870be",
+      "exactSourceMatch": true,
+      "path": "public/images/figma/followup.webp",
+      "width": 1400,
+      "height": 933,
+      "sha256": "4c1805262a4976edab00269f9f07efb11837f5e3058c872d001433df6ec24149",
+      "rightsApproval": "pending"
+    },
+    {
+      "source": "Existing original clinic symbol",
+      "path": "public/images/clinic-symbol.jpg",
+      "width": 128,
+      "height": 128,
+      "sha256": "9cc52245772899c1c46be0418ad2df7ebd11d2c01d881aa03d651e779b5ddd4e",
+      "rightsApproval": "owner confirmation pending",
+      "usage": "existing repository asset"
+    },
+    {
+      "source": "Existing approved specialist portrait retained on home/services",
+      "path": "public/images/dr_hakeem.webp",
+      "width": 1708,
+      "height": 2560,
+      "sha256": "9b1d915c5c73121c8a2f93f2e1a2772427e06198b235f44ab149a7baf01b8710",
+      "rightsApproval": "owner confirmation pending",
+      "usage": "existing repository asset"
+    }
+  ],
+  "homepageSlotBaseline": {
+    "count": 12,
+    "practice": 1,
+    "careRail": 6,
+    "inPersonVenue": 1,
+    "virtualConsultation": 1,
+    "wholePersonCare": 3,
+    "status": "Native Figma frames contain blank media slots. No replacement images invented; public release blocked pending authorised selection."
+  },
+  "homepageIntegration": {
+    "date": "2026-10-11",
+    "filledReviewSlots": 12,
+    "newPreparedWebPFiles": 7,
+    "provenanceRegister": "HOMEPAGE_MEDIA_REVIEW.json",
+    "status": "Recovered candidates integrated for local review. Final selection and publication rights remain pending; no real clinic/patient attribution. Existing hero and portrait unchanged."
+  },
+  "videoStatus": "Original Figma still posters used. Hero video controls intentionally deferred until media-rights approval; no nonfunctional pause button.",
+  "cropStatus": "Responsive CSS object-fit and source crop positions; final deployed visual comparison remains pending."
+}

@@ -1,0 +1,417 @@
+{
+  "status": "Local review candidates; publication rights and final editorial approval remain pending.",
+  "sourcePack": "Dr_Olaosebikan_Media_Assets.zip",
+  "existingHeroAndPortraitUnchanged": true,
+  "assets": [
+    {
+      "slot": "pain",
+      "candidate": "V3-01 / A02",
+      "publicPath": "public/images/review/pain-knee-a02-1200.webp",
+      "sourcePath": "audit-artifacts/clinic-v3-media-selection/recovery/originals/vilkasss-ai-generated-9146621_1920.jpg",
+      "sourceSHA256": "6e40a171d1ebf0ef21534d6ab82dfd734dd7bf981156aab0da6e9f3646d963af",
+      "sourceBytes": 368003,
+      "sourceOrientedPixels": [
+        1206,
+        1920
+      ],
+      "sourcePage": null,
+      "creator": "vilkasss (filename inference only)",
+      "kind": "Supplied AI-labelled illustrative composite",
+      "sourceCropRecord": "CROP_EVIDENCE.json",
+      "cropView": "desktop-1440",
+      "sourceBoxLTRB": [
+        0,
+        622,
+        1206,
+        1375
+      ],
+      "cropPixels": [
+        1206,
+        753
+      ],
+      "resampling": "Pillow ImageOps.contain / LANCZOS; full approved rectangle; integer aspect rounding only",
+      "resampledPixelsBeforeEdgeRounding": [
+        1200,
+        749
+      ],
+      "edgePixelsRepeatedLTRB": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "outputPixels": [
+        1200,
+        750
+      ],
+      "quality": 86,
+      "webpMethod": 6,
+      "lossless": false,
+      "metadataStripped": true,
+      "noUpscaling": true,
+      "outputBytes": 71538,
+      "outputSHA256": "dbc1c0530951719ca5c6ee7a77808c0996b327985b4903d0ff877570d0020ab2",
+      "decodePass": true,
+      "localIntegrationAuthorised": true,
+      "publicationPermissionsEstablished": false,
+      "finalEditorialApprovalEstablished": false,
+      "sourceProvenanceLimitations": "Exact source page/creator identity, asset licence, generator/person rights and clinical/editorial suitability remain unresolved.",
+      "recoveredPackPath": "Web_Exports/pain-knee-a02-1200.webp",
+      "currentSHA256": "dbc1c0530951719ca5c6ee7a77808c0996b327985b4903d0ff877570d0020ab2"
+    },
+    {
+      "slot": "autoimmune",
+      "candidate": "V3-02 / P6975095",
+      "publicPath": "public/images/review/autoimmune-hands-1280.webp",
+      "sourcePath": "audit-artifacts/clinic-v3-media-selection/research-care/pexels-photo-6975095.jpeg",
+      "sourceSHA256": "3cda4f58688ad33c2ed0e931887a45efd01fc46fb7efae95b5b176bc28861443",
+      "sourceBytes": 2803311,
+      "sourceOrientedPixels": [
+        4480,
+        6720
+      ],
+      "sourcePage": "https://www.pexels.com/photo/a-couple-holding-hands-6975095/",
+      "creator": "T Leish",
+      "kind": "Stock photograph",
+      "sourceCropRecord": "CROP_EVIDENCE.json",
+      "cropView": "desktop-1440",
+      "sourceBoxLTRB": [
+        0,
+        1960,
+        4480,
+        4760
+      ],
+      "cropPixels": [
+        4480,
+        2800
+      ],
+      "resampling": "Pillow ImageOps.contain / LANCZOS; full approved rectangle; integer aspect rounding only",
+      "resampledPixelsBeforeEdgeRounding": [
+        1280,
+        800
+      ],
+      "edgePixelsRepeatedLTRB": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "outputPixels": [
+        1280,
+        800
+      ],
+      "quality": 86,
+      "webpMethod": 6,
+      "lossless": false,
+      "metadataStripped": true,
+      "noUpscaling": true,
+      "outputBytes": 64616,
+      "outputSHA256": "648e11229b26dae1f200ea506e6f10c400f2ddd1af7e1e677a1dcf17e980de51",
+      "decodePass": true,
+      "localIntegrationAuthorised": true,
+      "publicationPermissionsEstablished": false,
+      "finalEditorialApprovalEstablished": false,
+      "sourceProvenanceLimitations": "Specific model/property releases, clinic-context permission assessment and owner/editorial approval are unresolved.",
+      "recoveredPackPath": "Web_Exports/autoimmune-hands-1280.webp",
+      "currentSHA256": "648e11229b26dae1f200ea506e6f10c400f2ddd1af7e1e677a1dcf17e980de51"
+    },
+    {
+      "slot": "gout",
+      "candidate": "V3-03 / P33934620",
+      "publicPath": "public/images/review/gout-foot-examination-1280.webp",
+      "sourcePath": "audit-artifacts/clinic-v3-media-selection/research-care/pexels-natalia-lara-372779991-33934620.jpg",
+      "sourceSHA256": "16d021f8ed4b296c2480806ecbb90f4431393f82591773600b2599c58295ba04",
+      "sourceBytes": 1027937,
+      "sourceOrientedPixels": [
+        4000,
+        3000
+      ],
+      "sourcePage": "https://www.pexels.com/photo/medical-consultation-with-doctor-examining-foot-33934620/",
+      "creator": "Natalia Lara",
+      "kind": "Stock photograph",
+      "sourceCropRecord": "CROP_EVIDENCE.json",
+      "cropView": "desktop-1440",
+      "sourceBoxLTRB": [
+        0,
+        250,
+        4000,
+        2750
+      ],
+      "cropPixels": [
+        4000,
+        2500
+      ],
+      "resampling": "Pillow ImageOps.contain / LANCZOS; full approved rectangle; integer aspect rounding only",
+      "resampledPixelsBeforeEdgeRounding": [
+        1280,
+        800
+      ],
+      "edgePixelsRepeatedLTRB": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "outputPixels": [
+        1280,
+        800
+      ],
+      "quality": 86,
+      "webpMethod": 6,
+      "lossless": false,
+      "metadataStripped": true,
+      "noUpscaling": true,
+      "outputBytes": 59018,
+      "outputSHA256": "872f63d0874a1628ca536ca590b4f4474402bd08f3e4e3999489eba3b49ef97f",
+      "decodePass": true,
+      "localIntegrationAuthorised": true,
+      "publicationPermissionsEstablished": false,
+      "finalEditorialApprovalEstablished": false,
+      "sourceProvenanceLimitations": "Specific model/property releases, clinic-context permission assessment and owner/editorial approval are unresolved.",
+      "recoveredPackPath": "Web_Exports/gout-foot-examination-1280.webp",
+      "currentSHA256": "872f63d0874a1628ca536ca590b4f4474402bd08f3e4e3999489eba3b49ef97f"
+    },
+    {
+      "slot": "rheumatology",
+      "candidate": "V3-04 / P8376320",
+      "publicPath": "public/images/review/rheumatology-notes-1280.webp",
+      "sourcePath": "audit-artifacts/clinic-v3-media-selection/research-care/pexels-photo-8376320.jpeg",
+      "sourceSHA256": "00f7e8770b593200c307bca7eea0bd05fb8431b946d76cbc48a836275c23115a",
+      "sourceBytes": 1194002,
+      "sourceOrientedPixels": [
+        5909,
+        3939
+      ],
+      "sourcePage": "https://www.pexels.com/photo/person-writing-on-white-paper-8376320/",
+      "creator": "Tima Miroshnichenko",
+      "kind": "Stock photograph",
+      "sourceCropRecord": "CROP_EVIDENCE.json",
+      "cropView": "desktop-1440",
+      "sourceBoxLTRB": [
+        0,
+        123,
+        5909,
+        3816
+      ],
+      "cropPixels": [
+        5909,
+        3693
+      ],
+      "resampling": "Pillow ImageOps.contain / LANCZOS; full approved rectangle; integer aspect rounding only",
+      "resampledPixelsBeforeEdgeRounding": [
+        1280,
+        800
+      ],
+      "edgePixelsRepeatedLTRB": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "outputPixels": [
+        1280,
+        800
+      ],
+      "quality": 86,
+      "webpMethod": 6,
+      "lossless": false,
+      "metadataStripped": true,
+      "noUpscaling": true,
+      "outputBytes": 44082,
+      "outputSHA256": "25d5cb3ffd85c3ded9c25b33b0cdd4db5895b03c37b0e4630833999a2ee8925e",
+      "decodePass": true,
+      "localIntegrationAuthorised": true,
+      "publicationPermissionsEstablished": false,
+      "finalEditorialApprovalEstablished": false,
+      "sourceProvenanceLimitations": "Specific model/property releases, clinic-context permission assessment and owner/editorial approval are unresolved.",
+      "recoveredPackPath": "Web_Exports/rheumatology-notes-1280.webp",
+      "currentSHA256": "25d5cb3ffd85c3ded9c25b33b0cdd4db5895b03c37b0e4630833999a2ee8925e"
+    },
+    {
+      "slot": "followup",
+      "candidate": "V3-05 / P6578427",
+      "publicPath": "public/images/review/followup-laptop-1280.webp",
+      "sourcePath": "audit-artifacts/clinic-v3-media-selection/research-editorial/remote-andres-6578427.jpg",
+      "sourceSHA256": "4c1480a4268e2e75c2c2fa21a8893c5c8fe0c056b9160e0e9b7e5eb5c7ec6523",
+      "sourceBytes": 2138511,
+      "sourceOrientedPixels": [
+        6000,
+        4000
+      ],
+      "sourcePage": "https://www.pexels.com/photo/african-american-man-in-casual-clothes-using-laptop-6578427/",
+      "creator": "Andres Ayrton",
+      "kind": "Stock photograph",
+      "sourceCropRecord": "CROP_EVIDENCE.json",
+      "cropView": "desktop-1440",
+      "sourceBoxLTRB": [
+        0,
+        0,
+        6000,
+        3750
+      ],
+      "cropPixels": [
+        6000,
+        3750
+      ],
+      "resampling": "Pillow ImageOps.contain / LANCZOS; full approved rectangle; integer aspect rounding only",
+      "resampledPixelsBeforeEdgeRounding": [
+        1280,
+        800
+      ],
+      "edgePixelsRepeatedLTRB": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "outputPixels": [
+        1280,
+        800
+      ],
+      "quality": 86,
+      "webpMethod": 6,
+      "lossless": false,
+      "metadataStripped": true,
+      "noUpscaling": true,
+      "outputBytes": 51038,
+      "outputSHA256": "61c28b9d410d95edf170f206e02ab4f7bf6d00d6daf5fcea2dc67566f88da656",
+      "decodePass": true,
+      "localIntegrationAuthorised": true,
+      "publicationPermissionsEstablished": false,
+      "finalEditorialApprovalEstablished": false,
+      "sourceProvenanceLimitations": "Specific model/property releases, clinic-context permission assessment and owner/editorial approval are unresolved.",
+      "recoveredPackPath": "Web_Exports/followup-laptop-1280.webp",
+      "currentSHA256": "61c28b9d410d95edf170f206e02ab4f7bf6d00d6daf5fcea2dc67566f88da656"
+    },
+    {
+      "slot": "movement",
+      "candidate": "V3-06 / V8484791-still",
+      "publicPath": "public/images/review/movement-desktop.webp",
+      "sourcePath": "audit-artifacts/clinic-v3-media-selection/research-editorial/walking-shortlist-full-poster.jpg",
+      "sourceSHA256": "d21c7254be5cf00bc96dbf34fff5bc812bd2c17190f9a35808f9a571d38e3a87",
+      "sourceBytes": 597719,
+      "sourceOrientedPixels": [
+        3840,
+        2160
+      ],
+      "sourcePage": "https://www.pexels.com/video/a-man-and-a-woman-walking-in-a-park-8484791/",
+      "creator": "Liliana Drew",
+      "kind": "Stock video poster - still only",
+      "sourceCropRecord": "CROP_EVIDENCE.json",
+      "cropView": "desktop-1440",
+      "sourceBoxLTRB": [
+        1225,
+        0,
+        2775,
+        2160
+      ],
+      "cropPixels": [
+        1550,
+        2160
+      ],
+      "resampling": "Pillow ImageOps.contain / LANCZOS; full approved rectangle; integer aspect rounding only",
+      "resampledPixelsBeforeEdgeRounding": [
+        660,
+        920
+      ],
+      "edgePixelsRepeatedLTRB": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "outputPixels": [
+        660,
+        920
+      ],
+      "quality": 86,
+      "webpMethod": 6,
+      "lossless": false,
+      "metadataStripped": true,
+      "noUpscaling": true,
+      "outputBytes": 54806,
+      "outputSHA256": "ddae7103718e5531ea06461bb9d32eb9bdae9ba433a85b9dfe2a2d5e87131564",
+      "decodePass": true,
+      "localIntegrationAuthorised": true,
+      "publicationPermissionsEstablished": false,
+      "finalEditorialApprovalEstablished": false,
+      "sourceProvenanceLimitations": "Specific model/property releases, clinic-context permission assessment and owner/editorial approval are unresolved.",
+      "recoveredPackPath": "Web_Exports/movement-desktop.webp",
+      "currentSHA256": "ddae7103718e5531ea06461bb9d32eb9bdae9ba433a85b9dfe2a2d5e87131564"
+    },
+    {
+      "slot": "preparation",
+      "candidate": "V3-08 / U-RdmLSJR-tq8",
+      "publicPath": "public/images/review/preparation-desktop.webp",
+      "sourcePath": "audit-artifacts/clinic-v3-media-selection/research-editorial/preparation-complete.jpg",
+      "sourceSHA256": "936e711110af820f5764c33540aac6a9a1fac06defc9418a33166683bfb5ad05",
+      "sourceBytes": 2701620,
+      "sourceOrientedPixels": [
+        5548,
+        3699
+      ],
+      "sourcePage": "https://unsplash.com/photos/person-holding-pencil-writing-on-notebook-RdmLSJR-tq8",
+      "creator": "Thought Catalog",
+      "kind": "Stock photograph",
+      "sourceCropRecord": "CROP_EVIDENCE.json",
+      "cropView": "desktop-1440",
+      "sourceBoxLTRB": [
+        0,
+        0,
+        5548,
+        2921
+      ],
+      "cropPixels": [
+        5548,
+        2921
+      ],
+      "resampling": "Pillow ImageOps.contain / LANCZOS; full approved rectangle; integer aspect rounding only",
+      "resampledPixelsBeforeEdgeRounding": [
+        828,
+        436
+      ],
+      "edgePixelsRepeatedLTRB": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "outputPixels": [
+        828,
+        436
+      ],
+      "quality": 86,
+      "webpMethod": 6,
+      "lossless": false,
+      "metadataStripped": true,
+      "noUpscaling": true,
+      "outputBytes": 22274,
+      "outputSHA256": "f435a7ab6a9b343579bcaedb31c4ea024bb9013ceced1b0ca511f81716433b12",
+      "decodePass": true,
+      "localIntegrationAuthorised": true,
+      "publicationPermissionsEstablished": false,
+      "finalEditorialApprovalEstablished": false,
+      "sourceProvenanceLimitations": "Specific model/property releases, clinic-context permission assessment and owner/editorial approval are unresolved.",
+      "recoveredPackPath": "Web_Exports/preparation-desktop.webp",
+      "currentSHA256": "f435a7ab6a9b343579bcaedb31c4ea024bb9013ceced1b0ca511f81716433b12"
+    }
+  ],
+  "placements": {
+    "practice": "rheumatology-notes (illustrative assessment, not an actual clinic photograph)",
+    "inPerson": "rheumatology-notes (illustrative, not Maryamville premises)",
+    "virtual": "followup-laptop (illustrative, not a consultation screenshot)",
+    "wholePicture": [
+      "autoimmune-hands",
+      "movement",
+      "preparation"
+    ],
+    "careRail": [
+      "pain-knee",
+      "existing figma arthritis",
+      "autoimmune-hands",
+      "gout-foot",
+      "rheumatology-notes",
+      "followup-laptop"
+    ]
+  }
+}

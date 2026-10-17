@@ -1,97 +1,171 @@
+import { ClinicHeroVideo } from "@/components/clinic/ClinicHeroVideo";
 import Link from "next/link";
-import { ArrowRight, CalendarDays } from "lucide-react";
 import type { ClinicPage } from "@/lib/content";
-import { PageHero } from "@/components/PageHero";
-
-type ClinicContentPageProps = {
-  page: ClinicPage;
+import { BookingEntryLink } from "@/components/booking/BookingEntryLink";
+const copy: Record<
+  string,
+  { title: string; description: string; headings: string[] }
+> = {
+  "rheumatoid-arthritis-treatment-lagos": {
+    title: "Rheumatoid arthritis\ncare in Lagos.",
+    description:
+      "Specialist assessment and ongoing care for inflammatory joint concerns.",
+    headings: [
+      "Understanding rheumatoid arthritis",
+      "Concerns you may want to discuss",
+      "Your specialist assessment",
+      "An individual approach to care",
+      "Discuss your next steps",
+    ],
+  },
+  "gout-treatment-lagos": {
+    title: "Gout care\nin Lagos.",
+    description:
+      "Specialist review for gout symptoms, recurring attacks and long-term care planning.",
+    headings: [
+      "Understanding gout",
+      "Concerns you may want to discuss",
+      "Your specialist assessment",
+      "An individual approach to care",
+      "Discuss your next steps",
+    ],
+  },
+  "lupus-care-lagos": {
+    title: "Lupus care,\nwith you in mind.",
+    description:
+      "Specialist assessment, monitoring and ongoing autoimmune care in Lagos.",
+    headings: [
+      "Understanding lupus",
+      "Concerns you may want to discuss",
+      "Your specialist assessment",
+      "An individual approach to care",
+      "Discuss your next steps",
+    ],
+  },
+  "joint-pain-and-stiffness-clinic-lagos": {
+    title: "When joint pain\naffects your everyday.",
+    description:
+      "Specialist assessment of persistent pain, stiffness and movement concerns.",
+    headings: [
+      "Understanding joint pain and stiffness",
+      "Concerns you may want to discuss",
+      "Your specialist assessment",
+      "An individual approach to care",
+      "Discuss your next steps",
+    ],
+  },
+  "autoimmune-disease-specialist-lagos": {
+    title: "A clearer picture\nof autoimmune concerns.",
+    description:
+      "Specialist evaluation for autoimmune symptoms and ongoing rheumatology care.",
+    headings: [
+      "Understanding autoimmune concerns",
+      "Concerns you may want to discuss",
+      "Your specialist assessment",
+      "An individual approach to care",
+      "Discuss your next steps",
+    ],
+  },
 };
-
-export function ClinicContentPage({ page }: ClinicContentPageProps) {
+export function ClinicContentPage({ page }: { page: ClinicPage }) {
+  const design = copy[page.slug] ?? {
+    title: page.title,
+    description: page.description,
+    headings: page.sections.map((s) => s.heading),
+  };
+  const nav = [
+    "Overview",
+    "Common symptoms",
+    "Your assessment",
+    "Approach to care",
+    "Request a consultation",
+  ];
   return (
-    <article className="bg-white">
-      <PageHero
-        eyebrow={page.eyebrow}
-        title={page.title}
-        description={page.description}
-        current={page.title}
-      />
-
-      <div className="mx-auto max-w-5xl px-6 py-14 sm:py-16">
-        <div className="space-y-12">
-          {page.sections.map((section) => (
-            <section key={section.heading}>
-              <h2 className="text-2xl font-semibold text-slate-950">
-                {section.heading}
-              </h2>
-
-              {section.body ? (
-                <div className="mt-3 space-y-4 leading-relaxed text-slate-700">
-                  {section.body.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ))}
-                </div>
-              ) : null}
-
-              {section.cards ? (
-                <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                  {section.cards.map((card) => (
-                    <div key={card.title} className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-                      <h3 className="font-semibold text-slate-950">{card.title}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                        {card.description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              ) : null}
-            </section>
-          ))}
-
-          <section className="rounded-lg bg-slate-50 p-8 ring-1 ring-slate-200">
-            <h2 className="text-2xl font-semibold text-slate-950">Book an appointment</h2>
-            <p className="mt-3 max-w-2xl leading-relaxed text-slate-700">
-              {page.ctaText}
+    <article>
+      <section className="clinic-care-intro clinic-video-host clinic-dark clinic-rounded">
+        <ClinicHeroVideo variant={`clinical:${page.slug}`} />
+        <div className="clinic-container">
+          <nav className="clinic-breadcrumb" aria-label="Breadcrumb">
+            <Link href="/">Home</Link>
+            <span aria-hidden>/</span>
+            <Link href="/services">Our care</Link>
+            <span aria-hidden>/</span>
+            {page.eyebrow}
+          </nav>
+          <h1 className="clinic-title">{design.title}</h1>
+          <p className="clinic-lead">{design.description}</p>
+          <BookingEntryLink className="clinic-button clinic-button-inverse">
+            Request an appointment
+          </BookingEntryLink>
+        </div>
+      </section>
+      <section className="clinic-section">
+        <div className="clinic-container clinic-care-body">
+          <nav className="clinic-care-menu" aria-label="On this page">
+            <p className="clinic-eyebrow">On this page</p>
+            {nav.map((label, i) => (
+              <a href={`#care-section-${i}`} key={label}>
+                {label}
+              </a>
+            ))}
+          </nav>
+          <div>
+            {page.sections.map((section, i) => (
+              <section
+                id={`care-section-${i}`}
+                className="clinic-care-section"
+                key={section.heading}
+              >
+                <h2>{design.headings[i] ?? section.heading}</h2>
+                {section.body?.map((p) => (
+                  <p key={p}>{p}</p>
+                ))}
+                {section.cards && (
+                  <div className="clinic-symptom-grid">
+                    {section.cards.map((c) => (
+                      <div className="clinic-symptom-card" key={c.title}>
+                        <h3>{c.title}</h3>
+                        <p>{c.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {i === page.sections.length - 1 && (
+                  <>
+                    <BookingEntryLink className="clinic-button">
+                      Request an appointment
+                    </BookingEntryLink>
+                    <p className="clinic-small" style={{ marginTop: 24 }}>
+                      In person or virtually. 45-minute appointments. Fees are
+                      communicated privately. A request is not a confirmed
+                      appointment.
+                    </p>
+                  </>
+                )}
+              </section>
+            ))}
+            <p
+              className="clinic-small"
+              style={{ borderTop: "1px solid #bbc9c6", paddingTop: 32 }}
+            >
+              General educational information, not a diagnosis or a substitute
+              for individual medical advice.
             </p>
-            <div className="mt-6 flex flex-wrap gap-4">
-              <Link
-                href="/appointments/book"
-                className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-medium text-white transition hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-              >
-                <CalendarDays className="h-5 w-5" aria-hidden="true" />
-                Book Appointment
-              </Link>
-              <Link
-                href="/contact-location"
-                className="inline-flex items-center rounded-xl border border-slate-300 bg-white px-5 py-3 font-medium text-slate-700 transition hover:bg-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-              >
-                Contact the Clinic
-              </Link>
-            </div>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-semibold text-slate-950">Related pages</h2>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              {page.related.map((link) => (
+            <section className="clinic-care-section">
+              <h2>Explore related care</h2>
+              {page.related.map((r) => (
                 <Link
-                  key={link.href}
-                  href={link.href}
-                  className="group rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50"
+                  href={r.href}
+                  key={r.href}
+                  className="clinic-related-link"
                 >
-                  <span className="flex items-start justify-between gap-3 font-semibold text-slate-950">
-                    {link.title}
-                    <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-blue-700 transition group-hover:translate-x-1" aria-hidden="true" />
-                  </span>
-                  <span className="mt-1 block text-sm text-slate-600">
-                    {link.description}
-                  </span>
+                  {r.title} <span aria-hidden>↗</span>
                 </Link>
               ))}
-            </div>
-          </section>
+            </section>
+          </div>
         </div>
-      </div>
+      </section>
     </article>
   );
 }

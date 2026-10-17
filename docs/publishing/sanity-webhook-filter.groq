@@ -1,0 +1,6 @@
+!(coalesce(after()._id, before()._id) in path("drafts.**")) &&
+!(coalesce(after()._id, before()._id) in path("versions.**")) &&
+(
+  (after()._type in ["editorialEntry", "researchPublication", "professionalAchievement"] && after().publicationStatus == "ready") ||
+  (before()._type in ["editorialEntry", "researchPublication", "professionalAchievement"] && before().publicationStatus == "ready")
+)

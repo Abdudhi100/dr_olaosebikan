@@ -1,0 +1,41 @@
+{
+  "releaseStatus": "approved",
+  "professionalClaimsVerified": true,
+  "clinicalCopyApproved": true,
+  "contactDetailsConfirmed": true,
+  "mediaRightsApproved": true,
+  "homepageMediaComplete": true,
+  "canonicalDomainConfirmed": true,
+  "privatePreviewAccessVerified": true,
+  "productionBranch": "main",
+  "booking": {
+    "enabled": true,
+    "recipientBindingVerified": true,
+    "privacyNoticeApproved": true,
+    "privacyNoticePath": "/appointment-privacy",
+    "retentionApproved": true,
+    "rateProtectionVerified": true,
+    "contactOnlyFallbackApproved": false,
+    "retentionTargetDays": 1095
+  },
+  "evidenceReferences": {
+    "privatePreviewAccessVerified": "2026-10-14: Cloudflare Pages preview Access application verified; one-email Allow policy confirmed in Zero Trust; authorized email OTP login succeeded. Screenshot evidence retained by owner.",
+    "professionalClaimsVerified": "2026-10-17: Website project owner explicitly approved existing professional-information wording in ChatGPT conversation; final clinician documentation remains the owner's responsibility.",
+    "clinicalCopyApproved": "2026-10-17: Website project owner explicitly approved remaining existing clinic and patient-facing information in ChatGPT conversation.",
+    "mediaRightsApproved": "2026-10-16/17: Owner explicitly confirmed rights and approved existing website media during ChatGPT conversation.",
+    "homepageMediaComplete": "2026-10-17: Owner approved current homepage presentation, including its existing hero media, in ChatGPT conversation.",
+    "contactDetailsConfirmed": "2026-10-17: Project owner approved existing clinic contact details, verified Cloudflare Email Routing destination, and explicitly confirmed successful receipt of an external test email sent to contact@drolaosebikan.com. This is owner-reported delivery evidence; do not treat as patient form delivery verification.",
+    "recipientBindingVerified": "2026-10-17: Owner showed Web3Forms form with recipient contact@drolaosebikan.com, confirmed dashboard Send Test Submission arrived at university inbox, then confirmed exact fictional SYNTHETIC CLINIC TEST - NOT A PATIENT sent from authenticated protected website booking form also arrived. Owner-reported end-to-end Web3Forms-to-Cloudflare-routing-to-inbox verification. Temporary website test mode disconnected afterward. This does NOT authorize real patient submissions, privacy/retention policies or public launch.",
+    "universityMailboxApproved": "2026-10-17: Project owner explicitly confirmed that Dr Olaosebikan's university mailbox may receive administrative enquiries for his private clinic; this is owner-reported organizational permission, not verification of provider retention or operator access policy.",
+    "retentionPlanSelection": "2026-10-17: Owner prefers the Web3Forms provider-default retention (not a forced 30-day custom period) and no mandatory CAPTCHA. Screenshots from the form dashboard display '3 years' in the Data retention policy (GDPR/CCPA) dropdown, CAPTCHA None, Advanced Spam Filter ON, Basic level. This provides account-UI visibility only; dashboard-save persistence, 3-year necessity, erasure procedures and forwarded-mailbox policies are not approved or verified. Keep retentionApproved and rateProtectionVerified false.",
+    "canonicalDomainConfirmed": "2026-10-17: Authenticated Cloudflare Pages 'dr-olaosebikan-git' account audit verified both drolaosebikan.com and www.drolaosebikan.com as Active with SSL enabled, proxied CNAMEs to dr-olaosebikan-git.pages.dev, GitHub production branch main. 'Canonical apex to www' 301 Cloudflare Single Redirect was saved with exact target https://www.drolaosebikan.com/${1} and query-string preservation. Live browser requests starting https://drolaosebikan.com/appointments/book?source=launch-audit and http://drolaosebikan.com/appointments/book?source=http-check both reached HTTPS www and preserved the path/query; Cloudflare Always Use HTTPS was separately enabled and UI-confirmed. Existing production remained aad73438939ecd2cf6d48a4bf0bd736852923b9d. Browser navigations do not independently establish raw HTTP response header chains. Domain verified only; not approval to launch.",
+    "contactOnlyLaunchSelection": "2026-10-17: Owner explicitly selected the contact-only website launch plan via ChatGPT: WhatsApp, telephone and email; online Web3Forms must remain disabled. The release branch now renders contact choices rather than inactive patient-data fields. Final hosted owner acceptance and express production-release authorization are still required; contactOnlyFallbackApproved and releaseStatus are not yet approved. Superseded on 2026-10-17 by explicit Web3Forms-enabled production deployment instruction.",
+    "web3FormsAccountObserved": "2026-10-17: Owner supplied four screenshots of the actual Free-plan 'Dr Olaosebikan Appointment Form' Settings. Recipient 1/1 contact@drolaosebikan.com; CAPTCHA None; Advanced Spam Filter toggle ON; Spam Protection Level Basic; Restrict to Domains is Pro-only and blank; Auto Responder OFF; Data retention policy dropdown displays 3 years; usage indicator 2/250 this month. Email subject is 'New Appointment Request – Dr Olaosebikan Clinic', sender name 'Dr Olaosebikan Clinic'. These are observed UI selections, not independently audited saved/backend settings, rate-limit results, deletion guarantees, mailbox retention or privacy approvals. Screenshot contains account-specific information and is retained in the private chat rather than committed to the public repository. Contact-only launch unchanged.",
+    "clinicOperatorIdentity": "2026-10-17: Owner confirms Dr Hakeem Olaosebikan personally and legally operates the private practice; Maryamville Medical Center is the in-person venue.",
+    "formIntegrationsReviewed": "2026-10-17: Owner screenshot: Google Sheets disconnected, Telegram/Slack/Discord/Webhook OFF; Notion and Airtable coming soon. Owner confirms Web3Forms settings persisted and explicitly approves the Web3Forms provider and requests deployment. No records of clinic mailbox retention/deletion or actual Cloudflare production form key were provided. Form and production release remain pending until verified.",
+    "privacyNoticeApproved": "2026-10-17: Owner authorized publication of Web3Forms-enabled clinic site after reviewing the draft privacy approach. This notice names Dr Hakeem Olaosebikan as individual operator, explains fields, three-calendar-year provider retention, 12-month routine forwarded-email policy, provider and patient rights. Operational enforcement remains clinic responsibility.",
+    "retentionApproved": "2026-10-17: Owner confirms Dr Olaosebikan approves deletion of routine clinic appointment notification emails after 12 months; retain longer only when necessary for ongoing matters or legal obligations. Actual Web3Forms form has three years selected, confirmed persisted and approved by owner. Estimated provider target 1095 days denotes three calendar years and may vary around leap years. Clinic operator must perform regular deletion reviews; Gmail does not automatically enforce this choice.",
+    "rateProtectionVerified": "2026-10-17: Owner screenshots show saved Web3Forms Advanced Spam Filter ON, Basic level, no CAPTCHA, no additional integrations, and Free tier domain restrictions unavailable. Provider documents server-side spam filters and temporary IP-based rate limiting. Owner accepted this operating configuration; ongoing monitoring and abuse response are clinic responsibilities, not independently load tested.",
+    "productionReleaseAuthorization": "2026-10-17: Owner explicitly confirms correct Web3Forms account key is configured in Cloudflare production and approves deletion of routine forwarded appointment emails after 12 months; explicitly requests immediate deployment to production. Production build validates presence/UUID shape of key; this is owner-reported configuration pending Cloudflare build confirmation."
+  }
+}

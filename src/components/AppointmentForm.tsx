@@ -1,282 +1,730 @@
 "use client";
 
-import { FormEvent, MouseEvent, useEffect, useRef, useState } from "react";
-import { CalendarDays, MessageCircle, Send } from "lucide-react";
-import { services, site } from "@/lib/content";
+import {
+  type FocusEvent,
+  type FormEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { useAppointmentDraft } from "@/components/booking/AppointmentDraftProvider";
+import styles from "@/components/booking/Booking.module.css";
+import {
+  BOOKING_REASONS,
+  CONSULTATION_TYPES,
+  countBookingNoteCharacters,
+  lagosDate,
+  validateBooking,
+  type BookingDraft,
+  type BookingErrors,
+  type BookingField,
+} from "@/lib/booking";
+import {
+  submitWithTimeout,
+  type ReviewTransport,
+} from "@/lib/booking-review-transport";
+import { v2ButtonStyles } from "@/lib/styles";
 import { appointmentWhatsAppUrl } from "@/lib/whatsapp";
+import { SYNTHETIC_TEST_NAME, SYNTHETIC_TEST_PHONE } from "@/lib/booking-delivery";
 
-const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
-const FORM_SUBJECT = "New Appointment Request - Dr Olaosebikan Clinic";
+type FormState =
+  | "initial"
+  | "invalid"
+  | "submitting"
+  | "acknowledged"
+  | "failure"
+  | "uncertain";
 
-type AppointmentFormFields = {
-  name: string;
-  phone: string;
-  email: string;
-  preferredDate: string;
-  preferredTime: string;
-  service: string;
-  message: string;
+type AppointmentFormProps = {
+  transport?: ReviewTransport;
+  timeoutMs?: number;
+  now?: () => Date;
+  syntheticTestMode?: boolean;
+  captchaRequired?: boolean;
 };
 
-type Web3FormsResponse = {
-  success?: boolean;
-  message?: string;
-};
+// Live delivery remains disabled until recipient, privacy and retention approval.
+const unavailableTransport: ReviewTransport = async () => ({
+  kind: "definite-failure",
+});
+const currentTime = () => new Date();
+const fieldOrder: BookingField[] = [
+  "reason",
+  "consultationType",
+  "preferredDate",
+  "preferredTime",
+  "fullName",
+  "phone",
+  "email",
+  "bookingNote",
+];
+const fieldId = (field: BookingField) => `booking-${field}`;
 
-function todayInputValue() {
-  const today = new Date();
-  today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
-  return today.toISOString().slice(0, 10);
-}
-
-function fieldsFromForm(form: HTMLFormElement): AppointmentFormFields {
-  const data = new FormData(form);
-  return {
-    name: String(data.get("name") || "").trim(),
-    phone: String(data.get("phone") || "").trim(),
-    email: String(data.get("email") || "").trim(),
-    preferredDate: String(data.get("preferredDate") || "").trim(),
-    preferredTime: String(data.get("preferredTime") || "").trim(),
-    service: String(data.get("service") || "").trim(),
-    message: String(data.get("message") || "").trim(),
-  };
-}
-
-async function parseWeb3FormsResponse(response: Response): Promise<Web3FormsResponse> {
-  const contentType = response.headers.get("content-type") || "";
-
-  if (!contentType.toLowerCase().includes("application/json")) {
-    return {};
-  }
-
-  try {
-    const body: unknown = await response.json();
-
-    if (!body || typeof body !== "object") {
-      return {};
-    }
-
-    const result = body as Record<string, unknown>;
-
-    return {
-      success: typeof result.success === "boolean" ? result.success : undefined,
-      message: typeof result.message === "string" ? result.message : undefined,
-    };
-  } catch {
-    return {};
-  }
-}
-
-export function AppointmentForm() {
-  const formRef = useRef<HTMLFormElement>(null);
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
-  const [statusMessage, setStatusMessage] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+export function AppointmentForm({
+  transport = unavailableTransport,
+  timeoutMs = 8000,
+  now = currentTime,
+  syntheticTestMode = false,
+  captchaRequired = false,
+}: AppointmentFormProps) {
+  const {
+    draft,
+    updateDraft,
+    resetDraft,
+    revision,
+    submissionLock,
+    setSubmissionLock,
+    getSubmissionLock,
+  } = useAppointmentDraft();
+  const [state, setState] = useState<FormState>(() =>
+    submissionLock === "uncertain"
+      ? "uncertain"
+      : submissionLock === "submitting"
+        ? "submitting"
+        : "initial",
+  );
+  const [errors, setErrors] = useState<BookingErrors>({});
+  const [hydrated, setHydrated] = useState(false);
   const [minDate, setMinDate] = useState("");
-  const accessKey = (
-    process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ||
-    site.web3FormsAccessKey ||
-    ""
-  ).trim();
+  const [captchaError, setCaptchaError] = useState(false);
+  const summaryRef = useRef<HTMLDivElement>(null);
+  const statusRef = useRef<HTMLDivElement>(null);
+  const summaryFocusRequestedRef = useRef(false);
+  const resetFocusRequestedRef = useRef(false);
+  const mountedRef = useRef(false);
+  const busyRef = useRef(false);
+  const attemptRef = useRef(0);
+  const revisionRef = useRef(revision);
+  const ownResetRevisionRef = useRef<number | null>(null);
+  const clockRef = useRef(now);
+  clockRef.current = now;
+  revisionRef.current = revision;
 
   useEffect(() => {
-    setMinDate(todayInputValue());
+    mountedRef.current = true;
+    setHydrated(true);
+    const refreshDate = () => setMinDate(lagosDate(clockRef.current()));
+    refreshDate();
+    window.addEventListener("focus", refreshDate);
+    const timer = window.setInterval(refreshDate, 60000);
+    return () => {
+      mountedRef.current = false;
+      if (busyRef.current && getSubmissionLock() === "submitting")
+        setSubmissionLock("uncertain");
+      busyRef.current = false;
+      attemptRef.current += 1;
+      window.clearInterval(timer);
+      window.removeEventListener("focus", refreshDate);
+    };
   }, []);
+
+  // Load hCaptcha only when the release register has enabled real bookings.
+  // No third-party challenge script runs on the disabled form or synthetic tests.
+  useEffect(() => {
+    if (!captchaRequired) return;
+    if (document.querySelector('script[data-clinic-hcaptcha="true"]')) return;
+    const script = document.createElement("script");
+    script.src = "https://js.hcaptcha.com/1/api.js";
+    script.async = true;
+    script.defer = true;
+    script.dataset.clinicHcaptcha = "true";
+    document.head.appendChild(script);
+  }, [captchaRequired]);
+
+  useEffect(() => {
+    attemptRef.current += 1;
+    busyRef.current = false;
+    setErrors({});
+    if (ownResetRevisionRef.current !== revision) {
+      const lock = getSubmissionLock();
+      setState(
+        lock === "uncertain"
+          ? "uncertain"
+          : lock === "submitting"
+            ? "submitting"
+            : "initial",
+      );
+    }
+    ownResetRevisionRef.current = null;
+  }, [revision, getSubmissionLock]);
+
+  useEffect(() => {
+    if (submissionLock === "uncertain") setState("uncertain");
+    else if (submissionLock === "submitting") setState("submitting");
+  }, [submissionLock]);
+
+  useEffect(() => {
+    if (state === "invalid" && summaryFocusRequestedRef.current) {
+      summaryFocusRequestedRef.current = false;
+      summaryRef.current?.focus();
+    }
+  }, [state, errors]);
+
+  useEffect(() => {
+    if (
+      state === "acknowledged" ||
+      state === "failure" ||
+      state === "uncertain"
+    )
+      statusRef.current?.focus();
+  }, [state]);
+
+  useEffect(() => {
+    if (resetFocusRequestedRef.current && state === "initial") {
+      resetFocusRequestedRef.current = false;
+      document.getElementById(fieldId("reason"))?.focus();
+    }
+  }, [state, revision]);
+
+  function keepFocusedControlVisible(event: FocusEvent<HTMLFormElement>) {
+    const control = event.target;
+    if (
+      !(
+        control instanceof HTMLInputElement ||
+        control instanceof HTMLSelectElement ||
+        control instanceof HTMLTextAreaElement
+      )
+    )
+      return;
+    window.requestAnimationFrame(() => {
+      if (
+        !mountedRef.current ||
+        !control.isConnected ||
+        document.activeElement !== control
+      )
+        return;
+      const bounds = control.getBoundingClientRect();
+      const headerBottom =
+        document.querySelector("header")?.getBoundingClientRect().bottom || 0;
+      const viewportTop = window.visualViewport?.offsetTop || 0;
+      const viewportBottom =
+        viewportTop + (window.visualViewport?.height || window.innerHeight);
+      if (
+        bounds.top < Math.max(headerBottom, viewportTop) + 12 ||
+        bounds.bottom > viewportBottom - 12
+      ) {
+        control.scrollIntoView({
+          block: "center",
+          inline: "nearest",
+          behavior: "instant",
+        });
+      }
+    });
+  }
+
+  function change(field: BookingField, value: string) {
+    updateDraft({ [field]: value } as Partial<BookingDraft>);
+    if (errors[field])
+      setErrors((previous) => ({ ...previous, [field]: undefined }));
+  }
+
+  function reset() {
+    attemptRef.current += 1;
+    busyRef.current = false;
+    ownResetRevisionRef.current = null;
+    resetFocusRequestedRef.current = true;
+    setErrors({});
+    setCaptchaError(false);
+    setState("initial");
+    resetDraft();
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (
+      !hydrated ||
+      busyRef.current ||
+      getSubmissionLock() ||
+      state === "uncertain" ||
+      state === "acknowledged"
+    )
+      return;
 
-    const form = event.currentTarget;
-
-    if (isSubmitting) return;
-
-    const fields = fieldsFromForm(form);
-    const earliestDate = minDate || todayInputValue();
-
-    if (fields.preferredDate < earliestDate) {
-      setStatus("error");
-      setStatusMessage("Please choose today or a future date for the appointment request.");
+    const clock = now();
+    setMinDate(lagosDate(clock));
+    const result = validateBooking(draft, { now: clock });
+    setErrors(result.errors);
+    if (!result.payload) {
+      summaryFocusRequestedRef.current = true;
+      setState("invalid");
       return;
     }
-
-    if (!accessKey) {
-      setStatus("error");
-      setStatusMessage("Online email booking is not configured yet. Please use the WhatsApp option below or call the clinic.");
+    const challengeResponse = captchaRequired
+      ? event.currentTarget.querySelector<HTMLTextAreaElement>('textarea[name="h-captcha-response"]')?.value.trim()
+      : undefined;
+    if (captchaRequired && !challengeResponse) {
+      setCaptchaError(true);
       return;
     }
+    setCaptchaError(false);
 
-    setIsSubmitting(true);
-    setStatus("idle");
-    setStatusMessage("");
-
-    const data = new FormData(form);
-    const payload = {
-      access_key: accessKey,
-      name: fields.name,
-      phone: fields.phone,
-      email: fields.email,
-      preferredDate: fields.preferredDate,
-      preferredTime: fields.preferredTime,
-      service: fields.service,
-      message: fields.message,
-      subject: FORM_SUBJECT,
-      botcheck: String(data.get("botcheck") || ""),
-      from_name: site.clinicName,
-      clinic: site.clinicName,
-    };
-
-    try {
-      const response = await fetch(WEB3FORMS_ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-      const result = await parseWeb3FormsResponse(response);
-
-      if (!response.ok || result.success !== true) {
-        throw new Error(result.message || "Unable to submit appointment request.");
-      }
-    } catch {
-      setStatus("error");
-      setStatusMessage("Sorry, your request could not be sent right now. Please try again or use the WhatsApp option below.");
-      setIsSubmitting(false);
+    busyRef.current = true;
+    setSubmissionLock("submitting");
+    const attempt = ++attemptRef.current;
+    const requestRevision = revisionRef.current;
+    setState("submitting");
+    const outcome = await submitWithTimeout(
+      transport,
+      challengeResponse ? { ...result.payload, hCaptchaResponse: challengeResponse } : result.payload,
+      timeoutMs,
+    );
+    if (
+      !mountedRef.current ||
+      attempt !== attemptRef.current ||
+      requestRevision !== revisionRef.current
+    )
       return;
-    }
+    busyRef.current = false;
 
-    try {
-      form.reset();
-    } catch {
-      // Reset is best-effort after confirmed delivery; do not report a sent request as failed.
+    if (outcome.kind === "acknowledged") {
+      ownResetRevisionRef.current = revisionRef.current + 1;
+      resetDraft();
+      setState("acknowledged");
+    } else {
+      setSubmissionLock(
+        outcome.kind === "definite-failure" ? null : "uncertain",
+      );
+      setState(outcome.kind === "definite-failure" ? "failure" : "uncertain");
     }
-
-    setStatus("success");
-    setStatusMessage("Thank you. Your appointment request has been sent. The clinic will review it and contact you to confirm.");
-    setIsSubmitting(false);
   }
 
-  function handleWhatsApp(event: MouseEvent<HTMLAnchorElement>) {
-    if (!formRef.current) return;
-
-    event.preventDefault();
-    window.open(
-      appointmentWhatsAppUrl(fieldsFromForm(formRef.current)),
-      "_blank",
-      "noopener,noreferrer",
+  function describedBy(field: BookingField, helper?: string) {
+    return (
+      [helper, errors[field] ? `${fieldId(field)}-error` : undefined]
+        .filter(Boolean)
+        .join(" ") || undefined
     );
   }
 
+  function errorFor(field: BookingField) {
+    return errors[field] ? (
+      <p id={`${fieldId(field)}-error`} className={styles.error}>
+        {errors[field]}
+      </p>
+    ) : null;
+  }
+
+  const statusMessage =
+    state === "submitting"
+      ? "Sending your request…"
+      : state === "acknowledged"
+        ? syntheticTestMode
+          ? "Synthetic request accepted by Web3Forms. Check the clinic inbox for actual delivery. No appointment has been requested or confirmed."
+          : "Request submitted. The clinic will contact you to confirm availability and the consultation arrangements. Your appointment is not confirmed yet."
+        : state === "failure"
+          ? transport === unavailableTransport
+            ? "Online appointment delivery is not available yet. Your details have not been sent. Please call or contact the clinic through WhatsApp to arrange your appointment."
+            : "We could not submit your request. Your details are still here. Please try again or contact the clinic through WhatsApp."
+          : state === "uncertain"
+            ? syntheticTestMode
+              ? "The test response is uncertain. Check the inbox before attempting another test."
+              : "We could not verify whether your request was submitted. Please contact the clinic before sending it again."
+            : "";
+
   return (
     <form
-      ref={formRef}
-      action={WEB3FORMS_ENDPOINT}
-      method="post"
       onSubmit={handleSubmit}
-      className="grid gap-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:grid-cols-2 sm:p-6"
+      onFocusCapture={keepFocusedControlVisible}
+      noValidate
+      aria-labelledby="appointment-request-heading"
+      className={styles.form}
+      data-booking-state={state}
     >
-      <input type="hidden" name="access_key" value={accessKey} />
-      <input type="hidden" name="subject" value={FORM_SUBJECT} />
-      <input type="hidden" name="from_name" value={site.clinicName} />
-      <input type="hidden" name="clinic" value={site.clinicName} />
-      <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" />
+      <p className={styles.intro}>
+        Fields marked * are required. Date and time are preferences, not
+        available appointment slots. Your appointment is confirmed separately by
+        the clinic.
+      </p>
+      {syntheticTestMode && (
+        <div className={styles.prototype} role="note">
+          <strong>SYNTHETIC TEST MODE — NOT AN APPOINTMENT.</strong>
+          <p>Only these fictional details can be sent: Full name <strong>{SYNTHETIC_TEST_NAME}</strong>, phone <strong>{SYNTHETIC_TEST_PHONE}</strong>, consultation type <strong>Virtual</strong>. Leave all other fields blank. Do not enter real names, phone numbers, health information or symptoms.</p>
+        </div>
+      )}
+      {transport === unavailableTransport && (
+        <p className={styles.prototype}>
+          Online appointment delivery is not available yet. Please contact the
+          clinic to arrange your consultation.
+        </p>
+      )}
+      <noscript>
+        <p className={styles.prototype}>
+          JavaScript is needed to use these controls. You can use the generic
+          WhatsApp link; opening it does not send a message.
+        </p>
+      </noscript>
 
-      {statusMessage ? (
+      {state === "invalid" && fieldOrder.some((field) => errors[field]) ? (
         <div
-          className={`sm:col-span-2 rounded-lg border px-4 py-3 text-sm font-medium ${
-            status === "success"
-              ? "border-emerald-200 bg-emerald-50 text-emerald-800"
-              : "border-red-200 bg-red-50 text-red-700"
-          }`}
-          role="status"
-          aria-live="polite"
+          ref={summaryRef}
+          tabIndex={-1}
+          className={styles.errorSummary}
+          aria-labelledby="booking-error-heading"
+          role="alert"
         >
-          {statusMessage}
+          <h2 id="booking-error-heading">
+            Please check your appointment request
+          </h2>
+          <ul>
+            {fieldOrder
+              .filter((field) => errors[field])
+              .map((field) => (
+                <li key={field}>
+                  <a
+                    href={`#${fieldId(field)}`}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      document.getElementById(fieldId(field))?.focus();
+                    }}
+                  >
+                    {errors[field]}
+                  </a>
+                </li>
+              ))}
+          </ul>
         </div>
       ) : null}
 
-      <div className="sm:col-span-2">
-        <label htmlFor="name" className="block text-sm font-semibold text-slate-800">
-          Patient full name
-        </label>
-        <input id="name" name="name" type="text" required autoComplete="name" className="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 text-sm text-slate-950 shadow-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100" />
+      <div
+        ref={statusRef}
+        className={styles.status}
+        data-state={state}
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        tabIndex={statusMessage ? -1 : undefined}
+      >
+        {statusMessage ? (
+          <>
+            {state === "acknowledged" && transport !== unavailableTransport ? (
+              <strong>Request acknowledgement</strong>
+            ) : null}
+            <p>{statusMessage}</p>
+          </>
+        ) : null}
       </div>
 
-      <div>
-        <label htmlFor="phone" className="block text-sm font-semibold text-slate-800">
-          Phone number
-        </label>
-        <input id="phone" name="phone" type="tel" required autoComplete="tel" placeholder="+234..." className="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 text-sm text-slate-950 shadow-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100" />
-      </div>
-
-      <div>
-        <label htmlFor="email" className="block text-sm font-semibold text-slate-800">
-          Email address <span className="font-normal text-slate-500">(optional)</span>
-        </label>
-        <input id="email" name="email" type="email" autoComplete="email" className="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 text-sm text-slate-950 shadow-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100" />
-      </div>
-
-      <div>
-        <label htmlFor="preferredDate" className="block text-sm font-semibold text-slate-800">
-          Preferred appointment date
-        </label>
-        <input id="preferredDate" name="preferredDate" type="date" required min={minDate || undefined} className="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 text-sm text-slate-950 shadow-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100" />
-      </div>
-
-      <div>
-        <label htmlFor="preferredTime" className="block text-sm font-semibold text-slate-800">
-          Preferred appointment time <span className="font-normal text-slate-500">(optional)</span>
-        </label>
-        <input id="preferredTime" name="preferredTime" type="time" className="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 text-sm text-slate-950 shadow-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100" />
-      </div>
-
-      <div className="sm:col-span-2">
-        <label htmlFor="service" className="block text-sm font-semibold text-slate-800">
-          Reason for visit
-        </label>
-        <select id="service" name="service" required defaultValue="" className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 shadow-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100">
-          <option value="" disabled>
-            Select a care area
-          </option>
-          {services.map((service) => (
-            <option key={service.slug} value={service.name}>
-              {service.name}
-            </option>
-          ))}
-          <option value="Other rheumatology concern">Other rheumatology concern</option>
-        </select>
-      </div>
-
-      <div className="sm:col-span-2">
-        <label htmlFor="message" className="block text-sm font-semibold text-slate-800">
-          Scheduling note <span className="font-normal text-slate-500">(optional)</span>
-        </label>
-        <textarea id="message" name="message" rows={4} aria-describedby="message-privacy" placeholder="Share callback preferences or simple scheduling context only." className="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 text-sm text-slate-950 shadow-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100" />
-        <p id="message-privacy" className="mt-2 text-xs leading-relaxed text-slate-500">
-          Please do not include sensitive medical information. The clinic will contact you to discuss your appointment securely.
+      <fieldset
+        disabled={
+          !hydrated || state === "submitting" || state === "acknowledged"
+        }
+        className={styles.fieldset}
+        aria-label="Appointment preferences and contact details"
+      >
+        <div className={styles.fields}>
+          <h2
+            id="appointment-request-heading"
+            className={`${styles.title} ${styles.fullWidth}`}
+          >
+            Appointment preferences
+          </h2>
+          <div className={`${styles.field} ${styles.fullWidth}`}>
+            <label htmlFor={fieldId("reason")} className={styles.label}>
+              Reason for consultation{" "}
+              <span className={styles.optional}>(optional; stays on this page)</span>
+            </label>
+            <select
+              id={fieldId("reason")}
+              value={draft.reason}
+              onChange={(event) => change("reason", event.target.value)}
+              className={styles.control}
+              aria-invalid={!!errors.reason}
+              aria-describedby={describedBy("reason")}
+            >
+              <option value="">Choose a reason (optional)</option>
+              {BOOKING_REASONS.map((reason) => (
+                <option key={reason} value={reason}>
+                  {reason}
+                </option>
+              ))}
+            </select>
+            {errorFor("reason")}
+          </div>
+          <div className={`${styles.field} ${styles.fullWidth}`}>
+            <span id="booking-type-label" className={styles.label}>
+              Consultation type *
+            </span>
+            <label
+              hidden
+              htmlFor={fieldId("consultationType")}
+              className={styles.label}
+            >
+              Consultation type *
+            </label>
+            <div
+              id={fieldId("consultationType")}
+              className={styles.radioGroup}
+              role="radiogroup"
+              tabIndex={-1}
+              aria-labelledby="booking-type-label"
+              aria-required="true"
+              aria-invalid={!!errors.consultationType}
+              aria-describedby={describedBy("consultationType")}
+            >
+              {CONSULTATION_TYPES.map((type) => (
+                <label className={styles.radioCard} key={type.value}>
+                  <input
+                    type="radio"
+                    checked={draft.consultationType === type.value}
+                    value={type.value}
+                    onChange={() => change("consultationType", type.value)}
+                    required
+                  />
+                  <span>{type.label}</span>
+                </label>
+              ))}
+            </div>
+            {errorFor("consultationType")}
+          </div>
+          <div className={styles.field}>
+            <label htmlFor={fieldId("preferredDate")} className={styles.label}>
+              Preferred date <span className={styles.optional}>(optional)</span>
+            </label>
+            <input
+              id={fieldId("preferredDate")}
+              type="date"
+              min={minDate || undefined}
+              value={draft.preferredDate}
+              onChange={(event) => change("preferredDate", event.target.value)}
+              className={styles.control}
+              aria-invalid={!!errors.preferredDate}
+              aria-describedby={describedBy(
+                "preferredDate",
+                "booking-date-help",
+              )}
+            />
+            <p id="booking-date-help" className={styles.help}>
+              Today or a future date in Lagos.
+            </p>
+            {errorFor("preferredDate")}
+          </div>
+          <div className={styles.field}>
+            <label htmlFor={fieldId("preferredTime")} className={styles.label}>
+              Preferred time{" "}
+              <span className={styles.optional}>(WAT, optional)</span>
+            </label>
+            <input
+              id={fieldId("preferredTime")}
+              type="time"
+              value={draft.preferredTime}
+              onChange={(event) => change("preferredTime", event.target.value)}
+              className={styles.control}
+              aria-invalid={!!errors.preferredTime}
+              aria-describedby={describedBy(
+                "preferredTime",
+                "booking-time-help",
+              )}
+            />
+            <p id="booking-time-help" className={styles.help}>
+              Lagos time / WAT (UTC+1), not an available slot.
+            </p>
+            {errorFor("preferredTime")}
+          </div>
+          <div className={`${styles.notice} ${styles.fullWidth}`}>
+            <p>
+              Your preferred date and time are a request, not a confirmed
+              appointment.
+            </p>
+            <p>
+              The clinic will contact you to agree availability and the
+              consultation arrangements.
+            </p>
+          </div>
+          <h2
+            className={`${styles.title} ${styles.fullWidth} ${styles.contactTitle}`}
+          >
+            Your contact details
+          </h2>
+          <div className={styles.field}>
+            <label htmlFor={fieldId("fullName")} className={styles.label}>
+              Full name *
+            </label>
+            <input
+              id={fieldId("fullName")}
+              type="text"
+              required
+              autoComplete="name"
+              value={draft.fullName}
+              onChange={(event) => change("fullName", event.target.value)}
+              className={styles.control}
+              placeholder="Your full name"
+              aria-invalid={!!errors.fullName}
+              aria-describedby={describedBy("fullName")}
+            />
+            {errorFor("fullName")}
+          </div>
+          <div className={styles.field}>
+            <label htmlFor={fieldId("phone")} className={styles.label}>
+              Phone number *
+            </label>
+            <input
+              id={fieldId("phone")}
+              type="tel"
+              inputMode="tel"
+              required
+              autoComplete="tel"
+              value={draft.phone}
+              onChange={(event) => change("phone", event.target.value)}
+              className={styles.control}
+              placeholder="Your phone number"
+              aria-invalid={!!errors.phone}
+              aria-describedby={describedBy("phone", "booking-phone-help")}
+            />
+            <p id="booking-phone-help" className={styles.help}>
+              Include your country code when applicable.
+            </p>
+            {errorFor("phone")}
+          </div>
+          <div className={`${styles.field} ${styles.fullWidth}`}>
+            <label htmlFor={fieldId("email")} className={styles.label}>
+              Email <span className={styles.optional}>(optional)</span>
+            </label>
+            <input
+              id={fieldId("email")}
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              value={draft.email}
+              onChange={(event) => change("email", event.target.value)}
+              className={styles.control}
+              placeholder="Your email address"
+              aria-invalid={!!errors.email}
+              aria-describedby={describedBy("email")}
+            />
+            {errorFor("email")}
+          </div>
+          <div className={`${styles.field} ${styles.fullWidth}`}>
+            <label htmlFor={fieldId("bookingNote")} className={styles.label}>
+              Booking note <span className={styles.optional}>(optional)</span>
+            </label>
+            <textarea
+              id={fieldId("bookingNote")}
+              rows={4}
+              autoComplete="off"
+              value={draft.bookingNote}
+              onChange={(event) => change("bookingNote", event.target.value)}
+              className={styles.control}
+              placeholder="Appointment arrangements only—no medical details."
+              aria-invalid={!!errors.bookingNote}
+              aria-describedby={describedBy(
+                "bookingNote",
+                "booking-note-help booking-note-count",
+              )}
+            />
+            <p id="booking-note-help" className={styles.help}>
+              For your own reference only; this text is not emailed to the
+              clinic. Do not include symptoms, diagnoses or medical records.
+            </p>
+            <p id="booking-note-count" className={styles.help}>
+              {countBookingNoteCharacters(draft.bookingNote)} of 300 characters.
+              Maximum 300 characters.
+            </p>
+            {errorFor("bookingNote")}
+          </div>
+        </div>
+        <p className={styles.privacy}>
+          Please do not enter medical records or detailed medical information.
+          The consultation reason and booking note stay in this page only; they
+          are excluded from Web3Forms email notifications.
+          {transport === unavailableTransport
+            ? " These controls cannot currently send your request. Contact the clinic to arrange your appointment."
+            : " Only the required contact details and scheduling preferences are sent to arrange your appointment."}
         </p>
-      </div>
-
-      <div className="flex flex-col gap-3 sm:col-span-2 sm:flex-row">
-        <button type="submit" disabled={isSubmitting} className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-sm shadow-blue-600/20 transition hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70">
-          <Send className="h-5 w-5" aria-hidden="true" />
-          {isSubmitting ? "Sending..." : "Submit Request"}
+        {transport !== unavailableTransport &&
+          process.env.NEXT_PUBLIC_CLINIC_PRIVACY_NOTICE_PATH && (
+            <a
+              className={styles.help}
+              href={process.env.NEXT_PUBLIC_CLINIC_PRIVACY_NOTICE_PATH}
+            >
+              Read the clinic appointment privacy notice
+            </a>
+          )}
+        {draft.reason ||
+        draft.consultationType ||
+        draft.preferredDate ||
+        draft.preferredTime ? (
+          <section
+            className={styles.preferenceSummary}
+            aria-labelledby="booking-preferences-heading"
+          >
+            <h2 id="booking-preferences-heading">Review your preferences</h2>
+            <dl>
+              {draft.reason ? (
+                <div>
+                  <dt>Reason for consultation</dt>
+                  <dd>{draft.reason}</dd>
+                </div>
+              ) : null}
+              {draft.consultationType ? (
+                <div>
+                  <dt>Consultation type</dt>
+                  <dd>
+                    {CONSULTATION_TYPES.find(
+                      (type) => type.value === draft.consultationType,
+                    )?.label || draft.consultationType}
+                  </dd>
+                </div>
+              ) : null}
+              {draft.preferredDate ? (
+                <div>
+                  <dt>Preferred date (Lagos)</dt>
+                  <dd>{draft.preferredDate} (YYYY-MM-DD)</dd>
+                </div>
+              ) : null}
+              {draft.preferredTime ? (
+                <div>
+                  <dt>Preferred time</dt>
+                  <dd>{draft.preferredTime} WAT (Lagos)</dd>
+                </div>
+              ) : null}
+            </dl>
+          </section>
+        ) : null}
+        {captchaRequired && (
+          <div className={`${styles.field} ${styles.fullWidth}`}>
+            <p className={styles.help}>Complete the security check before submitting. The challenge is processed by hCaptcha.</p>
+            <div className="h-captcha" data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2" data-theme="light" />
+            {captchaError && <p role="alert" className={styles.error}>Complete the security check before sending an appointment request.</p>}
+          </div>
+        )}
+        <div className={styles.actions}>
+          <button
+            type="submit"
+            disabled={
+              !hydrated ||
+              state === "submitting" ||
+              state === "acknowledged" ||
+              state === "uncertain"
+            }
+            className={v2ButtonStyles.primary}
+          >
+            {state === "submitting"
+              ? syntheticTestMode ? "Sending fictional test…" : "Sending your request…"
+              : state === "failure"
+                ? syntheticTestMode ? "Try fictional test again" : "Try request again"
+                : syntheticTestMode ? "Send fictional test" : "Send appointment request"}
+          </button>
+          <a
+            href={appointmentWhatsAppUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={v2ButtonStyles.secondary}
+          >
+            Book via WhatsApp
+          </a>
+        </div>
+        <p className={styles.help}>
+          Submitting a request does not confirm an appointment. Opening WhatsApp
+          does not submit this form or send a message.
+        </p>
+      </fieldset>
+      {hydrated ? (
+        <button type="button" onClick={reset} className={styles.reset}>
+          {state === "acknowledged"
+            ? "Start another request"
+            : "Clear this request"}
         </button>
-        <a href={appointmentWhatsAppUrl()} onClick={handleWhatsApp} target="_blank" rel="noreferrer" className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-6 py-3 font-semibold text-emerald-800 transition hover:bg-emerald-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2">
-          <MessageCircle className="h-5 w-5" aria-hidden="true" />
-          Send on WhatsApp
-        </a>
-      </div>
-
-      <p className="sm:col-span-2 text-sm leading-relaxed text-slate-500">
-        Appointment requests are reviewed before confirmation. If symptoms are urgent or severe, visit the nearest hospital.
-      </p>
-
-      <div className="sm:col-span-2 flex items-center gap-2 rounded-lg bg-blue-50 px-4 py-3 text-sm font-semibold text-blue-800">
-        <CalendarDays className="h-5 w-5" aria-hidden="true" />
-        Weekday and weekend appointments are scheduled by confirmation.
-      </div>
+      ) : null}
     </form>
   );
 }

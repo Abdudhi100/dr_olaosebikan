@@ -1,0 +1,694 @@
+{
+  "checks": 68,
+  "widths": [
+    390,
+    768,
+    1440,
+    1920
+  ],
+  "routes": [
+    {
+      "route": "/",
+      "width": 390,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Pain, Arthritis, Autoimmune & Rheumatology Clinic",
+      "description": "Specialist rheumatology clinic for pain, arthritis, autoimmune and rheumatic diseases. Book an appointment with Dr Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/"
+    },
+    {
+      "route": "/services",
+      "width": 390,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Our care | Dr Olaosebikan",
+      "description": "Explore specialist consultations for pain, arthritis, autoimmune and rheumatology concerns in Lagos.",
+      "canonical": "https://www.drolaosebikan.com/services"
+    },
+    {
+      "route": "/about-dr-olaosebikan",
+      "width": 390,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "About Dr Olaosebikan | Rheumatology Specialist in Lagos",
+      "description": "Learn about Dr Olaosebikan, a specialist in pain, arthritis, autoimmune and rheumatology care in Lagos.",
+      "canonical": "https://www.drolaosebikan.com/about-dr-olaosebikan"
+    },
+    {
+      "route": "/appointments/book",
+      "width": 390,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Request an appointment | Dr Olaosebikan",
+      "description": "Request an in-person or virtual consultation. Appointment dates, times and fees are confirmed privately by the clinic.",
+      "canonical": "https://www.drolaosebikan.com/appointments/book"
+    },
+    {
+      "route": "/contact-location",
+      "width": 390,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Contact and location | Dr Olaosebikan",
+      "description": "Contact the clinic and find in-person and virtual consultation information for Dr Hakeem Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/contact-location"
+    },
+    {
+      "route": "/contact",
+      "width": 390,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Contact channels | Dr Olaosebikan",
+      "description": "Contact the clinic through phone, WhatsApp or email to arrange your consultation.",
+      "canonical": "https://www.drolaosebikan.com/contact"
+    },
+    {
+      "route": "/faq",
+      "width": 390,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Frequently asked questions | Dr Olaosebikan",
+      "description": "Answers about rheumatology care, consultations and appointment arrangements.",
+      "canonical": "https://www.drolaosebikan.com/faq"
+    },
+    {
+      "route": "/publications",
+      "width": 390,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Research & publications | Dr Olaosebikan",
+      "description": "Verified research and publication information from Dr Hakeem Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/publications"
+    },
+    {
+      "route": "/publications/achievements",
+      "width": 390,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Achievements & recognitions | Dr Olaosebikan",
+      "description": "Verified professional milestones and recognitions.",
+      "canonical": "https://www.drolaosebikan.com/publications/achievements"
+    },
+    {
+      "route": "/rheumatoid-arthritis-treatment-lagos",
+      "width": 390,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Rheumatoid Arthritis Treatment in Lagos | Dr Olaosebikan",
+      "description": "Get expert evaluation and treatment for rheumatoid arthritis in Lagos. Learn symptoms, diagnosis, and care options with Dr Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/rheumatoid-arthritis-treatment-lagos"
+    },
+    {
+      "route": "/gout-treatment-lagos",
+      "width": 390,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Gout Treatment in Lagos | Dr Olaosebikan",
+      "description": "Learn about gout symptoms, causes, diagnosis, and treatment in Lagos with specialist care from Dr Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/gout-treatment-lagos"
+    },
+    {
+      "route": "/lupus-care-lagos",
+      "width": 390,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Lupus Care in Lagos | Dr Olaosebikan",
+      "description": "Specialist lupus care in Lagos. Understand symptoms, diagnosis, monitoring, and treatment options with Dr Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/lupus-care-lagos"
+    },
+    {
+      "route": "/joint-pain-and-stiffness-clinic-lagos",
+      "width": 390,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Joint Pain and Stiffness Clinic in Lagos | Dr Olaosebikan",
+      "description": "Joint pain and stiffness assessment and treatment in Lagos. Find expert care for arthritis, inflammation, and mobility concerns.",
+      "canonical": "https://www.drolaosebikan.com/joint-pain-and-stiffness-clinic-lagos"
+    },
+    {
+      "route": "/autoimmune-disease-specialist-lagos",
+      "width": 390,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Autoimmune Disease Specialist in Lagos | Dr Olaosebikan",
+      "description": "Consult an autoimmune disease specialist in Lagos for expert diagnosis, monitoring, and long-term care.",
+      "canonical": "https://www.drolaosebikan.com/autoimmune-disease-specialist-lagos"
+    },
+    {
+      "route": "/insights",
+      "width": 390,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Insights & media",
+      "description": "Educational articles, videos, verified research and clinic updates.",
+      "canonical": "https://www.drolaosebikan.com/insights"
+    },
+    {
+      "route": "/publications/publication-record-unavailable",
+      "width": 390,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Publication record unavailable | Dr Olaosebikan",
+      "description": "The requested publication record is not currently available as a verified entry.",
+      "canonical": "https://www.drolaosebikan.com/publications"
+    },
+    {
+      "route": "/unavailable-page",
+      "width": 390,
+      "status": 404,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Pain, Arthritis, Autoimmune & Rheumatology Clinic",
+      "description": "Specialist rheumatology clinic for pain, arthritis, autoimmune and rheumatic diseases. Book an appointment with Dr Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/"
+    },
+    {
+      "route": "/",
+      "width": 768,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Pain, Arthritis, Autoimmune & Rheumatology Clinic",
+      "description": "Specialist rheumatology clinic for pain, arthritis, autoimmune and rheumatic diseases. Book an appointment with Dr Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/"
+    },
+    {
+      "route": "/services",
+      "width": 768,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Our care | Dr Olaosebikan",
+      "description": "Explore specialist consultations for pain, arthritis, autoimmune and rheumatology concerns in Lagos.",
+      "canonical": "https://www.drolaosebikan.com/services"
+    },
+    {
+      "route": "/about-dr-olaosebikan",
+      "width": 768,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "About Dr Olaosebikan | Rheumatology Specialist in Lagos",
+      "description": "Learn about Dr Olaosebikan, a specialist in pain, arthritis, autoimmune and rheumatology care in Lagos.",
+      "canonical": "https://www.drolaosebikan.com/about-dr-olaosebikan"
+    },
+    {
+      "route": "/appointments/book",
+      "width": 768,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Request an appointment | Dr Olaosebikan",
+      "description": "Request an in-person or virtual consultation. Appointment dates, times and fees are confirmed privately by the clinic.",
+      "canonical": "https://www.drolaosebikan.com/appointments/book"
+    },
+    {
+      "route": "/contact-location",
+      "width": 768,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Contact and location | Dr Olaosebikan",
+      "description": "Contact the clinic and find in-person and virtual consultation information for Dr Hakeem Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/contact-location"
+    },
+    {
+      "route": "/contact",
+      "width": 768,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Contact channels | Dr Olaosebikan",
+      "description": "Contact the clinic through phone, WhatsApp or email to arrange your consultation.",
+      "canonical": "https://www.drolaosebikan.com/contact"
+    },
+    {
+      "route": "/faq",
+      "width": 768,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Frequently asked questions | Dr Olaosebikan",
+      "description": "Answers about rheumatology care, consultations and appointment arrangements.",
+      "canonical": "https://www.drolaosebikan.com/faq"
+    },
+    {
+      "route": "/publications",
+      "width": 768,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Research & publications | Dr Olaosebikan",
+      "description": "Verified research and publication information from Dr Hakeem Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/publications"
+    },
+    {
+      "route": "/publications/achievements",
+      "width": 768,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Achievements & recognitions | Dr Olaosebikan",
+      "description": "Verified professional milestones and recognitions.",
+      "canonical": "https://www.drolaosebikan.com/publications/achievements"
+    },
+    {
+      "route": "/rheumatoid-arthritis-treatment-lagos",
+      "width": 768,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Rheumatoid Arthritis Treatment in Lagos | Dr Olaosebikan",
+      "description": "Get expert evaluation and treatment for rheumatoid arthritis in Lagos. Learn symptoms, diagnosis, and care options with Dr Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/rheumatoid-arthritis-treatment-lagos"
+    },
+    {
+      "route": "/gout-treatment-lagos",
+      "width": 768,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Gout Treatment in Lagos | Dr Olaosebikan",
+      "description": "Learn about gout symptoms, causes, diagnosis, and treatment in Lagos with specialist care from Dr Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/gout-treatment-lagos"
+    },
+    {
+      "route": "/lupus-care-lagos",
+      "width": 768,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Lupus Care in Lagos | Dr Olaosebikan",
+      "description": "Specialist lupus care in Lagos. Understand symptoms, diagnosis, monitoring, and treatment options with Dr Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/lupus-care-lagos"
+    },
+    {
+      "route": "/joint-pain-and-stiffness-clinic-lagos",
+      "width": 768,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Joint Pain and Stiffness Clinic in Lagos | Dr Olaosebikan",
+      "description": "Joint pain and stiffness assessment and treatment in Lagos. Find expert care for arthritis, inflammation, and mobility concerns.",
+      "canonical": "https://www.drolaosebikan.com/joint-pain-and-stiffness-clinic-lagos"
+    },
+    {
+      "route": "/autoimmune-disease-specialist-lagos",
+      "width": 768,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Autoimmune Disease Specialist in Lagos | Dr Olaosebikan",
+      "description": "Consult an autoimmune disease specialist in Lagos for expert diagnosis, monitoring, and long-term care.",
+      "canonical": "https://www.drolaosebikan.com/autoimmune-disease-specialist-lagos"
+    },
+    {
+      "route": "/insights",
+      "width": 768,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Insights & media",
+      "description": "Educational articles, videos, verified research and clinic updates.",
+      "canonical": "https://www.drolaosebikan.com/insights"
+    },
+    {
+      "route": "/publications/publication-record-unavailable",
+      "width": 768,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Publication record unavailable | Dr Olaosebikan",
+      "description": "The requested publication record is not currently available as a verified entry.",
+      "canonical": "https://www.drolaosebikan.com/publications"
+    },
+    {
+      "route": "/unavailable-page",
+      "width": 768,
+      "status": 404,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Pain, Arthritis, Autoimmune & Rheumatology Clinic",
+      "description": "Specialist rheumatology clinic for pain, arthritis, autoimmune and rheumatic diseases. Book an appointment with Dr Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/"
+    },
+    {
+      "route": "/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Pain, Arthritis, Autoimmune & Rheumatology Clinic",
+      "description": "Specialist rheumatology clinic for pain, arthritis, autoimmune and rheumatic diseases. Book an appointment with Dr Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/"
+    },
+    {
+      "route": "/services",
+      "width": 1440,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Our care | Dr Olaosebikan",
+      "description": "Explore specialist consultations for pain, arthritis, autoimmune and rheumatology concerns in Lagos.",
+      "canonical": "https://www.drolaosebikan.com/services"
+    },
+    {
+      "route": "/about-dr-olaosebikan",
+      "width": 1440,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "About Dr Olaosebikan | Rheumatology Specialist in Lagos",
+      "description": "Learn about Dr Olaosebikan, a specialist in pain, arthritis, autoimmune and rheumatology care in Lagos.",
+      "canonical": "https://www.drolaosebikan.com/about-dr-olaosebikan"
+    },
+    {
+      "route": "/appointments/book",
+      "width": 1440,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Request an appointment | Dr Olaosebikan",
+      "description": "Request an in-person or virtual consultation. Appointment dates, times and fees are confirmed privately by the clinic.",
+      "canonical": "https://www.drolaosebikan.com/appointments/book"
+    },
+    {
+      "route": "/contact-location",
+      "width": 1440,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Contact and location | Dr Olaosebikan",
+      "description": "Contact the clinic and find in-person and virtual consultation information for Dr Hakeem Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/contact-location"
+    },
+    {
+      "route": "/contact",
+      "width": 1440,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Contact channels | Dr Olaosebikan",
+      "description": "Contact the clinic through phone, WhatsApp or email to arrange your consultation.",
+      "canonical": "https://www.drolaosebikan.com/contact"
+    },
+    {
+      "route": "/faq",
+      "width": 1440,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Frequently asked questions | Dr Olaosebikan",
+      "description": "Answers about rheumatology care, consultations and appointment arrangements.",
+      "canonical": "https://www.drolaosebikan.com/faq"
+    },
+    {
+      "route": "/publications",
+      "width": 1440,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Research & publications | Dr Olaosebikan",
+      "description": "Verified research and publication information from Dr Hakeem Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/publications"
+    },
+    {
+      "route": "/publications/achievements",
+      "width": 1440,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Achievements & recognitions | Dr Olaosebikan",
+      "description": "Verified professional milestones and recognitions.",
+      "canonical": "https://www.drolaosebikan.com/publications/achievements"
+    },
+    {
+      "route": "/rheumatoid-arthritis-treatment-lagos",
+      "width": 1440,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Rheumatoid Arthritis Treatment in Lagos | Dr Olaosebikan",
+      "description": "Get expert evaluation and treatment for rheumatoid arthritis in Lagos. Learn symptoms, diagnosis, and care options with Dr Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/rheumatoid-arthritis-treatment-lagos"
+    },
+    {
+      "route": "/gout-treatment-lagos",
+      "width": 1440,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Gout Treatment in Lagos | Dr Olaosebikan",
+      "description": "Learn about gout symptoms, causes, diagnosis, and treatment in Lagos with specialist care from Dr Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/gout-treatment-lagos"
+    },
+    {
+      "route": "/lupus-care-lagos",
+      "width": 1440,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Lupus Care in Lagos | Dr Olaosebikan",
+      "description": "Specialist lupus care in Lagos. Understand symptoms, diagnosis, monitoring, and treatment options with Dr Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/lupus-care-lagos"
+    },
+    {
+      "route": "/joint-pain-and-stiffness-clinic-lagos",
+      "width": 1440,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Joint Pain and Stiffness Clinic in Lagos | Dr Olaosebikan",
+      "description": "Joint pain and stiffness assessment and treatment in Lagos. Find expert care for arthritis, inflammation, and mobility concerns.",
+      "canonical": "https://www.drolaosebikan.com/joint-pain-and-stiffness-clinic-lagos"
+    },
+    {
+      "route": "/autoimmune-disease-specialist-lagos",
+      "width": 1440,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Autoimmune Disease Specialist in Lagos | Dr Olaosebikan",
+      "description": "Consult an autoimmune disease specialist in Lagos for expert diagnosis, monitoring, and long-term care.",
+      "canonical": "https://www.drolaosebikan.com/autoimmune-disease-specialist-lagos"
+    },
+    {
+      "route": "/insights",
+      "width": 1440,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Insights & media",
+      "description": "Educational articles, videos, verified research and clinic updates.",
+      "canonical": "https://www.drolaosebikan.com/insights"
+    },
+    {
+      "route": "/publications/publication-record-unavailable",
+      "width": 1440,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Publication record unavailable | Dr Olaosebikan",
+      "description": "The requested publication record is not currently available as a verified entry.",
+      "canonical": "https://www.drolaosebikan.com/publications"
+    },
+    {
+      "route": "/unavailable-page",
+      "width": 1440,
+      "status": 404,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Pain, Arthritis, Autoimmune & Rheumatology Clinic",
+      "description": "Specialist rheumatology clinic for pain, arthritis, autoimmune and rheumatic diseases. Book an appointment with Dr Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/"
+    },
+    {
+      "route": "/",
+      "width": 1920,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Pain, Arthritis, Autoimmune & Rheumatology Clinic",
+      "description": "Specialist rheumatology clinic for pain, arthritis, autoimmune and rheumatic diseases. Book an appointment with Dr Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/"
+    },
+    {
+      "route": "/services",
+      "width": 1920,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Our care | Dr Olaosebikan",
+      "description": "Explore specialist consultations for pain, arthritis, autoimmune and rheumatology concerns in Lagos.",
+      "canonical": "https://www.drolaosebikan.com/services"
+    },
+    {
+      "route": "/about-dr-olaosebikan",
+      "width": 1920,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "About Dr Olaosebikan | Rheumatology Specialist in Lagos",
+      "description": "Learn about Dr Olaosebikan, a specialist in pain, arthritis, autoimmune and rheumatology care in Lagos.",
+      "canonical": "https://www.drolaosebikan.com/about-dr-olaosebikan"
+    },
+    {
+      "route": "/appointments/book",
+      "width": 1920,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Request an appointment | Dr Olaosebikan",
+      "description": "Request an in-person or virtual consultation. Appointment dates, times and fees are confirmed privately by the clinic.",
+      "canonical": "https://www.drolaosebikan.com/appointments/book"
+    },
+    {
+      "route": "/contact-location",
+      "width": 1920,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Contact and location | Dr Olaosebikan",
+      "description": "Contact the clinic and find in-person and virtual consultation information for Dr Hakeem Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/contact-location"
+    },
+    {
+      "route": "/contact",
+      "width": 1920,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Contact channels | Dr Olaosebikan",
+      "description": "Contact the clinic through phone, WhatsApp or email to arrange your consultation.",
+      "canonical": "https://www.drolaosebikan.com/contact"
+    },
+    {
+      "route": "/faq",
+      "width": 1920,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Frequently asked questions | Dr Olaosebikan",
+      "description": "Answers about rheumatology care, consultations and appointment arrangements.",
+      "canonical": "https://www.drolaosebikan.com/faq"
+    },
+    {
+      "route": "/publications",
+      "width": 1920,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Research & publications | Dr Olaosebikan",
+      "description": "Verified research and publication information from Dr Hakeem Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/publications"
+    },
+    {
+      "route": "/publications/achievements",
+      "width": 1920,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Achievements & recognitions | Dr Olaosebikan",
+      "description": "Verified professional milestones and recognitions.",
+      "canonical": "https://www.drolaosebikan.com/publications/achievements"
+    },
+    {
+      "route": "/rheumatoid-arthritis-treatment-lagos",
+      "width": 1920,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Rheumatoid Arthritis Treatment in Lagos | Dr Olaosebikan",
+      "description": "Get expert evaluation and treatment for rheumatoid arthritis in Lagos. Learn symptoms, diagnosis, and care options with Dr Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/rheumatoid-arthritis-treatment-lagos"
+    },
+    {
+      "route": "/gout-treatment-lagos",
+      "width": 1920,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Gout Treatment in Lagos | Dr Olaosebikan",
+      "description": "Learn about gout symptoms, causes, diagnosis, and treatment in Lagos with specialist care from Dr Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/gout-treatment-lagos"
+    },
+    {
+      "route": "/lupus-care-lagos",
+      "width": 1920,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Lupus Care in Lagos | Dr Olaosebikan",
+      "description": "Specialist lupus care in Lagos. Understand symptoms, diagnosis, monitoring, and treatment options with Dr Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/lupus-care-lagos"
+    },
+    {
+      "route": "/joint-pain-and-stiffness-clinic-lagos",
+      "width": 1920,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Joint Pain and Stiffness Clinic in Lagos | Dr Olaosebikan",
+      "description": "Joint pain and stiffness assessment and treatment in Lagos. Find expert care for arthritis, inflammation, and mobility concerns.",
+      "canonical": "https://www.drolaosebikan.com/joint-pain-and-stiffness-clinic-lagos"
+    },
+    {
+      "route": "/autoimmune-disease-specialist-lagos",
+      "width": 1920,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Autoimmune Disease Specialist in Lagos | Dr Olaosebikan",
+      "description": "Consult an autoimmune disease specialist in Lagos for expert diagnosis, monitoring, and long-term care.",
+      "canonical": "https://www.drolaosebikan.com/autoimmune-disease-specialist-lagos"
+    },
+    {
+      "route": "/insights",
+      "width": 1920,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Insights & media",
+      "description": "Educational articles, videos, verified research and clinic updates.",
+      "canonical": "https://www.drolaosebikan.com/insights"
+    },
+    {
+      "route": "/publications/publication-record-unavailable",
+      "width": 1920,
+      "status": 200,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Publication record unavailable | Dr Olaosebikan",
+      "description": "The requested publication record is not currently available as a verified entry.",
+      "canonical": "https://www.drolaosebikan.com/publications"
+    },
+    {
+      "route": "/unavailable-page",
+      "width": 1920,
+      "status": 404,
+      "overflow": false,
+      "brokenImages": [],
+      "title": "Pain, Arthritis, Autoimmune & Rheumatology Clinic",
+      "description": "Specialist rheumatology clinic for pain, arthritis, autoimmune and rheumatic diseases. Book an appointment with Dr Olaosebikan.",
+      "canonical": "https://www.drolaosebikan.com/"
+    }
+  ],
+  "interactions": "Navigation, Escape focus return, care search/empty state, care rail, 14 FAQs, booking preference handoff, validation, failure preservation, reset, no storage, generic WhatsApp and reduced motion passed.",
+  "externalRequests": [],
+  "clientErrors": []
+}

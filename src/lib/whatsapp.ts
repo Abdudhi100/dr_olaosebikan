@@ -1,6 +1,6 @@
-import { site } from "@/lib/content";
+import type { BookingDraft } from "./booking";
 
-export type AppointmentMessageFields = {
+export type AppointmentMessageFields = Partial<BookingDraft> & {
   name?: string;
   phone?: string;
   email?: string;
@@ -10,28 +10,26 @@ export type AppointmentMessageFields = {
   message?: string;
 };
 
-export function whatsappUrl(message: string, phoneNumber = site.whatsappNumber) {
+export const APPOINTMENT_WHATSAPP_NUMBER = "2348035751154";
+export const APPOINTMENT_WHATSAPP_MESSAGE =
+  "Hello, I would like to request an appointment with Dr Hakeem Olaosebikan. Please let me know the available dates and how to proceed. Thank you.";
+
+export function whatsappUrl(
+  message: string,
+  phoneNumber = APPOINTMENT_WHATSAPP_NUMBER,
+) {
   return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 }
 
-export function appointmentMessage(fields: AppointmentMessageFields = {}) {
-  const lines = [
-    "Hello Dr Olaosebikan,",
-    "",
-    "I would like to book an appointment.",
-    "",
-    fields.name ? `Name: ${fields.name}` : "Name:",
-    fields.phone ? `Phone: ${fields.phone}` : "Phone:",
-    fields.email ? `Email: ${fields.email}` : "Email:",
-    fields.preferredDate ? `Preferred Date: ${fields.preferredDate}` : "Preferred Date:",
-    fields.preferredTime ? `Preferred Time: ${fields.preferredTime}` : "Preferred Time:",
-    fields.service ? `Service/Complaint: ${fields.service}` : "Service/Complaint:",
-    fields.message ? `Message/Symptoms: ${fields.message}` : "Message/Symptoms:",
-  ];
+export const APPOINTMENT_WHATSAPP_URL = whatsappUrl(
+  APPOINTMENT_WHATSAPP_MESSAGE,
+);
 
-  return lines.join("\n");
+/** Legacy arguments remain compatible, but appointment links never include their values. */
+export function appointmentMessage(_fields: AppointmentMessageFields = {}) {
+  return APPOINTMENT_WHATSAPP_MESSAGE;
 }
 
-export function appointmentWhatsAppUrl(fields?: AppointmentMessageFields) {
-  return whatsappUrl(appointmentMessage(fields));
+export function appointmentWhatsAppUrl(_fields?: AppointmentMessageFields) {
+  return APPOINTMENT_WHATSAPP_URL;
 }

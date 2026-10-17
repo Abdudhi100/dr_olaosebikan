@@ -1,99 +1,82 @@
-import type { Metadata } from "next";
+import { ClinicHeroVideo } from "@/components/clinic/ClinicHeroVideo";
 import Link from "next/link";
-import { CalendarDays, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
-import { AppointmentForm } from "@/components/AppointmentForm";
-import { JsonLd } from "@/components/JsonLd";
+import { BookingForm } from "@/components/booking/BookingForm";
+import release from "../../../../config/clinic-release.json";
 import { site } from "@/lib/content";
 import { defaultMetadata } from "@/lib/seo";
 import { appointmentWhatsAppUrl } from "@/lib/whatsapp";
-
-export const metadata: Metadata = defaultMetadata({
-  title: "Book Appointment - Pain, Arthritis, Autoimmune & Rheumatology Clinic",
-  description: "Book a consultation for arthritis, gout, lupus, inflammatory back pain, joint pain and chronic pain management with Dr Olaosebikan.",
-  keywords: [
-    "book rheumatology appointment Lagos",
-    "arthritis clinic appointment Lagos",
-    "Dr Olaosebikan appointment",
-  ],
+export const metadata = defaultMetadata({
+  title: "Request an appointment | Dr Olaosebikan",
+  description:
+    "Request an in-person or virtual consultation. Appointment dates, times and fees are confirmed privately by the clinic.",
   path: "/appointments/book",
 });
-
-export default function BookAppointmentPage() {
+export default function BookingPage() {
   return (
-    <>
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "MedicalWebPage",
-          name: "Book Appointment",
-          url: `${site.siteUrl}/appointments/book`,
-          description: metadata.description,
-        }}
-      />
-
-      <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-          <nav aria-label="Breadcrumb" className="mb-8 text-sm text-slate-600">
-            <Link href="/" className="hover:text-blue-700">Home</Link>
-            <span className="mx-2">/</span>
-            <span aria-current="page">Book Appointment</span>
+    <section className="clinic-booking">
+      <div className="clinic-booking-hero clinic-video-host">
+        <ClinicHeroVideo variant="appointments" overlayClassName="clinic-hero-shade clinic-hero-shade-paper" />
+        <div className="clinic-container">
+          <nav className="clinic-breadcrumb" aria-label="Breadcrumb">
+            <Link href="/">Home</Link>
+            <span aria-hidden>/</span>Appointment request
           </nav>
-
-          <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-            <div>
-              <span className="inline-flex items-center rounded-full bg-blue-50 px-4 py-1.5 text-sm font-semibold text-blue-700 ring-1 ring-blue-100">
-                Appointment Request
-              </span>
-              <h1 className="mt-5 text-4xl font-extrabold tracking-tight text-slate-950 sm:text-5xl">
-                Book a specialist rheumatology consultation
-              </h1>
-              <p className="mt-5 text-lg leading-relaxed text-slate-700">
-                Request a consultation for joint pain, stiffness, gout, lupus, rheumatoid arthritis, autoimmune symptoms, or long-term rheumatology follow-up.
-              </p>
-
-              <div className="mt-8 grid gap-4">
-                <a href={`tel:${site.phoneDial}`} className="flex items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 p-4">
-                  <Phone className="mt-0.5 h-5 w-5 shrink-0 text-blue-700" aria-hidden="true" />
-                  <span>
-                    <span className="block text-sm font-semibold text-slate-950">Phone</span>
-                    <span className="mt-1 block text-sm text-slate-600">{site.phone}</span>
-                  </span>
-                </a>
-                <a href={`mailto:${site.email}`} className="flex items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 p-4">
-                  <Mail className="mt-0.5 h-5 w-5 shrink-0 text-blue-700" aria-hidden="true" />
-                  <span>
-                    <span className="block text-sm font-semibold text-slate-950">Email</span>
-                    <span className="mt-1 block break-all text-sm text-slate-600">{site.email}</span>
-                  </span>
-                </a>
-                <a href={appointmentWhatsAppUrl()} target="_blank" rel="noreferrer" className="flex items-start gap-3 rounded-lg border border-emerald-200 bg-emerald-50 p-4">
-                  <MessageCircle className="mt-0.5 h-5 w-5 shrink-0 text-emerald-700" aria-hidden="true" />
-                  <span>
-                    <span className="block text-sm font-semibold text-emerald-950">WhatsApp</span>
-                    <span className="mt-1 block text-sm text-emerald-800">Fastest for appointment scheduling and quick questions.</span>
-                  </span>
-                </a>
-                <div className="flex items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 p-4">
-                  <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-blue-700" aria-hidden="true" />
-                  <span>
-                    <span className="block text-sm font-semibold text-slate-950">Clinic location</span>
-                    <span className="mt-1 block text-sm text-slate-600">{site.address}</span>
-                  </span>
-                </div>
-                <div className="flex items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 p-4">
-                  <CalendarDays className="mt-0.5 h-5 w-5 shrink-0 text-blue-700" aria-hidden="true" />
-                  <span>
-                    <span className="block text-sm font-semibold text-slate-950">Availability</span>
-                    <span className="mt-1 block text-sm text-slate-600">{site.hours}</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <AppointmentForm />
+          <div className="clinic-booking-heading">
+            <h1>Request an appointment</h1>
+            <p>
+              {release.booking.enabled
+                ? "Choose your preferences and tell us how to contact you. The clinic will confirm availability and the consultation arrangements."
+                : "Request an in-person or virtual consultation directly through WhatsApp, phone or email. The clinic will confirm availability and fees."}
+            </p>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+      <div className="clinic-container">
+        <div className="clinic-booking-layout">
+          <BookingForm />
+          <aside className="clinic-booking-sidebar">
+            <h2>What happens next?</h2>
+            <div>
+              <h3>Agree the arrangements</h3>
+              <p>
+                The clinic will contact you to confirm availability and
+                communicate the consultation fee privately.
+              </p>
+            </div>
+            <hr />
+            <p>
+              In-person consultations available at Maryamville Medical Center,
+              144 Bode Thomas Road, Surulere, Lagos.
+            </p>
+            <p>
+              For virtual consultations, joining instructions are shared after
+              confirmation.
+            </p>
+            <a
+              href={appointmentWhatsAppUrl()}
+              className="clinic-button clinic-button-outline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Book via WhatsApp
+            </a>
+            <a href={`tel:${site.phoneDial}`} className="clinic-text-link">
+              +234 803 575 1154
+            </a>
+            <Link href="/contact-location" className="clinic-text-link">
+              Contact and location <span aria-hidden>↗</span>
+            </Link>
+            <a href={`mailto:${site.email}`} className="clinic-text-link">
+              {site.email}
+            </a>
+            {release.booking.enabled && (
+              <Link href="/appointment-privacy" className="clinic-text-link">
+                Appointment privacy information <span aria-hidden>↗</span>
+              </Link>
+            )}
+          </aside>
+        </div>
+      </div>
+    </section>
   );
 }

@@ -1,12 +1,13 @@
 import Link from "next/link";
-import { CalendarDays, MessageCircle } from "lucide-react";
-import { appointmentWhatsAppUrl } from "@/lib/whatsapp";
+import { ArrowRight, CalendarDays } from "lucide-react";
+import { buttonStyles } from "@/lib/styles";
 
 type PageHeroProps = {
   eyebrow: string;
   title: string;
   description: string;
   current: string;
+  showPrimaryAction?: boolean;
   secondaryHref?: string;
   secondaryLabel?: string;
 };
@@ -16,56 +17,58 @@ export function PageHero({
   title,
   description,
   current,
+  showPrimaryAction = true,
   secondaryHref = "/faq",
   secondaryLabel = "Read FAQ",
 }: PageHeroProps) {
   return (
-    <section className="border-b border-slate-200 bg-white">
-      <div className="mx-auto max-w-5xl px-6 py-12 sm:py-16">
-        <nav aria-label="Breadcrumb" className="mb-8 text-sm text-slate-600">
-          <Link href="/" className="hover:text-blue-700">
+    <section className="border-b border-border-subtle bg-surface-page">
+      <div className="mx-auto max-w-wide px-4 py-10 sm:px-6 sm:py-14">
+        <nav aria-label="Breadcrumb" className="mb-8 flex min-w-0 items-center gap-2 text-support text-text-tertiary">
+          <Link
+            href="/"
+            className="shrink-0 transition hover:text-brand-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+          >
             Home
           </Link>
-          <span className="mx-2">/</span>
-          <span aria-current="page">{current}</span>
+          <span aria-hidden="true">/</span>
+          <span className="min-w-0 truncate" aria-current="page">{current}</span>
         </nav>
 
-        <span className="inline-flex items-center rounded-full bg-blue-50 px-4 py-1.5 text-sm font-semibold text-blue-700 ring-1 ring-blue-100">
+        <p className="w-fit text-support font-semibold text-brand-primary">
           {eyebrow}
-        </span>
+        </p>
 
-        <h1 className="mt-5 max-w-4xl text-4xl font-extrabold tracking-tight text-slate-950 sm:text-5xl">
+        <h1 className="mt-3 max-w-reading text-page-title tracking-normal text-text-primary sm:text-page-title-lg">
           {title}
         </h1>
 
-        <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate-700">
+        <p className="mt-5 max-w-reading text-lead text-text-secondary">
           {description}
         </p>
 
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-          <Link
-            href="/appointments/book"
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-sm shadow-blue-600/20 transition hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-          >
-            <CalendarDays className="h-5 w-5" aria-hidden="true" />
-            Book Appointment
-          </Link>
-          <Link
-            href={secondaryHref}
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-          >
-            {secondaryLabel}
-          </Link>
-          <a
-            href={appointmentWhatsAppUrl()}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-6 py-3 font-semibold text-emerald-800 transition hover:bg-emerald-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
-          >
-            <MessageCircle className="h-5 w-5" aria-hidden="true" />
-            WhatsApp
-          </a>
-        </div>
+        {(showPrimaryAction || secondaryHref) ? (
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+            {showPrimaryAction ? (
+              <Link
+                href="/appointments/book"
+                className={`${buttonStyles.primary} w-full sm:w-auto`}
+              >
+                <CalendarDays className="h-4 w-4" aria-hidden="true" />
+                Book Appointment
+              </Link>
+            ) : null}
+            {secondaryHref ? (
+              <Link
+                href={secondaryHref}
+                className={`${buttonStyles.tertiary} justify-center sm:justify-start`}
+              >
+                {secondaryLabel}
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            ) : null}
+          </div>
+        ) : null}
       </div>
     </section>
   );
