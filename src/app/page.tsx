@@ -1,4 +1,5 @@
 import { ClinicHeroVideo } from "@/components/clinic/ClinicHeroVideo";
+import release from "../../../config/clinic-release.json";
 import Link from "next/link";
 import { QuickBookingPanel } from "@/components/booking/QuickBookingPanel";
 import { BookingEntryLink } from "@/components/booking/BookingEntryLink";
@@ -162,8 +163,10 @@ export default function HomePage() {
           <div className="clinic-steps">
             {[
               {
-                title: "Send your request",
-                body: "Share your contact details and appointment preferences.",
+                title: release.booking.enabled ? "Send your request" : "Contact the clinic",
+                body: release.booking.enabled
+                  ? "Share your contact details and appointment preferences."
+                  : "Use WhatsApp, phone or email to enquire about an in-person or virtual appointment.",
               },
               {
                 title: "Confirm the arrangements",

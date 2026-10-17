@@ -2,6 +2,7 @@
 import { useMemo } from "react";
 import release from "../../../config/clinic-release.json";
 import { AppointmentForm } from "@/components/AppointmentForm";
+import { ContactOnlyBooking } from "./ContactOnlyBooking";
 import {
   approvedBookingConfiguration,
   createApprovedBookingTransport,
@@ -14,6 +15,11 @@ import {
  * The real form requires the explicit release register AND environment approval.
  */
 export function BookingForm() {
+  if (release.booking.enabled !== true) return <ContactOnlyBooking />;
+  return <EnabledBookingForm />;
+}
+
+function EnabledBookingForm() {
   const transport = useMemo(() => {
     const approved = approvedBookingConfiguration(
       release.booking,

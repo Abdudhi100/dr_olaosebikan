@@ -1,6 +1,7 @@
 import { ClinicHeroVideo } from "@/components/clinic/ClinicHeroVideo";
 import Link from "next/link";
 import { BookingForm } from "@/components/booking/BookingForm";
+import release from "../../../../config/clinic-release.json";
 import { site } from "@/lib/content";
 import { defaultMetadata } from "@/lib/seo";
 import { appointmentWhatsAppUrl } from "@/lib/whatsapp";
@@ -23,8 +24,9 @@ export default function BookingPage() {
           <div className="clinic-booking-heading">
             <h1>Request an appointment</h1>
             <p>
-              Choose your preferences and tell us how to contact you. The clinic
-              will confirm availability and the consultation arrangements.
+              {release.booking.enabled
+                ? "Choose your preferences and tell us how to contact you. The clinic will confirm availability and the consultation arrangements."
+                : "Request an in-person or virtual consultation directly through WhatsApp, phone or email. The clinic will confirm availability and fees."}
             </p>
           </div>
         </div>
@@ -64,10 +66,14 @@ export default function BookingPage() {
             <Link href="/contact-location" className="clinic-text-link">
               Contact and location <span aria-hidden>↗</span>
             </Link>
-            <Link href="/appointment-privacy" className="clinic-text-link">
-              Draft appointment privacy information (under review)
-              <span aria-hidden>↗</span>
-            </Link>
+            <a href={`mailto:${site.email}`} className="clinic-text-link">
+              {site.email}
+            </a>
+            {release.booking.enabled && (
+              <Link href="/appointment-privacy" className="clinic-text-link">
+                Appointment privacy information <span aria-hidden>↗</span>
+              </Link>
+            )}
           </aside>
         </div>
       </div>

@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import release from "../../../config/clinic-release.json";
+import { ContactOnlyBooking } from "./ContactOnlyBooking";
 import { useEffect, useRef, useState } from "react";
 import {
   BOOKING_PATH,
@@ -24,7 +26,12 @@ const preferenceLabels = {
 };
 type PreferenceField = keyof typeof preferenceLabels;
 
-export function QuickBookingPanel({
+export function QuickBookingPanel(props: {requestLabel: string; whatsappLabel: string}) {
+  if (release.booking.enabled !== true) return <ContactOnlyBooking placement="hero" />;
+  return <QuickBookingForm {...props} />;
+}
+
+function QuickBookingForm({
   requestLabel,
   whatsappLabel,
 }: {
