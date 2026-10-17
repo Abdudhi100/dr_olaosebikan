@@ -66,5 +66,13 @@ Review the current branch on an authenticated phone and desktop (390px and
    authorize a production deploy. Do not infer permission from a previous
    instruction to improve the protected preview.
 
+## Owner approval and domain email update — 17 October 2026
+
+The project owner has explicitly confirmed that **consultation duration is 45 minutes** and approved the other existing clinic information. Visible Homepage and appointment FAQ copy has been reconciled with the six 45-minute structured service records. Recorded approval evidence for professional information, clinical copy, existing media and homepage imagery is in `config/clinic-release.json`.
+
+**Email remains pending:** owner has requested `contact@drolaosebikan.com` instead of the currently published Gmail contact. Cloudflare Email Routing must first be configured against a *verified destination inbox*, and an external test email must be confirmed received before changing `src/content/site.json` or a notification recipient. Do not assume routing exists simply because the website domain is on Cloudflare. Cloudflare Email Routing is incoming forwarding; it does not by itself enable the protected website's disabled appointment form or provide sending/reply-from service. Do not enable patient-data submission until the privacy and delivery gates are met.
+
+**Still pending:** verified new contact mailbox routing, canonical DNS/domain checks, selected contact-only versus live booking transport and its required operational safeguards, final authenticated owner check, and explicit production release authorization. Production branch must remain unchanged until then.
+
 **Current release decision: HOLD — preview review may continue; public
 deployment and patient submission remain disabled.**
