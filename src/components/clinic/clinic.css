@@ -2383,7 +2383,8 @@ textarea:focus-visible {
 :is(.clinic-page-hero-contact,.clinic-page-hero-faq,.clinic-page-hero-resources,.clinic-page-hero-achievements) :is(h1,.clinic-eyebrow,.clinic-page-description,.clinic-page-cta) { margin: 0; }
 :is(.clinic-page-hero-contact,.clinic-page-hero-faq,.clinic-page-hero-resources,.clinic-page-hero-achievements) .clinic-page-description { color: var(--clinic-sage); }
 :is(.clinic-page-hero-contact,.clinic-page-hero-faq,.clinic-page-hero-resources,.clinic-page-hero-achievements) .clinic-page-cta { width: 270px; min-height: 52px; }
-.clinic-contact-location > .clinic-page-body { margin-top: 0; padding: 80px 0 96px; }
+/* Figma V9 Contact / 1440: paper panel begins 74px before the hero ends. */
+.clinic-contact-location > .clinic-page-body { margin-top: -74px; padding: 80px 0 96px; border-radius: 48px 48px 0 0; }
 .clinic-contact-opening { grid-template-columns: minmax(0,680fr) minmax(0,470fr); gap: 120px; }
 .clinic-contact-opening > .clinic-contact-methods { grid-column: 2; grid-row: 1; gap: 24px; }
 .clinic-contact-opening > div:last-child { grid-column: 1; grid-row: 1; }
@@ -2419,14 +2420,16 @@ textarea:focus-visible {
  .clinic-resource-layout { grid-template-columns: 1fr; }
 }
 @media (min-width: 601px) and (max-width: 1100px) {
- .clinic-contact-location > .clinic-page-body { margin-top: -54px; padding: 64px 0 72px; border-radius: 32px 32px 0 0; }
+ /* Figma V9.1 Contact / 768: 491px hero, 427px paper start (64px overlap). */
+  .clinic-contact-location > .clinic-page-body { margin-top: -64px; padding: 64px 0 72px; border-radius: 32px 32px 0 0; }
  .clinic-contact-opening { grid-template-columns: minmax(0,330fr) minmax(0,342fr); gap: 32px; }
 }
 @media (max-width: 600px) {
  :is(.clinic-page-hero-contact,.clinic-page-hero-faq,.clinic-page-hero-resources,.clinic-page-hero-achievements) { padding: 24px 0 80px; }
  :is(.clinic-page-hero-contact,.clinic-page-hero-faq,.clinic-page-hero-resources,.clinic-page-hero-achievements) > .clinic-container { gap: 12px; }
  :is(.clinic-page-hero-contact,.clinic-page-hero-faq,.clinic-page-hero-resources,.clinic-page-hero-achievements) .clinic-page-description { font-size: 18px; line-height: 29px; }
- .clinic-contact-location > .clinic-page-body { margin-top: -32px; padding: 40px 0 56px; border-radius: 32px 32px 0 0; }
+ /* Figma V9 Contact / 390: 468px hero, 414px paper start (54px overlap). */
+  .clinic-contact-location > .clinic-page-body { margin-top: -54px; padding: 40px 0 56px; border-radius: 32px 32px 0 0; }
  .clinic-contact-opening { grid-template-columns: 1fr; gap: 48px; }
  .clinic-contact-opening > .clinic-contact-methods, .clinic-contact-opening > div:last-child { grid-column: auto; grid-row: auto; }
  .clinic-contact-opening h2 { font-size: 38px; line-height: 44px; max-width: 320px; }
