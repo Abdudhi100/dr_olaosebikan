@@ -751,7 +751,7 @@ textarea:focus-visible {
   background: #486365;
   color: var(--clinic-paper);
 }
-.clinic-service-card:nth-child(-n + 2) {
+.clinic-service-card-featured {
   grid-column: span 2;
 }
 .clinic-service-card img {
@@ -761,10 +761,10 @@ textarea:focus-visible {
   height: 100%;
   object-fit: cover;
 }
-.clinic-service-card:nth-child(1) img {
+.clinic-service-card[data-service-image="pain"] img {
   object-position: center 48.4%;
 }
-.clinic-service-card:nth-child(3) img {
+.clinic-service-card[data-service-image="autoimmune"] img {
   object-position: 50% 100%;
 }
 .clinic-service-card::after {
@@ -1122,7 +1122,7 @@ textarea:focus-visible {
   .clinic-service-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .clinic-service-card:nth-child(-n + 2) {
+  .clinic-service-card-featured {
     grid-column: span 1;
   }
   .clinic-service-card {
@@ -2118,16 +2118,16 @@ textarea:focus-visible {
   max-width: 1020px;
   line-height: 1.125;
 }
-.clinic-service-card:nth-child(2) img {
+.clinic-service-card[data-service-image="arthritis"] img {
   object-position: left center;
 }
-.clinic-service-card:nth-child(4) img {
+.clinic-service-card[data-service-image="gout"] img {
   object-position: 47.4% center;
 }
-.clinic-service-card:nth-child(5) img {
+.clinic-service-card[data-service-image="rheumatology"] img {
   object-position: 37.7% bottom;
 }
-.clinic-service-card:nth-child(6) img {
+.clinic-service-card[data-service-image="followup"] img {
   object-position: 41.8% bottom;
 }
 
@@ -2339,7 +2339,7 @@ textarea:focus-visible {
  .clinic-services-search button { min-height: 44px; padding: 8px 18px; font-size: 12px; }
  .clinic-services-intro { font-size: 16px; line-height: 25px; }
  .clinic-service-card { min-height: 264.27px; }
- .clinic-service-card:nth-child(-n + 2) { grid-column: auto; }
+ .clinic-service-card-featured { grid-column: auto; }
  .clinic-service-card-content { padding: 16px 24px 20px; }
  .clinic-service-card h2 { font-size: 25px; line-height: 1.3; margin-bottom: 10px; }
  .clinic-service-card p { font-size: 15px; line-height: 21px; }
@@ -2347,8 +2347,8 @@ textarea:focus-visible {
  .clinic-service-card-content > a { display: flex; width: fit-content; }
  .clinic-service-card-content > a + a { margin-left: 0; }
  .clinic-service-card-content > br { display: none; }
- .clinic-service-card:nth-child(3) .clinic-service-card-content > a { display: inline-flex; }
- .clinic-service-card:nth-child(3) .clinic-service-card-content > a ~ a { margin-left: 16px; }
+ .clinic-service-card[data-service-image="autoimmune"] .clinic-service-card-content > a { display: inline-flex; }
+ .clinic-service-card[data-service-image="autoimmune"] .clinic-service-card-content > a ~ a { margin-left: 16px; }
  .clinic-services-guidance { padding: 40px 0; }
  .clinic-services-disclosures { margin-top: 40px; }
  .clinic-services-discussion { grid-template-columns: 1fr; gap: 24px; }
@@ -2752,5 +2752,46 @@ textarea:focus-visible {
     top: -48px;
     bottom: auto;
     right: 0;
+  }
+}
+
+/* Figma mobile control width: Home 330:1604 uses 64px; Services
+   412:1965 uses 48px. Leave other page widths unchanged. */
+@media (max-width: 600px) {
+  .clinic-header-services .clinic-menu {
+    width: 48px;
+    min-width: 48px;
+  }
+}
+
+/* Figma Services Desktop 412:2389: 38px featured titles and 24px compact titles.
+   Service-specific classes keep both design and image crops stable after search. */
+@media (min-width: 1101px) {
+  .clinic-services-page .clinic-service-card-featured .clinic-service-card-content {
+    padding: 16px 36px 28px;
+  }
+  .clinic-services-page .clinic-service-card-featured h2 {
+    font-size: 38px;
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -1.14px;
+    margin-bottom: 10px;
+  }
+  .clinic-services-page .clinic-service-card:not(.clinic-service-card-featured) .clinic-service-card-content {
+    padding: 12px 16px;
+  }
+  .clinic-services-page .clinic-service-card:not(.clinic-service-card-featured) h2 {
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1.3;
+    letter-spacing: -0.42px;
+    margin-bottom: 8px;
+  }
+  .clinic-services-page .clinic-service-card[data-service-image="gout"] .clinic-service-card-content {
+    padding: 16px 24px 28px;
+  }
+  .clinic-services-page .clinic-service-card a {
+    font-size: 15px;
+    line-height: 21px;
   }
 }

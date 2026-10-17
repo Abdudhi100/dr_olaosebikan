@@ -83,7 +83,7 @@ export function SiteHeader() {
   }, [open]);
   return (
     <header
-      className={`clinic-header ${path === "/" ? "clinic-header-home" : ""} ${dark ? "on-dark" : ""} ${overlay ? "over-hero" : ""}`}
+      className={`clinic-header ${path === "/" ? "clinic-header-home" : ""} ${path === "/services" ? "clinic-header-services" : ""} ${dark ? "on-dark" : ""} ${overlay ? "over-hero" : ""}`}
     >
       <div className="clinic-header-row">
         <Link

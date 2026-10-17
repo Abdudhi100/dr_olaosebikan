@@ -7,6 +7,7 @@ import { BookingEntryLink } from "@/components/booking/BookingEntryLink";
 const services = [
   {
     image: "pain",
+    featured: true,
     title: "Pain, joint pain & stiffness",
     description:
       "A consultation to discuss pain, stiffness and the concerns affecting your daily activities.",
@@ -15,6 +16,7 @@ const services = [
   },
   {
     image: "arthritis",
+    featured: true,
     title: "Arthritis consultation",
     description:
       "Discuss arthritis-related concerns and your ongoing care with a rheumatology specialist.",
@@ -107,7 +109,11 @@ export function ServicesView() {
           )}
           <div id="care-results" className="clinic-service-grid" tabIndex={-1} aria-label="Care search results">
             {filtered.map((s) => (
-              <article className="clinic-service-card" key={s.title}>
+              <article
+                className={`clinic-service-card ${"featured" in s && s.featured ? "clinic-service-card-featured" : ""}`}
+                data-service-image={s.image}
+                key={s.title}
+              >
                 <img
                   src={`/images/figma/${s.image}.webp`}
                   alt=""
