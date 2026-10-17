@@ -96,7 +96,7 @@ jobs:
       - name: Install locked root and Studio dependencies
         run: |
           npm ci
-          npm ci --prefix studio
+          npm ci --prefix studio --legacy-peer-deps
 
       - name: Sanity Studio TypeScript check
         run: npm run typecheck --prefix studio
