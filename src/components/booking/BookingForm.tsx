@@ -23,5 +23,5 @@ export function BookingForm() {
     );
     return approved ? createApprovedBookingTransport(approved) : undefined;
   }, []);
-  return <AppointmentForm transport={transport} />;
+  return <AppointmentForm transport={transport} captchaRequired={Boolean(transport)} />;
 }
