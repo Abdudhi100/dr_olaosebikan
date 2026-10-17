@@ -6,6 +6,31 @@ Use this practical sequence with the real Cloudflare, Web3Forms and Sanity
 accounts. Do not place passwords, webhook URLs, university-mailbox destination
 addresses, session cookies, or private patient details in GitHub.
 
+## Contact-only release track selected — 17 October 2026
+
+The owner explicitly selected contact-only as the initial public launch plan.
+The new draft release candidate presents WhatsApp, telephone and email
+actions on the homepage and appointment page; with `booking.enabled=false`
+the public-facing UI renders **no name, phone, email, reason or date form
+fields**, and Web3Forms delivery remains disconnected. Existing appointment
+CTAs still route to `/appointments/book`, now a contact choice screen.
+The draft Web3Forms privacy notice remains `noindex` and is not linked
+from that contact-only screen.
+
+**Before launch authorization:** check the refreshed Access-protected preview
+at the new exact commit on phone and desktop; verify `wa.me/2348035751154`,
+`tel:+2348035751154` and `mailto:contact@drolaosebikan.com`;
+confirm there are no inactive forms or falsely successful online submissions,
+that the clinic can receive and reply to enquiries, and that all contact
+flows explain an appointment needs confirmation. Do not rely solely on prior
+screenshots of the earlier interactive prototype.
+
+After owner acceptance, record evidence and set
+`booking.contactOnlyFallbackApproved=true`. Do **not** set
+`releaseStatus=approved` or merge to `main` until a separate explicit
+production-release approval. Web3Forms privacy/retention/spam approvals are
+deferred to a future, separately approved form-release change.
+
 ## Verified since the checklist was drafted
 
 - **Current release candidate:** `release/clinic-v1-readiness-20261017`

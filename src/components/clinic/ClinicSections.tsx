@@ -2,6 +2,7 @@ import { ClinicHeroVideo } from "@/components/clinic/ClinicHeroVideo";
 import Link from "next/link";
 import { Phone, MessageCircle, Mail } from "lucide-react";
 import { site } from "@/lib/content";
+import release from "../../../config/clinic-release.json";
 import { BookingEntryLink } from "@/components/booking/BookingEntryLink";
 import { appointmentWhatsAppUrl } from "@/lib/whatsapp";
 export const appointmentFaqs = [
@@ -25,19 +26,22 @@ export const appointmentFaqs = [
       "Fees are communicated privately by the clinic when arranging your appointment.",
   },
   {
-    question: "Does submitting the form confirm my appointment?",
-    answer:
-      "No. Your preferred date and time are a request. The clinic will contact you to confirm availability and the consultation arrangements.",
+    question: release.booking.enabled
+      ? "Does submitting the form confirm my appointment?"
+      : "How do I request an appointment?",
+    answer: release.booking.enabled
+      ? "No. Your preferred date and time are a request. The clinic will contact you to confirm availability and the consultation arrangements."
+      : "Contact the clinic through WhatsApp, telephone or email. There is no online submission form at present. An appointment is confirmed only when the clinic agrees the arrangements with you.",
   },
   {
     question: "Can I book through WhatsApp?",
     answer:
-      "You can contact the clinic through WhatsApp to request an appointment. Opening WhatsApp does not submit this form or send a message.",
+      "Yes. Opening WhatsApp prepares an enquiry but does not send a message automatically or confirm an appointment. The clinic will agree availability and fees with you.",
   },
   {
-    question: "Should I send medical records through this form?",
+    question: "Should I send medical records with my first enquiry?",
     answer:
-      "Please do not include medical records or detailed medical information in the appointment form. Ask the clinic how to share medical information before sending records.",
+      "Please do not include medical records or detailed medical information in your initial message or email. Ask the clinic how to share records securely before sending them.",
   },
 ];
 export function MediaSlot({

@@ -18,8 +18,8 @@ export default function ContactPage() {
         </nav>
         <h1 className="clinic-subtitle">How can we help?</h1>
         <p className="clinic-lead" style={{ maxWidth: 740 }}>
-          For appointment arrangements, use the request form or contact the
-          clinic through the channels below.
+          For appointment arrangements, contact the clinic directly through
+          WhatsApp, phone or email using the channels below.
         </p>
         <Link
           href="/appointments/book"

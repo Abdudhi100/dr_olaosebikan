@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { site } from "@/lib/content";
+import release from "../../../config/clinic-release.json";
 import { appointmentWhatsAppUrl } from "@/lib/whatsapp";
 import { heroRoutes } from "@/lib/hero-media";
 const links = [
@@ -180,8 +181,9 @@ export function SiteFooter() {
               Olaosebikan.
             </p>
             <p className="clinic-small">
-              Submitting a request does not confirm an appointment. Fees are
-              communicated privately.
+              {release.booking.enabled
+                ? "Submitting a request does not confirm an appointment. Fees are communicated privately."
+                : "Contact the clinic through WhatsApp, phone or email. Appointments and fees are confirmed privately."}
             </p>
             <Link
               href="/appointments/book"

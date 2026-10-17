@@ -27,7 +27,7 @@ export default function ContactLocationPage() {
           <div>
             <p className="clinic-eyebrow">Appointment arrangements</p>
             <h2>Arrange your consultation.</h2>
-            <p>Choose your preferences. The clinic will confirm the arrangements with you.</p>
+            <p>Contact the clinic directly by WhatsApp, phone or email. The clinic will confirm the arrangements.</p>
             <Link href="/appointments/book" className="clinic-button">Request an appointment</Link>
             <div className="clinic-contact-guidance">
             <p>An appointment request is not a confirmed appointment.</p>
