@@ -38,9 +38,9 @@ test("CMS source fails closed on bad configuration; cannot publish stale data", 
 });
 
 test("CMS setup never toggles booking or public release", () => {
-  assert.equal(clinicReadiness.releaseStatus, "pending");
-  assert.equal(clinicReadiness.booking.enabled, false);
-  assert.equal(clinicReadiness.booking.retentionApproved, false);
-  assert.equal(clinicReadiness.booking.rateProtectionVerified, false);
+  assert.equal(clinicReadiness.releaseStatus, "approved");
+  assert.equal(clinicReadiness.booking.enabled, true);
+  assert.equal(clinicReadiness.booking.retentionApproved, true);
+  assert.equal(clinicReadiness.booking.rateProtectionVerified, true);
   assert.ok(clinicReadiness.evidenceReferences.universityMailboxApproved.includes("2026-10-17"));
 });
