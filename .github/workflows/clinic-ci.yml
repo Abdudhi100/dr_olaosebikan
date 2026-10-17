@@ -60,19 +60,19 @@ jobs:
           test -s out/index.html
           test -s out/404.html
 
-      - name: Verify contact-only export does not render patient intake forms
+      - name: Verify release-specific booking HTML and privacy
         run: node scripts/verify-contact-only-export.mjs
 
       - name: Validate exported internal links and anchors
         run: npm run check:links
 
-      - name: Confirm production-release gate has not been enabled
+      - name: Confirm explicit owner-approved public release gate
         run: |
           node --input-type=module -e "
             import { readFileSync } from 'node:fs';
             const cfg = JSON.parse(readFileSync('config/clinic-release.json', 'utf8'));
-            if (cfg.releaseStatus !== 'pending' || cfg.booking?.enabled !== false) {
-              console.error('Unexpected production release or booking activation; manual review required.');
+            if (cfg.releaseStatus !== 'approved' || cfg.booking?.enabled !== true || cfg.booking?.privacyNoticeApproved !== true || cfg.booking?.retentionApproved !== true || cfg.booking?.rateProtectionVerified !== true) {
+              console.error('Owner-approved booking release configuration missing.');
               process.exit(1);
             }
           "
@@ -118,13 +118,13 @@ jobs:
           test ! -e out/insights/articles/synthetic-article-test.html
           test ! -e out/publications/synthetic-research-test.html
 
-      - name: Confirm real appointment submissions and public release remain disabled
+      - name: Confirm online booking and retention approved
         run: |
           node --input-type=module -e "
             import { readFileSync } from 'node:fs';
             const release = JSON.parse(readFileSync('config/clinic-release.json', 'utf8'));
-            if (release.releaseStatus !== 'pending' || release.booking?.enabled !== false) {
-              console.error('Booking or public release unexpectedly activated.');
+            if (release.releaseStatus !== 'approved' || release.booking?.enabled !== true || release.booking?.retentionApproved !== true) {
+              console.error('Owner-approved booking release is not configured.');
               process.exit(1);
             }
           "
