@@ -36,17 +36,27 @@ export const heroRoutes: Record<string, string> = {
 for (const [route, variant] of Object.entries(heroRoutes)) {
   if (variant.startsWith("clinical:")) heroMedia[variant] = { ...heroMedia.clinical, missing: `Reviewed condition-specific footage and poster for ${route}` };
 }
-const sharedClinicHero = {
-  approvedPoster: heroMedia.services.poster,
-  approvedSource: heroMedia.services.approvedSource,
-  approvedMobileSource: heroMedia.services.approvedMobileSource,
-  rightsApproved: true,
+// Specialist: the approved Figma identity frame (447:9033) is a paper-coloured
+// editorial header, with the genuine portrait in the next section. Do not replace
+// that design with an unrelated Services pain video.
+//
+// Condition pages keep the existing full-bleed teal header and use relevant,
+// existing Figma service imagery until a condition-specific video is selected.
+// This intentionally avoids implying that general neck-pain footage depicts
+// rheumatoid arthritis, gout, lupus, or autoimmune disease.
+const clinicalHeroPosters: Record<string, string> = {
+  "clinical:rheumatoid-arthritis-treatment-lagos": "/images/figma/arthritis.webp",
+  "clinical:gout-treatment-lagos": "/images/figma/gout.webp",
+  "clinical:lupus-care-lagos": "/images/figma/autoimmune.webp",
+  "clinical:autoimmune-disease-specialist-lagos": "/images/figma/autoimmune.webp",
 };
-heroMedia.specialist = { ...heroMedia.specialist, ...sharedClinicHero, missing: undefined };
-for (const [route, variant] of Object.entries(heroRoutes)) {
-  if (variant.startsWith("clinical:") && variant !== "clinical:joint-pain-and-stiffness-clinic-lagos") {
-    heroMedia[variant] = { ...heroMedia[variant], ...sharedClinicHero, missing: undefined };
-  }
+for (const [variant, poster] of Object.entries(clinicalHeroPosters)) {
+  heroMedia[variant] = {
+    ...heroMedia[variant],
+    poster,
+    rightsApproved: false,
+    missing: "Specific clinical hero video not assigned; retain the condition-related still",
+  };
 }
 // The owner-cleared Joint Pain clip remains limited to the protected preview build.
 const kneeVariant = "clinical:joint-pain-and-stiffness-clinic-lagos";
