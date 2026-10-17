@@ -186,3 +186,32 @@ test("acknowledgement, explicit rejection and ambiguous delivery have distinct o
   });
   assert.deepEqual(await transport(payload), { kind: "uncertain" });
 });
+
+test("production booking build requires valid configured Web3Forms key without printing it", () => {
+  const config = {
+    ...clinicReadiness,
+    releaseStatus: "approved",
+    booking: {
+      ...clinicReadiness.booking,
+      enabled: true, recipientBindingVerified: true,
+      privacyNoticeApproved: true, privacyNoticePath: "/appointment-privacy",
+      retentionApproved: true, rateProtectionVerified: true,
+    },
+    evidenceReferences: {
+      ...clinicReadiness.evidenceReferences,
+      privacyNoticeApproved: "Synthetic privacy approval — test only",
+      retentionApproved: "Synthetic retention approval — test only",
+      rateProtectionVerified: "Synthetic spam controls approval — test only",
+    },
+  };
+  assert.throws(
+    () => assertClinicBuildAllowed({CF_PAGES:"1",CF_PAGES_BRANCH:"main"}, config),
+    /production Web3Forms access key missing or invalid/,
+  );
+  assert.doesNotThrow(() => assertClinicBuildAllowed({
+    CF_PAGES:"1", CF_PAGES_BRANCH:"main", NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY: key,
+  }, config));
+  assert.doesNotThrow(() => assertClinicBuildAllowed({
+    CF_PAGES:"1", CF_PAGES_BRANCH:"preview/clinic-20261014", CLINIC_REVIEW_BUILD:"1",
+  }, config));
+});

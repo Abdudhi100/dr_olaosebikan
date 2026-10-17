@@ -98,6 +98,14 @@ export function assertClinicBuildAllowed(
   )
     return;
   const errors = clinicReleaseErrors(config);
+  // Fail closed if an approved public build would expose a booking form with
+  // no configured Web3Forms identifier. Never print the actual key.
+  if (env.CF_PAGES === "1" &&
+      env.CF_PAGES_BRANCH === config.productionBranch &&
+      config.booking?.enabled === true &&
+      !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+        (env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? "").trim()
+      )) errors.push("production Web3Forms access key missing or invalid");
   if (errors.length)
     throw new Error(
       `Clinic release is pending: ${errors.join(", ")}. Local review builds remain available. Record verified approval before a public Cloudflare build.`,
