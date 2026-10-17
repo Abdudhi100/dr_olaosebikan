@@ -55,7 +55,7 @@ test("knee assessment keeps loopback review and production remains still", () =>
   assert.equal(heroVideoSource(knee, "localhost", ""), undefined);
 });
 
-test("explicit preview flag selects responsive approved media while production stays still", () => {
+test("explicit preview retains nine matched videos and condition-appropriate still fallbacks", () => {
   const expected = {
     home: "home", services: "services", appointments: "appointments", contact: "contact",
     faq: "faq", insights: "insights", publications: "publications", achievements: "achievements",
@@ -67,9 +67,26 @@ test("explicit preview flag selects responsive approved media while production s
     assert.equal(heroVideoSource(media, "example-preview.pages.dev", "", 1440, true), `/video/clinic/${stem}-desktop.mp4`);
     assert.equal(heroVideoSource(media, "drolaosebikan.com", "", 1440, false), undefined);
   }
-  for (const route of ["/about-dr-olaosebikan", "/rheumatoid-arthritis-treatment-lagos", "/gout-treatment-lagos", "/lupus-care-lagos", "/autoimmune-disease-specialist-lagos"]) {
-    assert.equal(heroVideoSource(heroMedia[heroRoutes[route]], "example-preview.pages.dev", "", 390, true), "/video/clinic/services-mobile.mp4");
-    assert.equal(heroVideoSource(heroMedia[heroRoutes[route]], "example-preview.pages.dev", "", 1440, true), "/video/clinic/services-desktop.mp4");
-    assert.equal(heroVideoSource(heroMedia[heroRoutes[route]], "drolaosebikan.com", "", 1440, false), undefined);
+  // The Figma Specialist page is deliberately paper-coloured, not a reused
+  // neck-pain video. Condition pages retain condition-related still posters.
+  const specialist = heroMedia[heroRoutes["/about-dr-olaosebikan"]];
+  assert.equal(specialist.approvedSource, undefined);
+  assert.equal(specialist.poster, undefined);
+  assert.equal(heroVideoSource(specialist, "example-preview.pages.dev", "", 1440, true), undefined);
+  const conditionPosters = {
+    "/rheumatoid-arthritis-treatment-lagos": "/images/figma/arthritis.webp",
+    "/gout-treatment-lagos": "/images/figma/gout.webp",
+    "/lupus-care-lagos": "/images/figma/autoimmune.webp",
+    "/autoimmune-disease-specialist-lagos": "/images/figma/autoimmune.webp",
+  };
+  for (const [route, poster] of Object.entries(conditionPosters)) {
+    const media = heroMedia[heroRoutes[route]];
+    assert.equal(media.poster, poster);
+    assert.ok(fs.existsSync("public" + poster));
+    assert.equal(media.approvedSource, undefined);
+    assert.equal(media.rightsApproved, false);
+    assert.equal(heroVideoSource(media, "example-preview.pages.dev", "", 390, true), undefined);
+    assert.equal(heroVideoSource(media, "example-preview.pages.dev", "", 1440, true), undefined);
   }
+
 });
