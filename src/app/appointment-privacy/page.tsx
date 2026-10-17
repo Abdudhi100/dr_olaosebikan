@@ -93,8 +93,9 @@ export default function AppointmentPrivacyInformation() {
             that message to the clinic&apos;s designated receiving mailbox.
             Web3Forms uses infrastructure and sub-processors which may process
             information outside Nigeria, subject to its published safeguards.
-            The clinic must restrict access to people authorized to arrange
-            consultations. For more information, see{" "}
+            Access to the receiving clinic mailbox is restricted to Dr
+            Olaosebikan and persons he authorizes to arrange consultations.
+            For more information, see{" "}
             <a href="https://web3forms.com/privacy" target="_blank" rel="noopener noreferrer">
               Web3Forms&apos; privacy policy
             </a>.
@@ -109,13 +110,15 @@ export default function AppointmentPrivacyInformation() {
             view is not a promise that submissions are deleted after 30 days.
           </p>
           <p>
-            The copies forwarded to the clinic email inbox, or created
-            through WhatsApp or telephone enquiries, may be retained separately.
-            Their precise administrative retention and deletion practice
-            requires the clinic operator&apos;s approval; an email deleted
-            from a visible inbox may remain in provider backups for a period.
-            Information should not be kept longer than needed for legitimate
-            appointment and legal purposes.
+            Routine appointment notification emails forwarded to the clinic&apos;s
+            receiving mailbox are retained for <strong>up to 12 months</strong>
+            and deleted by Dr Olaosebikan or an authorized person responsible
+            for the mailbox. A longer period applies only when necessary for
+            an ongoing matter or a documented legal obligation. This clinic
+            email retention period is separate from the Web3Forms three-year
+            provider submission retention described above. WhatsApp messages,
+            telephone records and email-provider backups may follow different
+            periods. Contact the clinic if you wish to request access or deletion.
           </p>
 
           <h2>Security, your rights and questions</h2>
@@ -140,12 +143,10 @@ export default function AppointmentPrivacyInformation() {
             <aside className="clinic-privacy-draft-warning">
               <strong>Pending clinic approval</strong>
               <p>
-                Before this notice is published and requests are enabled,
-                the clinic must confirm the forwarded mailbox retention
-                and deletion procedure, who may read those messages, the
-                reasons for selecting three-year Web3Forms retention, and
-                acceptance of this exact notice. These items have not yet
-                been confirmed as complete.
+                This notice is in draft only until the owner-approved
+                production release is built and deployed. Routine appointment
+                emails follow the clinic&apos;s approved 12-month retention
+                procedure, which the clinic must implement and review.
               </p>
             </aside>
           )}
