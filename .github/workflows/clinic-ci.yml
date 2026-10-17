@@ -60,6 +60,9 @@ jobs:
           test -s out/index.html
           test -s out/404.html
 
+      - name: Validate exported internal links and anchors
+        run: npm run check:links
+
       - name: Confirm production-release gate has not been enabled
         run: |
           node --input-type=module -e "
