@@ -37,6 +37,30 @@ to notification subjects, recipient addresses or URLs.
 This is privacy-by-design risk reduction, not a guarantee visitors cannot
 voluntarily provide sensitive details in a contact name or email.
 
+## Confirmed mail permission and hCaptcha implementation (17 October 2026)
+
+The website owner explicitly confirmed that Dr Olaosebikan's university inbox
+may receive private-clinic administrative appointment notifications. This is an
+owner-reported authorization; the account administrator must still ensure staff
+access, MFA, retention controls and appropriate incident handling.
+
+A **free Web3Forms hCaptcha widget is now implemented in the website code**
+for the *future approved live appointment form only*. On a successful client
+challenge, the frontend includes `h-captcha-response` with a provider request.
+A missing challenge blocks the browser-side submission. The widget is dormant
+while `booking.enabled: false` and requires neither a key nor a third-party
+challenge script in the current preview. This is **not yet evidence of
+server-verified anti-spam protection**: the owner must visit their actual
+Web3Forms form → Settings → Spam & Security, set **Block Spam = hCaptcha**,
+save, and verify both unsolved and solved challenge outcomes in a controlled
+test. Domain restrictions and Turnstile may require a paid plan; do not assume
+they exist on the free plan.
+
+Recommended proposed retention remains **30 days** for nonclinical scheduling
+emails and submissions, subject to confirmation in both Web3Forms' dashboard
+and the university mailbox's retention controls. This proposal has NOT been
+configured or marked approved.
+
 ## Final approval decisions still required
 
 | Decision | Proposed safe starting point | Status / evidence to collect |
