@@ -37,13 +37,17 @@ test("local reviews are permitted while unapproved public Cloudflare releases fa
     /Clinic release is pending/,
   );
   assert.ok(
-    clinicReleaseErrors(clinicReadiness).includes("canonicalDomainConfirmed"),
+    clinicReleaseErrors(clinicReadiness).includes("releaseStatus"),
+  );
+  assert.ok(
+    clinicReleaseErrors(clinicReadiness).includes("booking.contactOnlyFallbackApproved"),
   );
 });
 test("owner-reported working domain email marks contact confirmed without activating booking", () => {
   assert.equal(clinicReadiness.contactDetailsConfirmed, true);
   assert.ok(clinicReadiness.evidenceReferences?.contactDetailsConfirmed?.includes("2026-10-17"));
-  assert.equal(clinicReadiness.canonicalDomainConfirmed, false);
+  assert.equal(clinicReadiness.canonicalDomainConfirmed, true);
+  assert.match(clinicReadiness.evidenceReferences?.canonicalDomainConfirmed ?? "", /2026-10-17.*Cloudflare Pages/);
   assert.equal(clinicReadiness.releaseStatus, "pending");
   assert.equal(clinicReadiness.booking.enabled, false);
 });

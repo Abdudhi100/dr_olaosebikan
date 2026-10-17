@@ -5,7 +5,7 @@
   "contactDetailsConfirmed": true,
   "mediaRightsApproved": true,
   "homepageMediaComplete": true,
-  "canonicalDomainConfirmed": false,
+  "canonicalDomainConfirmed": true,
   "privatePreviewAccessVerified": true,
   "productionBranch": "main",
   "booking": {
@@ -27,6 +27,7 @@
     "contactDetailsConfirmed": "2026-10-17: Project owner approved existing clinic contact details, verified Cloudflare Email Routing destination, and explicitly confirmed successful receipt of an external test email sent to contact@drolaosebikan.com. This is owner-reported delivery evidence; do not treat as patient form delivery verification.",
     "recipientBindingVerified": "2026-10-17: Owner showed Web3Forms form with recipient contact@drolaosebikan.com, confirmed dashboard Send Test Submission arrived at university inbox, then confirmed exact fictional SYNTHETIC CLINIC TEST - NOT A PATIENT sent from authenticated protected website booking form also arrived. Owner-reported end-to-end Web3Forms-to-Cloudflare-routing-to-inbox verification. Temporary website test mode disconnected afterward. This does NOT authorize real patient submissions, privacy/retention policies or public launch.",
     "universityMailboxApproved": "2026-10-17: Project owner explicitly confirmed that Dr Olaosebikan's university mailbox may receive administrative enquiries for his private clinic; this is owner-reported organizational permission, not verification of provider retention or operator access policy.",
-    "retentionPlanSelection": "2026-10-17: Owner prefers Web3Forms provider-default retention, superseding the earlier proposed custom 30-day period, and no mandatory visible CAPTCHA. Public provider policy describes retention up to three years by default (free dashboard 30-day history is not deletion); actual account setting, mailbox deletion practice, lawful justification and spam controls have not been checked or approved. Keep retentionApproved and rateProtectionVerified false."
+    "retentionPlanSelection": "2026-10-17: Owner prefers Web3Forms provider-default retention, superseding the earlier proposed custom 30-day period, and no mandatory visible CAPTCHA. Public provider policy describes retention up to three years by default (free dashboard 30-day history is not deletion); actual account setting, mailbox deletion practice, lawful justification and spam controls have not been checked or approved. Keep retentionApproved and rateProtectionVerified false.",
+    "canonicalDomainConfirmed": "2026-10-17: Authenticated Cloudflare Pages 'dr-olaosebikan-git' account audit verified both drolaosebikan.com and www.drolaosebikan.com as Active with SSL enabled, proxied CNAMEs to dr-olaosebikan-git.pages.dev, GitHub production branch main. 'Canonical apex to www' 301 Cloudflare Single Redirect was saved with exact target https://www.drolaosebikan.com/${1} and query-string preservation. Live browser requests starting https://drolaosebikan.com/appointments/book?source=launch-audit and http://drolaosebikan.com/appointments/book?source=http-check both reached HTTPS www and preserved the path/query; Cloudflare Always Use HTTPS was separately enabled and UI-confirmed. Existing production remained aad73438939ecd2cf6d48a4bf0bd736852923b9d. Browser navigations do not independently establish raw HTTP response header chains. Domain verified only; not approval to launch."
   }
 }

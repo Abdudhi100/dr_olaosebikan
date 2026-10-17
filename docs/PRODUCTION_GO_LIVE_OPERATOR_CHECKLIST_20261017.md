@@ -1,10 +1,51 @@
 # Dr Olaosebikan — owner-operated production go-live checklist
 
-**Prepared 17 October 2026. Status: NOT APPROVED / DO NOT DEPLOY.**
+**Updated 17 October 2026. Status: NOT APPROVED / DO NOT DEPLOY.**
 Source: [draft release PR #28](https://github.com/Abdudhi100/dr_olaosebikan/pull/28).
 Use this practical sequence with the real Cloudflare, Web3Forms and Sanity
 accounts. Do not place passwords, webhook URLs, university-mailbox destination
 addresses, session cookies, or private patient details in GitHub.
+
+## Verified since the checklist was drafted
+
+- **Current release candidate:** `release/clinic-v1-readiness-20261017`
+  commit `a847bc11e85683b316db8653a9db37829db85c97` before
+  documentation/evidence updates, draft PR #28, all two CI jobs passed.
+  Review this PR's latest CI again after any new commit. Production `main`
+  remains `aad73438939ecd2cf6d48a4bf0bd736852923b9d`.
+- **Cloudflare Pages:** authenticated dashboard confirmed `main` production
+  branch, `npm ci && npm run build`, output `out`,
+  `SKIP_DEPENDENCY_INSTALL=true`, runtime Node 22.16.0 in the build log.
+  Release candidate was successfully deployed to protected preview
+  `https://b32ce493.dr-olaosebikan-git.pages.dev/` (commit `a847bc1`);
+  unauthenticated requests receive the Access login.
+- **Domains completed:** both custom domains Active, SSL certificates Active;
+  saved zone rule `Canonical apex to www` is enabled (301,
+  `https://drolaosebikan.com/*` →
+  `https://www.drolaosebikan.com/${1}`, preserve query on).
+  Test browser navigations from apex HTTPS and HTTP reached secure www and
+  preserved path/query. Zone `Always Use HTTPS` was enabled and confirmed.
+  `canonicalDomainConfirmed=true` now records this domain-only evidence;
+  it is not launch approval. Minimum TLS was previously shown as TLS 1.0,
+  and HSTS was not changed.
+- **Authenticated hosted acceptance:** homepage, Services, About,
+  Booking, Contact, FAQ, Insights and one condition page navigated
+  successfully; contact details, duration (45 minutes) and fail-closed
+  booking controls verified. Videos were not seen in this preview because
+  the `NEXT_PUBLIC_CLINIC_HERO_PREVIEW` switch gates decorative footage;
+  the approved stills are a legitimate fallback, not a proven media failure.
+- **Responsive evidence:** `docs/figma-review/browser-results.json` records
+  17 local exported routes × four widths (390, 768, 1440 and 1920 px),
+  with no horizontal overflow/broken images, plus a mobile navigation
+  interaction test in `scripts/verify-clinic-browser.cjs`. These results
+  describe an earlier local export; latest hosted real-phone owner acceptance
+  remains outstanding.
+- **Booking and privacy:** real submissions are still **off**.
+  Web3Forms provider documentation says server-side spam checking and
+  IP-based rate limits apply, but the actual form's account settings,
+  retention, authorized mailbox handling and controller approval have
+  **not** been authenticated or accepted.
+  See `docs/BOOKING_PRIVACY_OPERATOR_DECISION_20261017.md`.
 
 ## Already completed in source / do not redo without a changed requirement
 
@@ -141,8 +182,4 @@ addresses, session cookies, or private patient details in GitHub.
    an acceptable unplanned substitute for an authenticated Cloudflare
    rollback test.
 
-**Current limitation:** This ChatGPT session has no saved signed-in
-Cloudflare/Sanity/Web3Forms browser profile. The public and repository checks
-cannot inspect confidential dashboard selections or approve the hosted page
-behind Access. The operator must verify those items in the real accounts
-before marking the associated release flags approved.
+**Current limitation:** Cloudflare dashboard and Access-authenticated preview have now been examined, but Web3Forms and Sanity account settings have not been verified live. Actual latest-hosted phone-viewport/video playback signoff and patient-data retention/privacy approval remain missing. Only a duly authorized clinic operator may confirm those operational decisions; preserve evidence without exposing patient data or credentials.
