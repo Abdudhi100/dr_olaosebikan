@@ -61,6 +61,25 @@ emails and submissions, subject to confirmation in both Web3Forms' dashboard
 and the university mailbox's retention controls. This proposal has NOT been
 configured or marked approved.
 
+## Retention selection — pending live enforcement
+
+**Working target: 30 days** for routine scheduling submissions in Web3Forms
+and the forwarded university mailbox, subject to legal/clinical record keeping
+exceptions. On 17 October the owner asked to proceed after this policy was
+proposed. We are treating it as a working choice, NOT proof of an implemented
+setting or legally approved full privacy policy. The release config therefore
+records `retentionTargetDays: 30` but continues `retentionApproved: false`.
+
+Web3Forms states that the free plan permits per-form retention adjustments,
+from 7 days up to 3 years. A 30-day selection is achievable in principle;
+actual dashboard verification and a deletion/expiry check are outstanding.
+The receiving mailbox may preserve messages independently, including trash,
+backups and forwarding copies. Approve the operator deletion schedule and
+who has access; do not claim deletion from every system just because the
+Web3Forms form setting was changed. See
+[Web3Forms policy](https://web3forms.com/privacy) and
+[pricing details](https://web3forms.com/pricing).
+
 ## Final approval decisions still required
 
 | Decision | Proposed safe starting point | Status / evidence to collect |

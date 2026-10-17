@@ -15,7 +15,8 @@
     "privacyNoticePath": "",
     "retentionApproved": false,
     "rateProtectionVerified": false,
-    "contactOnlyFallbackApproved": false
+    "contactOnlyFallbackApproved": false,
+    "retentionTargetDays": 30
   },
   "evidenceReferences": {
     "privatePreviewAccessVerified": "2026-10-14: Cloudflare Pages preview Access application verified; one-email Allow policy confirmed in Zero Trust; authorized email OTP login succeeded. Screenshot evidence retained by owner.",
@@ -25,6 +26,7 @@
     "homepageMediaComplete": "2026-10-17: Owner approved current homepage presentation, including its existing hero media, in ChatGPT conversation.",
     "contactDetailsConfirmed": "2026-10-17: Project owner approved existing clinic contact details, verified Cloudflare Email Routing destination, and explicitly confirmed successful receipt of an external test email sent to contact@drolaosebikan.com. This is owner-reported delivery evidence; do not treat as patient form delivery verification.",
     "recipientBindingVerified": "2026-10-17: Owner showed Web3Forms form with recipient contact@drolaosebikan.com, confirmed dashboard Send Test Submission arrived at university inbox, then confirmed exact fictional SYNTHETIC CLINIC TEST - NOT A PATIENT sent from authenticated protected website booking form also arrived. Owner-reported end-to-end Web3Forms-to-Cloudflare-routing-to-inbox verification. Temporary website test mode disconnected afterward. This does NOT authorize real patient submissions, privacy/retention policies or public launch.",
-    "universityMailboxApproved": "2026-10-17: Project owner explicitly confirmed that Dr Olaosebikan's university mailbox may receive administrative enquiries for his private clinic; this is owner-reported organizational permission, not verification of provider retention or operator access policy."
+    "universityMailboxApproved": "2026-10-17: Project owner explicitly confirmed that Dr Olaosebikan's university mailbox may receive administrative enquiries for his private clinic; this is owner-reported organizational permission, not verification of provider retention or operator access policy.",
+    "retentionPlanSelection": "2026-10-17: Project owner instructed proceeding after receiving the proposed 30-day administrative appointment enquiry retention recommendation. Record 30 days as the working target, NOT evidence Web3Forms or receiving university mailbox retention controls have been configured, deletion tested, or the formal privacy notice approved."
   }
 }

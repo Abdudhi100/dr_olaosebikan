@@ -73,3 +73,55 @@ jobs:
               process.exit(1);
             }
           "
+
+  verify-sanity-studio:
+    name: Sanity Studio and publishing round-trip
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      CI: 'true'
+      SANITY_CONTENT_MODE: disabled
+      SANITY_STUDIO_PROJECT_ID: zavdffj8
+      SANITY_STUDIO_DATASET: production
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - name: Check out proposed source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.16.0'
+
+      - name: Install locked root and Studio dependencies
+        run: |
+          npm ci
+          npm ci --prefix studio --legacy-peer-deps
+
+      - name: Sanity Studio TypeScript check
+        run: npm run typecheck --prefix studio
+
+      - name: Build owner-connected Sanity Studio without deploying it
+        run: npm run build --prefix studio
+
+      - name: Simulate approved editorial publication and withdrawal
+        run: npm run test:export
+
+      - name: Confirm no synthetic publication survives final build
+        run: |
+          npm run check:links
+          test -s out/index.html
+          test -s out/404.html
+          test ! -e out/insights/articles/synthetic-article-test.html
+          test ! -e out/publications/synthetic-research-test.html
+
+      - name: Confirm real appointment submissions and public release remain disabled
+        run: |
+          node --input-type=module -e "
+            import { readFileSync } from 'node:fs';
+            const release = JSON.parse(readFileSync('config/clinic-release.json', 'utf8'));
+            if (release.releaseStatus !== 'pending' || release.booking?.enabled !== false) {
+              console.error('Booking or public release unexpectedly activated.');
+              process.exit(1);
+            }
+          "
