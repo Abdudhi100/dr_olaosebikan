@@ -1,0 +1,5 @@
+// Paste the expression below (without the surrounding '*[...]') into the
+// Sanity webhook Filter field. Keep CREATE, UPDATE and DELETE events enabled.
+// Do NOT restrict the filter to publicationStatus == "ready": deletions and
+// withdrawals must always trigger a fresh build to remove old pages.
+_type in ["editorialEntry", "researchPublication", "professionalAchievement"]
