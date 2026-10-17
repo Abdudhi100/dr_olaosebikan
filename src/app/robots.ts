@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import clinicRelease from "../../../config/clinic-release.json";
+import clinicRelease from "../../config/clinic-release.json";
 import { site } from "@/lib/content";
 import { shouldIndexClinic } from "@/lib/site-indexing";
 

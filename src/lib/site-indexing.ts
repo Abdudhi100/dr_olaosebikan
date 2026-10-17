@@ -17,7 +17,10 @@ export type ClinicIndexingEnvironment = {
 
 export function shouldIndexClinic(
   release: ClinicIndexingRelease,
-  env: ClinicIndexingEnvironment = process.env,
+  env: ClinicIndexingEnvironment = {
+    CF_PAGES: process.env.CF_PAGES,
+    CF_PAGES_BRANCH: process.env.CF_PAGES_BRANCH,
+  },
 ): boolean {
   if (
     release.releaseStatus !== "approved" ||
