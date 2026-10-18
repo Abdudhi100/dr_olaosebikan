@@ -61,6 +61,7 @@ checkout:
 ```powershell
 git clone --branch main https://github.com/Abdudhi100/dr_olaosebikan.git C:\Users\user\doctor_project_launch
 cd C:\Users\user\doctor_project_launch
+npm ci
 npm ci --prefix studio --legacy-peer-deps
 npm run typecheck --prefix studio
 cd studio
@@ -69,6 +70,10 @@ npm run deploy
 ```
 
 Choose a different new folder if `doctor_project_launch` already exists.
+Install the root dependencies first: they provide the Node.js type definitions
+used by the checked-in Studio TypeScript configuration. This order matches the
+previously passing Studio CI workflow and is now tested again.
+
 The Studio's existing lockfile has a known transitive peer-dependency
 resolver mismatch under modern npm: use the previously CI-verified
 `--legacy-peer-deps` install mode. This preserves the committed lockfile;
