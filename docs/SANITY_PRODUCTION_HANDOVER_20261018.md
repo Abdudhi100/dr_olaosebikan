@@ -61,7 +61,7 @@ checkout:
 ```powershell
 git clone --branch main https://github.com/Abdudhi100/dr_olaosebikan.git C:\Users\user\doctor_project_launch
 cd C:\Users\user\doctor_project_launch
-npm ci --prefix studio
+npm ci --prefix studio --legacy-peer-deps
 npm run typecheck --prefix studio
 cd studio
 npx sanity login
@@ -69,6 +69,12 @@ npm run deploy
 ```
 
 Choose a different new folder if `doctor_project_launch` already exists.
+The Studio's existing lockfile has a known transitive peer-dependency
+resolver mismatch under modern npm: use the previously CI-verified
+`--legacy-peer-deps` install mode. This preserves the committed lockfile;
+do not use a forced dependency upgrade or regenerate it during deployment.
+Longer-term dependency upgrades require separate review.
+
 These commands require a signed-in Sanity account; they do not create a new
 Sanity project or dataset. Studio deployment is an account-level change:
 inspect an existing hosted Studio before accepting a new hostname.
