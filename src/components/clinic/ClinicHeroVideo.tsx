@@ -42,8 +42,14 @@ export function ClinicHeroVideo({ variant, overlayClassName = "clinic-hero-shade
   }, [source, failed]);
   // Keep the intersection target mounted even when a hero has no approved poster.
   // A local-review poster is visible only after a loopback, opt-in source is selected.
-  const previewEnabled = process.env.NEXT_PUBLIC_CLINIC_HERO_PREVIEW === "1";
-  const poster = media?.poster || (previewEnabled ? media?.approvedPoster : undefined) || (source ? media?.reviewPoster : undefined);
+  const approvedFootageEnabled =
+    process.env.NEXT_PUBLIC_CLINIC_HERO_PREVIEW === "1" ||
+    process.env.NEXT_PUBLIC_CLINIC_HERO_PUBLIC === "1";
+  // The poster remains visible even when the video fails, is paused, or is
+  // prevented by reduced-motion, Save-Data, visibility or browser autoplay.
+  const poster = media?.poster ||
+    (approvedFootageEnabled ? media?.approvedPoster : undefined) ||
+    (source ? media?.reviewPoster : undefined);
   if (!media) return null;
   return <>
     <div ref={root} className="clinic-hero-media" data-hero-media={variant}>
