@@ -88,10 +88,13 @@ jobs:
           cache: npm
           cache-dependency-path: studio/package-lock.json
 
-      - name: Install locked Studio dependencies with established peer-resolution mode
-        # Matches the previously passing Sanity Studio workflow (PR #26).
-        # Preserve the reviewed lockfile; some transitive Sanity peers request TS 6/7.
-        run: npm ci --prefix studio --legacy-peer-deps
+      - name: Install locked root and Studio dependencies with established peer-resolution mode
+        # Mirrors previously passing Sanity Studio workflow PR #26 exactly:
+        # root provides @types/node for Studio's process.env references.
+        # The Studio lockfile uses peer-resolution bypass for transitive TS 6/7 peers.
+        run: |
+          npm ci
+          npm ci --prefix studio --legacy-peer-deps
 
       - name: Validate Studio schema and TypeScript
         run: npm run typecheck --prefix studio
