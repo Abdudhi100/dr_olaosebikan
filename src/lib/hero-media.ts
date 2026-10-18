@@ -1,4 +1,4 @@
-/** Rights are deliberately fail-closed. Review files are served only by the local review server. */
+/** Only owner-cleared clips are eligible; missing/uncleared heroes keep still images. */
 export type HeroMedia = {
   poster?: string;
   approvedPoster?: string;
@@ -58,7 +58,8 @@ for (const [variant, poster] of Object.entries(clinicalHeroPosters)) {
     missing: "Specific clinical hero video not assigned; retain the condition-related still",
   };
 }
-// The owner-cleared Joint Pain clip remains limited to the protected preview build.
+// Joint Pain retains its isolated localhost review source; the approved
+// optimized derivative is also eligible for a separately reviewed public release.
 const kneeVariant = "clinical:joint-pain-and-stiffness-clinic-lagos";
 heroMedia[kneeVariant] = {
   ...heroMedia[kneeVariant],
@@ -66,10 +67,11 @@ heroMedia[kneeVariant] = {
   reviewMobileSource: "/__clinic-review-media/joint-pain-mobile.mp4",
   reviewPoster: "/__clinic-review-media/joint-pain-poster.webp",
   rightsApproved: false,
-  missing: "Knee-assessment footage is limited to the protected preview build",
+  missing: "No source is shown unless explicit preview or approved production release is active",
 };
-// Owner-cleared footage is enabled only in an explicit protected preview build.
-// A production build continues to use its existing image/background fallbacks.
+// These nine owner-cleared variants have optimized desktop/mobile files and
+// poster fallbacks. Merely listing a source does not enable playback:
+// protected preview and production have separate build-time switches.
 heroMedia.appointments = { ...heroMedia.appointments, approvedPoster: "/video/clinic/appointments-poster.webp", approvedSource: "/video/clinic/appointments-desktop.mp4", approvedMobileSource: "/video/clinic/appointments-mobile.mp4", rightsApproved: true };
 heroMedia.contact = { ...heroMedia.contact, approvedPoster: "/video/clinic/contact-poster.webp", approvedSource: "/video/clinic/contact-desktop.mp4", approvedMobileSource: "/video/clinic/contact-mobile.mp4", rightsApproved: true };
 heroMedia.faq = { ...heroMedia.faq, approvedPoster: "/video/clinic/faq-poster.webp", approvedSource: "/video/clinic/faq-desktop.mp4", approvedMobileSource: "/video/clinic/faq-mobile.mp4", rightsApproved: true };
@@ -77,8 +79,19 @@ heroMedia.insights = { ...heroMedia.insights, approvedPoster: "/video/clinic/ins
 heroMedia.publications = { ...heroMedia.publications, approvedPoster: "/video/clinic/publications-poster.webp", approvedSource: "/video/clinic/publications-desktop.mp4", approvedMobileSource: "/video/clinic/publications-mobile.mp4", rightsApproved: true };
 heroMedia.achievements = { ...heroMedia.achievements, approvedPoster: "/video/clinic/achievements-poster.webp", approvedSource: "/video/clinic/achievements-desktop.mp4", approvedMobileSource: "/video/clinic/achievements-mobile.mp4", rightsApproved: true };
 heroMedia[kneeVariant] = { ...heroMedia[kneeVariant], approvedPoster: "/video/clinic/joint-pain-poster.webp", approvedSource: "/video/clinic/joint-pain-desktop.mp4", approvedMobileSource: "/video/clinic/joint-pain-mobile.mp4", rightsApproved: true };
-export function heroVideoSource(media: HeroMedia, hostname: string, search: string, width = 1440, previewEnabled = process.env.NEXT_PUBLIC_CLINIC_HERO_PREVIEW === "1"): string | undefined {
-  if (previewEnabled && media.rightsApproved && media.approvedSource) return width < 768 ? media.approvedMobileSource || media.approvedSource : media.approvedSource;
+export function heroVideoSource(
+  media: HeroMedia,
+  hostname: string,
+  search: string,
+  width = 1440,
+  releaseEnabled =
+    process.env.NEXT_PUBLIC_CLINIC_HERO_PREVIEW === "1" ||
+    process.env.NEXT_PUBLIC_CLINIC_HERO_PUBLIC === "1",
+): string | undefined {
+  if (releaseEnabled && media.rightsApproved && media.approvedSource)
+    return width < 768
+      ? media.approvedMobileSource || media.approvedSource
+      : media.approvedSource;
   if (["localhost", "127.0.0.1", "[::1]"].includes(hostname) && new URLSearchParams(search).get("heroVideoReview") === "1") return width < 768 ? media.reviewMobileSource || media.reviewSource : media.reviewSource;
   return undefined;
 }

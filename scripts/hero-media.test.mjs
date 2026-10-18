@@ -90,3 +90,39 @@ test("explicit preview retains nine matched videos and condition-appropriate sti
   }
 
 });
+
+test("nine owner-cleared production videos have real desktop, mobile and fallback assets", () => {
+  const expected = new Map([
+    ["home", "home"],
+    ["services", "services"],
+    ["appointments", "appointments"],
+    ["contact", "contact"],
+    ["faq", "faq"],
+    ["insights", "insights"],
+    ["publications", "publications"],
+    ["achievements", "achievements"],
+    ["clinical:joint-pain-and-stiffness-clinic-lagos", "joint-pain"],
+  ]);
+  assert.equal(Object.values(heroMedia).filter((m) => m.approvedSource).length, 9);
+  for (const [variant, stem] of expected) {
+    const media = heroMedia[variant];
+    assert.equal(media.rightsApproved, true, variant);
+    const poster = media.poster || media.approvedPoster;
+    assert.ok(poster && fs.statSync("public" + poster).size > 1000, variant + " poster");
+    for (const [width, suffix] of [[390, "mobile"], [768, "desktop"], [1440, "desktop"]]) {
+      const src = heroVideoSource(media, "www.drolaosebikan.com", "", width, true);
+      assert.equal(src, `/video/clinic/${stem}-${suffix}.mp4`);
+      const video = fs.readFileSync("public" + src);
+      assert.ok(video.length > 10000, variant + " media nonempty");
+      assert.equal(video.toString("ascii", 4, 8), "ftyp", variant + " MP4 container");
+      assert.equal(heroVideoSource(media, "www.drolaosebikan.com", "?heroVideoReview=1", width, false), undefined,
+        variant + " query string cannot override disabled build flag");
+    }
+  }
+  for (const variant of ["specialist", "clinical:rheumatoid-arthritis-treatment-lagos",
+    "clinical:gout-treatment-lagos", "clinical:lupus-care-lagos",
+    "clinical:autoimmune-disease-specialist-lagos"]) {
+    assert.equal(heroVideoSource(heroMedia[variant], "www.drolaosebikan.com", "", 1440, true), undefined,
+      variant + " retains genuine portrait or condition-appropriate still");
+  }
+});

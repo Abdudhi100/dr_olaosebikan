@@ -21,7 +21,23 @@ if (
 const nextConfig = {
   output: "export",
   env: {
-    NEXT_PUBLIC_CLINIC_HERO_PREVIEW: process.env.CLINIC_REVIEW_BUILD === "1" && process.env.CF_PAGES_BRANCH && process.env.CF_PAGES_BRANCH !== clinicReadiness.productionBranch ? "1" : "0",
+    NEXT_PUBLIC_CLINIC_HERO_PREVIEW:
+      process.env.CLINIC_REVIEW_BUILD === "1" &&
+      process.env.CF_PAGES_BRANCH &&
+      process.env.CF_PAGES_BRANCH !== clinicReadiness.productionBranch
+        ? "1"
+        : "0",
+    // Stage on a reviewed PR; enable only on the approved Cloudflare main build.
+    // An operator can temporarily turn off decorative footage and redeploy
+    // by setting CLINIC_HERO_VIDEOS_DISABLED=1 in Production build variables.
+    // This is a build-time flag; it is never a browser-controlled query param.
+    NEXT_PUBLIC_CLINIC_HERO_PUBLIC:
+      process.env.CF_PAGES === "1" &&
+      process.env.CF_PAGES_BRANCH === clinicReadiness.productionBranch &&
+      clinicReadiness.releaseStatus === "approved" &&
+      process.env.CLINIC_HERO_VIDEOS_DISABLED !== "1"
+        ? "1"
+        : "0",
     NEXT_PUBLIC_CLINIC_PRIVACY_NOTICE_PATH: clinicReadiness.booking.enabled
       ? clinicReadiness.booking.privacyNoticePath
       : "",
