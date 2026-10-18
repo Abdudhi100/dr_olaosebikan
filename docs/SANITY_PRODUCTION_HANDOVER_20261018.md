@@ -35,7 +35,14 @@ generate a static website locally in GitHub Actions, and check internal links
 **without deploying or mutating any content**. It prints record counts only,
 never drafts or confidential source records.
 
-This is the safest first check. If it fails, inspect the failure (query
+This is the safest first check. The same read-only workflow also
+typechecks and builds the **standalone Studio locally**, without account
+credentials or publishing an editor. The live published-only query on 18
+October 2026 completed successfully but returned **zero** editorial entries,
+**zero** research records and **zero** achievements. This is an empty CMS
+state, not missing website records or proof automatic publishing works.
+
+If it fails, inspect the failure (query
 permission, schema validation, missing source/rights, or unsupported HTML)
 **before setting production Cloudflare environment values**. An empty result is
 a valid empty site, not proof that new publications will be automatically
@@ -47,16 +54,24 @@ The public project ID and dataset are already configured in
 `studio/sanity.config.ts` and `studio/sanity.cli.ts`, so do **not** create a
 new Sanity project, a new dataset, or a second public website.
 
-Using the user's existing Windows repository checkout, in PowerShell:
+Use a **new, separate working folder** in PowerShell. Do not update, overwrite
+or run Git operations in the user's original `C:\Users\user\doctor_project`
+checkout:
 
 ```powershell
-cd C:\Users\user\doctor_project
-git pull origin main
+git clone --branch main https://github.com/Abdudhi100/dr_olaosebikan.git C:\Users\user\doctor_project_launch
+cd C:\Users\user\doctor_project_launch
 npm ci --prefix studio
+npm run typecheck --prefix studio
 cd studio
 npx sanity login
 npm run deploy
 ```
+
+Choose a different new folder if `doctor_project_launch` already exists.
+These commands require a signed-in Sanity account; they do not create a new
+Sanity project or dataset. Studio deployment is an account-level change:
+inspect an existing hosted Studio before accepting a new hostname.
 
 The authenticated Sanity CLI may show an existing hosted Studio to reuse or
 prompt for a unique Studio hostname. Accepting an arbitrary second hostname
