@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { visiblePublications } from "@/lib/content";
 import { defaultMetadata } from "@/lib/seo";
+import clinicRelease from "../../../config/clinic-release.json";
+import { shouldIndexPublishedCollection } from "@/lib/site-indexing";
 import { PageIntro, ResourceExplore } from "@/components/clinic/ClinicSections";
 export const metadata = {
   ...defaultMetadata({
@@ -11,8 +13,7 @@ export const metadata = {
   }),
   robots: {
     index:
-      process.env.CLINIC_RELEASE === "approved" &&
-      visiblePublications.length > 0,
+      shouldIndexPublishedCollection(clinicRelease, visiblePublications.length),
     follow: true,
   },
 };

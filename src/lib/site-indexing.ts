@@ -29,3 +29,20 @@ export function shouldIndexClinic(
   ) return false;
   return env.CF_PAGES !== "1" || env.CF_PAGES_BRANCH === release.productionBranch;
 }
+
+/**
+ * A public collection should be indexed only when it contains at least one
+ * validated, published record. Keep empty collection landing pages accessible
+ * to people but out of the search index. Protected preview builds remain
+ * noindex even if populated fixtures or real entries are available.
+ */
+export function shouldIndexPublishedCollection(
+  release: ClinicIndexingRelease,
+  publishedRecordCount: number,
+  env?: ClinicIndexingEnvironment,
+): boolean {
+  return publishedRecordCount > 0 &&
+    Number.isInteger(publishedRecordCount) &&
+    shouldIndexClinic(release, env);
+}
+
