@@ -94,8 +94,10 @@ try {
   const sitemap = await read("sitemap.xml");
   assert.ok(sitemap.includes("/insights/articles/synthetic-article-test"));
   assert.ok(sitemap.includes("2020-01-03T09:00:00.000Z"));
-  // Review builds remain noindex even when the synthetic collection is populated.
-  assert.ok((await read("insights.html")).includes("noindex"));
+  // This synthetic export uses the already-approved local release. Populated
+  // public collections should be indexable; protected preview exclusions are
+  // separately covered by site-indexing tests with CF_PAGES_BRANCH=preview/*.
+  assert.match(await read("insights.html"), /<meta name="robots" content="index, follow"\s*\/>/);
   await writeFile(
     new URL("../out/stale-synthetic-page.html", import.meta.url),
     "<h1>Stale synthetic page</h1>",

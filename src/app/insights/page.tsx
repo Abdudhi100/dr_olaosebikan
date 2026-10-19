@@ -13,6 +13,8 @@ import {
 } from "@/lib/editorial";
 import { visiblePublications } from "@/lib/content";
 import { defaultMetadata } from "@/lib/seo";
+import clinicRelease from "../../../config/clinic-release.json";
+import { shouldIndexPublishedCollection } from "@/lib/site-indexing";
 export const metadata = {
   ...defaultMetadata({
     title: "Insights & media",
@@ -22,7 +24,7 @@ export const metadata = {
   }),
   robots: {
     index:
-      process.env.CLINIC_RELEASE === "approved" && editorialEntries.length > 0,
+      shouldIndexPublishedCollection(clinicRelease, editorialEntries.length),
     follow: true,
   },
 };
