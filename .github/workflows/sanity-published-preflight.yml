@@ -1,0 +1,106 @@
+name: Sanity published-content read-only preflight
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/sanity-published-preflight.yml"
+      - "scripts/prepare-editorial.mjs"
+      - "shared/publishing-policy.mjs"
+      - "src/lib/editorial.ts"
+      - "src/lib/content.ts"
+      - "studio/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sanity-preflight-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-live-public-dataset:
+    name: Validate Sanity published data without deployment
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CI: "true"
+      NEXT_TELEMETRY_DISABLED: "1"
+      SANITY_CONTENT_MODE: "sanity"
+      SANITY_PROJECT_ID: "zavdffj8"
+      SANITY_DATASET: "production"
+    steps:
+      - name: Check out proposed source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.16.0"
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Query published Sanity records and validate their release policy
+        run: node scripts/prepare-editorial.mjs
+
+      - name: Build the complete website without deploying
+        run: npm run build
+
+      - name: Check exported internal links
+        run: npm run check:links
+
+      - name: Report only public record counts and verify website release stays approved
+        run: |
+          node --input-type=module -e "
+            import { readFileSync } from 'node:fs';
+            const records = JSON.parse(readFileSync('src/generated/editorial.json', 'utf8'));
+            const config = JSON.parse(readFileSync('config/clinic-release.json', 'utf8'));
+            if (config.releaseStatus !== 'approved' || config.booking?.enabled !== true) {
+              throw new Error('Production release state unexpectedly changed; do not deploy.');
+            }
+            const result = {
+              editorials: records.editorial.length,
+              research: records.research.length,
+              achievements: records.achievements.length,
+              note: 'Read-only test. This check does not deploy Sanity Studio or Cloudflare Pages.',
+            };
+            console.log(JSON.stringify(result));
+          "
+
+  validate-studio-build:
+    name: Validate Sanity Studio editor locally without deploying
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CI: "true"
+      SANITY_STUDIO_PROJECT_ID: "zavdffj8"
+      SANITY_STUDIO_DATASET: "production"
+    steps:
+      - name: Check out proposed source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.16.0"
+          cache: npm
+          cache-dependency-path: studio/package-lock.json
+
+      - name: Install locked root and Studio dependencies with established peer-resolution mode
+        # Mirrors previously passing Sanity Studio workflow PR #26 exactly:
+        # root provides @types/node for Studio's process.env references.
+        # The Studio lockfile uses peer-resolution bypass for transitive TS 6/7 peers.
+        run: |
+          npm ci
+          npm ci --prefix studio --legacy-peer-deps
+
+      - name: Validate Studio schema and TypeScript
+        run: npm run typecheck --prefix studio
+
+      - name: Produce local Studio bundle without publishing
+        run: npm run build --prefix studio
+
+      - name: Confirm Sanity build artifacts exist
+        run: test -s studio/dist/index.html

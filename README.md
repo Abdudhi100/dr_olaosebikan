@@ -51,38 +51,33 @@ Most public content is stored in JSON:
 
 Images and favicons live in `public/`. The Google verification file is available at `/googlef8a66bd5cc73324b.html`.
 
-## Appointment request — current release state
+## Current production status (18 October 2026)
 
-**The website is not publicly launched.** The Access-protected Cloudflare preview
-is on `preview/clinic-20261014`; public production `main` is unchanged.
-`config/clinic-release.json` has `releaseStatus: pending` and
-`booking.enabled: false`. Do not change these settings as part of visual review.
+**Public website is already deployed:** https://www.drolaosebikan.com/ from
+GitHub `main`. The 17 October 2026 owner-approved release is recorded in
+`config/clinic-release.json` as `releaseStatus: approved` and
+`booking.enabled: true`. The earlier Access-protected review branch
+`preview/clinic-20261014` is **not** the production source and must not be
+merged wholesale to `main`.
 
-The appointment page displays a non-delivery notice and a phone/WhatsApp
-contact fallback. **Entering details into the review form does not send them
-to the clinic.** No live form recipient, privacy/retention policy or delivery
-authorization is currently confirmed. Never enter real patient medical
-information into preview/test sessions.
+The production appointment form uses Web3Forms, with the verified
+`contact@drolaosebikan.com` email routing into the authorized clinic
+receiving inbox. The owner chose Web3Forms' displayed 3-year provider setting,
+no compulsory visual CAPTCHA, and removal of routine forwarded appointment
+emails after 12 months, subject to appropriate clinical/legal record retention.
+Cloudflare and Web3Forms delivery were tested with fictional data prior to
+launch. Do not configure a competing 30-day retention rule or enable dormant
+hCaptcha code without a new explicit owner decision. Contact details, clinical
+copy and 45-minute appointment duration are approved in the release evidence.
 
-A future Web3Forms transport exists behind an explicit release gate. Merely
-setting `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` does not enable it. Before any
-activation, record clinic approval and evidence for recipient binding,
-privacy notice, retention, rate protection, and handling uncertain requests.
-Client-side access keys are included in static exports; do not treat them as
-secrets. Never commit live credentials or bypass release controls.
-
-The earlier 45-versus-60-minute consultation discrepancy was resolved on
-17 October 2026: the approved duration is **45 minutes**, and the website and
-service metadata now agree. The current booking plan is CAPTCHA-free with no
-custom 30-day Web3Forms retention setting; provider defaults and privacy
-approval still need real-account checks.
-
-See [Owner prelaunch review](docs/CLINIC_OWNER_PRELAUNCH_REVIEW_20261017.md)
-for the historical audit and
-[Production go-live operator checklist](docs/PRODUCTION_GO_LIVE_OPERATOR_CHECKLIST_20261017.md)
-for the current actionable launch gates. Draft production
-[PR #28](https://github.com/Abdudhi100/dr_olaosebikan/pull/28)
-must not be merged until these gates and explicit release approval pass.
+Sanity Studio is **separate** from patient appointments. The existing owner
+project is `zavdffj8`, dataset `production`, with published-only website
+content validation. The hosted Studio URL, actual Cloudflare CMS environment,
+and automatic rebuild webhook remain to be verified. Use
+[Sanity production handover](docs/SANITY_PRODUCTION_HANDOVER_20261018.md)
+and the read-only published-content GitHub preflight before configuring live
+CMS rebuilds. Never store patient records or private sign-off documents in
+this public editorial dataset.
 
 ## WhatsApp Number
 

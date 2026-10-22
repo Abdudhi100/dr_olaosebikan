@@ -1,5 +1,14 @@
 # Dr Olaosebikan — Sanity CMS and Cloudflare Pages launch handover
 
+> **Historical setup note (17 October 2026).** The public website was subsequently
+> launched successfully on `main`, with owner-approved live Web3Forms booking,
+> three-year provider setting, and a separate 12-month routine email policy.
+> Some statements below about pending production launch and mandatory test gates
+> are now out of date. Use the current
+> [18 October Sanity production handover](SANITY_PRODUCTION_HANDOVER_20261018.md)
+> for the remaining hosted Studio, dataset preflight, Cloudflare variables,
+> and published-content webhook setup. Do not overwrite the live booking release.
+
 **17 October 2026 — staged configuration, not production approval.**
 
 ## Verified project continuity
